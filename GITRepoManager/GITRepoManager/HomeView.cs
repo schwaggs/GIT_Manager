@@ -36,8 +36,8 @@ namespace GITRepoManager
 
                         private void NewRepoBT_MouseEnter(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
-                            //ButtonDescriptionSSLB.Text = Properties.Resources.NEW_REPO_COMMAND_INFO;
+                            NewRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
+                            ButtonDescriptionSSLB.Text = Properties.Resources.NEW_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -46,8 +46,8 @@ namespace GITRepoManager
 
                         private void NewRepoBT_MouseLeave(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon;
-                            //ButtonDescriptionSSLB.Text = String.Empty;
+                            NewRepoBT.BackgroundImage = Properties.Resources.NewIcon;
+                            ButtonDescriptionSSLB.Text = String.Empty;
                         }
 
                     #endregion
@@ -56,7 +56,8 @@ namespace GITRepoManager
 
                         private void NewRepoBT_Click(object sender, EventArgs e)
                         {
-                            MessageBox.Show("New Repo");
+                            NewRepoFRM NewRepo = new NewRepoFRM();
+                            NewRepo.ShowDialog();
                         }
 
                     #endregion
@@ -73,8 +74,8 @@ namespace GITRepoManager
 
                         private void DeleteRepoBT_MouseEnter(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
-                            //ButtonDescriptionSSLB.Text = Properties.Resources.NEW_REPO_COMMAND_INFO;
+                            DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon_Hover;
+                            ButtonDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -83,8 +84,8 @@ namespace GITRepoManager
 
                         private void DeleteRepoBT_MouseLeave(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon;
-                            //ButtonDescriptionSSLB.Text = String.Empty;
+                            DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon;
+                            ButtonDescriptionSSLB.Text = String.Empty;
                         }
 
                     #endregion
@@ -93,7 +94,8 @@ namespace GITRepoManager
 
                         private void DeleteRepoBT_Click(object sender, EventArgs e)
                         {
-                            MessageBox.Show("Delete Repo");
+                            DeleteRepoFRM DeleteRepo = new DeleteRepoFRM();
+                            DeleteRepo.ShowDialog();
                         }
 
                     #endregion
@@ -110,8 +112,8 @@ namespace GITRepoManager
 
                         private void MoveRepoBT_MouseEnter(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
-                            //ButtonDescriptionSSLB.Text = Properties.Resources.NEW_REPO_COMMAND_INFO;
+                            MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon_Hover;
+                            ButtonDescriptionSSLB.Text = Properties.Resources.MOVE_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -120,8 +122,8 @@ namespace GITRepoManager
 
                         private void MoveRepoBT_MouseLeave(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon;
-                            //ButtonDescriptionSSLB.Text = String.Empty;
+                            MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon;
+                            ButtonDescriptionSSLB.Text = String.Empty;
                         }
 
                     #endregion
@@ -130,7 +132,8 @@ namespace GITRepoManager
 
                         private void MoveRepoBT_Click(object sender, EventArgs e)
                         {
-                            MessageBox.Show("New Repo");
+                            MoveRepoFRM MoveRepo = new MoveRepoFRM();
+                            MoveRepo.ShowDialog();
                         }
 
                     #endregion
@@ -147,8 +150,8 @@ namespace GITRepoManager
 
                         private void CloneRepoBT_MouseEnter(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
-                            //ButtonDescriptionSSLB.Text = Properties.Resources.NEW_REPO_COMMAND_INFO;
+                            CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon_Hover;
+                            ButtonDescriptionSSLB.Text = Properties.Resources.CLONE_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -157,8 +160,8 @@ namespace GITRepoManager
 
                         private void CloneRepoBT_MouseLeave(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon;
-                            //ButtonDescriptionSSLB.Text = String.Empty;
+                            CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon;
+                            ButtonDescriptionSSLB.Text = String.Empty;
                         }
 
                     #endregion
@@ -167,7 +170,8 @@ namespace GITRepoManager
 
                         private void CloneRepoBT_Click(object sender, EventArgs e)
                         {
-                            MessageBox.Show("New Repo");
+                            CloneRepoFRM CloneRepo = new CloneRepoFRM();
+                            CloneRepo.ShowDialog();
                         }
 
                     #endregion
@@ -184,8 +188,8 @@ namespace GITRepoManager
 
                         private void TagRepoBT_MouseEnter(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
-                            //ButtonDescriptionSSLB.Text = Properties.Resources.NEW_REPO_COMMAND_INFO;
+                            TagRepoBT.BackgroundImage = Properties.Resources.TagIcon_Hover;
+                            ButtonDescriptionSSLB.Text = Properties.Resources.TAG_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -194,18 +198,19 @@ namespace GITRepoManager
 
                         private void TagRepoBT_MouseLeave(object sender, EventArgs e)
                         {
-                            //NewRepoBT.BackgroundImage = Properties.Resources.NewIcon;
-                            //ButtonDescriptionSSLB.Text = String.Empty;
+                            TagRepoBT.BackgroundImage = Properties.Resources.TagIcon;
+                            ButtonDescriptionSSLB.Text = String.Empty;
                         }
 
                     #endregion
 
                     #region Click
 
-                    private void TagRepoBT_Click(object sender, EventArgs e)
-                    {
-                        MessageBox.Show("New Repo");
-                    }
+                        private void TagRepoBT_Click(object sender, EventArgs e)
+                        {
+                            TagRepoFRM TagRepo = new TagRepoFRM();
+                            TagRepo.ShowDialog();
+                        }
 
                     #endregion
 
@@ -214,33 +219,5 @@ namespace GITRepoManager
             #endregion
 
         #endregion
-
-        
-        /*
-         * 
-         *      No Focus Selectio Example Of Custom Button
-         * 
-         */
-        private void noFocusSelectionRectangleButton1_MouseEnter(object sender, EventArgs e)
-        {
-            noFocusSelectionRectangleButton1.BackgroundImage = Properties.Resources.MoveIcon_Hover;
-            ButtonDescriptionSSLB.Text = Properties.Resources.MOVE_REPO_COMMAND_INFO;
-        }
-
-        private void noFocusSelectionRectangleButton1_MouseLeave(object sender, EventArgs e)
-        {
-            noFocusSelectionRectangleButton1.BackgroundImage = Properties.Resources.MoveIcon;
-            ButtonDescriptionSSLB.Text = String.Empty;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void noFocusSelectionRectangleButton1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("No Focus");
-        }
     }
 }

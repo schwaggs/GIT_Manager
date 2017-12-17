@@ -14,9 +14,12 @@ namespace GITRepoManager
 
         }
 
-        public override void NotifyDefault(bool value)
+        protected override bool ShowFocusCues
         {
-            base.NotifyDefault(false);
+            get
+            {
+                return false;
+            }
         }
     }
 }

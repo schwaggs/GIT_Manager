@@ -1,7 +1,6 @@
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe.config
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.pdb
-E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.Form1.resources
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.Properties.Resources.resources
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csproj.GenerateResource.Cache
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csproj.CoreCompileInputs.cache
@@ -9,3 +8,4 @@ E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepo
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.pdb
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csprojResolveAssemblyReference.cache
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.HomeView.resources
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.NewRepoFRM.resources
