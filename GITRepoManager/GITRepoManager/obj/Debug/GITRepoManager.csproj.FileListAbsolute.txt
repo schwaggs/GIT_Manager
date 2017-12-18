@@ -9,3 +9,13 @@ E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepo
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csprojResolveAssemblyReference.cache
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.HomeView.resources
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.NewRepoFRM.resources
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\lib\win32\x64\git2-15e1193.dll
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\lib\win32\x64\git2-15e1193.pdb
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\lib\win32\x86\git2-15e1193.dll
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\lib\win32\x86\git2-15e1193.pdb
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\lib\osx\libgit2-15e1193.dylib
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\lib\linux\x86_64\libgit2-15e1193.so
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.dll.config
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.dll
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.pdb
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.xml
