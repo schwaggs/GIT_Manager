@@ -34,7 +34,7 @@
             this.RepoLocationTB = new System.Windows.Forms.TextBox();
             this.OptionBareCB = new System.Windows.Forms.CheckBox();
             this.OptionReadmeCB = new System.Windows.Forms.CheckBox();
-            this.NewRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.BrowseLocationBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.RepoNameGB.SuspendLayout();
             this.RepoLocationGB.SuspendLayout();
             this.SuspendLayout();
@@ -99,25 +99,25 @@
             this.OptionReadmeCB.Text = "Readme";
             this.OptionReadmeCB.UseVisualStyleBackColor = true;
             // 
-            // NewRepoBT
+            // BrowseLocationBT
             // 
-            this.NewRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.NewRepoBT.BackColor = System.Drawing.Color.Transparent;
-            this.NewRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.NewIcon;
-            this.NewRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.NewRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.NewRepoBT.FlatAppearance.BorderSize = 0;
-            this.NewRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.NewRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.NewRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewRepoBT.Location = new System.Drawing.Point(454, 70);
-            this.NewRepoBT.Name = "NewRepoBT";
-            this.NewRepoBT.Size = new System.Drawing.Size(56, 63);
-            this.NewRepoBT.TabIndex = 12;
-            this.NewRepoBT.UseVisualStyleBackColor = false;
-            this.NewRepoBT.Click += new System.EventHandler(this.NewRepoBT_Click);
-            this.NewRepoBT.MouseEnter += new System.EventHandler(this.NewRepoBT_MouseEnter);
-            this.NewRepoBT.MouseLeave += new System.EventHandler(this.NewRepoBT_MouseLeave);
+            this.BrowseLocationBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BrowseLocationBT.BackColor = System.Drawing.Color.Transparent;
+            this.BrowseLocationBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Browse_Icon;
+            this.BrowseLocationBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BrowseLocationBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.BrowseLocationBT.FlatAppearance.BorderSize = 0;
+            this.BrowseLocationBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BrowseLocationBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BrowseLocationBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowseLocationBT.Location = new System.Drawing.Point(439, 114);
+            this.BrowseLocationBT.Name = "BrowseLocationBT";
+            this.BrowseLocationBT.Size = new System.Drawing.Size(56, 63);
+            this.BrowseLocationBT.TabIndex = 12;
+            this.BrowseLocationBT.UseVisualStyleBackColor = false;
+            this.BrowseLocationBT.Click += new System.EventHandler(this.BrowseLocationBT_Click);
+            this.BrowseLocationBT.MouseEnter += new System.EventHandler(this.BrowseLocationBT_MouseEnter);
+            this.BrowseLocationBT.MouseLeave += new System.EventHandler(this.BrowseLocationBT_MouseLeave);
             // 
             // NewRepoFRM
             // 
@@ -126,8 +126,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(519, 213);
-            this.Controls.Add(this.NewRepoBT);
+            this.ClientSize = new System.Drawing.Size(500, 213);
+            this.Controls.Add(this.BrowseLocationBT);
             this.Controls.Add(this.OptionReadmeCB);
             this.Controls.Add(this.OptionBareCB);
             this.Controls.Add(this.RepoLocationGB);
@@ -152,6 +152,6 @@
         private System.Windows.Forms.TextBox RepoLocationTB;
         private System.Windows.Forms.CheckBox OptionBareCB;
         private System.Windows.Forms.CheckBox OptionReadmeCB;
-        private NoFocusSelectionRectangleButton NewRepoBT;
+        private NoFocusSelectionRectangleButton BrowseLocationBT;
     }
 }

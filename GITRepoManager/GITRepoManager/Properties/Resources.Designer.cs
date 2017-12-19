@@ -61,6 +61,35 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Browse_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Browse_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Browse_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Browse_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  clone .
+        /// </summary>
+        internal static string CLONE_REPO_BASE_COMMAND {
+            get {
+                return ResourceManager.GetString("CLONE_REPO_BASE_COMMAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opens the clone repository window.
         /// </summary>
         internal static string CLONE_REPO_COMMAND_INFO {
@@ -86,6 +115,15 @@ namespace GITRepoManager.Properties {
             get {
                 object obj = ResourceManager.GetObject("CloneIcon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DELETE_REPO_BASE_COMMAND {
+            get {
+                return ResourceManager.GetString("DELETE_REPO_BASE_COMMAND", resourceCulture);
             }
         }
         
@@ -129,6 +167,15 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MOVE_REPO_BASE_COMMAND {
+            get {
+                return ResourceManager.GetString("MOVE_REPO_BASE_COMMAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opens the move repository window.
         /// </summary>
         internal static string MOVE_REPO_COMMAND_INFO {
@@ -158,11 +205,47 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  init .
+        /// </summary>
+        internal static string NEW_REPO_BASE_COMMAND {
+            get {
+                return ResourceManager.GetString("NEW_REPO_BASE_COMMAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opens the create new repository window.
         /// </summary>
         internal static string NEW_REPO_COMMAND_INFO {
             get {
                 return ResourceManager.GetString("NEW_REPO_COMMAND_INFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  --bare .
+        /// </summary>
+        internal static string NEW_REPO_OPTION_BARE {
+            get {
+                return ResourceManager.GetString("NEW_REPO_OPTION_BARE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  add README.md.
+        /// </summary>
+        internal static string NEW_REPO_OPTION_README_ADD {
+            get {
+                return ResourceManager.GetString("NEW_REPO_OPTION_README_ADD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to touch README.md .
+        /// </summary>
+        internal static string NEW_REPO_OPTION_README_TOUCH {
+            get {
+                return ResourceManager.GetString("NEW_REPO_OPTION_README_TOUCH", resourceCulture);
             }
         }
         
@@ -183,6 +266,24 @@ namespace GITRepoManager.Properties {
             get {
                 object obj = ResourceManager.GetObject("NewIcon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to git.
+        /// </summary>
+        internal static string REPO_BASE_COMMAND {
+            get {
+                return ResourceManager.GetString("REPO_BASE_COMMAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  push -u origin master.
+        /// </summary>
+        internal static string REPO_PUSH_ORIGIN_MASTER {
+            get {
+                return ResourceManager.GetString("REPO_PUSH_ORIGIN_MASTER", resourceCulture);
             }
         }
         

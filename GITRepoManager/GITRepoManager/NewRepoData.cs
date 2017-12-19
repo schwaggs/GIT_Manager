@@ -12,5 +12,6 @@ namespace GITRepoManager
         public static string Repository_Setting_Location { get; set; }
         public static bool Repository_Option_Bare { get; set; }
         public static bool Repository_Option_Readme { get; set; }
+        public static bool Repository_Setting_Use_Location { get; set; }
     }
 }

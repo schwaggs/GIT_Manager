@@ -118,52 +118,85 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NewIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlusIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TagIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TagIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CLONE_REPO_BASE_COMMAND" xml:space="preserve">
+    <value> clone </value>
   </data>
   <data name="DeleteIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DeleteIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeleteIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DeleteIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MOVE_REPO_COMMAND_INFO" xml:space="preserve">
+    <value>Opens the move repository window</value>
   </data>
-  <data name="GitLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GitLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="DELETE_REPO_BASE_COMMAND" xml:space="preserve">
+    <value />
   </data>
-  <data name="CloneIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CloneIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NEW_REPO_OPTION_README_TOUCH" xml:space="preserve">
+    <value>touch README.md </value>
   </data>
-  <data name="MoveIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MoveIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NewIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PlusIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CloneIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CloneIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NewIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NewIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MoveIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MoveIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TagIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TagIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TagIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TagIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="REPO_PUSH_ORIGIN_MASTER" xml:space="preserve">
+    <value> push -u origin master</value>
   </data>
   <data name="CLONE_REPO_COMMAND_INFO" xml:space="preserve">
     <value>Opens the clone repository window</value>
   </data>
+  <data name="REPO_BASE_COMMAND" xml:space="preserve">
+    <value>git</value>
+  </data>
+  <data name="MOVE_REPO_BASE_COMMAND" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NEW_REPO_OPTION_README_ADD" xml:space="preserve">
+    <value> add README.md</value>
+  </data>
+  <data name="NEW_REPO_BASE_COMMAND" xml:space="preserve">
+    <value> init </value>
+  </data>
+  <data name="MoveIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="DELETE_REPO_COMMAND_INFO" xml:space="preserve">
     <value>Opens the delete repository window</value>
   </data>
-  <data name="MOVE_REPO_COMMAND_INFO" xml:space="preserve">
-    <value>Opens the move repository window</value>
+  <data name="NEW_REPO_OPTION_BARE" xml:space="preserve">
+    <value> --bare </value>
+  </data>
+  <data name="TAG_REPO_COMMAND_INFO" xml:space="preserve">
+    <value>Opens the repository tagging window</value>
+  </data>
+  <data name="TagIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TagIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloneIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloneIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NEW_REPO_COMMAND_INFO" xml:space="preserve">
     <value>Opens the create new repository window</value>
   </data>
-  <data name="TAG_REPO_COMMAND_INFO" xml:space="preserve">
-    <value>Opens the repository tagging window</value>
+  <data name="NewIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GitLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GitLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloneIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloneIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Browse_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Browse_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Browse_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Browse_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
