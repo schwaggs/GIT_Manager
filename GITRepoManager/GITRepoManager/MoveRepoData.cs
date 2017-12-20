@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace GITRepoManager
 {
-    class MoveRepoData
+    public static class MoveRepoData
     {
+        public static string Repository_Source { get; set; }
+        public static string Repository_Destination { get; set; }
     }
 }

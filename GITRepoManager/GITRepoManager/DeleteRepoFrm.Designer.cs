@@ -87,9 +87,10 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.White;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DeleteRepoDescriptionSSLB});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 128);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 123);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(504, 22);
             this.statusStrip1.TabIndex = 17;
@@ -106,7 +107,7 @@
             this.panel1.Controls.Add(this.IsLocalRepoCB);
             this.panel1.Location = new System.Drawing.Point(12, 91);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(421, 23);
+            this.panel1.Size = new System.Drawing.Size(421, 22);
             this.panel1.TabIndex = 18;
             // 
             // BrowseLocationBT
@@ -134,11 +135,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(504, 150);
+            this.ClientSize = new System.Drawing.Size(504, 145);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.BrowseLocationBT);
             this.Controls.Add(this.RepoLocationGB);
+            this.MaximumSize = new System.Drawing.Size(520, 184);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(520, 184);
             this.Name = "DeleteRepoFRM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Delete Repo";

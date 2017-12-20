@@ -19,7 +19,7 @@ namespace GITRepoManager.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -199,6 +199,24 @@ namespace GITRepoManager.Properties {
         internal static string MOVE_REPO_BASE_COMMAND {
             get {
                 return ResourceManager.GetString("MOVE_REPO_BASE_COMMAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse to the destination directory for the source repository.
+        /// </summary>
+        internal static string MOVE_REPO_BROWSE_DESTINATION_INFO {
+            get {
+                return ResourceManager.GetString("MOVE_REPO_BROWSE_DESTINATION_INFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse to the source directory for the repository.
+        /// </summary>
+        internal static string MOVE_REPO_BROWSE_SOURCE_INFO {
+            get {
+                return ResourceManager.GetString("MOVE_REPO_BROWSE_SOURCE_INFO", resourceCulture);
             }
         }
         

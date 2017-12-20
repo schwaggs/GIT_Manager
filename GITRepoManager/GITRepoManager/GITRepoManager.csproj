@@ -135,6 +135,9 @@
     <EmbeddedResource Include="HomeView.resx">
       <DependentUpon>HomeView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MoveRepoFRM.resx">
+      <DependentUpon>MoveRepoFRM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewRepoFrm.resx">
       <DependentUpon>NewRepoFRM.cs</DependentUpon>
     </EmbeddedResource>

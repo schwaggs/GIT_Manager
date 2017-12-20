@@ -79,7 +79,6 @@ namespace GITRepoManager
                     }
 
                     e.Cancel = (Verify == DialogResult.No);
-
                 }
 
                 if (String.IsNullOrEmpty(RepoLocationTB.Text) || String.IsNullOrWhiteSpace(RepoLocationTB.Text))
@@ -157,6 +156,26 @@ namespace GITRepoManager
         private void OptionReadmeCB_MouseLeave(object sender, EventArgs e)
         {
             NewRepoDescriptionSSLB.Text = string.Empty;
+        }
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void RepoLocationGB_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RepoNameGB_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

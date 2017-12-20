@@ -50,3 +50,5 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.New
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.Properties.Resources.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csproj.GenerateResource.Cache
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.DeleteRepoFRM.resources
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.DeleteRepoFRM.resources
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.MoveRepoFRM.resources

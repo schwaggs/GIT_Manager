@@ -178,6 +178,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.White;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ButtonDescriptionSSLB});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
@@ -207,6 +208,9 @@
             this.Controls.Add(this.TitleLB);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(681, 433);
+            this.MinimumSize = new System.Drawing.Size(681, 433);
             this.Name = "HomeView";
             this.Text = "Home";
             this.Load += new System.EventHandler(this.Form1_Load);

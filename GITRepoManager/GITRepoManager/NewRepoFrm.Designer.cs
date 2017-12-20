@@ -63,6 +63,7 @@
             this.RepoNameGB.TabIndex = 1;
             this.RepoNameGB.TabStop = false;
             this.RepoNameGB.Text = "Name";
+            this.RepoNameGB.Enter += new System.EventHandler(this.RepoNameGB_Enter);
             // 
             // RepoLocationGB
             // 
@@ -74,6 +75,7 @@
             this.RepoLocationGB.TabIndex = 2;
             this.RepoLocationGB.TabStop = false;
             this.RepoLocationGB.Text = "Location";
+            this.RepoLocationGB.Enter += new System.EventHandler(this.RepoLocationGB_Enter);
             // 
             // RepoLocationTB
             // 
@@ -129,6 +131,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.White;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.NewRepoDescriptionSSLB});
             this.statusStrip1.Location = new System.Drawing.Point(0, 216);
@@ -136,6 +139,7 @@
             this.statusStrip1.Size = new System.Drawing.Size(511, 22);
             this.statusStrip1.TabIndex = 13;
             this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // NewRepoDescriptionSSLB
             // 
@@ -151,6 +155,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(421, 23);
             this.panel1.TabIndex = 14;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // NewRepoFRM
             // 
@@ -165,6 +170,8 @@
             this.Controls.Add(this.BrowseLocationBT);
             this.Controls.Add(this.RepoLocationGB);
             this.Controls.Add(this.RepoNameGB);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(527, 277);
             this.MinimumSize = new System.Drawing.Size(527, 277);
             this.Name = "NewRepoFRM";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;

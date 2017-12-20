@@ -217,4 +217,10 @@
   <data name="NEW_REPO_README_INFO" xml:space="preserve">
     <value>Commits a README.md to the repository upon creation</value>
   </data>
+  <data name="MOVE_REPO_BROWSE_DESTINATION_INFO" xml:space="preserve">
+    <value>Browse to the destination directory for the source repository</value>
+  </data>
+  <data name="MOVE_REPO_BROWSE_SOURCE_INFO" xml:space="preserve">
+    <value>Browse to the source directory for the repository</value>
+  </data>
 </root>
