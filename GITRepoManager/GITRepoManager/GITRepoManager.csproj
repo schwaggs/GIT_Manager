@@ -129,6 +129,9 @@
       <DependentUpon>TagRepoFRM.cs</DependentUpon>
     </Compile>
     <Compile Include="TagRepoMethods.cs" />
+    <EmbeddedResource Include="DeleteRepoFrm.resx">
+      <DependentUpon>DeleteRepoFRM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HomeView.resx">
       <DependentUpon>HomeView.cs</DependentUpon>
     </EmbeddedResource>

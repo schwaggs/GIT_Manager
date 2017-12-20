@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace GITRepoManager
 {
-    class DeleteRepoData
+    public static class DeleteRepoData
     {
+        public static string Repository_Setting_Location { get; set; }
+        public static bool Is_Local_Clone { get; set; }
+        public static bool Delete_Local_Clone { get; set; }
     }
 }

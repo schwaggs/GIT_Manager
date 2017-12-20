@@ -38,11 +38,14 @@ namespace GITRepoManager
         private void BrowseLocationBT_MouseEnter(object sender, EventArgs e)
         {
             BrowseLocationBT.BackgroundImage = Properties.Resources.Browse_Icon_Hover;
+            NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_BROWSE_HOVER;
+
         }
 
         private void BrowseLocationBT_MouseLeave(object sender, EventArgs e)
         {
             BrowseLocationBT.BackgroundImage = Properties.Resources.Browse_Icon;
+            NewRepoDescriptionSSLB.Text = string.Empty;
         }
 
         private void NewRepoFRM_FormClosing(object sender, FormClosingEventArgs e)
@@ -50,14 +53,13 @@ namespace GITRepoManager
             bool StoreData = true;
             NewRepoData.Repository_Setting_Use_Location = false;
 
-            if (string.IsNullOrEmpty(RepoNameTB.Text) &&
-               string.IsNullOrEmpty(RepoLocationTB.Text) &&
-               string.IsNullOrWhiteSpace(RepoNameTB.Text) &&
-               string.IsNullOrWhiteSpace(RepoLocationTB.Text)
-              )
-            {
-
-            }
+            if (
+                    string.IsNullOrEmpty(RepoNameTB.Text) &&
+                    string.IsNullOrEmpty(RepoLocationTB.Text) &&
+                    string.IsNullOrWhiteSpace(RepoNameTB.Text) &&
+                    string.IsNullOrWhiteSpace(RepoLocationTB.Text)
+               )
+            {}
 
             else
             {
@@ -115,6 +117,16 @@ namespace GITRepoManager
                     {
                         NewRepoMethods.CreateNewRepository();
                     }
+
+                    Verify = MessageBox.Show
+                                (
+                                    this,
+                                    "Close Window?",
+                                    "Close New Repo Window",
+                                    MessageBoxButtons.YesNo
+                                );
+
+                    e.Cancel = (Verify == DialogResult.No);
                 }
 
                 else
@@ -125,6 +137,26 @@ namespace GITRepoManager
                     NewRepoData.Repository_Option_Readme = false;
                 }
             }
+        }
+
+        private void OptionBareCB_MouseEnter(object sender, EventArgs e)
+        {
+            NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_BARE_INFO;
+        }
+
+        private void OptionBareCB_MouseLeave(object sender, EventArgs e)
+        {
+            NewRepoDescriptionSSLB.Text = string.Empty;
+        }
+
+        private void OptionReadmeCB_MouseEnter(object sender, EventArgs e)
+        {
+            NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_README_INFO;
+        }
+
+        private void OptionReadmeCB_MouseLeave(object sender, EventArgs e)
+        {
+            NewRepoDescriptionSSLB.Text = string.Empty;
         }
     }
 }
