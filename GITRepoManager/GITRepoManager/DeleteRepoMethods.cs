@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace GITRepoManager
 {
@@ -12,25 +13,48 @@ namespace GITRepoManager
     {
         public static void DeleteRepository()
         {
-            if(DeleteRepoData.Delete_Local_Clone)
+            if (DeleteRepoData.Delete_Local_Clone)
             {
-                // Delete both
+                Task.Run(() => Delete_Directory(DeleteRepoData.Repository_Setting_Location));
+                Task.Run(() => Delete_Directory(DeleteRepoData.Clone_Setting_Location));
             }
 
-            else if(DeleteRepoData.Is_Local_Clone)
+            else if (DeleteRepoData.Is_Local_Clone)
             {
-                // Find the repo it's attached to and update info after deleting clone
+                Task.Run(() => Delete_Directory(DeleteRepoData.Repository_Setting_Location));
             }
 
             else
             {
-                // Just delete repo
+                Task.Run(() => Delete_Directory(DeleteRepoData.Repository_Setting_Location));
             }
         }
 
-        public static async void Delete_Everything(string directory)
+        public static void Delete_Directory(string directory)
         {
-            Directory.Delete(directory, true);
+            string[] files = Directory.GetFiles(directory);
+            string[] dirs = Directory.GetDirectories(directory);
+
+            foreach (string file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string dir in dirs)
+            {
+                Delete_Directory(dir);
+            }
+
+            try
+            {
+                Directory.Delete(directory, false);
+            }
+
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Access Exception");
+            }
         }
     }
 }

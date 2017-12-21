@@ -128,10 +128,7 @@
     <value>..\Resources\DeleteIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MOVE_REPO_COMMAND_INFO" xml:space="preserve">
-    <value>Opens the move repository window</value>
-  </data>
-  <data name="DELETE_REPO_BASE_COMMAND" xml:space="preserve">
-    <value />
+    <value>Opens the move repository window.</value>
   </data>
   <data name="NEW_REPO_OPTION_README_TOUCH" xml:space="preserve">
     <value>touch README.md </value>
@@ -143,13 +140,13 @@
     <value> push -u origin master</value>
   </data>
   <data name="CLONE_REPO_COMMAND_INFO" xml:space="preserve">
-    <value>Opens the clone repository window</value>
+    <value>Opens the clone repository window.</value>
   </data>
   <data name="REPO_BASE_COMMAND" xml:space="preserve">
     <value>git</value>
   </data>
   <data name="MOVE_REPO_BASE_COMMAND" xml:space="preserve">
-    <value />
+    <value> clone --bare </value>
   </data>
   <data name="NEW_REPO_OPTION_README_ADD" xml:space="preserve">
     <value> add README.md</value>
@@ -161,13 +158,13 @@
     <value>..\Resources\MoveIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DELETE_REPO_COMMAND_INFO" xml:space="preserve">
-    <value>Opens the delete repository window</value>
+    <value>Opens the delete repository window.</value>
   </data>
   <data name="NEW_REPO_OPTION_BARE" xml:space="preserve">
     <value> --bare </value>
   </data>
   <data name="TAG_REPO_COMMAND_INFO" xml:space="preserve">
-    <value>Opens the repository tagging window</value>
+    <value>Opens the repository tagging window.</value>
   </data>
   <data name="TagIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TagIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -182,7 +179,7 @@
     <value>..\Resources\DeleteIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NEW_REPO_COMMAND_INFO" xml:space="preserve">
-    <value>Opens the create new repository window</value>
+    <value>Opens the create new repository window.</value>
   </data>
   <data name="NewIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -200,27 +197,33 @@
     <value>..\Resources\Browse_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DELETE_REPO_BROWSE_HOVER" xml:space="preserve">
-    <value>Browse for a repository to delete</value>
+    <value>Browse for a repository to delete.</value>
   </data>
   <data name="DELETE_REPO_DELETE_LOCAL_INFO" xml:space="preserve">
-    <value>Deletes the local clone as well as the repository</value>
+    <value>Deletes the local clone as well as the repository.</value>
   </data>
   <data name="DELETE_REPO_IS_CLONE_INFO" xml:space="preserve">
-    <value>Deletes only the local clone and not the repository</value>
+    <value>Deletes only the local clone and not the repository.</value>
   </data>
   <data name="NEW_REPO_BARE_INFO" xml:space="preserve">
-    <value>Creates a bare repository</value>
+    <value>Creates a bare repository.</value>
   </data>
   <data name="NEW_REPO_BROWSE_HOVER" xml:space="preserve">
-    <value>Browse for the desired location to create a repository</value>
+    <value>Browse for the desired location to create a repository.</value>
   </data>
   <data name="NEW_REPO_README_INFO" xml:space="preserve">
-    <value>Commits a README.md to the repository upon creation</value>
+    <value>Commits a README.md to the repository upon creation.</value>
   </data>
   <data name="MOVE_REPO_BROWSE_DESTINATION_INFO" xml:space="preserve">
     <value>Browse to the destination directory for the source repository</value>
   </data>
   <data name="MOVE_REPO_BROWSE_SOURCE_INFO" xml:space="preserve">
-    <value>Browse to the source directory for the repository</value>
+    <value>Browse to the source directory for the repository.</value>
+  </data>
+  <data name="CLONE_REPO_BROWSE_DESTINATION_INFO" xml:space="preserve">
+    <value>Browse for the desired location to clone the source repository to.</value>
+  </data>
+  <data name="CLONE_REPO_BROWSE_SOURCE_INFO" xml:space="preserve">
+    <value>Browse for the repository to clone.</value>
   </data>
 </root>

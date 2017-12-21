@@ -98,10 +98,8 @@ namespace GITRepoManager
 
                 else
                 {
-                    NewRepoData.Repository_Setting_Name = String.Empty;
-                    NewRepoData.Repository_Setting_Location = String.Empty;
-                    NewRepoData.Repository_Option_Bare = false;
-                    NewRepoData.Repository_Option_Readme = false;
+                    MoveRepoData.Repository_Destination = string.Empty;
+                    MoveRepoData.Repository_Source = string.Empty;
                 }
             }
         }

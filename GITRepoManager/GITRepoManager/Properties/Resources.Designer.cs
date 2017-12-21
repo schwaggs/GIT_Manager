@@ -19,7 +19,7 @@ namespace GITRepoManager.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -90,7 +90,25 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opens the clone repository window.
+        ///   Looks up a localized string similar to Browse for the desired location to clone the source repository to..
+        /// </summary>
+        internal static string CLONE_REPO_BROWSE_DESTINATION_INFO {
+            get {
+                return ResourceManager.GetString("CLONE_REPO_BROWSE_DESTINATION_INFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse for the repository to clone..
+        /// </summary>
+        internal static string CLONE_REPO_BROWSE_SOURCE_INFO {
+            get {
+                return ResourceManager.GetString("CLONE_REPO_BROWSE_SOURCE_INFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opens the clone repository window..
         /// </summary>
         internal static string CLONE_REPO_COMMAND_INFO {
             get {
@@ -119,16 +137,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DELETE_REPO_BASE_COMMAND {
-            get {
-                return ResourceManager.GetString("DELETE_REPO_BASE_COMMAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browse for a repository to delete.
+        ///   Looks up a localized string similar to Browse for a repository to delete..
         /// </summary>
         internal static string DELETE_REPO_BROWSE_HOVER {
             get {
@@ -137,7 +146,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opens the delete repository window.
+        ///   Looks up a localized string similar to Opens the delete repository window..
         /// </summary>
         internal static string DELETE_REPO_COMMAND_INFO {
             get {
@@ -146,7 +155,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deletes the local clone as well as the repository.
+        ///   Looks up a localized string similar to Deletes the local clone as well as the repository..
         /// </summary>
         internal static string DELETE_REPO_DELETE_LOCAL_INFO {
             get {
@@ -155,7 +164,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deletes only the local clone and not the repository.
+        ///   Looks up a localized string similar to Deletes only the local clone and not the repository..
         /// </summary>
         internal static string DELETE_REPO_IS_CLONE_INFO {
             get {
@@ -194,7 +203,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to  clone --bare .
         /// </summary>
         internal static string MOVE_REPO_BASE_COMMAND {
             get {
@@ -212,7 +221,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse to the source directory for the repository.
+        ///   Looks up a localized string similar to Browse to the source directory for the repository..
         /// </summary>
         internal static string MOVE_REPO_BROWSE_SOURCE_INFO {
             get {
@@ -221,7 +230,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opens the move repository window.
+        ///   Looks up a localized string similar to Opens the move repository window..
         /// </summary>
         internal static string MOVE_REPO_COMMAND_INFO {
             get {
@@ -250,7 +259,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creates a bare repository.
+        ///   Looks up a localized string similar to Creates a bare repository..
         /// </summary>
         internal static string NEW_REPO_BARE_INFO {
             get {
@@ -268,7 +277,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse for the desired location to create a repository.
+        ///   Looks up a localized string similar to Browse for the desired location to create a repository..
         /// </summary>
         internal static string NEW_REPO_BROWSE_HOVER {
             get {
@@ -277,7 +286,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opens the create new repository window.
+        ///   Looks up a localized string similar to Opens the create new repository window..
         /// </summary>
         internal static string NEW_REPO_COMMAND_INFO {
             get {
@@ -313,7 +322,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Commits a README.md to the repository upon creation.
+        ///   Looks up a localized string similar to Commits a README.md to the repository upon creation..
         /// </summary>
         internal static string NEW_REPO_README_INFO {
             get {
@@ -360,7 +369,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opens the repository tagging window.
+        ///   Looks up a localized string similar to Opens the repository tagging window..
         /// </summary>
         internal static string TAG_REPO_COMMAND_INFO {
             get {

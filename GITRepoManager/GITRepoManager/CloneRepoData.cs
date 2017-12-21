@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace GITRepoManager
 {
-    class CloneRepoData
+    public static class CloneRepoData
     {
+        public static string Repository_Source { get; set; }
+        public static string Clone_Destination { get; set; }
     }
 }

@@ -117,15 +117,18 @@ namespace GITRepoManager
                         NewRepoMethods.CreateNewRepository();
                     }
 
-                    Verify = MessageBox.Show
-                                (
-                                    this,
-                                    "Close Window?",
-                                    "Close New Repo Window",
-                                    MessageBoxButtons.YesNo
-                                );
+                    else
+                    {
+                        Verify = MessageBox.Show
+                                    (
+                                        this,
+                                        "Close Window?",
+                                        "Close New Repo Window",
+                                        MessageBoxButtons.YesNo
+                                    );
 
-                    e.Cancel = (Verify == DialogResult.No);
+                        e.Cancel = (Verify == DialogResult.No);
+                    }
                 }
 
                 else
