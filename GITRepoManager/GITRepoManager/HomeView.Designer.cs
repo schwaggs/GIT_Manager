@@ -30,14 +30,15 @@
         {
             this.TitleLB = new System.Windows.Forms.Label();
             this.MainPL = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.ButtonDescriptionSSLB = new System.Windows.Forms.ToolStripStatusLabel();
+            this.noFocusSelectionRectangleButton1 = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.MoveRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.TagRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.DeleteRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.NewRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.ButtonDescriptionSSLB = new System.Windows.Forms.ToolStripStatusLabel();
             this.MainPL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -46,25 +47,72 @@
             // TitleLB
             // 
             this.TitleLB.AutoSize = true;
-            this.TitleLB.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleLB.Location = new System.Drawing.Point(27, 29);
+            this.TitleLB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLB.Location = new System.Drawing.Point(7, 57);
             this.TitleLB.Name = "TitleLB";
-            this.TitleLB.Size = new System.Drawing.Size(446, 42);
+            this.TitleLB.Size = new System.Drawing.Size(296, 29);
             this.TitleLB.TabIndex = 1;
             this.TitleLB.Tag = "";
             this.TitleLB.Text = "Repository Management";
             // 
             // MainPL
             // 
+            this.MainPL.Controls.Add(this.noFocusSelectionRectangleButton1);
             this.MainPL.Controls.Add(this.MoveRepoBT);
             this.MainPL.Controls.Add(this.TagRepoBT);
             this.MainPL.Controls.Add(this.DeleteRepoBT);
             this.MainPL.Controls.Add(this.CloneRepoBT);
             this.MainPL.Controls.Add(this.NewRepoBT);
-            this.MainPL.Location = new System.Drawing.Point(29, 92);
+            this.MainPL.Location = new System.Drawing.Point(12, 99);
             this.MainPL.Name = "MainPL";
-            this.MainPL.Size = new System.Drawing.Size(444, 259);
+            this.MainPL.Size = new System.Drawing.Size(291, 213);
             this.MainPL.TabIndex = 2;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::GITRepoManager.Properties.Resources.GitLogo;
+            this.pictureBox1.Location = new System.Drawing.Point(81, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(126, 42);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.White;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ButtonDescriptionSSLB});
+            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 339);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(322, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // ButtonDescriptionSSLB
+            // 
+            this.ButtonDescriptionSSLB.BackColor = System.Drawing.Color.White;
+            this.ButtonDescriptionSSLB.Name = "ButtonDescriptionSSLB";
+            this.ButtonDescriptionSSLB.Size = new System.Drawing.Size(0, 17);
+            // 
+            // noFocusSelectionRectangleButton1
+            // 
+            this.noFocusSelectionRectangleButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.noFocusSelectionRectangleButton1.BackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton1.BackgroundImage = global::GITRepoManager.Properties.Resources.Log_Icon;
+            this.noFocusSelectionRectangleButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noFocusSelectionRectangleButton1.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.noFocusSelectionRectangleButton1.FlatAppearance.BorderSize = 0;
+            this.noFocusSelectionRectangleButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.noFocusSelectionRectangleButton1.Location = new System.Drawing.Point(187, 91);
+            this.noFocusSelectionRectangleButton1.Name = "noFocusSelectionRectangleButton1";
+            this.noFocusSelectionRectangleButton1.Size = new System.Drawing.Size(86, 82);
+            this.noFocusSelectionRectangleButton1.TabIndex = 17;
+            this.noFocusSelectionRectangleButton1.UseVisualStyleBackColor = false;
             // 
             // MoveRepoBT
             // 
@@ -77,9 +125,9 @@
             this.MoveRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.MoveRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.MoveRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MoveRepoBT.Location = new System.Drawing.Point(247, 3);
+            this.MoveRepoBT.Location = new System.Drawing.Point(187, 3);
             this.MoveRepoBT.Name = "MoveRepoBT";
-            this.MoveRepoBT.Size = new System.Drawing.Size(115, 109);
+            this.MoveRepoBT.Size = new System.Drawing.Size(86, 82);
             this.MoveRepoBT.TabIndex = 16;
             this.MoveRepoBT.UseVisualStyleBackColor = false;
             this.MoveRepoBT.Click += new System.EventHandler(this.MoveRepoBT_Click);
@@ -97,9 +145,9 @@
             this.TagRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.TagRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.TagRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TagRepoBT.Location = new System.Drawing.Point(188, 118);
+            this.TagRepoBT.Location = new System.Drawing.Point(95, 91);
             this.TagRepoBT.Name = "TagRepoBT";
-            this.TagRepoBT.Size = new System.Drawing.Size(115, 109);
+            this.TagRepoBT.Size = new System.Drawing.Size(86, 82);
             this.TagRepoBT.TabIndex = 15;
             this.TagRepoBT.UseVisualStyleBackColor = false;
             this.TagRepoBT.Click += new System.EventHandler(this.TagRepoBT_Click);
@@ -117,9 +165,9 @@
             this.DeleteRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.DeleteRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.DeleteRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeleteRepoBT.Location = new System.Drawing.Point(124, 3);
+            this.DeleteRepoBT.Location = new System.Drawing.Point(95, 3);
             this.DeleteRepoBT.Name = "DeleteRepoBT";
-            this.DeleteRepoBT.Size = new System.Drawing.Size(115, 109);
+            this.DeleteRepoBT.Size = new System.Drawing.Size(86, 82);
             this.DeleteRepoBT.TabIndex = 14;
             this.DeleteRepoBT.UseVisualStyleBackColor = false;
             this.DeleteRepoBT.Click += new System.EventHandler(this.DeleteRepoBT_Click);
@@ -137,9 +185,9 @@
             this.CloneRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.CloneRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.CloneRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloneRepoBT.Location = new System.Drawing.Point(56, 118);
+            this.CloneRepoBT.Location = new System.Drawing.Point(3, 91);
             this.CloneRepoBT.Name = "CloneRepoBT";
-            this.CloneRepoBT.Size = new System.Drawing.Size(115, 109);
+            this.CloneRepoBT.Size = new System.Drawing.Size(86, 82);
             this.CloneRepoBT.TabIndex = 13;
             this.CloneRepoBT.UseVisualStyleBackColor = false;
             this.CloneRepoBT.Click += new System.EventHandler(this.CloneRepoBT_Click);
@@ -159,41 +207,12 @@
             this.NewRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewRepoBT.Location = new System.Drawing.Point(3, 3);
             this.NewRepoBT.Name = "NewRepoBT";
-            this.NewRepoBT.Size = new System.Drawing.Size(115, 109);
+            this.NewRepoBT.Size = new System.Drawing.Size(86, 82);
             this.NewRepoBT.TabIndex = 11;
             this.NewRepoBT.UseVisualStyleBackColor = false;
             this.NewRepoBT.Click += new System.EventHandler(this.NewRepoBT_Click);
             this.NewRepoBT.MouseEnter += new System.EventHandler(this.NewRepoBT_MouseEnter);
             this.NewRepoBT.MouseLeave += new System.EventHandler(this.NewRepoBT_MouseLeave);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::GITRepoManager.Properties.Resources.GitLogo;
-            this.pictureBox1.Location = new System.Drawing.Point(479, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(170, 74);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.White;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ButtonDescriptionSSLB});
-            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 368);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(661, 22);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // ButtonDescriptionSSLB
-            // 
-            this.ButtonDescriptionSSLB.BackColor = System.Drawing.Color.White;
-            this.ButtonDescriptionSSLB.Name = "ButtonDescriptionSSLB";
-            this.ButtonDescriptionSSLB.Size = new System.Drawing.Size(0, 17);
             // 
             // HomeView
             // 
@@ -202,15 +221,13 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(661, 390);
+            this.ClientSize = new System.Drawing.Size(322, 361);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MainPL);
             this.Controls.Add(this.TitleLB);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(681, 433);
-            this.MinimumSize = new System.Drawing.Size(681, 433);
             this.Name = "HomeView";
             this.Text = "Home";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -235,6 +252,7 @@
         private NoFocusSelectionRectangleButton TagRepoBT;
         private NoFocusSelectionRectangleButton DeleteRepoBT;
         private NoFocusSelectionRectangleButton CloneRepoBT;
+        private NoFocusSelectionRectangleButton noFocusSelectionRectangleButton1;
     }
 }
 

@@ -204,6 +204,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReleaseNotes.css" />
+    <None Include="Resources\Log_Icon_Hover.png" />
+    <None Include="Resources\Log_Icon.png" />
     <None Include="Resources\Browse_Icon_Hover.png" />
     <None Include="Resources\Browse_Icon.png" />
   </ItemGroup>
