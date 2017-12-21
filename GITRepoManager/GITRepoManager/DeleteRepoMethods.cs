@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 
 namespace GITRepoManager
 {
@@ -21,12 +20,12 @@ namespace GITRepoManager
 
             else if (DeleteRepoData.Is_Local_Clone)
             {
-                Task.Run(() => Delete_Directory(DeleteRepoData.Repository_Setting_Location));
+                Task.Run(() => RepoIO.Delete_Directory(DeleteRepoData.Repository_Setting_Location));
             }
 
             else
             {
-                Task.Run(() => Delete_Directory(DeleteRepoData.Repository_Setting_Location));
+                Task.Run(() => RepoIO.Delete_Directory(DeleteRepoData.Repository_Setting_Location));
             }
         }
 

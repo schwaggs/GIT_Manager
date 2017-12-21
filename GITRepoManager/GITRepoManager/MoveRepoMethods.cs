@@ -12,56 +12,61 @@ namespace GITRepoManager
     public static class MoveRepoMethods
     {
         static bool temp = false;
+
         public static void MoveRepository()
         {
-            Task.Run(() => Move_Repo()).ContinueWith(t => Delete_Directory(MoveRepoData.Repository_Source));
+            Task.Run(() => Move_Repo());//.ContinueWith(t => Delete_Directory(MoveRepoData.Repository_Source));
         }
 
         public static void Move_Repo()
         {
-            string MoveCommand = ("mkdir " + "\"" + MoveRepoData.Repository_Destination + "\"");
+            //string MoveCommand = ("mkdir " + "\"" + MoveRepoData.Repository_Destination + "\"");
 
-            Process cmdProc = new Process();
+            //Process cmdProc = new Process();
 
-            cmdProc.EnableRaisingEvents = true;
+            //cmdProc.EnableRaisingEvents = true;
 
-            cmdProc.Exited += (Sender, e) => { temp = true; };
+            //cmdProc.Exited += (Sender, e) => { temp = true; };
 
-            cmdProc.StartInfo.FileName = "cmd.exe";
-            cmdProc.StartInfo.RedirectStandardInput = true;
-            cmdProc.StartInfo.RedirectStandardOutput = true;
-            cmdProc.StartInfo.CreateNoWindow = true;
-            cmdProc.StartInfo.UseShellExecute = false;
-            cmdProc.Start();
+            //cmdProc.StartInfo.FileName = "cmd.exe";
+            //cmdProc.StartInfo.RedirectStandardInput = true;
+            //cmdProc.StartInfo.RedirectStandardOutput = true;
+            //cmdProc.StartInfo.CreateNoWindow = true;
+            //cmdProc.StartInfo.UseShellExecute = false;
+            //cmdProc.Start();
 
-            // Create destination directory if it doesnt already exist
-            cmdProc.StandardInput.WriteLine(MoveCommand);
+            //// Create destination directory if it doesnt already exist
+            //cmdProc.StandardInput.WriteLine(MoveCommand);
 
-            // Move into the destination directory
-            MoveCommand = ("cd " + "\"" + MoveRepoData.Repository_Destination + "\"");
-            cmdProc.StandardInput.WriteLine(MoveCommand);
+            //// Move into the destination directory
+            //MoveCommand = ("cd " + "\"" + MoveRepoData.Repository_Destination + "\"");
+            //cmdProc.StandardInput.WriteLine(MoveCommand);
 
-            // Make a bare clone of the source repository into the destination directory
-            MoveCommand = (Properties.Resources.REPO_BASE_COMMAND + Properties.Resources.MOVE_REPO_BASE_COMMAND);
-            MoveCommand += ("\"" + MoveRepoData.Repository_Source + "\"");
-            cmdProc.StandardInput.WriteLine(MoveCommand);
+            //// Make a bare clone of the source repository into the destination directory
+            //MoveCommand = (Properties.Resources.REPO_BASE_COMMAND + Properties.Resources.MOVE_REPO_BASE_COMMAND);
+            //MoveCommand += ("\"" + MoveRepoData.Repository_Source + "\"");
+            //cmdProc.StandardInput.WriteLine(MoveCommand);
 
-            // Mirror-push to the destination repository to make sure everything is up to date from the source repository
-            MoveCommand = ("cd " + "\"" + MoveRepoData.Repository_Destination + "\"");
-            cmdProc.StandardInput.WriteLine(MoveCommand);
+            //// Mirror-push to the destination repository to make sure everything is up to date from the source repository
+            //MoveCommand = ("cd " + "\"" + MoveRepoData.Repository_Destination + "\"");
+            //cmdProc.StandardInput.WriteLine(MoveCommand);
 
-            MoveCommand = (Properties.Resources.REPO_BASE_COMMAND + " push --mirror ");
-            MoveCommand += ("\"" + MoveRepoData.Repository_Destination + "\"");
-            cmdProc.StandardInput.WriteLine(MoveCommand);
+            //MoveCommand = (Properties.Resources.REPO_BASE_COMMAND + " push --mirror ");
+            //MoveCommand += ("\"" + MoveRepoData.Repository_Destination + "\"");
+            //cmdProc.StandardInput.WriteLine(MoveCommand);
 
-            MoveCommand = "exit";
-            cmdProc.StandardInput.WriteLine(MoveCommand);
+            //MoveCommand = "exit";
+            //cmdProc.StandardInput.WriteLine(MoveCommand);
 
             //cmdProc.StandardInput.Flush();
             //cmdProc.StandardInput.Close();
             //cmdProc.Close();
 
 
+            while (RepoIO.Move_Directory(MoveRepoData.Repository_Source, MoveRepoData.Repository_Destination) == null)
+            {
+                Task.Delay(25);
+            }
         }
 
         public static void Delete_Directory(string directory)

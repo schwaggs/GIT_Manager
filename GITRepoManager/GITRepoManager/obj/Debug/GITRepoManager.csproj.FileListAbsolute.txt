@@ -54,3 +54,4 @@ E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepo
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.MoveRepoFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.MoveRepoFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.CloneRepoFRM.resources
+E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.CloneRepoFRM.resources

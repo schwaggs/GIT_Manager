@@ -161,7 +161,7 @@
     <value>Opens the delete repository window.</value>
   </data>
   <data name="NEW_REPO_OPTION_BARE" xml:space="preserve">
-    <value> --bare </value>
+    <value> --bare</value>
   </data>
   <data name="TAG_REPO_COMMAND_INFO" xml:space="preserve">
     <value>Opens the repository tagging window.</value>
@@ -225,5 +225,8 @@
   </data>
   <data name="CLONE_REPO_BROWSE_SOURCE_INFO" xml:space="preserve">
     <value>Browse for the repository to clone.</value>
+  </data>
+  <data name="REPO_FOLDER_EXTENSION" xml:space="preserve">
+    <value>.git</value>
   </data>
 </root>
