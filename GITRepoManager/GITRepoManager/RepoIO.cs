@@ -124,17 +124,17 @@ namespace GITRepoManager
 
         /*
          *   ________________________________________________________________________________
-         *   # Method:              #
+         *   # Method:                                                                      #
          *   #                                                                              #
-         *   # Usage:               #
+         *   # Usage:                                                                       #
          *   #                                                                              #
-         *   # Parameters:          #   
+         *   # Parameters:                                                                  #   
          *   #                                                                              #
-         *   # Returns:             #
+         *   # Returns:                                                                     #
          *   #                                                                              #
-         *   # Last Date Modified:  #
+         *   # Last Date Modified:                                                          #
          *   #                                                                              #
-         *   # Last Modified By:    #
+         *   # Last Modified By:                                                            #
          *   #                                                                              #
          *   ________________________________________________________________________________
          */
@@ -151,14 +151,26 @@ namespace GITRepoManager
                     }
                 }
 
-                DirToDelete = DirToDelete.Substring(0, DirToDelete.Length - 1);
+                //DirToDelete = DirToDelete.Substring(0, DirToDelete.Length);
 
-                DirectoryInfo DirToDeleteInfo = new DirectoryInfo(DirToDelete + Properties.Resources.REPO_FOLDER_EXTENSION);
+                //if(!DeleteRepoData.Is_Local_Clone)
+                //{
+                //    DirToDelete += Properties.Resources.REPO_FOLDER_EXTENSION;
+                //}
+
+                DirectoryInfo DirToDeleteInfo = new DirectoryInfo(DirToDelete){ Attributes = FileAttributes.Normal };
+
+
 
                 if (DirToDeleteInfo.Exists)
                 {
                     try
                     {
+                        foreach (var info in DirToDeleteInfo.GetFileSystemInfos("*", SearchOption.AllDirectories))
+                        {
+                            info.Attributes = FileAttributes.Normal;
+                        }
+
                         DirToDeleteInfo.Delete(true);
                         DirectoryDeleted = true;
                         return true;
