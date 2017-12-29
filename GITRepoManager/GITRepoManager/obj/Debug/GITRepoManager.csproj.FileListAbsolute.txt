@@ -84,3 +84,4 @@ C:\Users\JoshS\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\D
 C:\Users\JoshS\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csproj.CoreCompileInputs.cache
 C:\Users\JoshS\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.exe
 C:\Users\JoshS\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.pdb
+C:\Users\JoshS\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.TagRepoFRM.resources

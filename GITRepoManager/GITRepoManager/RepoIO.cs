@@ -151,13 +151,6 @@ namespace GITRepoManager
                     }
                 }
 
-                //DirToDelete = DirToDelete.Substring(0, DirToDelete.Length);
-
-                //if(!DeleteRepoData.Is_Local_Clone)
-                //{
-                //    DirToDelete += Properties.Resources.REPO_FOLDER_EXTENSION;
-                //}
-
                 DirectoryInfo DirToDeleteInfo = new DirectoryInfo(DirToDelete){ Attributes = FileAttributes.Normal };
 
 
