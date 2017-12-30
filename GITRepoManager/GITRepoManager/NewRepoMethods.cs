@@ -81,7 +81,7 @@ namespace GITRepoManager
 
             if (overwrite)
             {
-                if (RepoIO.Delete_Directory(dir, subdirs) == null && RepoIO.ExceptionMessage == string.Empty)
+                if (!RepoIO.Delete_Directory(dir, subdirs) && RepoIO.ExceptionMessage == string.Empty)
                 {
                     return null;
                 }

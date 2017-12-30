@@ -52,9 +52,10 @@
             this.BrowseRepoSourceBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BrowseRepoSourceBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BrowseRepoSourceBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseRepoSourceBT.Location = new System.Drawing.Point(439, 23);
+            this.BrowseRepoSourceBT.Location = new System.Drawing.Point(549, 29);
+            this.BrowseRepoSourceBT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BrowseRepoSourceBT.Name = "BrowseRepoSourceBT";
-            this.BrowseRepoSourceBT.Size = new System.Drawing.Size(56, 63);
+            this.BrowseRepoSourceBT.Size = new System.Drawing.Size(70, 79);
             this.BrowseRepoSourceBT.TabIndex = 25;
             this.BrowseRepoSourceBT.UseVisualStyleBackColor = false;
             this.BrowseRepoSourceBT.Click += new System.EventHandler(this.BrowseRepoSourceBT_Click);
@@ -64,11 +65,13 @@
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.White;
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CloneRepoDescriptionSSLB});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 186);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 228);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(507, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(631, 22);
             this.statusStrip1.TabIndex = 24;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -88,9 +91,10 @@
             this.BrowseCloneDestinationBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BrowseCloneDestinationBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BrowseCloneDestinationBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseCloneDestinationBT.Location = new System.Drawing.Point(439, 101);
+            this.BrowseCloneDestinationBT.Location = new System.Drawing.Point(549, 126);
+            this.BrowseCloneDestinationBT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BrowseCloneDestinationBT.Name = "BrowseCloneDestinationBT";
-            this.BrowseCloneDestinationBT.Size = new System.Drawing.Size(56, 63);
+            this.BrowseCloneDestinationBT.Size = new System.Drawing.Size(70, 79);
             this.BrowseCloneDestinationBT.TabIndex = 23;
             this.BrowseCloneDestinationBT.UseVisualStyleBackColor = false;
             this.BrowseCloneDestinationBT.Click += new System.EventHandler(this.BrowseCloneDestinationBT_Click);
@@ -101,9 +105,11 @@
             // 
             this.CloneDestinationGB.Controls.Add(this.CloneDestinationTB);
             this.CloneDestinationGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CloneDestinationGB.Location = new System.Drawing.Point(12, 91);
+            this.CloneDestinationGB.Location = new System.Drawing.Point(15, 114);
+            this.CloneDestinationGB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CloneDestinationGB.Name = "CloneDestinationGB";
-            this.CloneDestinationGB.Size = new System.Drawing.Size(421, 73);
+            this.CloneDestinationGB.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CloneDestinationGB.Size = new System.Drawing.Size(526, 91);
             this.CloneDestinationGB.TabIndex = 22;
             this.CloneDestinationGB.TabStop = false;
             this.CloneDestinationGB.Text = "Destination";
@@ -111,19 +117,22 @@
             // CloneDestinationTB
             // 
             this.CloneDestinationTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CloneDestinationTB.Location = new System.Drawing.Point(6, 29);
+            this.CloneDestinationTB.Location = new System.Drawing.Point(8, 36);
+            this.CloneDestinationTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CloneDestinationTB.Multiline = true;
             this.CloneDestinationTB.Name = "CloneDestinationTB";
-            this.CloneDestinationTB.Size = new System.Drawing.Size(409, 29);
+            this.CloneDestinationTB.Size = new System.Drawing.Size(510, 35);
             this.CloneDestinationTB.TabIndex = 0;
             // 
             // RepoSourceGB
             // 
             this.RepoSourceGB.Controls.Add(this.RepoSourceTB);
             this.RepoSourceGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RepoSourceGB.Location = new System.Drawing.Point(12, 12);
+            this.RepoSourceGB.Location = new System.Drawing.Point(15, 15);
+            this.RepoSourceGB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RepoSourceGB.Name = "RepoSourceGB";
-            this.RepoSourceGB.Size = new System.Drawing.Size(421, 73);
+            this.RepoSourceGB.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RepoSourceGB.Size = new System.Drawing.Size(526, 91);
             this.RepoSourceGB.TabIndex = 21;
             this.RepoSourceGB.TabStop = false;
             this.RepoSourceGB.Text = "Source";
@@ -131,28 +140,30 @@
             // RepoSourceTB
             // 
             this.RepoSourceTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RepoSourceTB.Location = new System.Drawing.Point(6, 25);
+            this.RepoSourceTB.Location = new System.Drawing.Point(8, 31);
+            this.RepoSourceTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RepoSourceTB.Multiline = true;
             this.RepoSourceTB.Name = "RepoSourceTB";
-            this.RepoSourceTB.Size = new System.Drawing.Size(409, 29);
+            this.RepoSourceTB.Size = new System.Drawing.Size(510, 35);
             this.RepoSourceTB.TabIndex = 0;
             // 
             // CloneRepoFRM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(507, 208);
+            this.ClientSize = new System.Drawing.Size(631, 250);
             this.Controls.Add(this.BrowseRepoSourceBT);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.BrowseCloneDestinationBT);
             this.Controls.Add(this.CloneDestinationGB);
             this.Controls.Add(this.RepoSourceGB);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(523, 247);
-            this.MinimumSize = new System.Drawing.Size(523, 247);
+            this.MaximumSize = new System.Drawing.Size(649, 297);
+            this.MinimumSize = new System.Drawing.Size(649, 297);
             this.Name = "CloneRepoFRM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Clone Repo";

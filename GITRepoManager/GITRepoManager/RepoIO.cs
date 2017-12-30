@@ -60,7 +60,7 @@ namespace GITRepoManager
         #endregion
 
 
-        #region Create_Directory
+        #region Create Directory
 
         /*
          *   ________________________________________________________________________________
@@ -120,7 +120,7 @@ namespace GITRepoManager
         #endregion
 
 
-        #region Delete_Directory
+        #region Delete Directory
 
         /*
          *   ________________________________________________________________________________
@@ -187,7 +187,7 @@ namespace GITRepoManager
         #endregion
 
 
-        #region Move_Directory
+        #region Move Directory
 
         /*
          *   ________________________________________________________________________________
@@ -252,7 +252,44 @@ namespace GITRepoManager
         #endregion
 
 
-        #region Add_Quotes
+        #region List Directory
+
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              List_Directory                                          #
+         *   #                                                                              #
+         *   # Usage:               Creates a list of directory info's for a given path     #
+         *   #                                                                              #
+         *   # Parameters:          Path - A string of the root path to search              #   
+         *   #                                                                              #
+         *   # Returns:             A list of directory info's containing all repos         #
+         *   #                                                                              #
+         *   # Last Date Modified:  12/29/17                                                #
+         *   #                                                                              #
+         *   # Last Modified By:    Josh                                                    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
+
+            public static List<DirectoryInfo> List_Directory(string path)
+            {
+                List<DirectoryInfo> dir = new List<DirectoryInfo>();
+
+                foreach(string subdir in Directory.GetDirectories(path))
+                {
+                    if (subdir.Contains(".git"))
+                    {
+                        dir.Add(new DirectoryInfo(subdir));
+                    }
+                }
+
+                return dir;
+            }
+
+        #endregion
+
+
+        #region Add Quotes
 
         /*
          *   ________________________________________________________________________________
@@ -271,7 +308,7 @@ namespace GITRepoManager
          *   ________________________________________________________________________________
          */
 
-            public static string Add_Quotes(string dir)
+        public static string Add_Quotes(string dir)
             {
                 return ("\"" + dir + "\"");
             }
@@ -279,7 +316,7 @@ namespace GITRepoManager
         #endregion
 
 
-        #region Create_Process
+        #region Create Process
 
         /*
          *   ________________________________________________________________________________
