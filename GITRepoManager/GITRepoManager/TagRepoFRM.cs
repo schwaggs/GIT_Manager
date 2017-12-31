@@ -19,6 +19,61 @@ namespace GITRepoManager
             InitializeComponent();
         }
 
+        private FlowLayoutPanel Found_Repo_Cell(Label name, NoFocusSelectionRectangleButton item)
+        {
+            FlowLayoutPanel temp = new FlowLayoutPanel();
+            temp.FlowDirection = FlowDirection.TopDown;
+            temp.WrapContents = true;
+
+            temp.WrapContents = false;
+            temp.Controls.Add(item);
+            temp.Controls.Add(name);
+
+            temp.AutoSize = true;
+
+
+            return temp;
+        }
+
+        private Label BlankButtonLabel(string name)
+        {
+            Label temp = new Label();
+            temp.Text = name;
+            temp.ForeColor = Color.Black;
+            temp.TextAlign = ContentAlignment.MiddleCenter;
+            temp.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+            temp.AutoSize = true;
+            temp.MaximumSize = temp.Size;
+            return temp;
+        }
+
+        private CheckBox BlankCheckbox(string name)
+        {
+            CheckBox temp = new CheckBox();
+            temp.Name = name;
+            temp.Text = name;
+            temp.AutoSize = true;
+            temp.Padding = new Padding(5);
+
+            return temp;
+        }
+
+        private Label BlankLabel(string name)
+        {
+            Label temp = new Label();
+            temp.Name = name;
+            temp.Text = name;
+            temp.AutoSize = true;
+            temp.Padding = new Padding(5);
+            temp.Font = new Font(temp.Font.FontFamily, 5, FontStyle.Regular);
+
+            temp.MouseEnter += Label_MouseEnter;
+            temp.MouseLeave += Label_MouseLeave;
+            temp.Click += Label_Click;
+
+            return temp;
+        }
+
         private NoFocusSelectionRectangleButton BlankButton(string name)
         {
             NoFocusSelectionRectangleButton temp = new NoFocusSelectionRectangleButton();
@@ -27,7 +82,7 @@ namespace GITRepoManager
             temp.MouseEnter += Temp_MouseEnter;
             temp.MouseLeave += Temp_MouseLeave;
             temp.BackgroundImage = Properties.Resources.RepositoryIcon;
-            temp.BackgroundImageLayout = ImageLayout.Stretch;
+            temp.BackgroundImageLayout = ImageLayout.Center;
             temp.Width = 70;
             temp.Height = 79;
             temp.AutoSize = true;
@@ -38,6 +93,8 @@ namespace GITRepoManager
             temp.FlatAppearance.BorderSize = 0;
             temp.FlatAppearance.MouseDownBackColor = Color.Transparent;
             temp.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            temp.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+
             return temp;
         }
 
@@ -88,8 +145,107 @@ namespace GITRepoManager
         {
             foreach(DirectoryInfo dir in RepoIO.List_Directory(RepoSourceTB.Text))
             {
-                flowLayoutPanel1.Controls.Add(BlankButton(dir.FullName.Substring(0, dir.FullName.Length - 3)));
+                RepoCell temp = new RepoCell();
+                temp.RepoName = RepoIO.Repo_Name(dir);
+                temp.Checked = false;
+                temp.RepoDirInfo = dir;
+                temp.RepoControl = BlankLabel(temp.RepoName);
+                TagRepoData.All_Repos.Add(temp);
+                flowLayoutPanel1.Controls.Add(temp.RepoControl);
             }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            foreach (Label lb in flowLayoutPanel1.Controls.OfType<Label>())
+            {
+                lb.Font = new Font(lb.Font.FontFamily, trackBar1.Value, FontStyle.Regular);
+                lb.Refresh();
+            }
+        }
+
+        private void Label_MouseEnter(object sender, EventArgs e)
+        {
+            Label tempLabel = sender as Label;
+            RepoCell tempCell = null;
+
+            foreach (RepoCell cell in TagRepoData.All_Repos)
+            {
+                if (cell.RepoControl == tempLabel)
+                {
+                    tempCell = cell;
+                    break;
+                }
+            }
+
+            tempLabel.Cursor = Cursors.Hand;
+            tempLabel.BackColor = Color.Black;
+            tempLabel.ForeColor = Color.White;
+        }
+
+        private void Label_MouseLeave(object sender, EventArgs e)
+        {
+            Label tempLabel = sender as Label;
+            RepoCell tempCell = null;
+
+            foreach (RepoCell cell in TagRepoData.All_Repos)
+            {
+                if (cell.RepoControl == tempLabel)
+                {
+                    tempCell = cell;
+                    break;
+                }
+            }
+
+            if (tempCell != null)
+            {
+                if (!tempCell.Checked)
+                {
+                    tempLabel.Cursor = Cursors.Default;
+                    tempLabel.BackColor = Color.Transparent;
+                    tempLabel.ForeColor = Color.Black;
+                }
+            }
+        }
+
+        private void Label_Click(object sender, EventArgs e)
+        {
+            Label tempLabel = sender as Label;
+            RepoCell tempCell = null;
+
+            foreach(RepoCell cell in TagRepoData.All_Repos)
+            {
+                if(cell.RepoControl == tempLabel)
+                {
+                    tempCell = cell;
+                    break;
+                }
+            }
+
+            if(tempCell != null)
+            {
+                if(tempCell.Checked)
+                {
+                    tempCell.Checked = false;
+                    tempLabel.BackColor = Color.Transparent;
+                    tempLabel.ForeColor = Color.Black;
+                    TagRepoData.Selected_Repos.Remove(tempCell);
+                }
+
+                else
+                {
+                    tempCell.Checked = true;
+                    tempLabel.BackColor = Color.Black;
+                    tempLabel.ForeColor = Color.White;
+                    TagRepoData.Selected_Repos.Add(tempCell);
+                }
+            }
+        }
+
+        private void TagRepoFRM_Load(object sender, EventArgs e)
+        {
+            TagRepoData.All_Repos = new List<RepoCell>();
+            TagRepoData.Selected_Repos = new List<RepoCell>();
         }
     }
 }

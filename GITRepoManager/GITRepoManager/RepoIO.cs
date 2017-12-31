@@ -275,15 +275,23 @@ namespace GITRepoManager
             {
                 List<DirectoryInfo> dir = new List<DirectoryInfo>();
 
-                foreach(string subdir in Directory.GetDirectories(path))
+                if(path.Contains(".git"))
                 {
-                    if (subdir.Contains(".git"))
+                    dir.Add(new DirectoryInfo(path));
+                }
+                
+                else
+                {
+                    foreach(string subdir in Directory.GetDirectories(path))
                     {
-                        dir.Add(new DirectoryInfo(subdir));
+                        if (subdir.Contains(".git"))
+                        {
+                            dir.Add(new DirectoryInfo(subdir));
+                        }
                     }
                 }
 
-                return dir;
+                return dir.OrderBy(x => x.FullName).ToList();
             }
 
         #endregion
@@ -360,6 +368,32 @@ namespace GITRepoManager
                 cmdProc.StartInfo.UseShellExecute = false;
 
                 return cmdProc;
+            }
+
+        #endregion
+
+
+        #region Get Directory Name
+
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              #
+         *   #                                                                              #
+         *   # Usage:               #
+         *   #                                                                              #
+         *   # Parameters:          #   
+         *   #                                                                              #
+         *   # Returns:             #
+         *   #                                                                              #
+         *   # Last Date Modified:  #
+         *   #                                                                              #
+         *   # Last Modified By:    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
+            public static string Repo_Name(DirectoryInfo dir)
+            {
+                return dir.Name.Substring(0, dir.Name.Length - 4);
             }
 
         #endregion
