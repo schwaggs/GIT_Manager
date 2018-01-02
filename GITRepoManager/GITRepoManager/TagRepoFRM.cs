@@ -143,24 +143,43 @@ namespace GITRepoManager
 
         private void RepoSourceTB_TextChanged(object sender, EventArgs e)
         {
-            foreach(DirectoryInfo dir in RepoIO.List_Directory(RepoSourceTB.Text))
-            {
-                RepoCell temp = new RepoCell();
-                temp.RepoName = RepoIO.Repo_Name(dir);
-                temp.Checked = false;
-                temp.RepoDirInfo = dir;
-                temp.RepoControl = BlankLabel(temp.RepoName);
-                TagRepoData.All_Repos.Add(temp);
-                flowLayoutPanel1.Controls.Add(temp.RepoControl);
-            }
-        }
+            int repoCount = 0;
+            numericUpDown1.Visible = false;
+            SearchResultsP.Visible = false;
+            SelectAllBT.Visible = false;
+            ClearAllBT.Visible = false;
+            flowLayoutPanel1.Controls.Clear();
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
-        {
-            foreach (Label lb in flowLayoutPanel1.Controls.OfType<Label>())
+            if (string.IsNullOrEmpty(RepoSourceTB.Text) || string.IsNullOrWhiteSpace(RepoSourceTB.Text))
             {
-                lb.Font = new Font(lb.Font.FontFamily, trackBar1.Value, FontStyle.Regular);
-                lb.Refresh();
+                TagRepoStatusTB.Text = "Select directory to search for repositories.";
+            }
+
+            else
+            {
+                TagRepoStatusTB.Text = "0 repositories found.";
+
+                foreach (DirectoryInfo dir in RepoIO.List_Directory(RepoSourceTB.Text))
+                {
+                    RepoCell temp = new RepoCell();
+                    temp.RepoName = RepoIO.Repo_Name(dir);
+                    temp.Checked = false;
+                    temp.RepoDirInfo = dir;
+                    temp.RepoControl = BlankLabel(temp.RepoName);
+                    TagRepoData.All_Repos.Add(temp);
+                    flowLayoutPanel1.Controls.Add(temp.RepoControl);
+                    repoCount++;
+
+                    if (!numericUpDown1.Visible && repoCount == 1)
+                    {
+                        numericUpDown1.Visible = true;
+                        SearchResultsP.Visible = true;
+                        SelectAllBT.Visible = true;
+                        ClearAllBT.Visible = true;
+                    }
+                }
+
+                TagRepoStatusTB.Text = (repoCount + " repositories found.");
             }
         }
 
@@ -168,6 +187,8 @@ namespace GITRepoManager
         {
             Label tempLabel = sender as Label;
             RepoCell tempCell = null;
+            tempLabel.Cursor = Cursors.Hand;
+
 
             foreach (RepoCell cell in TagRepoData.All_Repos)
             {
@@ -178,9 +199,14 @@ namespace GITRepoManager
                 }
             }
 
-            tempLabel.Cursor = Cursors.Hand;
-            tempLabel.BackColor = Color.Black;
-            tempLabel.ForeColor = Color.White;
+            if (tempCell != null)
+            {
+                if (!tempCell.Checked)
+                {
+                    tempLabel.BackColor = Color.Black;
+                    tempLabel.ForeColor = Color.White;
+                }
+            }
         }
 
         private void Label_MouseLeave(object sender, EventArgs e)
@@ -230,6 +256,7 @@ namespace GITRepoManager
                     tempLabel.BackColor = Color.Transparent;
                     tempLabel.ForeColor = Color.Black;
                     TagRepoData.Selected_Repos.Remove(tempCell);
+                    TagRepoStatusTB.Text = (TagRepoData.Selected_Repos.Count + " repositories selected.");
                 }
 
                 else
@@ -238,6 +265,7 @@ namespace GITRepoManager
                     tempLabel.BackColor = Color.Black;
                     tempLabel.ForeColor = Color.White;
                     TagRepoData.Selected_Repos.Add(tempCell);
+                    TagRepoStatusTB.Text = (TagRepoData.Selected_Repos.Count + " repositories selected.");
                 }
             }
         }
@@ -246,6 +274,54 @@ namespace GITRepoManager
         {
             TagRepoData.All_Repos = new List<RepoCell>();
             TagRepoData.Selected_Repos = new List<RepoCell>();
+            TagRepoStatusTB.Text = "Select directory to search for repositories.";
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            foreach (Label lb in flowLayoutPanel1.Controls.OfType<Label>())
+            {
+                lb.Font = new Font(lb.Font.FontFamily, (float)numericUpDown1.Value, FontStyle.Regular);
+                lb.Refresh();
+            }
+        }
+
+        private void SelectAllBT_Click(object sender, EventArgs e)
+        {
+            foreach (Label lb in flowLayoutPanel1.Controls.OfType<Label>())
+            {
+                lb.BackColor = Color.Black;
+                lb.ForeColor = Color.White;
+                lb.Refresh();
+            }
+
+            foreach(RepoCell rc in TagRepoData.All_Repos)
+            {
+                rc.Checked = true;
+            }
+
+            TagRepoData.Selected_Repos = TagRepoData.All_Repos;
+
+            TagRepoStatusTB.Text = (TagRepoData.Selected_Repos.Count + " repositories selected.");
+        }
+
+        private void ClearAllBT_Click(object sender, EventArgs e)
+        {
+            foreach (Label lb in flowLayoutPanel1.Controls.OfType<Label>())
+            {
+                lb.BackColor = Color.Transparent;
+                lb.ForeColor = Color.Black;
+                lb.Refresh();
+            }
+
+            TagRepoData.Selected_Repos.Clear();
+
+            foreach (RepoCell rc in TagRepoData.All_Repos)
+            {
+                rc.Checked = false;
+            }
+
+            TagRepoStatusTB.Text = (TagRepoData.Selected_Repos.Count + " repositories selected.");
         }
     }
 }

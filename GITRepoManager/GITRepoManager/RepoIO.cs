@@ -282,12 +282,21 @@ namespace GITRepoManager
                 
                 else
                 {
-                    foreach(string subdir in Directory.GetDirectories(path))
+                    try
                     {
-                        if (subdir.Contains(".git"))
+                        foreach(string subdir in Directory.GetDirectories(path))
                         {
-                            dir.Add(new DirectoryInfo(subdir));
+                            if (subdir.Contains(".git"))
+                            {
+                                dir.Add(new DirectoryInfo(subdir));
+                            }
                         }
+                    }
+
+                    catch
+                    {
+                        dir.Clear();
+                        return dir;
                     }
                 }
 
