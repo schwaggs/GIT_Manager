@@ -143,11 +143,12 @@ namespace GITRepoManager
 
         private void RepoSourceTB_TextChanged(object sender, EventArgs e)
         {
-            int repoCount = 0;
+            TagRepoData.Selected_Repos_Count = 0;
             numericUpDown1.Visible = false;
             SearchResultsP.Visible = false;
             SelectAllBT.Visible = false;
-            ClearAllBT.Visible = false;
+            SelectNoneBT.Visible = false;
+            EditSelectedBT.Visible = false;
             flowLayoutPanel1.Controls.Clear();
 
             if (string.IsNullOrEmpty(RepoSourceTB.Text) || string.IsNullOrWhiteSpace(RepoSourceTB.Text))
@@ -157,7 +158,8 @@ namespace GITRepoManager
 
             else
             {
-                TagRepoStatusTB.Text = "0 repositories found.";
+                TagRepoStatusTB.Text = "0 repositories found."; 
+                TagRepoData.All_Repos.Clear();
 
                 foreach (DirectoryInfo dir in RepoIO.List_Directory(RepoSourceTB.Text))
                 {
@@ -166,107 +168,57 @@ namespace GITRepoManager
                     temp.Checked = false;
                     temp.RepoDirInfo = dir;
                     temp.RepoControl = BlankLabel(temp.RepoName);
+
                     TagRepoData.All_Repos.Add(temp);
                     flowLayoutPanel1.Controls.Add(temp.RepoControl);
-                    repoCount++;
 
-                    if (!numericUpDown1.Visible && repoCount == 1)
+                    if (!numericUpDown1.Visible && TagRepoData.All_Repos.Count == 1)
                     {
                         numericUpDown1.Visible = true;
                         SearchResultsP.Visible = true;
                         SelectAllBT.Visible = true;
-                        ClearAllBT.Visible = true;
+                        SelectNoneBT.Visible = true;
                     }
                 }
 
-                TagRepoStatusTB.Text = (repoCount + " repositories found.");
+                TagRepoStatusTB.Text = (TagRepoData.All_Repos.Count + " repositories found.");
             }
         }
 
         private void Label_MouseEnter(object sender, EventArgs e)
         {
             Label tempLabel = sender as Label;
-            RepoCell tempCell = null;
+
             tempLabel.Cursor = Cursors.Hand;
-
-
-            foreach (RepoCell cell in TagRepoData.All_Repos)
-            {
-                if (cell.RepoControl == tempLabel)
-                {
-                    tempCell = cell;
-                    break;
-                }
-            }
-
-            if (tempCell != null)
-            {
-                if (!tempCell.Checked)
-                {
-                    tempLabel.BackColor = Color.Black;
-                    tempLabel.ForeColor = Color.White;
-                }
-            }
+            tempLabel.BackColor = Color.Black;
+            tempLabel.ForeColor = Color.White;
         }
 
         private void Label_MouseLeave(object sender, EventArgs e)
         {
             Label tempLabel = sender as Label;
-            RepoCell tempCell = null;
 
-            foreach (RepoCell cell in TagRepoData.All_Repos)
+            if (!TagRepoMethods.Checked(sender))
             {
-                if (cell.RepoControl == tempLabel)
-                {
-                    tempCell = cell;
-                    break;
-                }
-            }
-
-            if (tempCell != null)
-            {
-                if (!tempCell.Checked)
-                {
-                    tempLabel.Cursor = Cursors.Default;
-                    tempLabel.BackColor = Color.Transparent;
-                    tempLabel.ForeColor = Color.Black;
-                }
+                tempLabel.Cursor = Cursors.Default;
+                tempLabel.BackColor = Color.Transparent;
+                tempLabel.ForeColor = Color.Black;
             }
         }
 
         private void Label_Click(object sender, EventArgs e)
         {
-            Label tempLabel = sender as Label;
-            RepoCell tempCell = null;
+            TagRepoMethods.Toggle_Selection(sender);
+            TagRepoStatusTB.Text = (TagRepoData.Selected_Repos_Count + " repositories selected.");
 
-            foreach(RepoCell cell in TagRepoData.All_Repos)
+            if (TagRepoData.Selected_Repos_Count > 0)
             {
-                if(cell.RepoControl == tempLabel)
-                {
-                    tempCell = cell;
-                    break;
-                }
+                EditSelectedBT.Visible = true;
             }
 
-            if(tempCell != null)
+            else
             {
-                if(tempCell.Checked)
-                {
-                    tempCell.Checked = false;
-                    tempLabel.BackColor = Color.Transparent;
-                    tempLabel.ForeColor = Color.Black;
-                    TagRepoData.Selected_Repos.Remove(tempCell);
-                    TagRepoStatusTB.Text = (TagRepoData.Selected_Repos.Count + " repositories selected.");
-                }
-
-                else
-                {
-                    tempCell.Checked = true;
-                    tempLabel.BackColor = Color.Black;
-                    tempLabel.ForeColor = Color.White;
-                    TagRepoData.Selected_Repos.Add(tempCell);
-                    TagRepoStatusTB.Text = (TagRepoData.Selected_Repos.Count + " repositories selected.");
-                }
+                EditSelectedBT.Visible = false;
             }
         }
 
@@ -295,14 +247,11 @@ namespace GITRepoManager
                 lb.Refresh();
             }
 
-            foreach(RepoCell rc in TagRepoData.All_Repos)
-            {
-                rc.Checked = true;
-            }
+            TagRepoMethods.Select_All_Repos();
 
-            TagRepoData.Selected_Repos = TagRepoData.All_Repos;
+            TagRepoStatusTB.Text = (TagRepoData.All_Repos.Count + " repositories selected.");
 
-            TagRepoStatusTB.Text = (TagRepoData.Selected_Repos.Count + " repositories selected.");
+            EditSelectedBT.Visible = true;
         }
 
         private void ClearAllBT_Click(object sender, EventArgs e)
@@ -314,14 +263,206 @@ namespace GITRepoManager
                 lb.Refresh();
             }
 
-            TagRepoData.Selected_Repos.Clear();
+            TagRepoMethods.Deselect_All_Repos();
 
-            foreach (RepoCell rc in TagRepoData.All_Repos)
+            TagRepoStatusTB.Text = (TagRepoData.Selected_Repos_Count + " repositories selected.");
+
+            EditSelectedBT.Visible = false;
+        }
+
+        private void EditSelectedBT_Click(object sender, EventArgs e)
+        {
+            if (TagRepoMethods.Populate_Selected_List())
             {
-                rc.Checked = false;
+                MainViewP.Visible = false;
+                EditViewP.Visible = true;
+
+                RepositoriesLV.Items.Clear();
+
+                TagRepoData.Repo_Tags = new Dictionary<string, List<string>>();
+
+                // Populate dictionary with tags from tag file
+                int i = 1;
+
+                foreach (RepoCell rc in TagRepoData.Selected_Repos)
+                {
+                    List<string> temp = new List<string>()
+                    {
+                        "test " + i,
+                        "test"
+                    };
+
+                    TagRepoData.Repo_Tags.Add(rc.RepoName, temp);
+
+                    ListViewItem lvi = new ListViewItem
+                    {
+                        Name = rc.RepoName,
+                        Text = rc.RepoName
+                    };
+
+                    RepositoriesLV.Items.Add(lvi);
+                    i++;
+                }
+
+                TagRepoData.CurrentView = EditViewP;
+                EditViewP.Refresh();
+            }
+        }
+
+        private void EditSelectedBT_MouseEnter(object sender, EventArgs e)
+        {
+            EditSelectedBT.BackgroundImage = Properties.Resources.Edit_Icon_Hover;
+            Cursor = Cursors.Hand;
+        }
+
+        private void EditSelectedBT_MouseLeave(object sender, EventArgs e)
+        {
+            EditSelectedBT.BackgroundImage = Properties.Resources.Edit_Icon;
+            Cursor = Cursors.Default;
+        }
+
+        private void SelectAllBT_MouseEnter(object sender, EventArgs e)
+        {
+            SelectAllBT.BackgroundImage = Properties.Resources.Select_All_Icon_Hover;
+            Cursor = Cursors.Hand;
+        }
+
+        private void SelectAllBT_MouseLeave(object sender, EventArgs e)
+        {
+            SelectAllBT.BackgroundImage = Properties.Resources.Select_All_Icon;
+            Cursor = Cursors.Default;
+        }
+
+        private void SelectNoneBT_MouseEnter(object sender, EventArgs e)
+        {
+            SelectNoneBT.BackgroundImage = Properties.Resources.Select_None_Icon_Hover;
+            Cursor = Cursors.Hand;
+        }
+
+        private void SelectNoneBT_MouseLeave(object sender, EventArgs e)
+        {
+            SelectNoneBT.BackgroundImage = Properties.Resources.Select_None_Icon;
+            Cursor = Cursors.Default;
+        }
+
+        private void MainViewBT_Click(object sender, EventArgs e)
+        {
+            EditViewP.Visible = false;
+            MainViewP.Visible = true;
+            TagRepoData.CurrentView = MainViewP;
+        }
+
+        private void MainViewBT_MouseEnter(object sender, EventArgs e)
+        {
+            MainViewBT.BackgroundImage = Properties.Resources.Back_Icon_Hover;
+        }
+
+        private void MainViewBT_MouseLeave(object sender, EventArgs e)
+        {
+            MainViewBT.BackgroundImage = Properties.Resources.Back_Icon;
+        }
+
+        private void Control1BT_Click(object sender, EventArgs e)
+        {
+            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0)
+            {
+                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                {
+                    MessageBox.Show("Add tag to " + lvi.Name);
+
+                }
             }
 
-            TagRepoStatusTB.Text = (TagRepoData.Selected_Repos.Count + " repositories selected.");
+            else if (TagsLV.SelectedItems.Count > 0)
+            {
+                string tagName = "";
+                string repoName = "";
+
+                foreach (ListViewItem lvi in TagsLV.SelectedItems)
+                {
+                    tagName = lvi.Name;
+                }
+
+                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                {
+                    repoName = lvi.Name;
+                }
+
+
+                TagRepoData.Repo_Tags[repoName].Remove(tagName);
+                TagsLV.Refresh();
+            }
+        }
+
+        private void EditViewP_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void RepositoriesLV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TagsLV.Items.Clear();
+            Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+
+            RepoCell tempCell = null;
+
+            foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+            {
+                tempCell = TagRepoMethods.Find_Repo_Cell(lvi.Name);
+            }
+
+            if (tempCell != null)
+            {
+                foreach (string tag in TagRepoData.Repo_Tags[tempCell.RepoName])
+                {
+                    ListViewItem lvi = new ListViewItem
+                    {
+                        Name = tag,
+                        Text = tag
+                    };
+
+                    TagsLV.Items.Add(lvi);
+                }
+            }
+        }
+
+        private void TagsLV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TagsLV.SelectedItems.Count > 0)
+            {
+                Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon;
+            }
+
+            else
+            {
+                Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+            }
+        }
+
+        private void Control1BT_MouseEnter(object sender, EventArgs e)
+        {
+            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0)
+            {
+                Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
+            }
+
+            else if (TagsLV.SelectedItems.Count > 0)
+            {
+                Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon_Hover;
+            }
+        }
+
+        private void Control1BT_MouseLeave(object sender, EventArgs e)
+        {
+            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0)
+            {
+                Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+            }
+
+            else if (TagsLV.SelectedItems.Count > 0)
+            {
+                Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon;
+            }
         }
     }
 }

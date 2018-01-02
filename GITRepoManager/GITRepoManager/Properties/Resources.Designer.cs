@@ -19,7 +19,7 @@ namespace GITRepoManager.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,46 @@ namespace GITRepoManager.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Add_Tag_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Add_Tag_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Add_Tag_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Add_Tag_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Back_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Back_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Back_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Back_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -175,6 +215,26 @@ namespace GITRepoManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Delete_Tag_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Delete_Tag_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Delete_Tag_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Delete_Tag_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DeleteIcon {
             get {
                 object obj = ResourceManager.GetObject("DeleteIcon", resourceCulture);
@@ -188,6 +248,26 @@ namespace GITRepoManager.Properties {
         internal static System.Drawing.Bitmap DeleteIcon_Hover {
             get {
                 object obj = ResourceManager.GetObject("DeleteIcon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Edit_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Edit_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Edit_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Edit_Icon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -423,6 +503,46 @@ namespace GITRepoManager.Properties {
         internal static System.Drawing.Bitmap RepositoryIcon_Hover {
             get {
                 object obj = ResourceManager.GetObject("RepositoryIcon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Select_All_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Select_All_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Select_All_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Select_All_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Select_None_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Select_None_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Select_None_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Select_None_Icon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

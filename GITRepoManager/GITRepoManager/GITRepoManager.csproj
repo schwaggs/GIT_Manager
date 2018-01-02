@@ -208,6 +208,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReleaseNotes.css" />
+    <None Include="Resources\Delete_Tag_Icon_Hover.png" />
+    <None Include="Resources\Delete_Tag_Icon.png" />
+    <None Include="Resources\Add_Tag_Icon_Hover.png" />
+    <None Include="Resources\Add_Tag_Icon.png" />
+    <None Include="Resources\Back_Icon_Hover.png" />
+    <None Include="Resources\Back_Icon.png" />
+    <None Include="Resources\Select_None_Icon_Hover.png" />
+    <None Include="Resources\Select_None_Icon.png" />
+    <None Include="Resources\Select_All_Icon_Hover.png" />
+    <None Include="Resources\Select_All_Icon.png" />
+    <None Include="Resources\Edit_Icon_Hover.png" />
+    <None Include="Resources\Edit_Icon.png" />
     <None Include="Resources\RepositoryIcon_Hover.png" />
     <None Include="Resources\RepositoryIcon.png" />
     <None Include="Resources\Log_Icon_Hover.png" />

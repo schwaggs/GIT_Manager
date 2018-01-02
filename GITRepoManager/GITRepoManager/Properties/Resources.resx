@@ -244,4 +244,40 @@
   <data name="RepositoryIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RepositoryIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Edit_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Select_All_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Select_All_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Select_All_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Select_All_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Select_None_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Select_None_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Select_None_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Select_None_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Back_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Back_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Back_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Back_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add_Tag_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add_Tag_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add_Tag_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add_Tag_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete_Tag_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete_Tag_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete_Tag_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete_Tag_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
