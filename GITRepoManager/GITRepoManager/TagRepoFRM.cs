@@ -226,6 +226,7 @@ namespace GITRepoManager
         {
             TagRepoData.All_Repos = new List<RepoCell>();
             TagRepoData.Selected_Repos = new List<RepoCell>();
+            TagRepoData.Temp_Tags = new List<string>();
             TagRepoStatusTB.Text = "Select directory to search for repositories.";
         }
 
@@ -364,20 +365,26 @@ namespace GITRepoManager
 
         private void Control1BT_Click(object sender, EventArgs e)
         {
-            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0)
+            string tagName = "";
+            string repoName = "";
+
+            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
             {
                 foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
                 {
-                    MessageBox.Show("Add tag to " + lvi.Name);
-
+                    repoName = lvi.Name;
                 }
+
+                TagRepoData.Temp_Tags.Clear();
+
+                NewTagP.Visible = true;
+                TempTagsLV.Items.Clear();
+
+                Control1BT.BackgroundImage = Properties.Resources.Back_Icon;
             }
 
-            else if (TagsLV.SelectedItems.Count > 0)
+            else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
             {
-                string tagName = "";
-                string repoName = "";
-
                 foreach (ListViewItem lvi in TagsLV.SelectedItems)
                 {
                     tagName = lvi.Name;
@@ -389,19 +396,43 @@ namespace GITRepoManager
                 }
 
 
-                TagRepoData.Repo_Tags[repoName].Remove(tagName);
-                TagsLV.Refresh();
-            }
-        }
+                try
+                {
+                    TagRepoData.Repo_Tags[repoName].Remove(tagName);
+                }
 
-        private void EditViewP_MouseClick(object sender, MouseEventArgs e)
-        {
-            
+                catch
+                {
+                    return;
+                }
+
+                Repopulate_Tags(repoName);
+            }
+
+            else if (NewTagP.Visible)
+            {
+                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                {
+                    repoName = lvi.Name;
+                }
+
+                foreach (string newtag in TagRepoData.Temp_Tags)
+                {
+                    TagRepoData.Repo_Tags[repoName].Add(newtag);
+                }
+
+                Repopulate_Tags(repoName);
+
+                NewTagP.Visible = false;
+
+                Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+            }
         }
 
         private void RepositoriesLV_SelectedIndexChanged(object sender, EventArgs e)
         {
             TagsLV.Items.Clear();
+            Control1BT.Visible = true;
             Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
 
             RepoCell tempCell = null;
@@ -441,28 +472,103 @@ namespace GITRepoManager
 
         private void Control1BT_MouseEnter(object sender, EventArgs e)
         {
-            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0)
+            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
             {
                 Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
             }
 
-            else if (TagsLV.SelectedItems.Count > 0)
+            else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
             {
                 Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon_Hover;
+            }
+
+            else if (NewTagP.Visible)
+            {
+                Control1BT.BackgroundImage = Properties.Resources.Back_Icon_Hover;
             }
         }
 
         private void Control1BT_MouseLeave(object sender, EventArgs e)
         {
-            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0)
+            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
             {
                 Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
             }
 
-            else if (TagsLV.SelectedItems.Count > 0)
+            else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
             {
                 Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon;
             }
+
+            else if (NewTagP.Visible)
+            {
+                Control1BT.BackgroundImage = Properties.Resources.Back_Icon;
+            }
+        }
+
+        private void Repopulate_Tags(string repo)
+        {
+            TagsLV.Items.Clear();
+
+            foreach (string tag in TagRepoData.Repo_Tags[repo])
+            {
+                ListViewItem lvi = new ListViewItem
+                {
+                    Name = tag,
+                    Text = tag
+                };
+
+                TagsLV.Items.Add(lvi);
+            }
+        }
+
+        private void Add_Tag()
+        {
+            if (string.IsNullOrEmpty(NewTagTB.Text) || string.IsNullOrWhiteSpace(NewTagTB.Text))
+            {
+                return;
+            }
+
+            TagRepoData.Temp_Tags.Add(NewTagTB.Text);
+            TempTagsLV.Items.Clear();
+
+            foreach (string tag in TagRepoData.Temp_Tags)
+            {
+                ListViewItem lvi = new ListViewItem
+                {
+                    Name = tag,
+                    Text = tag
+                };
+
+                TempTagsLV.Items.Add(lvi);
+            }
+
+            TempTagsLV.Refresh();
+
+            NewTagTB.Clear();
+        }
+
+        private void AddTagBT_Click(object sender, EventArgs e)
+        {
+            Add_Tag();
+        }
+
+        private void NewTagTB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                Add_Tag();
+            }
+        }
+
+        private void AddTagBT_MouseEnter(object sender, EventArgs e)
+        {
+            AddTagBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
+        }
+
+        private void AddTagBT_MouseLeave(object sender, EventArgs e)
+        {
+            AddTagBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
         }
     }
 }

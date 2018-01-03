@@ -41,9 +41,15 @@
             this.MainViewP = new System.Windows.Forms.Panel();
             this.EditViewP = new System.Windows.Forms.Panel();
             this.TagsLV = new System.Windows.Forms.ListView();
+            this.Tags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RepositoriesLV = new System.Windows.Forms.ListView();
             this.Repositories = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Tags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.NewTagP = new System.Windows.Forms.Panel();
+            this.TempTagsLV = new System.Windows.Forms.ListView();
+            this.TempTagsColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.NewTagTB = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AddTagBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.Control1BT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.MainViewBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.BrowseRepoSourceBT = new GITRepoManager.NoFocusSelectionRectangleButton();
@@ -56,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.MainViewP.SuspendLayout();
             this.EditViewP.SuspendLayout();
+            this.NewTagP.SuspendLayout();
             this.SuspendLayout();
             // 
             // SearchListIL
@@ -192,7 +199,6 @@
             this.EditViewP.Size = new System.Drawing.Size(457, 404);
             this.EditViewP.TabIndex = 0;
             this.EditViewP.Visible = false;
-            this.EditViewP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.EditViewP_MouseClick);
             // 
             // TagsLV
             // 
@@ -214,6 +220,11 @@
             this.TagsLV.UseCompatibleStateImageBehavior = false;
             this.TagsLV.View = System.Windows.Forms.View.Details;
             this.TagsLV.SelectedIndexChanged += new System.EventHandler(this.TagsLV_SelectedIndexChanged);
+            // 
+            // Tags
+            // 
+            this.Tags.Text = "Tags";
+            this.Tags.Width = 210;
             // 
             // RepositoriesLV
             // 
@@ -240,10 +251,76 @@
             this.Repositories.Text = "Repositories";
             this.Repositories.Width = 217;
             // 
-            // Tags
+            // NewTagP
             // 
-            this.Tags.Text = "Tags";
-            this.Tags.Width = 210;
+            this.NewTagP.AutoSize = true;
+            this.NewTagP.Controls.Add(this.TempTagsLV);
+            this.NewTagP.Controls.Add(this.NewTagTB);
+            this.NewTagP.Controls.Add(this.AddTagBT);
+            this.NewTagP.Controls.Add(this.label2);
+            this.NewTagP.Location = new System.Drawing.Point(465, 1);
+            this.NewTagP.Name = "NewTagP";
+            this.NewTagP.Size = new System.Drawing.Size(277, 410);
+            this.NewTagP.TabIndex = 35;
+            this.NewTagP.Visible = false;
+            // 
+            // TempTagsLV
+            // 
+            this.TempTagsLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.TempTagsColumn});
+            this.TempTagsLV.GridLines = true;
+            this.TempTagsLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.TempTagsLV.Location = new System.Drawing.Point(7, 62);
+            this.TempTagsLV.MultiSelect = false;
+            this.TempTagsLV.Name = "TempTagsLV";
+            this.TempTagsLV.Size = new System.Drawing.Size(264, 341);
+            this.TempTagsLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.TempTagsLV.TabIndex = 38;
+            this.TempTagsLV.UseCompatibleStateImageBehavior = false;
+            this.TempTagsLV.View = System.Windows.Forms.View.Details;
+            // 
+            // TempTagsColumn
+            // 
+            this.TempTagsColumn.Text = "";
+            // 
+            // NewTagTB
+            // 
+            this.NewTagTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewTagTB.Location = new System.Drawing.Point(7, 26);
+            this.NewTagTB.Name = "NewTagTB";
+            this.NewTagTB.Size = new System.Drawing.Size(226, 26);
+            this.NewTagTB.TabIndex = 37;
+            this.NewTagTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NewTagTB_KeyPress);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(4, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 16);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "New Tag";
+            // 
+            // AddTagBT
+            // 
+            this.AddTagBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddTagBT.BackColor = System.Drawing.Color.Transparent;
+            this.AddTagBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
+            this.AddTagBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddTagBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.AddTagBT.FlatAppearance.BorderSize = 0;
+            this.AddTagBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AddTagBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AddTagBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddTagBT.Location = new System.Drawing.Point(236, 21);
+            this.AddTagBT.Name = "AddTagBT";
+            this.AddTagBT.Size = new System.Drawing.Size(35, 35);
+            this.AddTagBT.TabIndex = 36;
+            this.AddTagBT.UseVisualStyleBackColor = false;
+            this.AddTagBT.Click += new System.EventHandler(this.AddTagBT_Click);
+            this.AddTagBT.MouseEnter += new System.EventHandler(this.AddTagBT_MouseEnter);
+            this.AddTagBT.MouseLeave += new System.EventHandler(this.AddTagBT_MouseLeave);
             // 
             // Control1BT
             // 
@@ -261,6 +338,7 @@
             this.Control1BT.Size = new System.Drawing.Size(35, 35);
             this.Control1BT.TabIndex = 35;
             this.Control1BT.UseVisualStyleBackColor = false;
+            this.Control1BT.Visible = false;
             this.Control1BT.Click += new System.EventHandler(this.Control1BT_Click);
             this.Control1BT.MouseEnter += new System.EventHandler(this.Control1BT_MouseEnter);
             this.Control1BT.MouseLeave += new System.EventHandler(this.Control1BT_MouseLeave);
@@ -375,7 +453,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(469, 422);
+            this.ClientSize = new System.Drawing.Size(750, 422);
+            this.Controls.Add(this.NewTagP);
             this.Controls.Add(this.EditViewP);
             this.Controls.Add(this.MainViewP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -394,6 +473,8 @@
             this.MainViewP.ResumeLayout(false);
             this.MainViewP.PerformLayout();
             this.EditViewP.ResumeLayout(false);
+            this.NewTagP.ResumeLayout(false);
+            this.NewTagP.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -421,5 +502,11 @@
         private System.Windows.Forms.ColumnHeader Repositories;
         private NoFocusSelectionRectangleButton Control1BT;
         private System.Windows.Forms.ColumnHeader Tags;
+        private System.Windows.Forms.Panel NewTagP;
+        private System.Windows.Forms.TextBox NewTagTB;
+        private NoFocusSelectionRectangleButton AddTagBT;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListView TempTagsLV;
+        private System.Windows.Forms.ColumnHeader TempTagsColumn;
     }
 }

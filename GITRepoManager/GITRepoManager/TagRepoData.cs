@@ -15,5 +15,6 @@ namespace GITRepoManager
         public static List<RepoCell> All_Repos { get; set; }
         public static Panel CurrentView { get; set; }
         public static Dictionary<string, List<string>> Repo_Tags { get; set; }
+        public static List<string> Temp_Tags { get; set; }
     }
 }
