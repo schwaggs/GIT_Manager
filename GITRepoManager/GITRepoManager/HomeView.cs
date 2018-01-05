@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace GITRepoManager
 {
     public partial class HomeView : Form
     {
+
         public HomeView()
         {
             InitializeComponent();
@@ -21,7 +23,38 @@ namespace GITRepoManager
 
             private void Form1_Load(object sender, EventArgs e)
             {
-            
+                if
+                (  
+                    Properties.Settings.Default.FirstRun || 
+                    Properties.Settings.Default.RepoListDirIsImpty || 
+                    Properties.Settings.Default.TagListDirIsEmpty ||
+                    Properties.Settings.Default.StatusListDirIsEmpty
+                )
+                {
+                    Properties.Settings.Default.StorageType = (int)Storage.Type.INVALID;
+                    Properties.Settings.Default.Save();
+
+                    MessageBox.Show("You need to configure the program directorires in the settings window", "Setup");
+                    SettingsViewFRM settingsView = new SettingsViewFRM();
+                    settingsView.ShowDialog();
+                }
+
+                if
+                (
+                    Properties.Settings.Default.FirstRun ||
+                    Properties.Settings.Default.RepoListDirIsImpty ||
+                    Properties.Settings.Default.TagListDirIsEmpty ||
+                    Properties.Settings.Default.StatusListDirIsEmpty
+                )
+                {
+                    Close();
+                }
+
+                // Check if directories/files exist
+
+
+                // Populate appropriate fields
+
             }
 
         #endregion
@@ -212,12 +245,54 @@ namespace GITRepoManager
                             TagRepo.ShowDialog();
                         }
 
-                    #endregion
-
-                #endregion
-        
-            #endregion
+        #endregion
 
         #endregion
+
+        #endregion
+
+        #endregion
+
+        #region Settings Button
+
+            private void SettingsBT_Click(object sender, EventArgs e)
+            {
+                SettingsViewFRM SettingsView = new SettingsViewFRM();
+                SettingsView.ShowDialog();
+            }
+
+            private void SettingsBT_MouseEnter(object sender, EventArgs e)
+            {
+                SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon_Hover;
+                ButtonDescriptionSSLB.Text = Properties.Resources.SETTINGS_COMMAND_INFO;
+            }
+
+
+            private void SettingsBT_MouseLeave(object sender, EventArgs e)
+            {
+                SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon;
+                ButtonDescriptionSSLB.Text = string.Empty;
+            }
+
+
+        #endregion
+
+        private void RepoLogBT_Click(object sender, EventArgs e)
+        {
+            LogViewFRM LogView = new LogViewFRM();
+            LogView.ShowDialog();
+        }
+
+        private void RepoLogBT_MouseEnter(object sender, EventArgs e)
+        {
+            RepoLogBT.BackgroundImage = Properties.Resources.Log_Icon_Hover;
+            ButtonDescriptionSSLB.Text = Properties.Resources.LOG_REPO_COMMAND_INFO;
+        }
+
+        private void RepoLogBT_MouseLeave(object sender, EventArgs e)
+        {
+            RepoLogBT.BackgroundImage = Properties.Resources.Log_Icon;
+            ButtonDescriptionSSLB.Text = string.Empty;
+        }
     }
 }

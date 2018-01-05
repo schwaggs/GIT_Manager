@@ -55,6 +55,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,12 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administration.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Administration.Designer.cs">
-      <DependentUpon>Administration.cs</DependentUpon>
-    </Compile>
     <Compile Include="CloneRepoData.cs" />
     <Compile Include="CloneRepoFRM.cs">
       <SubType>Form</SubType>
@@ -88,11 +83,18 @@
       <DependentUpon>DeleteRepoFRM.cs</DependentUpon>
     </Compile>
     <Compile Include="DeleteRepoMethods.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="HomeView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HomeView.Designer.cs">
       <DependentUpon>HomeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogViewFRM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogViewFRM.Designer.cs">
+      <DependentUpon>LogViewFRM.cs</DependentUpon>
     </Compile>
     <Compile Include="MoveRepoData.cs" />
     <Compile Include="MoveRepoFRM.cs">
@@ -123,6 +125,13 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="SettingsViewFRM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsViewFRM.Designer.cs">
+      <DependentUpon>SettingsViewFRM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Storage.cs" />
     <Compile Include="TagRepoData.cs" />
     <Compile Include="TagRepoFRM.cs">
       <SubType>Form</SubType>
@@ -140,6 +149,9 @@
     <EmbeddedResource Include="HomeView.resx">
       <DependentUpon>HomeView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LogViewFRM.resx">
+      <DependentUpon>LogViewFRM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MoveRepoFRM.resx">
       <DependentUpon>MoveRepoFRM.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,6 +168,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SettingsViewFRM.resx">
+      <DependentUpon>SettingsViewFRM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TagRepoFRM.resx">
       <DependentUpon>TagRepoFRM.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +223,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReleaseNotes.css" />
+    <None Include="Resources\Reset_Settings_Icon_Hover.png" />
+    <None Include="Resources\Reset_Settings_Icon.png" />
+    <None Include="Resources\Save_Settings_Icon_Hover.png" />
+    <None Include="Resources\Save_Settings_Icon.png" />
+    <None Include="Resources\Settings_Icon_Hover.png" />
+    <None Include="Resources\Settings_Icon.png" />
     <None Include="Resources\Delete_Tag_Icon_Hover.png" />
     <None Include="Resources\Delete_Tag_Icon.png" />
     <None Include="Resources\Add_Tag_Icon_Hover.png" />

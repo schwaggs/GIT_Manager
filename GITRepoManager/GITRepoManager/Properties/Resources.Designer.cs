@@ -101,6 +101,15 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BACKUP_LOCATION {
+            get {
+                return ResourceManager.GetString("BACKUP_LOCATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Browse_Icon {
@@ -303,12 +312,20 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to git log &gt; {0}.
         /// </summary>
-        internal static System.Drawing.Bitmap Log_Icon1 {
+        internal static string LOG_REPO_COMMAND {
             get {
-                object obj = ResourceManager.GetObject("Log_Icon1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("LOG_REPO_COMMAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opens the log viewer window..
+        /// </summary>
+        internal static string LOG_REPO_COMMAND_INFO {
+            get {
+                return ResourceManager.GetString("LOG_REPO_COMMAND_INFO", resourceCulture);
             }
         }
         
@@ -479,11 +496,29 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string REPO_LIST_LOCATION {
+            get {
+                return ResourceManager.GetString("REPO_LIST_LOCATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  push -u origin master.
         /// </summary>
         internal static string REPO_PUSH_ORIGIN_MASTER {
             get {
                 return ResourceManager.GetString("REPO_PUSH_ORIGIN_MASTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string REPO_TAGS_LOCATION {
+            get {
+                return ResourceManager.GetString("REPO_TAGS_LOCATION", resourceCulture);
             }
         }
         
@@ -503,6 +538,46 @@ namespace GITRepoManager.Properties {
         internal static System.Drawing.Bitmap RepositoryIcon_Hover {
             get {
                 object obj = ResourceManager.GetObject("RepositoryIcon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Reset_Settings_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Reset_Settings_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Reset_Settings_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Reset_Settings_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Save_Settings_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Save_Settings_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Save_Settings_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Save_Settings_Icon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -543,6 +618,35 @@ namespace GITRepoManager.Properties {
         internal static System.Drawing.Bitmap Select_None_Icon_Hover {
             get {
                 object obj = ResourceManager.GetObject("Select_None_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opens the settings view..
+        /// </summary>
+        internal static string SETTINGS_COMMAND_INFO {
+            get {
+                return ResourceManager.GetString("SETTINGS_COMMAND_INFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Settings_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Settings_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Settings_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Settings_Icon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

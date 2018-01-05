@@ -37,25 +37,25 @@
             this.RepoSourceTB = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.BrowseRepoSourceBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.MainViewP = new System.Windows.Forms.Panel();
+            this.SelectNoneBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.SelectAllBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.EditSelectedBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.EditViewP = new System.Windows.Forms.Panel();
+            this.Control1BT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.TagsLV = new System.Windows.Forms.ListView();
             this.Tags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RepositoriesLV = new System.Windows.Forms.ListView();
             this.Repositories = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.MainViewBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.NewTagP = new System.Windows.Forms.Panel();
             this.TempTagsLV = new System.Windows.Forms.ListView();
             this.TempTagsColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NewTagTB = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.AddTagBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.Control1BT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.MainViewBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.BrowseRepoSourceBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.SelectNoneBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.SelectAllBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.EditSelectedBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.SearchResultsP.SuspendLayout();
             this.TagRepoSS.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -147,6 +147,26 @@
             this.label1.TabIndex = 27;
             this.label1.Text = "Source";
             // 
+            // BrowseRepoSourceBT
+            // 
+            this.BrowseRepoSourceBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BrowseRepoSourceBT.BackColor = System.Drawing.Color.Transparent;
+            this.BrowseRepoSourceBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Browse_Icon;
+            this.BrowseRepoSourceBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BrowseRepoSourceBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.BrowseRepoSourceBT.FlatAppearance.BorderSize = 0;
+            this.BrowseRepoSourceBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BrowseRepoSourceBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BrowseRepoSourceBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowseRepoSourceBT.Location = new System.Drawing.Point(385, 6);
+            this.BrowseRepoSourceBT.Name = "BrowseRepoSourceBT";
+            this.BrowseRepoSourceBT.Size = new System.Drawing.Size(52, 64);
+            this.BrowseRepoSourceBT.TabIndex = 26;
+            this.BrowseRepoSourceBT.UseVisualStyleBackColor = false;
+            this.BrowseRepoSourceBT.Click += new System.EventHandler(this.BrowseRepoSourceBT_Click);
+            this.BrowseRepoSourceBT.MouseEnter += new System.EventHandler(this.BrowseRepoSourceBT_MouseEnter);
+            this.BrowseRepoSourceBT.MouseLeave += new System.EventHandler(this.BrowseRepoSourceBT_MouseLeave);
+            // 
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -187,201 +207,6 @@
             this.MainViewP.Name = "MainViewP";
             this.MainViewP.Size = new System.Drawing.Size(457, 410);
             this.MainViewP.TabIndex = 34;
-            // 
-            // EditViewP
-            // 
-            this.EditViewP.Controls.Add(this.Control1BT);
-            this.EditViewP.Controls.Add(this.TagsLV);
-            this.EditViewP.Controls.Add(this.RepositoriesLV);
-            this.EditViewP.Controls.Add(this.MainViewBT);
-            this.EditViewP.Location = new System.Drawing.Point(1, 4);
-            this.EditViewP.Name = "EditViewP";
-            this.EditViewP.Size = new System.Drawing.Size(457, 404);
-            this.EditViewP.TabIndex = 0;
-            this.EditViewP.Visible = false;
-            // 
-            // TagsLV
-            // 
-            this.TagsLV.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.TagsLV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TagsLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Tags});
-            this.TagsLV.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TagsLV.FullRowSelect = true;
-            this.TagsLV.GridLines = true;
-            this.TagsLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.TagsLV.HideSelection = false;
-            this.TagsLV.Location = new System.Drawing.Point(236, 45);
-            this.TagsLV.MultiSelect = false;
-            this.TagsLV.Name = "TagsLV";
-            this.TagsLV.Size = new System.Drawing.Size(214, 355);
-            this.TagsLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.TagsLV.TabIndex = 34;
-            this.TagsLV.UseCompatibleStateImageBehavior = false;
-            this.TagsLV.View = System.Windows.Forms.View.Details;
-            this.TagsLV.SelectedIndexChanged += new System.EventHandler(this.TagsLV_SelectedIndexChanged);
-            // 
-            // Tags
-            // 
-            this.Tags.Text = "Tags";
-            this.Tags.Width = 210;
-            // 
-            // RepositoriesLV
-            // 
-            this.RepositoriesLV.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.RepositoriesLV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RepositoriesLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Repositories});
-            this.RepositoriesLV.FullRowSelect = true;
-            this.RepositoriesLV.GridLines = true;
-            this.RepositoriesLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.RepositoriesLV.HideSelection = false;
-            this.RepositoriesLV.Location = new System.Drawing.Point(9, 45);
-            this.RepositoriesLV.MultiSelect = false;
-            this.RepositoriesLV.Name = "RepositoriesLV";
-            this.RepositoriesLV.Size = new System.Drawing.Size(221, 355);
-            this.RepositoriesLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.RepositoriesLV.TabIndex = 33;
-            this.RepositoriesLV.UseCompatibleStateImageBehavior = false;
-            this.RepositoriesLV.View = System.Windows.Forms.View.Details;
-            this.RepositoriesLV.SelectedIndexChanged += new System.EventHandler(this.RepositoriesLV_SelectedIndexChanged);
-            // 
-            // Repositories
-            // 
-            this.Repositories.Text = "Repositories";
-            this.Repositories.Width = 217;
-            // 
-            // NewTagP
-            // 
-            this.NewTagP.AutoSize = true;
-            this.NewTagP.Controls.Add(this.TempTagsLV);
-            this.NewTagP.Controls.Add(this.NewTagTB);
-            this.NewTagP.Controls.Add(this.AddTagBT);
-            this.NewTagP.Controls.Add(this.label2);
-            this.NewTagP.Location = new System.Drawing.Point(465, 1);
-            this.NewTagP.Name = "NewTagP";
-            this.NewTagP.Size = new System.Drawing.Size(277, 410);
-            this.NewTagP.TabIndex = 35;
-            this.NewTagP.Visible = false;
-            // 
-            // TempTagsLV
-            // 
-            this.TempTagsLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.TempTagsColumn});
-            this.TempTagsLV.GridLines = true;
-            this.TempTagsLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.TempTagsLV.Location = new System.Drawing.Point(7, 62);
-            this.TempTagsLV.MultiSelect = false;
-            this.TempTagsLV.Name = "TempTagsLV";
-            this.TempTagsLV.Size = new System.Drawing.Size(264, 341);
-            this.TempTagsLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.TempTagsLV.TabIndex = 38;
-            this.TempTagsLV.UseCompatibleStateImageBehavior = false;
-            this.TempTagsLV.View = System.Windows.Forms.View.Details;
-            // 
-            // TempTagsColumn
-            // 
-            this.TempTagsColumn.Text = "";
-            // 
-            // NewTagTB
-            // 
-            this.NewTagTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewTagTB.Location = new System.Drawing.Point(7, 26);
-            this.NewTagTB.Name = "NewTagTB";
-            this.NewTagTB.Size = new System.Drawing.Size(226, 26);
-            this.NewTagTB.TabIndex = 37;
-            this.NewTagTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NewTagTB_KeyPress);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(4, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 16);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "New Tag";
-            // 
-            // AddTagBT
-            // 
-            this.AddTagBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AddTagBT.BackColor = System.Drawing.Color.Transparent;
-            this.AddTagBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
-            this.AddTagBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AddTagBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.AddTagBT.FlatAppearance.BorderSize = 0;
-            this.AddTagBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.AddTagBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.AddTagBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddTagBT.Location = new System.Drawing.Point(236, 21);
-            this.AddTagBT.Name = "AddTagBT";
-            this.AddTagBT.Size = new System.Drawing.Size(35, 35);
-            this.AddTagBT.TabIndex = 36;
-            this.AddTagBT.UseVisualStyleBackColor = false;
-            this.AddTagBT.Click += new System.EventHandler(this.AddTagBT_Click);
-            this.AddTagBT.MouseEnter += new System.EventHandler(this.AddTagBT_MouseEnter);
-            this.AddTagBT.MouseLeave += new System.EventHandler(this.AddTagBT_MouseLeave);
-            // 
-            // Control1BT
-            // 
-            this.Control1BT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Control1BT.BackColor = System.Drawing.Color.Transparent;
-            this.Control1BT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
-            this.Control1BT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Control1BT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.Control1BT.FlatAppearance.BorderSize = 0;
-            this.Control1BT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.Control1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.Control1BT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Control1BT.Location = new System.Drawing.Point(415, 3);
-            this.Control1BT.Name = "Control1BT";
-            this.Control1BT.Size = new System.Drawing.Size(35, 35);
-            this.Control1BT.TabIndex = 35;
-            this.Control1BT.UseVisualStyleBackColor = false;
-            this.Control1BT.Visible = false;
-            this.Control1BT.Click += new System.EventHandler(this.Control1BT_Click);
-            this.Control1BT.MouseEnter += new System.EventHandler(this.Control1BT_MouseEnter);
-            this.Control1BT.MouseLeave += new System.EventHandler(this.Control1BT_MouseLeave);
-            // 
-            // MainViewBT
-            // 
-            this.MainViewBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.MainViewBT.BackColor = System.Drawing.Color.Transparent;
-            this.MainViewBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Back_Icon;
-            this.MainViewBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.MainViewBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.MainViewBT.FlatAppearance.BorderSize = 0;
-            this.MainViewBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.MainViewBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.MainViewBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MainViewBT.Location = new System.Drawing.Point(6, 3);
-            this.MainViewBT.Name = "MainViewBT";
-            this.MainViewBT.Size = new System.Drawing.Size(35, 35);
-            this.MainViewBT.TabIndex = 29;
-            this.MainViewBT.UseVisualStyleBackColor = false;
-            this.MainViewBT.Click += new System.EventHandler(this.MainViewBT_Click);
-            this.MainViewBT.MouseEnter += new System.EventHandler(this.MainViewBT_MouseEnter);
-            this.MainViewBT.MouseLeave += new System.EventHandler(this.MainViewBT_MouseLeave);
-            // 
-            // BrowseRepoSourceBT
-            // 
-            this.BrowseRepoSourceBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BrowseRepoSourceBT.BackColor = System.Drawing.Color.Transparent;
-            this.BrowseRepoSourceBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Browse_Icon;
-            this.BrowseRepoSourceBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BrowseRepoSourceBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.BrowseRepoSourceBT.FlatAppearance.BorderSize = 0;
-            this.BrowseRepoSourceBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BrowseRepoSourceBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BrowseRepoSourceBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseRepoSourceBT.Location = new System.Drawing.Point(385, 6);
-            this.BrowseRepoSourceBT.Name = "BrowseRepoSourceBT";
-            this.BrowseRepoSourceBT.Size = new System.Drawing.Size(52, 64);
-            this.BrowseRepoSourceBT.TabIndex = 26;
-            this.BrowseRepoSourceBT.UseVisualStyleBackColor = false;
-            this.BrowseRepoSourceBT.Click += new System.EventHandler(this.BrowseRepoSourceBT_Click);
-            this.BrowseRepoSourceBT.MouseEnter += new System.EventHandler(this.BrowseRepoSourceBT_MouseEnter);
-            this.BrowseRepoSourceBT.MouseLeave += new System.EventHandler(this.BrowseRepoSourceBT_MouseLeave);
             // 
             // SelectNoneBT
             // 
@@ -446,6 +271,183 @@
             this.EditSelectedBT.MouseEnter += new System.EventHandler(this.EditSelectedBT_MouseEnter);
             this.EditSelectedBT.MouseLeave += new System.EventHandler(this.EditSelectedBT_MouseLeave);
             // 
+            // EditViewP
+            // 
+            this.EditViewP.Controls.Add(this.Control1BT);
+            this.EditViewP.Controls.Add(this.TagsLV);
+            this.EditViewP.Controls.Add(this.RepositoriesLV);
+            this.EditViewP.Controls.Add(this.MainViewBT);
+            this.EditViewP.Location = new System.Drawing.Point(1, 4);
+            this.EditViewP.Name = "EditViewP";
+            this.EditViewP.Size = new System.Drawing.Size(457, 404);
+            this.EditViewP.TabIndex = 0;
+            this.EditViewP.Visible = false;
+            // 
+            // Control1BT
+            // 
+            this.Control1BT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Control1BT.BackColor = System.Drawing.Color.Transparent;
+            this.Control1BT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
+            this.Control1BT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Control1BT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.Control1BT.FlatAppearance.BorderSize = 0;
+            this.Control1BT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Control1BT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Control1BT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Control1BT.Location = new System.Drawing.Point(415, 3);
+            this.Control1BT.Name = "Control1BT";
+            this.Control1BT.Size = new System.Drawing.Size(35, 35);
+            this.Control1BT.TabIndex = 35;
+            this.Control1BT.UseVisualStyleBackColor = false;
+            this.Control1BT.Visible = false;
+            this.Control1BT.Click += new System.EventHandler(this.Control1BT_Click);
+            this.Control1BT.MouseEnter += new System.EventHandler(this.Control1BT_MouseEnter);
+            this.Control1BT.MouseLeave += new System.EventHandler(this.Control1BT_MouseLeave);
+            // 
+            // TagsLV
+            // 
+            this.TagsLV.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.TagsLV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TagsLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Tags});
+            this.TagsLV.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TagsLV.FullRowSelect = true;
+            this.TagsLV.GridLines = true;
+            this.TagsLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.TagsLV.HideSelection = false;
+            this.TagsLV.Location = new System.Drawing.Point(236, 45);
+            this.TagsLV.MultiSelect = false;
+            this.TagsLV.Name = "TagsLV";
+            this.TagsLV.Size = new System.Drawing.Size(214, 355);
+            this.TagsLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.TagsLV.TabIndex = 34;
+            this.TagsLV.UseCompatibleStateImageBehavior = false;
+            this.TagsLV.View = System.Windows.Forms.View.Details;
+            this.TagsLV.SelectedIndexChanged += new System.EventHandler(this.TagsLV_SelectedIndexChanged);
+            this.TagsLV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TagsLV_KeyDown);
+            // 
+            // Tags
+            // 
+            this.Tags.Text = "Tags";
+            this.Tags.Width = 210;
+            // 
+            // RepositoriesLV
+            // 
+            this.RepositoriesLV.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.RepositoriesLV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RepositoriesLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Repositories});
+            this.RepositoriesLV.FullRowSelect = true;
+            this.RepositoriesLV.GridLines = true;
+            this.RepositoriesLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.RepositoriesLV.HideSelection = false;
+            this.RepositoriesLV.Location = new System.Drawing.Point(9, 45);
+            this.RepositoriesLV.MultiSelect = false;
+            this.RepositoriesLV.Name = "RepositoriesLV";
+            this.RepositoriesLV.Size = new System.Drawing.Size(221, 355);
+            this.RepositoriesLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.RepositoriesLV.TabIndex = 33;
+            this.RepositoriesLV.UseCompatibleStateImageBehavior = false;
+            this.RepositoriesLV.View = System.Windows.Forms.View.Details;
+            this.RepositoriesLV.SelectedIndexChanged += new System.EventHandler(this.RepositoriesLV_SelectedIndexChanged);
+            this.RepositoriesLV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RepositoriesLV_KeyDown);
+            // 
+            // Repositories
+            // 
+            this.Repositories.Text = "Repositories";
+            this.Repositories.Width = 217;
+            // 
+            // MainViewBT
+            // 
+            this.MainViewBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.MainViewBT.BackColor = System.Drawing.Color.Transparent;
+            this.MainViewBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Back_Icon;
+            this.MainViewBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.MainViewBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.MainViewBT.FlatAppearance.BorderSize = 0;
+            this.MainViewBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.MainViewBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.MainViewBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MainViewBT.Location = new System.Drawing.Point(6, 3);
+            this.MainViewBT.Name = "MainViewBT";
+            this.MainViewBT.Size = new System.Drawing.Size(35, 35);
+            this.MainViewBT.TabIndex = 29;
+            this.MainViewBT.UseVisualStyleBackColor = false;
+            this.MainViewBT.Click += new System.EventHandler(this.MainViewBT_Click);
+            this.MainViewBT.MouseEnter += new System.EventHandler(this.MainViewBT_MouseEnter);
+            this.MainViewBT.MouseLeave += new System.EventHandler(this.MainViewBT_MouseLeave);
+            // 
+            // NewTagP
+            // 
+            this.NewTagP.AutoSize = true;
+            this.NewTagP.Controls.Add(this.TempTagsLV);
+            this.NewTagP.Controls.Add(this.NewTagTB);
+            this.NewTagP.Controls.Add(this.AddTagBT);
+            this.NewTagP.Controls.Add(this.label2);
+            this.NewTagP.Location = new System.Drawing.Point(465, 1);
+            this.NewTagP.Name = "NewTagP";
+            this.NewTagP.Size = new System.Drawing.Size(277, 410);
+            this.NewTagP.TabIndex = 35;
+            this.NewTagP.Visible = false;
+            // 
+            // TempTagsLV
+            // 
+            this.TempTagsLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.TempTagsColumn});
+            this.TempTagsLV.GridLines = true;
+            this.TempTagsLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.TempTagsLV.Location = new System.Drawing.Point(7, 62);
+            this.TempTagsLV.MultiSelect = false;
+            this.TempTagsLV.Name = "TempTagsLV";
+            this.TempTagsLV.Size = new System.Drawing.Size(264, 341);
+            this.TempTagsLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.TempTagsLV.TabIndex = 38;
+            this.TempTagsLV.UseCompatibleStateImageBehavior = false;
+            this.TempTagsLV.View = System.Windows.Forms.View.Details;
+            // 
+            // TempTagsColumn
+            // 
+            this.TempTagsColumn.Text = "";
+            // 
+            // NewTagTB
+            // 
+            this.NewTagTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewTagTB.Location = new System.Drawing.Point(7, 26);
+            this.NewTagTB.Name = "NewTagTB";
+            this.NewTagTB.Size = new System.Drawing.Size(226, 26);
+            this.NewTagTB.TabIndex = 37;
+            this.NewTagTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NewTagTB_KeyPress);
+            // 
+            // AddTagBT
+            // 
+            this.AddTagBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddTagBT.BackColor = System.Drawing.Color.Transparent;
+            this.AddTagBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
+            this.AddTagBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddTagBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.AddTagBT.FlatAppearance.BorderSize = 0;
+            this.AddTagBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AddTagBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AddTagBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddTagBT.Location = new System.Drawing.Point(236, 21);
+            this.AddTagBT.Name = "AddTagBT";
+            this.AddTagBT.Size = new System.Drawing.Size(35, 35);
+            this.AddTagBT.TabIndex = 36;
+            this.AddTagBT.UseVisualStyleBackColor = false;
+            this.AddTagBT.Click += new System.EventHandler(this.AddTagBT_Click);
+            this.AddTagBT.MouseEnter += new System.EventHandler(this.AddTagBT_MouseEnter);
+            this.AddTagBT.MouseLeave += new System.EventHandler(this.AddTagBT_MouseLeave);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(4, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 16);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "New Tag";
+            // 
             // TagRepoFRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -454,8 +456,8 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(750, 422);
-            this.Controls.Add(this.NewTagP);
             this.Controls.Add(this.EditViewP);
+            this.Controls.Add(this.NewTagP);
             this.Controls.Add(this.MainViewP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;

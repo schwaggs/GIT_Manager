@@ -402,7 +402,111 @@ namespace GITRepoManager
          */
             public static string Repo_Name(DirectoryInfo dir)
             {
-                return dir.Name.Substring(0, dir.Name.Length - 4);
+                if(dir.FullName.Contains(".git"))
+                {
+                    return dir.Name.Substring(0, dir.Name.Length - 4);
+                }
+
+                else
+                {
+                    return dir.Name;
+                }
+            }
+
+        #endregion
+
+        #region Get Repo Log
+
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              #
+         *   #                                                                              #
+         *   # Usage:               #
+         *   #                                                                              #
+         *   # Parameters:          #   
+         *   #                                                                              #
+         *   # Returns:             #
+         *   #                                                                              #
+         *   # Last Date Modified:  #
+         *   #                                                                              #
+         *   # Last Modified By:    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
+            public static string Get_Repo_Log(DirectoryInfo SourceDirInfo)
+            {
+                string result = string.Empty;
+                //DirectoryInfo SourceDirInfo = new DirectoryInfo(SourceDir);
+                ExceptionMessage = string.Empty;
+
+                //if (SourceDirInfo.Exists)
+                //{
+                    //if(SourceDirInfo.FullName.Contains(".git"))
+                    //{
+                        string date = DateTime.Today.Month.ToString() + @"-"
+                                        + DateTime.Today.Day.ToString() + @"-"
+                                        + DateTime.Today.Year.ToString();
+
+                        string filename = Repo_Name(SourceDirInfo) + "_" + date + @".txt"; 
+                        string outputFile = SourceDirInfo.FullName + @"\" + filename;
+
+                        try
+                        {
+                            using (FileStream fs = File.Open(outputFile, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite))
+                            {
+                            }
+                        }
+
+                        catch(Exception ex)
+                        {
+                        }
+
+                        try
+                        {
+                            Process logP = Create_Process(SourceDirInfo.FullName);
+                            logP.Start();
+
+                            logP.StandardInput.WriteLine(string.Format(Properties.Resources.LOG_REPO_COMMAND, filename));
+                            logP.WaitForExit(1000);
+                            logP.Close();
+                        }
+
+                        catch (Exception ex)
+                        {
+                            ExceptionMessage = ex.Message;
+                            return @"Unable to execute git command.";
+                        }
+                        
+                        try
+                        {
+                            using(StreamReader stream = new StreamReader(outputFile))
+                            {
+                                while(!stream.EndOfStream)
+                                {
+                                    result += (stream.ReadLine() + Environment.NewLine);
+                                }
+                            }
+
+                            if(result == string.Empty)
+                            {
+                                result = "No logs found.";
+                            }
+
+                            return result;                            
+                        }
+
+                        catch(Exception ex)
+                        {
+                            ExceptionMessage = ex.Message;
+                            return @"Unable to retrieve log.";
+                        }
+
+                    //}
+
+                    return @"Not a valid repository.";
+                //}
+
+                return @"Invalid Location.";
             }
 
         #endregion

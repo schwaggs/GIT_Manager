@@ -65,7 +65,7 @@ namespace GITRepoManager
             temp.Text = name;
             temp.AutoSize = true;
             temp.Padding = new Padding(5);
-            temp.Font = new Font(temp.Font.FontFamily, 5, FontStyle.Regular);
+            temp.Font = new Font(temp.Font.FontFamily, 7, FontStyle.Regular);
 
             temp.MouseEnter += Label_MouseEnter;
             temp.MouseLeave += Label_MouseLeave;
@@ -279,6 +279,7 @@ namespace GITRepoManager
                 EditViewP.Visible = true;
 
                 RepositoriesLV.Items.Clear();
+                TagsLV.Items.Clear();
 
                 TagRepoData.Repo_Tags = new Dictionary<string, List<string>>();
 
@@ -307,6 +308,13 @@ namespace GITRepoManager
 
                 TagRepoData.CurrentView = EditViewP;
                 EditViewP.Refresh();
+
+                if (RepositoriesLV.SelectedItems.Count == 0)
+                {
+                    RepositoriesLV.Items[0].Selected = true;
+                }
+
+                RepositoriesLV.Focus();
             }
         }
 
@@ -368,48 +376,7 @@ namespace GITRepoManager
             string tagName = "";
             string repoName = "";
 
-            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
-            {
-                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
-                {
-                    repoName = lvi.Name;
-                }
-
-                TagRepoData.Temp_Tags.Clear();
-
-                NewTagP.Visible = true;
-                TempTagsLV.Items.Clear();
-
-                Control1BT.BackgroundImage = Properties.Resources.Back_Icon;
-            }
-
-            else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
-            {
-                foreach (ListViewItem lvi in TagsLV.SelectedItems)
-                {
-                    tagName = lvi.Name;
-                }
-
-                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
-                {
-                    repoName = lvi.Name;
-                }
-
-
-                try
-                {
-                    TagRepoData.Repo_Tags[repoName].Remove(tagName);
-                }
-
-                catch
-                {
-                    return;
-                }
-
-                Repopulate_Tags(repoName);
-            }
-
-            else if (NewTagP.Visible)
+            if (NewTagP.Visible)
             {
                 foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
                 {
@@ -419,13 +386,65 @@ namespace GITRepoManager
                 foreach (string newtag in TagRepoData.Temp_Tags)
                 {
                     TagRepoData.Repo_Tags[repoName].Add(newtag);
-                }
 
-                Repopulate_Tags(repoName);
+                    ListViewItem lvi = new ListViewItem
+                    {
+                        Name = newtag,
+                        Text = newtag
+                    };
+
+                    TagsLV.Items.Add(lvi);
+                }
 
                 NewTagP.Visible = false;
 
                 Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+            }
+
+            else
+            {
+                if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
+                {
+                    foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                    {
+                        repoName = lvi.Name;
+                    }
+
+                    TagRepoData.Temp_Tags.Clear();
+
+                    NewTagP.Visible = true;
+                    NewTagTB.Focus();
+                    TempTagsLV.Items.Clear();
+
+                    Control1BT.BackgroundImage = Properties.Resources.Back_Icon;
+                }
+
+                else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
+                {
+                    foreach (ListViewItem lvi in TagsLV.SelectedItems)
+                    {
+                        tagName = lvi.Name;
+                    }
+
+                    foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                    {
+                        repoName = lvi.Name;
+                    }
+
+
+                    try
+                    {
+                        TagRepoData.Repo_Tags[repoName].Remove(tagName);
+                    }
+
+                    catch
+                    {
+                        return;
+                    }
+
+                    //Repopulate_Tags(repoName);
+                    Remove_List_Item(tagName);
+                }
             }
         }
 
@@ -472,53 +491,43 @@ namespace GITRepoManager
 
         private void Control1BT_MouseEnter(object sender, EventArgs e)
         {
-            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
-            {
-                Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
-            }
-
-            else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
-            {
-                Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon_Hover;
-            }
-
-            else if (NewTagP.Visible)
+            if (NewTagP.Visible)
             {
                 Control1BT.BackgroundImage = Properties.Resources.Back_Icon_Hover;
+            }
+
+            else
+            {
+                if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
+                {
+                    Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
+                }
+
+                else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
+                {
+                    Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon_Hover;
+                }
             }
         }
 
         private void Control1BT_MouseLeave(object sender, EventArgs e)
         {
-            if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
-            {
-                Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
-            }
-
-            else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
-            {
-                Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon;
-            }
-
-            else if (NewTagP.Visible)
+            if (NewTagP.Visible)
             {
                 Control1BT.BackgroundImage = Properties.Resources.Back_Icon;
             }
-        }
 
-        private void Repopulate_Tags(string repo)
-        {
-            TagsLV.Items.Clear();
-
-            foreach (string tag in TagRepoData.Repo_Tags[repo])
+            else
             {
-                ListViewItem lvi = new ListViewItem
+                if (TagsLV.Items.Count == 0 || TagsLV.SelectedItems.Count == 0 && !NewTagP.Visible)
                 {
-                    Name = tag,
-                    Text = tag
-                };
+                    Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+                }
 
-                TagsLV.Items.Add(lvi);
+                else if (TagsLV.SelectedItems.Count > 0 && !NewTagP.Visible)
+                {
+                    Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon;
+                }
             }
         }
 
@@ -544,7 +553,6 @@ namespace GITRepoManager
             }
 
             TempTagsLV.Refresh();
-
             NewTagTB.Clear();
         }
 
@@ -559,6 +567,34 @@ namespace GITRepoManager
             {
                 Add_Tag();
             }
+
+            else if (e.KeyChar == (char)Keys.Escape)
+            {
+                string repoName = "";
+
+                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                {
+                    repoName = lvi.Name;
+                }
+
+                foreach (string newtag in TagRepoData.Temp_Tags)
+                {
+                    TagRepoData.Repo_Tags[repoName].Add(newtag);
+
+                    ListViewItem lvi = new ListViewItem
+                    {
+                        Name = newtag,
+                        Text = newtag
+                    };
+
+                    TagsLV.Items.Add(lvi);
+                }
+
+                NewTagP.Visible = false;
+
+                Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+                RepositoriesLV.Focus();
+            }
         }
 
         private void AddTagBT_MouseEnter(object sender, EventArgs e)
@@ -569,6 +605,183 @@ namespace GITRepoManager
         private void AddTagBT_MouseLeave(object sender, EventArgs e)
         {
             AddTagBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+        }
+
+        private void TagsLV_KeyDown(object sender, KeyEventArgs e)
+        {
+            string tagName = "";
+            string repoName = "";
+
+            if (e.KeyCode == Keys.Delete)
+            {
+                foreach (ListViewItem lvi in TagsLV.SelectedItems)
+                {
+                    tagName = lvi.Name;
+                }
+
+                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                {
+                    repoName = lvi.Name;
+                }
+
+
+                try
+                {
+                    TagRepoData.Repo_Tags[repoName].Remove(tagName);
+                }
+
+                catch
+                {
+                    return;
+                }
+
+                Remove_List_Item(tagName);
+            }
+
+            else if (e.KeyCode == Keys.Left)
+            {
+                if (RepositoriesLV.SelectedItems.Count == 0)
+                {
+                    RepositoriesLV.Items[0].Selected = true;
+                }
+
+                RepositoriesLV.Focus();
+                Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+            }
+
+            else if (e.KeyCode == Keys.Escape)
+            {
+                if (RepositoriesLV.SelectedItems.Count == 0)
+                {
+                    RepositoriesLV.Items[0].Selected = true;
+                }
+
+                RepositoriesLV.Focus();
+            }
+        }
+
+        private void Remove_List_Item(string name)
+        {
+            ListViewItem tempLVI = null;
+            int index = 0;
+
+            foreach (ListViewItem lvi in TagsLV.Items)
+            {
+                if (lvi.Name == name)
+                {
+                    tempLVI = lvi;
+                    index = lvi.Index;
+                }
+            }
+
+            tempLVI.Remove();
+
+            try
+            {
+                TagsLV.Items[index].Selected = true;
+            }
+
+            catch
+            {
+            }
+
+            if (TagsLV.Items.Count > 0)
+            {
+                TagsLV.Focus();
+            }
+
+            else
+            {
+                RepositoriesLV.Focus();
+            }
+        }
+
+        private void RepositoriesLV_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string repoName = "";
+
+                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                {
+                    repoName = lvi.Name;
+                }
+
+                TagRepoData.Temp_Tags.Clear();
+
+                NewTagP.Visible = true;
+                NewTagTB.Focus();
+                TempTagsLV.Items.Clear();
+
+                Control1BT.BackgroundImage = Properties.Resources.Back_Icon;
+            }
+
+            else if (e.KeyCode == Keys.Right)
+            {
+                if (TagsLV.Items.Count == 0)
+                {
+                    return;
+                }
+
+                else if (TagsLV.SelectedItems.Count == 0)
+                {
+                    TagsLV.Items[0].Selected = true;
+                }
+
+                TagsLV.Focus();
+                Control1BT.BackgroundImage = Properties.Resources.Delete_Tag_Icon;
+            }
+
+            else if (e.KeyCode == Keys.Down)
+            {
+                int selectedIndex = 0;
+
+                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                {
+                    selectedIndex = lvi.Index;
+                }
+
+                selectedIndex++;
+
+                try
+                {
+                    RepositoriesLV.Items[selectedIndex].Selected = true;
+                }
+
+                catch
+                {
+                    RepositoriesLV.Items[RepositoriesLV.Items.Count - 1].Selected = true;
+                }
+            }
+
+            else if (e.KeyCode == Keys.Up)
+            {
+                int selectedIndex = 0;
+
+                foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
+                {
+                    selectedIndex = lvi.Index;
+                }
+
+                selectedIndex--;
+
+                try
+                {
+                    RepositoriesLV.Items[selectedIndex].Selected = true;
+                }
+
+                catch
+                {
+                    RepositoriesLV.Items[0].Selected = true;
+                }
+            }
+
+            else if (e.KeyCode == Keys.Escape)
+            {
+                EditViewP.Visible = false;
+                MainViewP.Visible = true;
+                TagRepoData.CurrentView = MainViewP;
+            }
         }
     }
 }
