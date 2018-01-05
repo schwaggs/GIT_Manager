@@ -478,6 +478,26 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Notes_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Notes_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Notes_Icon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("Notes_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to git.
         /// </summary>
         internal static string REPO_BASE_COMMAND {

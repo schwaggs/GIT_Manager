@@ -14,8 +14,6 @@ namespace GITRepoManager
 {
     public partial class SettingsViewFRM : Form
     {
-        public static Storage.Type type { get; set; }
-
         public static string Username { get; set; }
 
         public SettingsViewFRM()

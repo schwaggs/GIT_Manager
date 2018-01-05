@@ -89,3 +89,6 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csp
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.exe
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.pdb
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csprojResolveAssemblyReference.cache
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.MainViewFRM.resources
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Newtonsoft.Json.dll
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Newtonsoft.Json.xml

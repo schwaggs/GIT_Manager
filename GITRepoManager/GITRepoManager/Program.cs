@@ -19,7 +19,7 @@ namespace GITRepoManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            HomeView Home = new HomeView();
+            MainViewFRM Home = new MainViewFRM();
             Application.Run(Home);
         }
     }

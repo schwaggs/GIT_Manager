@@ -31,7 +31,6 @@ namespace GITRepoManager
                     Properties.Settings.Default.StatusListDirIsEmpty
                 )
                 {
-                    Properties.Settings.Default.StorageType = (int)Storage.Type.INVALID;
                     Properties.Settings.Default.Save();
 
                     MessageBox.Show("You need to configure the program directorires in the settings window", "Setup");

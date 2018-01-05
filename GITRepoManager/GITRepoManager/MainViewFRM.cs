@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GITRepoManager
 {
-    public partial class Settings : Form
+    public partial class MainViewFRM : Form
     {
-        public Settings()
+        public MainViewFRM()
         {
             InitializeComponent();
         }
