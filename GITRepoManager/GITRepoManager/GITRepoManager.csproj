@@ -230,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReleaseNotes.css" />
+    <None Include="Resources\BackGradient.png" />
     <None Include="Resources\Notes_Icon_Hover.png" />
     <None Include="Resources\Notes_Icon.png" />
     <None Include="Resources\Reset_Settings_Icon_Hover.png" />
