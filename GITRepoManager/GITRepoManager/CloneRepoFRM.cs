@@ -37,7 +37,7 @@ namespace GITRepoManager
         private void BrowseRepoSourceBT_MouseEnter(object sender, EventArgs e)
         {
             BrowseRepoSourceBT.BackgroundImage = Properties.Resources.Browse_Icon_Hover;
-            CloneRepoDescriptionSSLB.Text = Properties.Resources.CLONE_REPO_BROWSE_SOURCE_INFO;
+            //CloneRepoDescriptionSSLB.Text = Properties.Resources.CLONE_REPO_BROWSE_SOURCE_INFO;
         }
 
         private void BrowseRepoSourceBT_MouseLeave(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace GITRepoManager
         private void BrowseCloneDestinationBT_MouseEnter(object sender, EventArgs e)
         {
             BrowseCloneDestinationBT.BackgroundImage = Properties.Resources.Browse_Icon_Hover;
-            CloneRepoDescriptionSSLB.Text = Properties.Resources.CLONE_REPO_BROWSE_DESTINATION_INFO;
+            //CloneRepoDescriptionSSLB.Text = Properties.Resources.CLONE_REPO_BROWSE_DESTINATION_INFO;
         }
 
         private void BrowseCloneDestinationBT_MouseLeave(object sender, EventArgs e)

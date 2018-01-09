@@ -111,15 +111,6 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string BACKUP_LOCATION {
-            get {
-                return ResourceManager.GetString("BACKUP_LOCATION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Browse_Icon {
@@ -140,42 +131,6 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  clone .
-        /// </summary>
-        internal static string CLONE_REPO_BASE_COMMAND {
-            get {
-                return ResourceManager.GetString("CLONE_REPO_BASE_COMMAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browse for the desired location to clone the source repository to..
-        /// </summary>
-        internal static string CLONE_REPO_BROWSE_DESTINATION_INFO {
-            get {
-                return ResourceManager.GetString("CLONE_REPO_BROWSE_DESTINATION_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browse for the repository to clone..
-        /// </summary>
-        internal static string CLONE_REPO_BROWSE_SOURCE_INFO {
-            get {
-                return ResourceManager.GetString("CLONE_REPO_BROWSE_SOURCE_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opens the clone repository window..
-        /// </summary>
-        internal static string CLONE_REPO_COMMAND_INFO {
-            get {
-                return ResourceManager.GetString("CLONE_REPO_COMMAND_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap CloneIcon {
@@ -192,42 +147,6 @@ namespace GITRepoManager.Properties {
             get {
                 object obj = ResourceManager.GetObject("CloneIcon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browse for a repository to delete..
-        /// </summary>
-        internal static string DELETE_REPO_BROWSE_HOVER {
-            get {
-                return ResourceManager.GetString("DELETE_REPO_BROWSE_HOVER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opens the delete repository window..
-        /// </summary>
-        internal static string DELETE_REPO_COMMAND_INFO {
-            get {
-                return ResourceManager.GetString("DELETE_REPO_COMMAND_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deletes the local clone as well as the repository..
-        /// </summary>
-        internal static string DELETE_REPO_DELETE_LOCAL_INFO {
-            get {
-                return ResourceManager.GetString("DELETE_REPO_DELETE_LOCAL_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deletes only the local clone and not the repository..
-        /// </summary>
-        internal static string DELETE_REPO_IS_CLONE_INFO {
-            get {
-                return ResourceManager.GetString("DELETE_REPO_IS_CLONE_INFO", resourceCulture);
             }
         }
         
@@ -322,60 +241,6 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to git log &gt; {0}.
-        /// </summary>
-        internal static string LOG_REPO_COMMAND {
-            get {
-                return ResourceManager.GetString("LOG_REPO_COMMAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opens the log viewer window..
-        /// </summary>
-        internal static string LOG_REPO_COMMAND_INFO {
-            get {
-                return ResourceManager.GetString("LOG_REPO_COMMAND_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  clone --bare .
-        /// </summary>
-        internal static string MOVE_REPO_BASE_COMMAND {
-            get {
-                return ResourceManager.GetString("MOVE_REPO_BASE_COMMAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browse to the destination directory for the source repository.
-        /// </summary>
-        internal static string MOVE_REPO_BROWSE_DESTINATION_INFO {
-            get {
-                return ResourceManager.GetString("MOVE_REPO_BROWSE_DESTINATION_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browse to the source directory for the repository..
-        /// </summary>
-        internal static string MOVE_REPO_BROWSE_SOURCE_INFO {
-            get {
-                return ResourceManager.GetString("MOVE_REPO_BROWSE_SOURCE_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opens the move repository window..
-        /// </summary>
-        internal static string MOVE_REPO_COMMAND_INFO {
-            get {
-                return ResourceManager.GetString("MOVE_REPO_COMMAND_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap MoveIcon {
@@ -392,78 +257,6 @@ namespace GITRepoManager.Properties {
             get {
                 object obj = ResourceManager.GetObject("MoveIcon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creates a bare repository..
-        /// </summary>
-        internal static string NEW_REPO_BARE_INFO {
-            get {
-                return ResourceManager.GetString("NEW_REPO_BARE_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  init .
-        /// </summary>
-        internal static string NEW_REPO_BASE_COMMAND {
-            get {
-                return ResourceManager.GetString("NEW_REPO_BASE_COMMAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browse for the desired location to create a repository..
-        /// </summary>
-        internal static string NEW_REPO_BROWSE_HOVER {
-            get {
-                return ResourceManager.GetString("NEW_REPO_BROWSE_HOVER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opens the create new repository window..
-        /// </summary>
-        internal static string NEW_REPO_COMMAND_INFO {
-            get {
-                return ResourceManager.GetString("NEW_REPO_COMMAND_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  --bare.
-        /// </summary>
-        internal static string NEW_REPO_OPTION_BARE {
-            get {
-                return ResourceManager.GetString("NEW_REPO_OPTION_BARE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  add README.md.
-        /// </summary>
-        internal static string NEW_REPO_OPTION_README_ADD {
-            get {
-                return ResourceManager.GetString("NEW_REPO_OPTION_README_ADD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to touch README.md .
-        /// </summary>
-        internal static string NEW_REPO_OPTION_README_TOUCH {
-            get {
-                return ResourceManager.GetString("NEW_REPO_OPTION_README_TOUCH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Commits a README.md to the repository upon creation..
-        /// </summary>
-        internal static string NEW_REPO_README_INFO {
-            get {
-                return ResourceManager.GetString("NEW_REPO_README_INFO", resourceCulture);
             }
         }
         
@@ -508,47 +301,11 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to git.
-        /// </summary>
-        internal static string REPO_BASE_COMMAND {
-            get {
-                return ResourceManager.GetString("REPO_BASE_COMMAND", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .git.
-        /// </summary>
-        internal static string REPO_FOLDER_EXTENSION {
-            get {
-                return ResourceManager.GetString("REPO_FOLDER_EXTENSION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string REPO_LIST_LOCATION {
-            get {
-                return ResourceManager.GetString("REPO_LIST_LOCATION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  push -u origin master.
         /// </summary>
         internal static string REPO_PUSH_ORIGIN_MASTER {
             get {
                 return ResourceManager.GetString("REPO_PUSH_ORIGIN_MASTER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string REPO_TAGS_LOCATION {
-            get {
-                return ResourceManager.GetString("REPO_TAGS_LOCATION", resourceCulture);
             }
         }
         
@@ -653,15 +410,6 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opens the settings view..
-        /// </summary>
-        internal static string SETTINGS_COMMAND_INFO {
-            get {
-                return ResourceManager.GetString("SETTINGS_COMMAND_INFO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Settings_Icon {
@@ -682,11 +430,56 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opens the repository tagging window..
+        ///   Looks up a localized string similar to Z:\Engineering\Source Code.
         /// </summary>
-        internal static string TAG_REPO_COMMAND_INFO {
+        internal static string STORAGE_BASE_DIRECTORY {
             get {
-                return ResourceManager.GetString("TAG_REPO_COMMAND_INFO", resourceCulture);
+                return ResourceManager.GetString("STORAGE_BASE_DIRECTORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z:\Engineering\Source Code\Firmware Files.
+        /// </summary>
+        internal static string STORAGE_FIRMWARE {
+            get {
+                return ResourceManager.GetString("STORAGE_FIRMWARE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z:\Engineering\Source Code\Hex Files.
+        /// </summary>
+        internal static string STORAGE_HEX {
+            get {
+                return ResourceManager.GetString("STORAGE_HEX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z:\Engineering\Source Code\Software.
+        /// </summary>
+        internal static string STORAGE_IN_HOUSE_SOFTWARE {
+            get {
+                return ResourceManager.GetString("STORAGE_IN_HOUSE_SOFTWARE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z:\Engineering\Source Code\Mobile Apps.
+        /// </summary>
+        internal static string STORAGE_MOBILE_APPS {
+            get {
+                return ResourceManager.GetString("STORAGE_MOBILE_APPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z:\Engineering\Source Code\Production Testers.
+        /// </summary>
+        internal static string STORAGE_TESTERS {
+            get {
+                return ResourceManager.GetString("STORAGE_TESTERS", resourceCulture);
             }
         }
         

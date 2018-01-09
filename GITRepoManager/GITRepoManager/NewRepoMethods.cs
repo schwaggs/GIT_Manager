@@ -13,7 +13,7 @@ namespace GITRepoManager
     {
         public static void CreateNewRepository()
         {
-            string NewCommand = Properties.Resources.REPO_BASE_COMMAND + Properties.Resources.NEW_REPO_BASE_COMMAND;
+            //string NewCommand = Properties.Resources.REPO_BASE_COMMAND + Properties.Resources.NEW_REPO_BASE_COMMAND;
 
             DirectoryInfo dirInfo = Create_Directories(false);
 
@@ -57,10 +57,10 @@ namespace GITRepoManager
 
             if(NewRepoData.Repository_Option_Bare)
             {
-                NewCommand += Properties.Resources.NEW_REPO_OPTION_BARE;
+                //NewCommand += Properties.Resources.NEW_REPO_OPTION_BARE;
             }
 
-            cmdProc.StandardInput.WriteLine(NewCommand);
+            //cmdProc.StandardInput.WriteLine(NewCommand);
             cmdProc.StandardInput.WriteLine("Exit");
         }
 

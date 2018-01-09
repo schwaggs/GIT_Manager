@@ -33,11 +33,12 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.BrowseRepoSourceBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.noFocusSelectionRectangleButton1 = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.noFocusSelectionRectangleButton2 = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.noFocusSelectionRectangleButton3 = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.noFocusSelectionRectangleButton4 = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.MoveRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.DeleteRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.AddRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -53,11 +54,10 @@
             this.panel1.BackgroundImage = global::GITRepoManager.Properties.Resources.BackGradient;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.noFocusSelectionRectangleButton4);
-            this.panel1.Controls.Add(this.noFocusSelectionRectangleButton3);
-            this.panel1.Controls.Add(this.noFocusSelectionRectangleButton2);
-            this.panel1.Controls.Add(this.noFocusSelectionRectangleButton1);
-            this.panel1.Controls.Add(this.BrowseRepoSourceBT);
+            this.panel1.Controls.Add(this.CloneRepoBT);
+            this.panel1.Controls.Add(this.MoveRepoBT);
+            this.panel1.Controls.Add(this.DeleteRepoBT);
+            this.panel1.Controls.Add(this.AddRepoBT);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -71,7 +71,7 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(3, 9);
+            this.panel2.Location = new System.Drawing.Point(3, 19);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(385, 40);
             this.panel2.TabIndex = 1;
@@ -102,100 +102,102 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::GITRepoManager.Properties.Resources.GitLogo;
-            this.pictureBox1.Location = new System.Drawing.Point(704, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(679, 3);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(103, 66);
+            this.pictureBox1.Size = new System.Drawing.Size(128, 66);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // BrowseRepoSourceBT
+            // statusStrip1
             // 
-            this.BrowseRepoSourceBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BrowseRepoSourceBT.BackColor = System.Drawing.Color.Transparent;
-            this.BrowseRepoSourceBT.BackgroundImage = global::GITRepoManager.Properties.Resources.NewIcon;
-            this.BrowseRepoSourceBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BrowseRepoSourceBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.BrowseRepoSourceBT.FlatAppearance.BorderSize = 0;
-            this.BrowseRepoSourceBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BrowseRepoSourceBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BrowseRepoSourceBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseRepoSourceBT.Location = new System.Drawing.Point(394, 8);
-            this.BrowseRepoSourceBT.Name = "BrowseRepoSourceBT";
-            this.BrowseRepoSourceBT.Size = new System.Drawing.Size(40, 40);
-            this.BrowseRepoSourceBT.TabIndex = 21;
-            this.BrowseRepoSourceBT.UseVisualStyleBackColor = false;
-            this.BrowseRepoSourceBT.MouseEnter += new System.EventHandler(this.BrowseRepoSourceBT_MouseEnter);
-            this.BrowseRepoSourceBT.MouseLeave += new System.EventHandler(this.BrowseRepoSourceBT_MouseLeave);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 439);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(812, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // noFocusSelectionRectangleButton1
+            // panel3
             // 
-            this.noFocusSelectionRectangleButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.noFocusSelectionRectangleButton1.BackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton1.BackgroundImage = global::GITRepoManager.Properties.Resources.DeleteIcon;
-            this.noFocusSelectionRectangleButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.noFocusSelectionRectangleButton1.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.noFocusSelectionRectangleButton1.FlatAppearance.BorderSize = 0;
-            this.noFocusSelectionRectangleButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.noFocusSelectionRectangleButton1.Location = new System.Drawing.Point(443, 8);
-            this.noFocusSelectionRectangleButton1.Name = "noFocusSelectionRectangleButton1";
-            this.noFocusSelectionRectangleButton1.Size = new System.Drawing.Size(40, 40);
-            this.noFocusSelectionRectangleButton1.TabIndex = 22;
-            this.noFocusSelectionRectangleButton1.UseVisualStyleBackColor = false;
+            this.panel3.Location = new System.Drawing.Point(4, 78);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(804, 358);
+            this.panel3.TabIndex = 2;
             // 
-            // noFocusSelectionRectangleButton2
+            // CloneRepoBT
             // 
-            this.noFocusSelectionRectangleButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.noFocusSelectionRectangleButton2.BackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton2.BackgroundImage = global::GITRepoManager.Properties.Resources.MoveIcon;
-            this.noFocusSelectionRectangleButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.noFocusSelectionRectangleButton2.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.noFocusSelectionRectangleButton2.FlatAppearance.BorderSize = 0;
-            this.noFocusSelectionRectangleButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.noFocusSelectionRectangleButton2.Location = new System.Drawing.Point(489, 8);
-            this.noFocusSelectionRectangleButton2.Name = "noFocusSelectionRectangleButton2";
-            this.noFocusSelectionRectangleButton2.Size = new System.Drawing.Size(40, 40);
-            this.noFocusSelectionRectangleButton2.TabIndex = 23;
-            this.noFocusSelectionRectangleButton2.UseVisualStyleBackColor = false;
+            this.CloneRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.CloneRepoBT.BackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.CloneIcon;
+            this.CloneRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CloneRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.CloneRepoBT.FlatAppearance.BorderSize = 0;
+            this.CloneRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CloneRepoBT.Location = new System.Drawing.Point(592, 18);
+            this.CloneRepoBT.Name = "CloneRepoBT";
+            this.CloneRepoBT.Size = new System.Drawing.Size(40, 40);
+            this.CloneRepoBT.TabIndex = 24;
+            this.CloneRepoBT.UseVisualStyleBackColor = false;
+            this.CloneRepoBT.Visible = false;
             // 
-            // noFocusSelectionRectangleButton3
+            // MoveRepoBT
             // 
-            this.noFocusSelectionRectangleButton3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.noFocusSelectionRectangleButton3.BackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton3.BackgroundImage = global::GITRepoManager.Properties.Resources.CloneIcon;
-            this.noFocusSelectionRectangleButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.noFocusSelectionRectangleButton3.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.noFocusSelectionRectangleButton3.FlatAppearance.BorderSize = 0;
-            this.noFocusSelectionRectangleButton3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.noFocusSelectionRectangleButton3.Location = new System.Drawing.Point(535, 8);
-            this.noFocusSelectionRectangleButton3.Name = "noFocusSelectionRectangleButton3";
-            this.noFocusSelectionRectangleButton3.Size = new System.Drawing.Size(40, 40);
-            this.noFocusSelectionRectangleButton3.TabIndex = 24;
-            this.noFocusSelectionRectangleButton3.UseVisualStyleBackColor = false;
+            this.MoveRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.MoveRepoBT.BackColor = System.Drawing.Color.Transparent;
+            this.MoveRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.MoveIcon;
+            this.MoveRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.MoveRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.MoveRepoBT.FlatAppearance.BorderSize = 0;
+            this.MoveRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.MoveRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.MoveRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MoveRepoBT.Location = new System.Drawing.Point(546, 18);
+            this.MoveRepoBT.Name = "MoveRepoBT";
+            this.MoveRepoBT.Size = new System.Drawing.Size(40, 40);
+            this.MoveRepoBT.TabIndex = 23;
+            this.MoveRepoBT.UseVisualStyleBackColor = false;
+            this.MoveRepoBT.Visible = false;
             // 
-            // noFocusSelectionRectangleButton4
+            // DeleteRepoBT
             // 
-            this.noFocusSelectionRectangleButton4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.noFocusSelectionRectangleButton4.BackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton4.BackgroundImage = global::GITRepoManager.Properties.Resources.TagIcon;
-            this.noFocusSelectionRectangleButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.noFocusSelectionRectangleButton4.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.noFocusSelectionRectangleButton4.FlatAppearance.BorderSize = 0;
-            this.noFocusSelectionRectangleButton4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.noFocusSelectionRectangleButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.noFocusSelectionRectangleButton4.Location = new System.Drawing.Point(581, 8);
-            this.noFocusSelectionRectangleButton4.Name = "noFocusSelectionRectangleButton4";
-            this.noFocusSelectionRectangleButton4.Size = new System.Drawing.Size(40, 40);
-            this.noFocusSelectionRectangleButton4.TabIndex = 25;
-            this.noFocusSelectionRectangleButton4.UseVisualStyleBackColor = false;
+            this.DeleteRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.DeleteRepoBT.BackColor = System.Drawing.Color.Transparent;
+            this.DeleteRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.DeleteIcon;
+            this.DeleteRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.DeleteRepoBT.FlatAppearance.BorderSize = 0;
+            this.DeleteRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.DeleteRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.DeleteRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteRepoBT.Location = new System.Drawing.Point(500, 18);
+            this.DeleteRepoBT.Name = "DeleteRepoBT";
+            this.DeleteRepoBT.Size = new System.Drawing.Size(40, 40);
+            this.DeleteRepoBT.TabIndex = 22;
+            this.DeleteRepoBT.UseVisualStyleBackColor = false;
+            this.DeleteRepoBT.Visible = false;
+            // 
+            // AddRepoBT
+            // 
+            this.AddRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddRepoBT.BackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.NewIcon;
+            this.AddRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.AddRepoBT.FlatAppearance.BorderSize = 0;
+            this.AddRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddRepoBT.Location = new System.Drawing.Point(417, 16);
+            this.AddRepoBT.Name = "AddRepoBT";
+            this.AddRepoBT.Size = new System.Drawing.Size(45, 45);
+            this.AddRepoBT.TabIndex = 21;
+            this.AddRepoBT.UseVisualStyleBackColor = false;
+            this.AddRepoBT.Click += new System.EventHandler(this.BrowseRepoSourceBT_Click);
+            this.AddRepoBT.MouseEnter += new System.EventHandler(this.BrowseRepoSourceBT_MouseEnter);
+            this.AddRepoBT.MouseLeave += new System.EventHandler(this.BrowseRepoSourceBT_MouseLeave);
             // 
             // MainViewFRM
             // 
@@ -203,6 +205,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(812, 461);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Name = "MainViewFRM";
             this.Text = "GIT Repository Manager";
@@ -222,10 +226,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox comboBox1;
-        private NoFocusSelectionRectangleButton noFocusSelectionRectangleButton4;
-        private NoFocusSelectionRectangleButton noFocusSelectionRectangleButton3;
-        private NoFocusSelectionRectangleButton noFocusSelectionRectangleButton2;
-        private NoFocusSelectionRectangleButton noFocusSelectionRectangleButton1;
-        private NoFocusSelectionRectangleButton BrowseRepoSourceBT;
+        private NoFocusSelectionRectangleButton CloneRepoBT;
+        private NoFocusSelectionRectangleButton MoveRepoBT;
+        private NoFocusSelectionRectangleButton DeleteRepoBT;
+        private NoFocusSelectionRectangleButton AddRepoBT;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Panel panel3;
     }
 }

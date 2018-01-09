@@ -24,12 +24,25 @@ namespace GITRepoManager
 
         private void BrowseRepoSourceBT_MouseEnter(object sender, EventArgs e)
         {
-            BrowseRepoSourceBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
+            AddRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
         }
 
         private void BrowseRepoSourceBT_MouseLeave(object sender, EventArgs e)
         {
-            BrowseRepoSourceBT.BackgroundImage = Properties.Resources.NewIcon;
+            AddRepoBT.BackgroundImage = Properties.Resources.NewIcon;
+        }
+
+        private void BrowseRepoSourceBT_Click(object sender, EventArgs e)
+        {
+            if (Helpers.Is_Git_Repo(@"Z:\Engineering\Source Code\Firmware Files"))
+            {
+                MessageBox.Show("This is a repo");
+            }
+
+            else
+            {
+                MessageBox.Show("This is not a repo");
+            }
         }
     }
 }

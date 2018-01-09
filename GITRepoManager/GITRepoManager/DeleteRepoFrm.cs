@@ -93,7 +93,7 @@ namespace GITRepoManager
         private void BrowseLocationBT_MouseEnter(object sender, EventArgs e)
         {
             BrowseLocationBT.BackgroundImage = Properties.Resources.Browse_Icon_Hover;
-            DeleteRepoDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_BROWSE_HOVER;
+            //DeleteRepoDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_BROWSE_HOVER;
         }
 
         private void BrowseLocationBT_MouseLeave(object sender, EventArgs e)
@@ -104,7 +104,7 @@ namespace GITRepoManager
 
         private void DeleteLocalCB_MouseEnter(object sender, EventArgs e)
         {
-            DeleteRepoDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_DELETE_LOCAL_INFO;
+            //DeleteRepoDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_DELETE_LOCAL_INFO;
         }
 
         private void DeleteLocalCB_MouseLeave(object sender, EventArgs e)
@@ -114,7 +114,7 @@ namespace GITRepoManager
 
         private void IsLocalRepoCB_MouseEnter(object sender, EventArgs e)
         {
-            DeleteRepoDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_IS_CLONE_INFO;
+            //DeleteRepoDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_IS_CLONE_INFO;
         }
 
         private void IsLocalRepoCB_MouseLeave(object sender, EventArgs e)

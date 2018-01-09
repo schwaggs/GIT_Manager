@@ -69,7 +69,7 @@ namespace GITRepoManager
                         private void NewRepoBT_MouseEnter(object sender, EventArgs e)
                         {
                             NewRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
-                            ButtonDescriptionSSLB.Text = Properties.Resources.NEW_REPO_COMMAND_INFO;
+                            //ButtonDescriptionSSLB.Text = Properties.Resources.NEW_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -107,7 +107,7 @@ namespace GITRepoManager
                         private void DeleteRepoBT_MouseEnter(object sender, EventArgs e)
                         {
                             DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon_Hover;
-                            ButtonDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_COMMAND_INFO;
+                            //ButtonDescriptionSSLB.Text = Properties.Resources.DELETE_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -145,7 +145,7 @@ namespace GITRepoManager
                         private void MoveRepoBT_MouseEnter(object sender, EventArgs e)
                         {
                             MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon_Hover;
-                            ButtonDescriptionSSLB.Text = Properties.Resources.MOVE_REPO_COMMAND_INFO;
+                            //ButtonDescriptionSSLB.Text = Properties.Resources.MOVE_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -183,7 +183,7 @@ namespace GITRepoManager
                         private void CloneRepoBT_MouseEnter(object sender, EventArgs e)
                         {
                             CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon_Hover;
-                            ButtonDescriptionSSLB.Text = Properties.Resources.CLONE_REPO_COMMAND_INFO;
+                            //ButtonDescriptionSSLB.Text = Properties.Resources.CLONE_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -221,7 +221,7 @@ namespace GITRepoManager
                         private void TagRepoBT_MouseEnter(object sender, EventArgs e)
                         {
                             TagRepoBT.BackgroundImage = Properties.Resources.TagIcon_Hover;
-                            ButtonDescriptionSSLB.Text = Properties.Resources.TAG_REPO_COMMAND_INFO;
+                            //ButtonDescriptionSSLB.Text = Properties.Resources.TAG_REPO_COMMAND_INFO;
                         }
 
                     #endregion
@@ -263,7 +263,7 @@ namespace GITRepoManager
             private void SettingsBT_MouseEnter(object sender, EventArgs e)
             {
                 SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon_Hover;
-                ButtonDescriptionSSLB.Text = Properties.Resources.SETTINGS_COMMAND_INFO;
+                //ButtonDescriptionSSLB.Text = Properties.Resources.SETTINGS_COMMAND_INFO;
             }
 
 
@@ -285,7 +285,7 @@ namespace GITRepoManager
         private void RepoLogBT_MouseEnter(object sender, EventArgs e)
         {
             RepoLogBT.BackgroundImage = Properties.Resources.Log_Icon_Hover;
-            ButtonDescriptionSSLB.Text = Properties.Resources.LOG_REPO_COMMAND_INFO;
+            //ButtonDescriptionSSLB.Text = Properties.Resources.LOG_REPO_COMMAND_INFO;
         }
 
         private void RepoLogBT_MouseLeave(object sender, EventArgs e)

@@ -38,7 +38,7 @@ namespace GITRepoManager
         private void BrowseLocationBT_MouseEnter(object sender, EventArgs e)
         {
             BrowseLocationBT.BackgroundImage = Properties.Resources.Browse_Icon_Hover;
-            NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_BROWSE_HOVER;
+            //NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_BROWSE_HOVER;
 
         }
 
@@ -143,7 +143,7 @@ namespace GITRepoManager
 
         private void OptionBareCB_MouseEnter(object sender, EventArgs e)
         {
-            NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_BARE_INFO;
+            //NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_BARE_INFO;
         }
 
         private void OptionBareCB_MouseLeave(object sender, EventArgs e)
@@ -153,7 +153,7 @@ namespace GITRepoManager
 
         private void OptionReadmeCB_MouseEnter(object sender, EventArgs e)
         {
-            NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_README_INFO;
+            //NewRepoDescriptionSSLB.Text = Properties.Resources.NEW_REPO_README_INFO;
         }
 
         private void OptionReadmeCB_MouseLeave(object sender, EventArgs e)

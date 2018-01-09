@@ -68,14 +68,11 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.dll.c
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe.config
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.pdb
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.dll
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Microsoft.WindowsAPICodePack.dll
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.pdb
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.xml
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.CloneRepoFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.DeleteRepoFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.HomeView.resources

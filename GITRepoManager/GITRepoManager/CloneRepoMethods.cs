@@ -16,8 +16,8 @@ namespace GITRepoManager
 
         public static void Cloner()
         {
-            string MoveRepoCommand = Properties.Resources.REPO_BASE_COMMAND + Properties.Resources.CLONE_REPO_BASE_COMMAND;
-            MoveRepoCommand += ("\"" + CloneRepoData.Repository_Source + "\"" + " ");
+           // string MoveRepoCommand = Properties.Resources.REPO_BASE_COMMAND + Properties.Resources.CLONE_REPO_BASE_COMMAND;
+            //MoveRepoCommand += ("\"" + CloneRepoData.Repository_Source + "\"" + " ");
 
             Process cmdProc = new Process();
             cmdProc.StartInfo.FileName = "cmd.exe";
@@ -28,7 +28,7 @@ namespace GITRepoManager
             cmdProc.Start();
 
             cmdProc.StandardInput.WriteLine("cd " + "\"" + CloneRepoData.Clone_Destination + "\"");
-            cmdProc.StandardInput.WriteLine(MoveRepoCommand);
+            //cmdProc.StandardInput.WriteLine(MoveRepoCommand);
 
             cmdProc.StandardInput.Flush();
             cmdProc.StandardInput.Close();

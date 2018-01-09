@@ -91,7 +91,7 @@ namespace GITRepoManager
                     }
                 }
 
-                DirectoryInfo DirToCreateInfo = new DirectoryInfo(DirToCreate + Properties.Resources.REPO_FOLDER_EXTENSION);
+                DirectoryInfo DirToCreateInfo = new DirectoryInfo(DirToCreate); //+ Properties.Resources.REPO_FOLDER_EXTENSION);
 
                 if (DirToCreateInfo.Exists)
                 {
@@ -466,7 +466,7 @@ namespace GITRepoManager
                             Process logP = Create_Process(SourceDirInfo.FullName);
                             logP.Start();
 
-                            logP.StandardInput.WriteLine(string.Format(Properties.Resources.LOG_REPO_COMMAND, filename));
+                            //logP.StandardInput.WriteLine(string.Format(Properties.Resources.LOG_REPO_COMMAND, filename));
                             logP.WaitForExit(1000);
                             logP.Close();
                         }
