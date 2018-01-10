@@ -163,7 +163,7 @@ namespace GITRepoManager
 
                 foreach (DirectoryInfo dir in RepoIO.List_Directory(RepoSourceTB.Text))
                 {
-                    RepoCell temp = new RepoCell();
+                    RepoCellOld temp = new RepoCellOld();
                     temp.RepoName = RepoIO.Repo_Name(dir);
                     temp.Checked = false;
                     temp.RepoDirInfo = dir;
@@ -224,8 +224,8 @@ namespace GITRepoManager
 
         private void TagRepoFRM_Load(object sender, EventArgs e)
         {
-            TagRepoData.All_Repos = new List<RepoCell>();
-            TagRepoData.Selected_Repos = new List<RepoCell>();
+            TagRepoData.All_Repos = new List<RepoCellOld>();
+            TagRepoData.Selected_Repos = new List<RepoCellOld>();
             TagRepoData.Temp_Tags = new List<string>();
             TagRepoStatusTB.Text = "Select directory to search for repositories.";
         }
@@ -286,7 +286,7 @@ namespace GITRepoManager
                 // Populate dictionary with tags from tag file
                 int i = 1;
 
-                foreach (RepoCell rc in TagRepoData.Selected_Repos)
+                foreach (RepoCellOld rc in TagRepoData.Selected_Repos)
                 {
                     List<string> temp = new List<string>()
                     {
@@ -454,7 +454,7 @@ namespace GITRepoManager
             Control1BT.Visible = true;
             Control1BT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
 
-            RepoCell tempCell = null;
+            RepoCellOld tempCell = null;
 
             foreach (ListViewItem lvi in RepositoriesLV.SelectedItems)
             {

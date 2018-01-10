@@ -14,6 +14,8 @@ namespace GITRepoManager
     {
         public MainViewFRM()
         {
+            InitializationViewFRM initialize = new InitializationViewFRM();
+            initialize.Show();
             InitializeComponent();
         }
 
@@ -43,6 +45,34 @@ namespace GITRepoManager
             {
                 MessageBox.Show("This is not a repo");
             }
+        }
+
+        private void Populate_List()
+        {
+
+        }
+
+        private void MainViewFRM_Load(object sender, EventArgs e)
+        {
+            RepoProps repo = new RepoProps();
+
+            RepoPG.SelectedObject = repo;
+        }
+
+        private void SettingsBT_Click(object sender, EventArgs e)
+        {
+            SettingsViewFRM settings = new SettingsViewFRM();
+            settings.ShowDialog();
+        }
+
+        private void SettingsBT_MouseEnter(object sender, EventArgs e)
+        {
+            SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon_Hover;
+        }
+
+        private void SettingsBT_MouseLeave(object sender, EventArgs e)
+        {
+            SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon;
         }
     }
 }

@@ -94,3 +94,8 @@ E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Newtons
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.LogViewFRM.resources
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.MainViewFRM.resources
 E:\OneDrive\Projects\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.SettingsViewFRM.resources
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.InitializationViewFRM.resources
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\CircularProgressBar.dll
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\WinFormAnimation.dll
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\CircularProgressBar.xml
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\WinFormAnimation.xml

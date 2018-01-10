@@ -19,8 +19,8 @@ namespace GITRepoManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MainViewFRM Home = new MainViewFRM();
-            Application.Run(Home);
+            MainViewFRM main = new MainViewFRM();
+            Application.Run(main);
         }
     }
 }

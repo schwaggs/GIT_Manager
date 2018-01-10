@@ -9,9 +9,9 @@ namespace GITRepoManager
 {
     public static class TagRepoMethods
     {
-        public static RepoCell Find_Repo_Cell(object sender)
+        public static RepoCellOld Find_Repo_Cell(object sender)
         {
-            foreach (RepoCell rc in TagRepoData.All_Repos)
+            foreach (RepoCellOld rc in TagRepoData.All_Repos)
             {
                 if (sender is Label)
                 {
@@ -37,7 +37,7 @@ namespace GITRepoManager
         {
             try
             {
-                foreach (RepoCell rc in TagRepoData.All_Repos)
+                foreach (RepoCellOld rc in TagRepoData.All_Repos)
                 {
                     rc.Checked = true;
                 }
@@ -57,7 +57,7 @@ namespace GITRepoManager
         {
             try
             {
-                foreach (RepoCell rc in TagRepoData.All_Repos)
+                foreach (RepoCellOld rc in TagRepoData.All_Repos)
                 {
                     rc.Checked = false;
                 }
@@ -77,7 +77,7 @@ namespace GITRepoManager
         {
             try
             {
-                RepoCell tempCell = Find_Repo_Cell(sender);
+                RepoCellOld tempCell = Find_Repo_Cell(sender);
 
                 if (tempCell != null)
                 {
@@ -107,7 +107,7 @@ namespace GITRepoManager
 
         public static bool Checked(object sender)
         {
-            RepoCell tempCell = Find_Repo_Cell(sender);
+            RepoCellOld tempCell = Find_Repo_Cell(sender);
 
             if (tempCell != null)
             {
@@ -130,7 +130,7 @@ namespace GITRepoManager
             TagRepoData.Selected_Repos.Clear();
             try
             {
-                foreach (RepoCell rc in TagRepoData.All_Repos)
+                foreach (RepoCellOld rc in TagRepoData.All_Repos)
                 {
                     if (rc.Checked)
                     {

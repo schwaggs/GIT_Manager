@@ -1,19 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace GITRepoManager
 {
     public class RepoCell
     {
-        public Label RepoControl { get; set; }
-        public DirectoryInfo RepoDirInfo { get; set; }
-        public bool Checked { get; set; }
-        public static List<string> Tags { get; set; }
-        public string RepoName { get; set; }
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public Status_Type Status { get; set; }
+        public DateTime Last_Commit { get; set; }               
+        public string Last_Commit_Message { get; set; }         
+
+        public List<string> Notes { get; set; }                 
+        public Dictionary<string, string> Logs { get; set; }    
+
+        public enum Status_Type
+        {
+            NONE = 0,
+            NEW = 1,
+            DEVELOPMENT = 2,
+            PRODUCTION = 3
+        }
     }
 }
