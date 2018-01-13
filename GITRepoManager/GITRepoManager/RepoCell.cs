@@ -8,21 +8,44 @@ namespace GITRepoManager
 {
     public class RepoCell
     {
-        public string Name { get; set; }
         public string Path { get; set; }
-        public Status_Type Status { get; set; }
+        public Status.Type Current_Status { get; set; }
         public DateTime Last_Commit { get; set; }               
         public string Last_Commit_Message { get; set; }         
 
         public List<string> Notes { get; set; }                 
-        public Dictionary<string, string> Logs { get; set; }    
+        public Dictionary<string, string> Logs { get; set; }
 
-        public enum Status_Type
+        public static class Status
         {
-            NONE = 0,
-            NEW = 1,
-            DEVELOPMENT = 2,
-            PRODUCTION = 3
+            public enum Type
+            {
+                NONE = 0,
+                NEW = 1,
+                DEVELOPMENT = 2,
+                PRODUCTION = 3
+            }
+
+            public static string ToString(Type temp)
+            {
+                switch (temp)
+                {
+                    case Type.NONE:
+                        return "None";
+
+                    case Type.NEW:
+                        return "New";
+
+                    case Type.DEVELOPMENT:
+                        return "Development";
+
+                    case Type.PRODUCTION:
+                        return "Production";
+
+                    default:
+                        return "";
+                }
+            }
         }
     }
 }

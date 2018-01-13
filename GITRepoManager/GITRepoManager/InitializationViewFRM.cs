@@ -16,15 +16,86 @@ namespace GITRepoManager
         public InitializationViewFRM()
         {
             InitializeComponent();
+            ProgressCPB.Value = 0;
         }
 
         private void InitializationViewFRM_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < 100; i++)
+            bool cont = true;
+
+            cont = InitializationData.Initialize();
+
+            if (cont)
             {
-                Thread.Sleep(10);
-                ProgressCPB.PerformStep();
+                cont = InitializationData.Initialize_Roots(null);
             }
+
+            if (cont)
+            {
+                InitializationData.Initialized = true;
+                return;
+            }
+
+            InitializationData.Abort = true;
+        }
+
+        private void ProgressBarIncrT_Tick(object sender, EventArgs e)
+        {
+            if (ProgressCPB.Value + InitializationData.Progress_Inc < 100)
+            {
+                ProgressCPB.Value += InitializationData.Progress_Inc;
+            }
+
+            else
+            {
+                ProgressCPB.Value = 100;
+            }
+
+            if (ProgressCPB.Value == ProgressCPB.Maximum)
+            {
+                ProgressBarIncrT.Stop();
+                InitializationData.Initialized = true;
+            }
+        }
+
+        
+
+        private void InitializationViewFRM_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!InitializationData.Initialized)
+            {
+                ProgressBarIncrT.Stop();
+            }
+        }
+
+        private void ReposBGW_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void ReposBGW_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void ReposBGW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+        private void RootsBGW_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void RootsBGW_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void RootsBGW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
         }
     }
 }

@@ -30,13 +30,13 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.RootLocationCB = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel3 = new System.Windows.Forms.Panel();
             this.RepoPG = new System.Windows.Forms.PropertyGrid();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.ReposLV = new System.Windows.Forms.ListView();
             this.RepoNameCHDR = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
@@ -75,20 +75,21 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.RootLocationCB);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(3, 11);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(385, 40);
             this.panel2.TabIndex = 1;
             // 
-            // comboBox1
+            // RootLocationCB
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(128, 8);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(244, 21);
-            this.comboBox1.TabIndex = 26;
+            this.RootLocationCB.FormattingEnabled = true;
+            this.RootLocationCB.Location = new System.Drawing.Point(128, 8);
+            this.RootLocationCB.Name = "RootLocationCB";
+            this.RootLocationCB.Size = new System.Drawing.Size(244, 21);
+            this.RootLocationCB.TabIndex = 26;
+            this.RootLocationCB.SelectedIndexChanged += new System.EventHandler(this.RootLocationCB_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -127,7 +128,7 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.RepoPG);
-            this.panel3.Controls.Add(this.listView1);
+            this.panel3.Controls.Add(this.ReposLV);
             this.panel3.Location = new System.Drawing.Point(4, 71);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(804, 358);
@@ -143,24 +144,24 @@
             this.RepoPG.Size = new System.Drawing.Size(421, 358);
             this.RepoPG.TabIndex = 2;
             // 
-            // listView1
+            // ReposLV
             // 
-            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ReposLV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ReposLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.RepoNameCHDR});
-            this.listView1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(377, 358);
-            this.listView1.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.ReposLV.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ReposLV.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ReposLV.FullRowSelect = true;
+            this.ReposLV.GridLines = true;
+            this.ReposLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.ReposLV.Location = new System.Drawing.Point(0, 0);
+            this.ReposLV.MultiSelect = false;
+            this.ReposLV.Name = "ReposLV";
+            this.ReposLV.Size = new System.Drawing.Size(377, 358);
+            this.ReposLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.ReposLV.TabIndex = 1;
+            this.ReposLV.UseCompatibleStateImageBehavior = false;
+            this.ReposLV.View = System.Windows.Forms.View.Details;
             // 
             // RepoNameCHDR
             // 
@@ -290,14 +291,14 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox RootLocationCB;
         private NoFocusSelectionRectangleButton CloneRepoBT;
         private NoFocusSelectionRectangleButton MoveRepoBT;
         private NoFocusSelectionRectangleButton DeleteRepoBT;
         private NoFocusSelectionRectangleButton AddRepoBT;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView ReposLV;
         private System.Windows.Forms.ColumnHeader RepoNameCHDR;
         private System.Windows.Forms.PropertyGrid RepoPG;
         private NoFocusSelectionRectangleButton SettingsBT;

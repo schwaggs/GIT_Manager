@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ProgressCPB = new CircularProgressBar.CircularProgressBar();
+            this.ProgressBarIncrT = new System.Windows.Forms.Timer(this.components);
+            this.RootsBGW = new System.ComponentModel.BackgroundWorker();
+            this.ReposBGW = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // ProgressCPB
@@ -36,7 +40,7 @@
             this.ProgressCPB.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
             this.ProgressCPB.AnimationSpeed = 500;
             this.ProgressCPB.BackColor = System.Drawing.Color.Transparent;
-            this.ProgressCPB.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProgressCPB.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProgressCPB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ProgressCPB.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ProgressCPB.InnerMargin = 2;
@@ -62,6 +66,24 @@
             this.ProgressCPB.Text = "Initializing";
             this.ProgressCPB.TextMargin = new System.Windows.Forms.Padding(0);
             // 
+            // ProgressBarIncrT
+            // 
+            this.ProgressBarIncrT.Enabled = true;
+            this.ProgressBarIncrT.Interval = 50;
+            this.ProgressBarIncrT.Tick += new System.EventHandler(this.ProgressBarIncrT_Tick);
+            // 
+            // RootsBGW
+            // 
+            this.RootsBGW.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RootsBGW_DoWork);
+            this.RootsBGW.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.RootsBGW_ProgressChanged);
+            this.RootsBGW.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.RootsBGW_RunWorkerCompleted);
+            // 
+            // ReposBGW
+            // 
+            this.ReposBGW.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ReposBGW_DoWork);
+            this.ReposBGW.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.ReposBGW_ProgressChanged);
+            this.ReposBGW.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ReposBGW_RunWorkerCompleted);
+            // 
             // InitializationViewFRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -81,6 +103,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Git Manager Initialization";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InitializationViewFRM_FormClosing);
             this.Load += new System.EventHandler(this.InitializationViewFRM_Load);
             this.ResumeLayout(false);
 
@@ -89,5 +112,8 @@
         #endregion
 
         private CircularProgressBar.CircularProgressBar ProgressCPB;
+        private System.Windows.Forms.Timer ProgressBarIncrT;
+        private System.ComponentModel.BackgroundWorker RootsBGW;
+        private System.ComponentModel.BackgroundWorker ReposBGW;
     }
 }

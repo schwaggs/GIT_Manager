@@ -14,6 +14,11 @@ namespace GITRepoManager
         public static string Exception_Message { get; set; }
         private static bool Is_Repo { get; set; }
 
+
+
+
+
+
         #region Is GIT Repo
 
         public static bool Is_Git_Repo(string dir)
@@ -85,7 +90,6 @@ namespace GITRepoManager
             {
                 cmdProc.StartInfo = cmdInfo;
                 cmdProc.EnableRaisingEvents = true;
-                cmdProc.Exited += CmdProc_Exited;
                 cmdProc.OutputDataReceived += CmdProc_OutputDataReceived;
                 cmdProc.ErrorDataReceived += CmdProc_ErrorDataReceived;
 
@@ -101,7 +105,6 @@ namespace GITRepoManager
 
         private static void CmdProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            //MessageBox.Show("Error:  " + e.Data);
             if (!string.IsNullOrEmpty(e.Data) || !string.IsNullOrWhiteSpace(e.Data))
             {
                 Is_Repo = false;
@@ -110,16 +113,7 @@ namespace GITRepoManager
 
         private static void CmdProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            //MessageBox.Show("Output:  " + e.Data);
-        }
-
-        #endregion
-
-        #region Process Exited
-
-        private static void CmdProc_Exited(object sender, EventArgs e)
-        {
-            //MessageBox.Show("Process exited");
+            
         }
 
         #endregion

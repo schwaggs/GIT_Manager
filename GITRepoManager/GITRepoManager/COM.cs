@@ -106,7 +106,7 @@ namespace GITRepoManager
                     return true;
                 }
 
-                catch (Exception ex)
+                catch
                 {
                     return false;
                 }

@@ -457,7 +457,7 @@ namespace GITRepoManager
                             }
                         }
 
-                        catch(Exception ex)
+                        catch
                         {
                         }
 
@@ -503,10 +503,10 @@ namespace GITRepoManager
 
                     //}
 
-                    return @"Not a valid repository.";
+                    //return @"Not a valid repository.";
                 //}
 
-                return @"Invalid Location.";
+                //return @"Invalid Location.";
             }
 
         #endregion

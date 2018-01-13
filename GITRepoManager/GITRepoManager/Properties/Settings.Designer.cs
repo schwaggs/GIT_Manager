@@ -49,18 +49,6 @@ namespace GITRepoManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string StatusListDir {
-            get {
-                return ((string)(this["StatusListDir"]));
-            }
-            set {
-                this["StatusListDir"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("-1")]
         public int StorageType {
             get {
@@ -68,6 +56,18 @@ namespace GITRepoManager.Properties {
             }
             set {
                 this["StorageType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StatusListDir {
+            get {
+                return ((string)(this["StatusListDir"]));
+            }
+            set {
+                this["StatusListDir"] = value;
             }
         }
         
@@ -116,6 +116,18 @@ namespace GITRepoManager.Properties {
             }
             set {
                 this["TagListDirIsEmpty"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Z:\\Software Engineering")]
+        public string RepoBaseDir {
+            get {
+                return ((string)(this["RepoBaseDir"]));
+            }
+            set {
+                this["RepoBaseDir"] = value;
             }
         }
     }

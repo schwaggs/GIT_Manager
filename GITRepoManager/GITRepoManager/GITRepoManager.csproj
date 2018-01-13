@@ -101,6 +101,7 @@
     <Compile Include="HomeView.Designer.cs">
       <DependentUpon>HomeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="InitializationData.cs" />
     <Compile Include="InitializationViewFRM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,8 +143,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepoCell.cs" />
     <Compile Include="RepoCellOld.cs" />
+    <Compile Include="ManagerData.cs" />
     <Compile Include="RepoIO.cs" />
     <Compile Include="RepoProps.cs" />
+    <Compile Include="RootCell.cs" />
     <Compile Include="SettingsViewFRM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +202,7 @@
       <DependentUpon>TagRepoFRM.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ManagerData.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -210,7 +214,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GitLogo.png" />

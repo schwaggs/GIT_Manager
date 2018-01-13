@@ -8,11 +8,11 @@
     <Setting Name="RepoListDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="StatusListDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="StorageType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="StatusListDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -25,6 +25,9 @@
     </Setting>
     <Setting Name="TagListDirIsEmpty" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="RepoBaseDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Z:\Software Engineering</Value>
     </Setting>
   </Settings>
 </SettingsFile>
