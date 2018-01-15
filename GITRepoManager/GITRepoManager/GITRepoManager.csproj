@@ -83,6 +83,12 @@
     <Compile Include="CloneRepoFRM.Designer.cs">
       <DependentUpon>CloneRepoFRM.cs</DependentUpon>
     </Compile>
+    <Compile Include="CloneRepoFRMold.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CloneRepoFRMold.Designer.cs">
+      <DependentUpon>CloneRepoFRMold.cs</DependentUpon>
+    </Compile>
     <Compile Include="CloneRepoMethods.cs" />
     <Compile Include="COM.cs" />
     <Compile Include="DeleteRepoData.cs" />
@@ -127,6 +133,12 @@
     <Compile Include="MoveRepoFRM.Designer.cs">
       <DependentUpon>MoveRepoFRM.cs</DependentUpon>
     </Compile>
+    <Compile Include="MoveRepoFRMold.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MoveRepoFRMold.Designer.cs">
+      <DependentUpon>MoveRepoFRMold.cs</DependentUpon>
+    </Compile>
     <Compile Include="MoveRepoMethods.cs" />
     <Compile Include="NewRepoData.cs" />
     <Compile Include="NewRepoFRM.cs">
@@ -164,6 +176,9 @@
     <EmbeddedResource Include="CloneRepoFRM.resx">
       <DependentUpon>CloneRepoFRM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CloneRepoFRMold.resx">
+      <DependentUpon>CloneRepoFRMold.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DeleteRepoFrm.resx">
       <DependentUpon>DeleteRepoFRM.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,8 +194,8 @@
     <EmbeddedResource Include="MainViewFRM.resx">
       <DependentUpon>MainViewFRM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MoveRepoFRM.resx">
-      <DependentUpon>MoveRepoFRM.cs</DependentUpon>
+    <EmbeddedResource Include="MoveRepoFRMold.resx">
+      <DependentUpon>MoveRepoFRMold.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewRepoFrm.resx">
       <DependentUpon>NewRepoFRM.cs</DependentUpon>

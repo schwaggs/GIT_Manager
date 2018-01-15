@@ -29,10 +29,11 @@ namespace GITRepoManager
         {
             Initialized = false;
             Abort = false;
+
             Initializer = new InitializationViewFRM();
 
             ManagerData.Roots = new Dictionary<string, RootCell>();
-            ManagerData.Repos = new Dictionary<string, RepoCell>();
+            
             return true;
         }
 
@@ -50,7 +51,6 @@ namespace GITRepoManager
             try
             {
                 string dir = Properties.Settings.Default.RepoBaseDir;
-                //string dir = @"\\oemserv\Company Share\Software Engineering";
 
                 DirectoryInfo temp = new DirectoryInfo(dir);
 
@@ -71,17 +71,6 @@ namespace GITRepoManager
                 Exception_Message = ex.Message;
                 return false;
             }
-        }
-
-
-
-
-
-
-        public static bool Initialize_Repos(BackgroundWorker repos)
-        {
-            
-            return false;
         }
         
 

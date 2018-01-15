@@ -259,4 +259,23 @@
     <value>Z:\Engineering\Source Code\Production Testers</value>
     <comment>Code for production level testers</comment>
   </data>
+  <data name="REGEX_LOG_PATTERN" xml:space="preserve">
+    <value>commit (.*)\nAuthor: (.*)\nDate: (.*)\s{4,}(.*)\n*</value>
+  </data>
+  <data name="REGEX_PATTERN_AUTHOR" xml:space="preserve">
+    <value>Author: (.*)\n</value>
+  </data>
+  <data name="REGEX_PATTERN_COMMIT" xml:space="preserve">
+    <value>commit (.*)\n</value>
+  </data>
+  <data name="REGEX_PATTERN_DATE" xml:space="preserve">
+    <value>Date: (.*)\n</value>
+  </data>
+  <data name="REGEX_PATTERN_MESSAGE" xml:space="preserve">
+    <value>(.*)\n</value>
+  </data>
+  <data name="REPO_CLONE" xml:space="preserve">
+    <value>git clone {0} </value>
+    <comment>Command to clone a repository to the current location</comment>
+  </data>
 </root>

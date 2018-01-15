@@ -13,8 +13,8 @@ namespace GITRepoManager
         public DateTime Last_Commit { get; set; }               
         public string Last_Commit_Message { get; set; }         
 
-        public List<string> Notes { get; set; }                 
-        public Dictionary<string, string> Logs { get; set; }
+        public Dictionary<string, List<NoteCell>> Notes { get; set; }                 
+        public Dictionary<string, List<EntryCell>> Logs { get; set; }
 
         public static class Status
         {
@@ -47,5 +47,19 @@ namespace GITRepoManager
                 }
             }
         }
+    }
+
+    public class EntryCell
+    {
+        public string ID { get; set; }
+        public string Author { get; set; }
+        public DateTime Date { get; set; }
+        public string Message { get; set; }
+    }
+
+    public class NoteCell
+    {
+        public string Title { get; set; }
+        public string Body { get; set; }
     }
 }

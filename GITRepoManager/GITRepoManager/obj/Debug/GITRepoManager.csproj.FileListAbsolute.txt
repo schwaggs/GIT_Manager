@@ -70,7 +70,6 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.Hom
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.InitializationViewFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.LogViewFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.MainViewFRM.resources
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.MoveRepoFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.NewRepoFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.Properties.Resources.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.SettingsViewFRM.resources
@@ -99,3 +98,5 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Newtonsoft.Json.xm
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\WinFormAnimation.xml
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.exe
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.pdb
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.CloneRepoFRMold.resources
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.MoveRepoFRMold.resources

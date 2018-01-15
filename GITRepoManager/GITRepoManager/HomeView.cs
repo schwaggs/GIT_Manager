@@ -164,7 +164,7 @@ namespace GITRepoManager
 
                         private void MoveRepoBT_Click(object sender, EventArgs e)
                         {
-                            MoveRepoFRM MoveRepo = new MoveRepoFRM();
+                            MoveRepoFRMold MoveRepo = new MoveRepoFRMold();
                             MoveRepo.ShowDialog();
                         }
 
@@ -202,7 +202,7 @@ namespace GITRepoManager
 
                         private void CloneRepoBT_Click(object sender, EventArgs e)
                         {
-                            CloneRepoFRM CloneRepo = new CloneRepoFRM();
+                            CloneRepoFRMold CloneRepo = new CloneRepoFRMold();
                             CloneRepo.ShowDialog();
                         }
 

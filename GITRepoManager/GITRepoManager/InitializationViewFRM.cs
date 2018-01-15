@@ -28,15 +28,24 @@ namespace GITRepoManager
             if (cont)
             {
                 cont = InitializationData.Initialize_Roots(null);
+
+                if (cont)
+                {
+                    InitializationData.Initialized = true;
+                }
+
+                else
+                {
+                    InitializationData.Initialized = false;
+                    InitializationData.Abort = true;
+                }
             }
 
-            if (cont)
+            else
             {
-                InitializationData.Initialized = true;
-                return;
+                InitializationData.Initialized = false;
+                InitializationData.Abort = true;
             }
-
-            InitializationData.Abort = true;
         }
 
         private void ProgressBarIncrT_Tick(object sender, EventArgs e)

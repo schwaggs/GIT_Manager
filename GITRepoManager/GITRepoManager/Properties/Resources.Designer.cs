@@ -301,6 +301,60 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to commit (.*)\nAuthor: (.*)\nDate: (.*)\s{4,}(.*)\n*.
+        /// </summary>
+        internal static string REGEX_LOG_PATTERN {
+            get {
+                return ResourceManager.GetString("REGEX_LOG_PATTERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author: (.*)\n.
+        /// </summary>
+        internal static string REGEX_PATTERN_AUTHOR {
+            get {
+                return ResourceManager.GetString("REGEX_PATTERN_AUTHOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to commit (.*)\n.
+        /// </summary>
+        internal static string REGEX_PATTERN_COMMIT {
+            get {
+                return ResourceManager.GetString("REGEX_PATTERN_COMMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date: (.*)\n.
+        /// </summary>
+        internal static string REGEX_PATTERN_DATE {
+            get {
+                return ResourceManager.GetString("REGEX_PATTERN_DATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (.*)\n.
+        /// </summary>
+        internal static string REGEX_PATTERN_MESSAGE {
+            get {
+                return ResourceManager.GetString("REGEX_PATTERN_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to git clone {0} .
+        /// </summary>
+        internal static string REPO_CLONE {
+            get {
+                return ResourceManager.GetString("REPO_CLONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  push -u origin master.
         /// </summary>
         internal static string REPO_PUSH_ORIGIN_MASTER {

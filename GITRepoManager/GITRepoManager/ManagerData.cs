@@ -24,9 +24,8 @@ namespace GITRepoManager
         /// A list of notes
         /// A dictionary of logs where the key is the log id and the 
         /// </summary>
-        public static Dictionary<string, RepoCell> Repos { get; set; }
 
-        public static string Selected_Root { get; set; }
-        public static string Selected_Repo { get; set; }
+        public static RootCell Selected_Root { get; set; }
+        public static RepoCell Selected_Repo { get; set; }
     }
 }

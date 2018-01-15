@@ -28,18 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RepoPathTB = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BrowseRepoSourceBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.CloneRepoDescriptionSSLB = new System.Windows.Forms.ToolStripStatusLabel();
-            this.BrowseCloneDestinationBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.CloneDestinationGB = new System.Windows.Forms.GroupBox();
-            this.CloneDestinationTB = new System.Windows.Forms.TextBox();
-            this.RepoSourceGB = new System.Windows.Forms.GroupBox();
-            this.RepoSourceTB = new System.Windows.Forms.TextBox();
-            this.statusStrip1.SuspendLayout();
-            this.CloneDestinationGB.SuspendLayout();
-            this.RepoSourceGB.SuspendLayout();
+            this.DestinationPathTB = new System.Windows.Forms.TextBox();
+            this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.ClearAllBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.RepoPathTB);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(13, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(412, 57);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Repository Path";
+            // 
+            // RepoPathTB
+            // 
+            this.RepoPathTB.Location = new System.Drawing.Point(7, 25);
+            this.RepoPathTB.Name = "RepoPathTB";
+            this.RepoPathTB.ReadOnly = true;
+            this.RepoPathTB.Size = new System.Drawing.Size(399, 26);
+            this.RepoPathTB.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.BrowseRepoSourceBT);
+            this.groupBox2.Controls.Add(this.DestinationPathTB);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(13, 91);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(412, 57);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Destination Path";
             // 
             // BrowseRepoSourceBT
             // 
@@ -52,142 +81,90 @@
             this.BrowseRepoSourceBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BrowseRepoSourceBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BrowseRepoSourceBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseRepoSourceBT.Location = new System.Drawing.Point(549, 29);
-            this.BrowseRepoSourceBT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BrowseRepoSourceBT.Location = new System.Drawing.Point(361, 12);
             this.BrowseRepoSourceBT.Name = "BrowseRepoSourceBT";
-            this.BrowseRepoSourceBT.Size = new System.Drawing.Size(70, 79);
-            this.BrowseRepoSourceBT.TabIndex = 25;
+            this.BrowseRepoSourceBT.Size = new System.Drawing.Size(45, 45);
+            this.BrowseRepoSourceBT.TabIndex = 26;
             this.BrowseRepoSourceBT.UseVisualStyleBackColor = false;
             this.BrowseRepoSourceBT.Click += new System.EventHandler(this.BrowseRepoSourceBT_Click);
             this.BrowseRepoSourceBT.MouseEnter += new System.EventHandler(this.BrowseRepoSourceBT_MouseEnter);
             this.BrowseRepoSourceBT.MouseLeave += new System.EventHandler(this.BrowseRepoSourceBT_MouseLeave);
             // 
-            // statusStrip1
+            // DestinationPathTB
             // 
-            this.statusStrip1.BackColor = System.Drawing.Color.White;
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CloneRepoDescriptionSSLB});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 228);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(631, 22);
-            this.statusStrip1.TabIndex = 24;
-            this.statusStrip1.Text = "statusStrip1";
+            this.DestinationPathTB.Location = new System.Drawing.Point(7, 25);
+            this.DestinationPathTB.Name = "DestinationPathTB";
+            this.DestinationPathTB.Size = new System.Drawing.Size(338, 26);
+            this.DestinationPathTB.TabIndex = 1;
             // 
-            // CloneRepoDescriptionSSLB
+            // CloneRepoBT
             // 
-            this.CloneRepoDescriptionSSLB.Name = "CloneRepoDescriptionSSLB";
-            this.CloneRepoDescriptionSSLB.Size = new System.Drawing.Size(0, 17);
+            this.CloneRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.CloneRepoBT.BackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.CloneIcon;
+            this.CloneRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CloneRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.CloneRepoBT.FlatAppearance.BorderSize = 0;
+            this.CloneRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CloneRepoBT.Location = new System.Drawing.Point(20, 154);
+            this.CloneRepoBT.Name = "CloneRepoBT";
+            this.CloneRepoBT.Size = new System.Drawing.Size(35, 35);
+            this.CloneRepoBT.TabIndex = 27;
+            this.CloneRepoBT.UseVisualStyleBackColor = false;
+            this.CloneRepoBT.Click += new System.EventHandler(this.CloneRepoBT_Click);
+            this.CloneRepoBT.MouseEnter += new System.EventHandler(this.CloneRepoBT_MouseEnter);
+            this.CloneRepoBT.MouseLeave += new System.EventHandler(this.CloneRepoBT_MouseLeave);
             // 
-            // BrowseCloneDestinationBT
+            // ClearAllBT
             // 
-            this.BrowseCloneDestinationBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BrowseCloneDestinationBT.BackColor = System.Drawing.Color.Transparent;
-            this.BrowseCloneDestinationBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Browse_Icon;
-            this.BrowseCloneDestinationBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BrowseCloneDestinationBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.BrowseCloneDestinationBT.FlatAppearance.BorderSize = 0;
-            this.BrowseCloneDestinationBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BrowseCloneDestinationBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BrowseCloneDestinationBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseCloneDestinationBT.Location = new System.Drawing.Point(549, 126);
-            this.BrowseCloneDestinationBT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.BrowseCloneDestinationBT.Name = "BrowseCloneDestinationBT";
-            this.BrowseCloneDestinationBT.Size = new System.Drawing.Size(70, 79);
-            this.BrowseCloneDestinationBT.TabIndex = 23;
-            this.BrowseCloneDestinationBT.UseVisualStyleBackColor = false;
-            this.BrowseCloneDestinationBT.Click += new System.EventHandler(this.BrowseCloneDestinationBT_Click);
-            this.BrowseCloneDestinationBT.MouseEnter += new System.EventHandler(this.BrowseCloneDestinationBT_MouseEnter);
-            this.BrowseCloneDestinationBT.MouseLeave += new System.EventHandler(this.BrowseCloneDestinationBT_MouseLeave);
-            // 
-            // CloneDestinationGB
-            // 
-            this.CloneDestinationGB.Controls.Add(this.CloneDestinationTB);
-            this.CloneDestinationGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CloneDestinationGB.Location = new System.Drawing.Point(15, 114);
-            this.CloneDestinationGB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.CloneDestinationGB.Name = "CloneDestinationGB";
-            this.CloneDestinationGB.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.CloneDestinationGB.Size = new System.Drawing.Size(526, 91);
-            this.CloneDestinationGB.TabIndex = 22;
-            this.CloneDestinationGB.TabStop = false;
-            this.CloneDestinationGB.Text = "Destination";
-            // 
-            // CloneDestinationTB
-            // 
-            this.CloneDestinationTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CloneDestinationTB.Location = new System.Drawing.Point(8, 36);
-            this.CloneDestinationTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.CloneDestinationTB.Multiline = true;
-            this.CloneDestinationTB.Name = "CloneDestinationTB";
-            this.CloneDestinationTB.Size = new System.Drawing.Size(510, 35);
-            this.CloneDestinationTB.TabIndex = 0;
-            // 
-            // RepoSourceGB
-            // 
-            this.RepoSourceGB.Controls.Add(this.RepoSourceTB);
-            this.RepoSourceGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RepoSourceGB.Location = new System.Drawing.Point(15, 15);
-            this.RepoSourceGB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.RepoSourceGB.Name = "RepoSourceGB";
-            this.RepoSourceGB.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.RepoSourceGB.Size = new System.Drawing.Size(526, 91);
-            this.RepoSourceGB.TabIndex = 21;
-            this.RepoSourceGB.TabStop = false;
-            this.RepoSourceGB.Text = "Source";
-            // 
-            // RepoSourceTB
-            // 
-            this.RepoSourceTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RepoSourceTB.Location = new System.Drawing.Point(8, 31);
-            this.RepoSourceTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.RepoSourceTB.Multiline = true;
-            this.RepoSourceTB.Name = "RepoSourceTB";
-            this.RepoSourceTB.Size = new System.Drawing.Size(510, 35);
-            this.RepoSourceTB.TabIndex = 0;
+            this.ClearAllBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClearAllBT.BackColor = System.Drawing.Color.Transparent;
+            this.ClearAllBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Reset_Settings_Icon;
+            this.ClearAllBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClearAllBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.ClearAllBT.FlatAppearance.BorderSize = 0;
+            this.ClearAllBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ClearAllBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ClearAllBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClearAllBT.Location = new System.Drawing.Point(71, 154);
+            this.ClearAllBT.Name = "ClearAllBT";
+            this.ClearAllBT.Size = new System.Drawing.Size(35, 35);
+            this.ClearAllBT.TabIndex = 28;
+            this.ClearAllBT.UseVisualStyleBackColor = false;
+            this.ClearAllBT.Click += new System.EventHandler(this.ClearAllBT_Click);
+            this.ClearAllBT.MouseEnter += new System.EventHandler(this.ClearAllBT_MouseEnter);
+            this.ClearAllBT.MouseLeave += new System.EventHandler(this.ClearAllBT_MouseLeave);
             // 
             // CloneRepoFRM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(631, 250);
-            this.Controls.Add(this.BrowseRepoSourceBT);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.BrowseCloneDestinationBT);
-            this.Controls.Add(this.CloneDestinationGB);
-            this.Controls.Add(this.RepoSourceGB);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(649, 297);
-            this.MinimumSize = new System.Drawing.Size(649, 297);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(435, 194);
+            this.Controls.Add(this.ClearAllBT);
+            this.Controls.Add(this.CloneRepoBT);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Name = "CloneRepoFRM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Clone Repo";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CloneRepoFRM_FormClosing);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.CloneDestinationGB.ResumeLayout(false);
-            this.CloneDestinationGB.PerformLayout();
-            this.RepoSourceGB.ResumeLayout(false);
-            this.RepoSourceGB.PerformLayout();
+            this.Text = "CloneRepoFRM";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox RepoPathTB;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox DestinationPathTB;
         private NoFocusSelectionRectangleButton BrowseRepoSourceBT;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel CloneRepoDescriptionSSLB;
-        private NoFocusSelectionRectangleButton BrowseCloneDestinationBT;
-        private System.Windows.Forms.GroupBox CloneDestinationGB;
-        private System.Windows.Forms.TextBox CloneDestinationTB;
-        private System.Windows.Forms.GroupBox RepoSourceGB;
-        private System.Windows.Forms.TextBox RepoSourceTB;
+        private NoFocusSelectionRectangleButton CloneRepoBT;
+        private NoFocusSelectionRectangleButton ClearAllBT;
     }
 }

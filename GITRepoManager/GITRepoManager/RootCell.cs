@@ -19,7 +19,7 @@ namespace GITRepoManager
 
         public int _Count { get; set; }
 
-        public List<string> _Repos { get; set; }
+        public Dictionary<string, RepoCell> _Repos { get; set; }
 
         private bool _Valid_Path { get; set; }
 
@@ -32,7 +32,7 @@ namespace GITRepoManager
         ///  Only drive paths can be used such as Z:\Server Folder</param>
         public RootCell(string Path = "")
         {
-            _Repos = new List<string>();
+            _Repos = new Dictionary<string, RepoCell>();
 
             if (Path != "")
             {
@@ -49,6 +49,8 @@ namespace GITRepoManager
             if (_Valid_Path)
             {
                 Num_Repos();
+
+                _Repos = new Dictionary<string, RepoCell>();
                 Get_Repos();
             }
 
@@ -96,7 +98,19 @@ namespace GITRepoManager
             {
                 foreach (string repo in Directory.GetDirectories(_Path))
                 {
-                    _Repos.Add(repo);
+                    DirectoryInfo repoInfo = new DirectoryInfo(repo);
+
+                    RepoCell cell = new RepoCell
+                    {
+                        Path = repo,
+                        Current_Status = RepoCell.Status.Type.NONE,
+                        Last_Commit = DateTime.MinValue,
+                        Last_Commit_Message = string.Empty,
+                        Notes = new Dictionary<string, List<NoteCell>>(),
+                        Logs = new Dictionary<string, List<EntryCell>>()
+                    };
+
+                    _Repos.Add(repoInfo.Name, cell);
                 }
             }
 

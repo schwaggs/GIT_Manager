@@ -15,12 +15,9 @@ namespace GITRepoManager
 {
     public partial class MainViewFRM : Form
     {
-        public static InitializationViewFRM temp { get; set; }
-
+        
         public MainViewFRM()
         {
-            //InvalidPath();
-
             Thread t = new Thread(new ThreadStart(SplashStart));
             t.Start();
 
@@ -75,14 +72,12 @@ namespace GITRepoManager
             
             t.Abort();
             InitializeComponent();
+
+            ReposLV.ShowItemToolTips = true;
+            MainStatusSSL.Text = string.Empty;
+
             RootLocationCB_Initialize();
             ReposLV_Initialize();
-        }
-
-        public void InvalidPath()
-        {
-            Properties.Settings.Default.RepoBaseDir = @"Z:\Software Engineering";
-            Properties.Settings.Default.Save();
         }
 
         public void SplashStart()
@@ -93,7 +88,7 @@ namespace GITRepoManager
 
         private void NewRepoBT_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("clicked");
+            
         }
 
         private void BrowseRepoSourceBT_MouseEnter(object sender, EventArgs e)
@@ -106,29 +101,33 @@ namespace GITRepoManager
             AddRepoBT.BackgroundImage = Properties.Resources.NewIcon;
         }
 
-        private void BrowseRepoSourceBT_Click(object sender, EventArgs e)
+        private void Populate_Info_List()
         {
-            if (Helpers.Is_Git_Repo(@"Z:\Engineering\Source Code\Firmware Files"))
+            RepoPathTB.Text = ManagerData.Selected_Repo.Path;
+            RepoStatusCB.SelectedIndex = (int)ManagerData.Selected_Repo.Current_Status;
+            LastCommitTB.Text = ManagerData.Selected_Repo.Last_Commit.ToString();
+            LastCommitMessageTB.Text = ManagerData.Selected_Repo.Last_Commit_Message;
+
+            NotesTB.Clear();
+            NotesCB.Items.Clear();
+
+            foreach (string key in ManagerData.Selected_Repo.Notes.Keys)
             {
-                MessageBox.Show("This is a repo");
+                NotesCB.Items.Add(key);
             }
 
-            else
+            LogsTB.Clear();
+            LogsCB.Items.Clear();
+
+            foreach (string key in ManagerData.Selected_Repo.Logs.Keys)
             {
-                MessageBox.Show("This is not a repo");
+                LogsCB.Items.Add(key);
             }
-        }
-
-        private void Populate_List()
-        {
-
         }
 
         private void MainViewFRM_Load(object sender, EventArgs e)
         {
-            RepoProps repo = new RepoProps();
-
-            RepoPG.SelectedObject = repo;
+            
         }
 
         private void SettingsBT_Click(object sender, EventArgs e)
@@ -151,32 +150,134 @@ namespace GITRepoManager
         {
             RootLocationCB.Items.Clear();
 
-            foreach (KeyValuePair<string, RootCell> kvp in ManagerData.Roots)
+            foreach (string key in ManagerData.Roots.Keys)
             {
-                RootLocationCB.Items.Add(kvp.Key);
+                RootLocationCB.Items.Add(key);
             }
 
             RootLocationCB.SelectedIndex = 0;
-            RootLocationCB.Refresh();
+
+            ManagerData.Selected_Root = ManagerData.Roots[RootLocationCB.SelectedItem.ToString()];
+
+            if (ManagerData.Selected_Root != null)
+            {
+                MainStatusSSL.Text = ManagerData.Selected_Root._Path;
+            }
         }
 
         private void RootLocationCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MessageBox.Show(RootLocationCB.SelectedItem.ToString());
-
-            ReposLV_Initialize();
+            if (ManagerData.Selected_Root != null)
+            {
+                ManagerData.Selected_Root = ManagerData.Roots[RootLocationCB.SelectedItem.ToString()];
+                ReposLV_Initialize();
+                MainStatusSSL.Text = ManagerData.Selected_Root._Path;
+            }
         }
 
         private void ReposLV_Initialize()
         {
             ReposLV.Items.Clear();
 
-            foreach (string repo in ManagerData.Roots[RootLocationCB.SelectedItem.ToString()]._Repos)
+            foreach (string repo in ManagerData.Selected_Root._Repos.Keys)
             {
-                DirectoryInfo repoInfo = new DirectoryInfo(repo);
+                ListViewItem lvi = new ListViewItem
+                {
+                    Name = repo,
+                    Text = repo
+                };
 
-                ReposLV.Items.Add(repoInfo.Name);
+                ReposLV.Items.Add(lvi);
             }
+        }
+
+        private void ReposLV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!EditRepoBTP.Visible)
+            {
+                EditRepoBTP.Visible = true;
+            }
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                ManagerData.Selected_Repo = ManagerData.Selected_Root._Repos[ReposLV.SelectedItems[0].Name];
+
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                    Populate_Info_List();
+                }
+            }
+        }
+
+        private void RootLocationCB_Click(object sender, EventArgs e)
+        {
+            // Save any changes to the last selected repo
+            ReposLV.SelectedItems.Clear();
+            MainStatusSSL.Text = ManagerData.Selected_Root._Path;
+            
+        }
+
+        private void RepoStatusCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void DeleteRepoBT_Click(object sender, EventArgs e)
+        {
+            ListViewItem selected = ReposLV.SelectedItems[0];
+            ReposLV.Items.Remove(selected);
+            ReposLV.SelectedItems.Clear();
+
+            // Actually Delete Repo
+
+        }
+
+        private void MoveRepoBT_Click(object sender, EventArgs e)
+        {
+            MoveRepoFRM MoveRepo = new MoveRepoFRM();
+            MoveRepo.ShowDialog();
+        }
+
+        private void CloneRepoBT_Click(object sender, EventArgs e)
+        {
+            CloneRepoFRM CloneRepo = new CloneRepoFRM();
+            CloneRepo.ShowDialog();
+        }
+
+
+        private void DeleteRepoBT_MouseEnter(object sender, EventArgs e)
+        {
+            DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon_Hover;
+        }
+
+        private void MoveRepoBT_MouseEnter(object sender, EventArgs e)
+        {
+            MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon_Hover;
+        }
+
+        private void CloneRepoBT_MouseEnter(object sender, EventArgs e)
+        {
+            CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon_Hover;
+        }
+
+        
+
+        
+
+        private void DeleteRepoBT_MouseLeave(object sender, EventArgs e)
+        {
+            DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon;
+        }
+
+        private void MoveRepoBT_MouseLeave(object sender, EventArgs e)
+        {
+            MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon;
+        }
+
+        private void CloneRepoBT_MouseLeave(object sender, EventArgs e)
+        {
+            CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon;
         }
     }
 }
