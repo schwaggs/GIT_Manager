@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <Store>
+    <Location>\\Some\Location\</Location>
+    <Repos>
+      <Repo>
+        <Name>Some Repo</Name>
+        <Status>NEW</Status>
+        <Notes>
+          <Note>
+            <Title>Note Title</Title>
+            <Body>Note message</Body>
+          </Note>
+          <Note>
+            <Title>Note Title</Title>
+            <Body>Note message</Body>
+          </Note>
+        </Notes>
+      </Repo>
+
+      <Repo>
+        <Name>Some Repo</Name>
+        <Status>NEW</Status>
+        <Notes>
+          <Note>
+            <Title>Note Title</Title>
+            <Body>Note message</Body>
+          </Note>
+          <Note>
+            <Title>Note Title</Title>
+            <Body>Note message</Body>
+          </Note>
+        </Notes>
+      </Repo>
+    </Repos>
+  </Store>
+
+
+  <Store Name="TestRoot"
+      Location="\\Some\Location">
+
+    <Repo Name="SomeRepo"
+          Location="\\Root.Location\some\other\location"
+          Status="NEW"
+          LastCommit="1/1/1986"
+          LastCommitMessage="Some message">
+
+      <Notes>
+        <Note Title="SomeTitle"
+                  Body="A bunch of stuff and what not.">
+        </Note>
+      </Notes>
+
+      <Logs>
+        <Log ID="5a5d933d69d63d2e9d6"
+             Message="Some log message">
+        </Log>
+      </Logs>
+
+    </Repo>
+
+    <Repo Name="Some Other Repo"
+          Location="\\Root.Location\some\other\location"
+          Status="PRODUCTION"
+          LastCommit="1/1/1986"
+          LastCommitMessage="Some message">
+
+      <Notes>
+        <Note Title="SomeTitle"
+                  Body="A bunch of stuff and what not.">
+        </Note>
+      </Notes>
+
+      <Logs>
+        <Log ID="5a5d933d69d63d2e9d6"
+             Message="Some log message">
+        </Log>
+      </Logs>
+
+    </Repo>
+
+  </Store>
+</root>

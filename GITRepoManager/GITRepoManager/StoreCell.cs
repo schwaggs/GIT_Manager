@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GITRepoManager
 {
-    public class RootCell
+    public class StoreCell
     {
         #region Class Data
 
@@ -30,7 +30,7 @@ namespace GITRepoManager
         /// </summary>
         /// <param name="Path">The full path to the root folder. Cannot use UNC paths such as \\Server\Server Folder
         ///  Only drive paths can be used such as Z:\Server Folder</param>
-        public RootCell(string Path = "")
+        public StoreCell(string Path = "")
         {
             _Repos = new Dictionary<string, RepoCell>();
 

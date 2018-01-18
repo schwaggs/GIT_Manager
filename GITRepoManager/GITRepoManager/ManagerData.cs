@@ -12,7 +12,7 @@ namespace GITRepoManager
         /// Dictionary where the key is the root name (directory name) and the value is a root cell which contains
         /// the full path to the root as well as a list of repos inside of the root.
         /// </summary>
-        public static Dictionary<string, RootCell> Roots { get; set; }
+        public static Dictionary<string, StoreCell> Stores { get; set; }
 
         /// <summary>
         /// Dictionary where the key is the repo name and the value is a repo cell which contains
@@ -25,7 +25,7 @@ namespace GITRepoManager
         /// A dictionary of logs where the key is the log id and the 
         /// </summary>
 
-        public static RootCell Selected_Root { get; set; }
+        public static StoreCell Selected_Root { get; set; }
         public static RepoCell Selected_Repo { get; set; }
     }
 }

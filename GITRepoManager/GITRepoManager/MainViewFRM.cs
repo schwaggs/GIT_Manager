@@ -18,6 +18,12 @@ namespace GITRepoManager
         
         public MainViewFRM()
         {
+            if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath))
+            {
+                SettingsViewFRM init = new SettingsViewFRM();
+                init.ShowDialog();
+            }
+
             Thread t = new Thread(new ThreadStart(SplashStart));
             t.Start();
 
@@ -150,14 +156,14 @@ namespace GITRepoManager
         {
             RootLocationCB.Items.Clear();
 
-            foreach (string key in ManagerData.Roots.Keys)
+            foreach (string key in ManagerData.Stores.Keys)
             {
                 RootLocationCB.Items.Add(key);
             }
 
             RootLocationCB.SelectedIndex = 0;
 
-            ManagerData.Selected_Root = ManagerData.Roots[RootLocationCB.SelectedItem.ToString()];
+            ManagerData.Selected_Root = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
 
             if (ManagerData.Selected_Root != null)
             {
@@ -169,7 +175,7 @@ namespace GITRepoManager
         {
             if (ManagerData.Selected_Root != null)
             {
-                ManagerData.Selected_Root = ManagerData.Roots[RootLocationCB.SelectedItem.ToString()];
+                ManagerData.Selected_Root = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
                 ReposLV_Initialize();
                 MainStatusSSL.Text = ManagerData.Selected_Root._Path;
             }

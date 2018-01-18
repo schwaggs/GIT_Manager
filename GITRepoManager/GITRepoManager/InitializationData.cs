@@ -32,7 +32,7 @@ namespace GITRepoManager
 
             Initializer = new InitializationViewFRM();
 
-            ManagerData.Roots = new Dictionary<string, RootCell>();
+            ManagerData.Stores = new Dictionary<string, StoreCell>();
             
             return true;
         }
@@ -57,9 +57,9 @@ namespace GITRepoManager
                 foreach (string root in Directory.GetDirectories(dir))
                 {
                     DirectoryInfo rootInfo = new DirectoryInfo(root);
-                    RootCell rootCell = new RootCell(rootInfo.FullName);
+                    StoreCell rootCell = new StoreCell(rootInfo.FullName);
 
-                    ManagerData.Roots.Add(rootInfo.Name, rootCell);
+                    ManagerData.Stores.Add(rootInfo.Name, rootCell);
                 }
 
                 return true;
@@ -67,7 +67,7 @@ namespace GITRepoManager
 
             catch(Exception ex)
             {
-                ManagerData.Roots.Clear();
+                ManagerData.Stores.Clear();
                 Exception_Message = ex.Message;
                 return false;
             }

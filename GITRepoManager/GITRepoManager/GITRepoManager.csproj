@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="CloneRepoMethods.cs" />
     <Compile Include="COM.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="DeleteRepoData.cs" />
     <Compile Include="DeleteRepoFRM.cs">
       <SubType>Form</SubType>
@@ -153,12 +154,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RepoCell.cs" />
     <Compile Include="RepoCellOld.cs" />
     <Compile Include="ManagerData.cs" />
     <Compile Include="RepoIO.cs" />
-    <Compile Include="RepoProps.cs" />
-    <Compile Include="RootCell.cs" />
+    <Compile Include="StoreCell.cs" />
     <Compile Include="SettingsViewFRM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,14 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SettingsViewFRM.resx">
       <DependentUpon>SettingsViewFRM.cs</DependentUpon>
     </EmbeddedResource>
@@ -296,6 +296,7 @@
     <None Include="Resources\Browse_Icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PacketStructure.xml" />
     <Content Include="ReleaseNotes.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
