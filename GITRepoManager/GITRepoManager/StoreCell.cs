@@ -32,32 +32,31 @@ namespace GITRepoManager
         ///  Only drive paths can be used such as Z:\Server Folder</param>
         public StoreCell(string Path = "")
         {
-            _Repos = new Dictionary<string, RepoCell>();
+            //_Repos = new Dictionary<string, RepoCell>();
+            //if (Path != "")
+            //{
+            //    _Path = Path;
+            //}
 
-            if (Path != "")
-            {
-                _Path = Path;
-            }
+            //else
+            //{
+            //    _Path = string.Empty;
+            //}
 
-            else
-            {
-                _Path = string.Empty;
-            }
+            //Check_Path();
 
-            Check_Path();
+            //if (_Valid_Path)
+            //{
+            //    Num_Repos();
 
-            if (_Valid_Path)
-            {
-                Num_Repos();
+            //    _Repos = new Dictionary<string, RepoCell>();
+            //    Get_Repos();
+            //}
 
-                _Repos = new Dictionary<string, RepoCell>();
-                Get_Repos();
-            }
-
-            else
-            {
-                _Path = string.Empty;
-            }
+            //else
+            //{
+            //    _Path = string.Empty;
+            //}
         }
 
         /// <summary>
@@ -106,7 +105,7 @@ namespace GITRepoManager
                         Current_Status = RepoCell.Status.Type.NONE,
                         Last_Commit = DateTime.MinValue,
                         Last_Commit_Message = string.Empty,
-                        Notes = new Dictionary<string, List<NoteCell>>(),
+                        //Notes = new Dictionary<string, List<NoteCell>>(),
                         Logs = new Dictionary<string, List<EntryCell>>()
                     };
 

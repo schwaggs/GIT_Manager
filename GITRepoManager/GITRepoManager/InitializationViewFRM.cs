@@ -21,13 +21,15 @@ namespace GITRepoManager
 
         private void InitializationViewFRM_Load(object sender, EventArgs e)
         {
+            Configuration.Helpers.Deserialize(@"C:\Temp\config.gmc");
+            string result = Helpers.Stores_To_String();
             bool cont = true;
 
             cont = InitializationData.Initialize();
 
             if (cont)
             {
-                cont = InitializationData.Initialize_Roots(null);
+                //cont = InitializationData.Initialize_Roots(null);
 
                 if (cont)
                 {

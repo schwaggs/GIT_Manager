@@ -26,22 +26,30 @@ namespace GITRepoManager
         private void SettingsViewFRM_Load(object sender, EventArgs e)
         {
             TempPaths = new List<string>();
+            FileInfo ConfigInfo = new FileInfo(Properties.Settings.Default.ConfigPath);
 
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath)
+                || !ConfigInfo.Exists)
             {
                 string filter = "Config Files|*.txt;*.gmc;*.xml;*.conf";
                 bool retry = true;
 
                 MessageBox.Show("You must specify a configuration file.", "Setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                OpenFileDialog FileDialog = new OpenFileDialog
+                SaveFileDialog FileDialog = new SaveFileDialog
                 {
                     Title = "Select Configuration File",
                     CheckFileExists = true,
                     SupportMultiDottedExtensions = true,
+                    CreatePrompt = false,
+                    OverwritePrompt = false,
                     Filter = filter,
+                    DefaultExt = "gmc",
                     InitialDirectory = @"C:\"
                 };
+
+                FileDialog.CheckFileExists = false;
+                FileDialog.CheckPathExists = false;
 
                 if (FileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -55,6 +63,18 @@ namespace GITRepoManager
                             Properties.Settings.Default.Save();
 
                             retry = false;
+                        }
+
+                        else
+                        {
+                            try
+                            {
+                                fileInfo.Create();
+                                retry = false;
+                            }
+                            catch
+                            {
+                            }
                         }
                     }
                 }
@@ -107,11 +127,13 @@ namespace GITRepoManager
         private void BrowseBT_MouseEnter(object sender, EventArgs e)
         {
             BrowseBT.BackgroundImage = Properties.Resources.Browse_Icon_Hover;
+            SettingsInfoSSSL.Text = "Browse to a store location.";
         }
 
         private void BrowseBT_MouseLeave(object sender, EventArgs e)
         {
             BrowseBT.BackgroundImage = Properties.Resources.Browse_Icon;
+            SettingsInfoSSSL.Text = string.Empty;
         }
 
         private void SettingsViewFRM_FormClosing(object sender, FormClosingEventArgs e)
@@ -122,21 +144,13 @@ namespace GITRepoManager
         private void SaveSettingsBT_MouseEnter(object sender, EventArgs e)
         {
             SaveSettingsBT.BackgroundImage = Properties.Resources.Save_Settings_Icon_Hover;
+            SettingsInfoSSSL.Text = "Save any modifications to the configuration.";
         }
 
         private void SaveSettingsBT_MouseLeave(object sender, EventArgs e)
         {
             SaveSettingsBT.BackgroundImage = Properties.Resources.Save_Settings_Icon;
-        }
-
-        private void ResetSettingsBT_MouseEnter(object sender, EventArgs e)
-        {
-            ResetSettingsBT.BackgroundImage = Properties.Resources.Reset_Settings_Icon_Hover;
-        }
-
-        private void ResetSettingsBT_MouseLeave(object sender, EventArgs e)
-        {
-            ResetSettingsBT.BackgroundImage = Properties.Resources.Reset_Settings_Icon;
+            SettingsInfoSSSL.Text = string.Empty;
         }
 
         private void SaveSettingsBT_Click(object sender, EventArgs e)
@@ -189,12 +203,44 @@ namespace GITRepoManager
 
         private void AddPathBT_MouseEnter(object sender, EventArgs e)
         {
-
+            AddPathBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
+            SettingsInfoSSSL.Text = "Add a store to the configuration.";
         }
 
         private void AddPathBT_MouseLeave(object sender, EventArgs e)
         {
+            AddPathBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+            SettingsInfoSSSL.Text = string.Empty;
+        }
 
+        private void DeleteLocationBT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteLocationBT_MouseEnter(object sender, EventArgs e)
+        {
+            DeleteLocationBT.BackgroundImage = Properties.Resources.DeleteIcon_Hover;
+            SettingsInfoSSSL.Text = "Remove the selected store(s) from the configuration.";
+        }
+
+        private void DeleteLocationBT_MouseLeave(object sender, EventArgs e)
+        {
+            DeleteLocationBT.BackgroundImage = Properties.Resources.DeleteIcon;
+            SettingsInfoSSSL.Text = string.Empty;
+        }
+
+        private void ConfigFilesLV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ConfigFilesLV.SelectedItems.Count > 0)
+            {
+                DeleteLocationBT.Visible = true;
+            }
+
+            else
+            {
+                DeleteLocationBT.Visible = false;
+            }
         }
     }
 }

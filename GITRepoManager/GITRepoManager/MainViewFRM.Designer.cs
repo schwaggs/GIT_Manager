@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.SettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.EditRepoBTP = new System.Windows.Forms.Panel();
@@ -43,6 +42,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.MainStatusSSL = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.ClearRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.SaveRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.EditRepoP = new System.Windows.Forms.Panel();
             this.RepoStatusCB = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -60,7 +61,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.ReposLV = new System.Windows.Forms.ListView();
             this.RepoNameCHDR = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.managerDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.AddNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.panel1.SuspendLayout();
             this.EditRepoBTP.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -68,7 +69,6 @@
             this.statusStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.EditRepoP.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.managerDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -199,8 +199,9 @@
             this.AddRepoBT.Size = new System.Drawing.Size(45, 45);
             this.AddRepoBT.TabIndex = 21;
             this.AddRepoBT.UseVisualStyleBackColor = false;
-            this.AddRepoBT.MouseEnter += new System.EventHandler(this.BrowseRepoSourceBT_MouseEnter);
-            this.AddRepoBT.MouseLeave += new System.EventHandler(this.BrowseRepoSourceBT_MouseLeave);
+            this.AddRepoBT.Click += new System.EventHandler(this.AddRepoBT_Click);
+            this.AddRepoBT.MouseEnter += new System.EventHandler(this.AddRepoBT_MouseEnter);
+            this.AddRepoBT.MouseLeave += new System.EventHandler(this.AddRepoBT_MouseLeave);
             // 
             // panel2
             // 
@@ -251,13 +252,14 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MainStatusSSL});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 446);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 472);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(812, 22);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // MainStatusSSL
             // 
@@ -266,15 +268,58 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.ClearRepoChangesBT);
+            this.panel3.Controls.Add(this.SaveRepoChangesBT);
             this.panel3.Controls.Add(this.EditRepoP);
             this.panel3.Controls.Add(this.ReposLV);
             this.panel3.Location = new System.Drawing.Point(4, 71);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(804, 358);
+            this.panel3.Size = new System.Drawing.Size(804, 389);
             this.panel3.TabIndex = 2;
+            // 
+            // ClearRepoChangesBT
+            // 
+            this.ClearRepoChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClearRepoChangesBT.BackColor = System.Drawing.Color.Transparent;
+            this.ClearRepoChangesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Reset_Settings_Icon;
+            this.ClearRepoChangesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClearRepoChangesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.ClearRepoChangesBT.FlatAppearance.BorderSize = 0;
+            this.ClearRepoChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ClearRepoChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ClearRepoChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClearRepoChangesBT.Location = new System.Drawing.Point(761, 351);
+            this.ClearRepoChangesBT.Name = "ClearRepoChangesBT";
+            this.ClearRepoChangesBT.Size = new System.Drawing.Size(35, 35);
+            this.ClearRepoChangesBT.TabIndex = 26;
+            this.ClearRepoChangesBT.UseVisualStyleBackColor = false;
+            this.ClearRepoChangesBT.Click += new System.EventHandler(this.ClearRepoChangesBT_Click);
+            this.ClearRepoChangesBT.MouseEnter += new System.EventHandler(this.ClearRepoChangesBT_MouseEnter);
+            this.ClearRepoChangesBT.MouseLeave += new System.EventHandler(this.ClearRepoChangesBT_MouseLeave);
+            // 
+            // SaveRepoChangesBT
+            // 
+            this.SaveRepoChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.SaveRepoChangesBT.BackColor = System.Drawing.Color.Transparent;
+            this.SaveRepoChangesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Save_Settings_Icon;
+            this.SaveRepoChangesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SaveRepoChangesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.SaveRepoChangesBT.FlatAppearance.BorderSize = 0;
+            this.SaveRepoChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.SaveRepoChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.SaveRepoChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveRepoChangesBT.Location = new System.Drawing.Point(328, 351);
+            this.SaveRepoChangesBT.Name = "SaveRepoChangesBT";
+            this.SaveRepoChangesBT.Size = new System.Drawing.Size(35, 35);
+            this.SaveRepoChangesBT.TabIndex = 25;
+            this.SaveRepoChangesBT.UseVisualStyleBackColor = false;
+            this.SaveRepoChangesBT.Click += new System.EventHandler(this.SaveRepoChangesBT_Click);
+            this.SaveRepoChangesBT.MouseEnter += new System.EventHandler(this.SaveRepoChangesBT_MouseEnter);
+            this.SaveRepoChangesBT.MouseLeave += new System.EventHandler(this.SaveRepoChangesBT_MouseLeave);
             // 
             // EditRepoP
             // 
+            this.EditRepoP.Controls.Add(this.AddNoteBT);
             this.EditRepoP.Controls.Add(this.RepoStatusCB);
             this.EditRepoP.Controls.Add(this.label6);
             this.EditRepoP.Controls.Add(this.NotesTB);
@@ -291,7 +336,7 @@
             this.EditRepoP.Controls.Add(this.label2);
             this.EditRepoP.Location = new System.Drawing.Point(321, 0);
             this.EditRepoP.Name = "EditRepoP";
-            this.EditRepoP.Size = new System.Drawing.Size(480, 355);
+            this.EditRepoP.Size = new System.Drawing.Size(480, 348);
             this.EditRepoP.TabIndex = 2;
             // 
             // RepoStatusCB
@@ -333,7 +378,7 @@
             this.NotesCB.FormattingEnabled = true;
             this.NotesCB.Location = new System.Drawing.Point(65, 151);
             this.NotesCB.Name = "NotesCB";
-            this.NotesCB.Size = new System.Drawing.Size(407, 21);
+            this.NotesCB.Size = new System.Drawing.Size(376, 21);
             this.NotesCB.TabIndex = 14;
             // 
             // label7
@@ -443,7 +488,7 @@
             this.ReposLV.Location = new System.Drawing.Point(0, 0);
             this.ReposLV.MultiSelect = false;
             this.ReposLV.Name = "ReposLV";
-            this.ReposLV.Size = new System.Drawing.Size(315, 358);
+            this.ReposLV.Size = new System.Drawing.Size(315, 389);
             this.ReposLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.ReposLV.TabIndex = 1;
             this.ReposLV.UseCompatibleStateImageBehavior = false;
@@ -455,20 +500,39 @@
             this.RepoNameCHDR.Text = "Repository Name";
             this.RepoNameCHDR.Width = 374;
             // 
-            // managerDataBindingSource
+            // AddNoteBT
             // 
-            this.managerDataBindingSource.DataSource = typeof(GITRepoManager.ManagerData);
+            this.AddNoteBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddNoteBT.BackColor = System.Drawing.Color.Transparent;
+            this.AddNoteBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
+            this.AddNoteBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddNoteBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.AddNoteBT.FlatAppearance.BorderSize = 0;
+            this.AddNoteBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AddNoteBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AddNoteBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddNoteBT.Location = new System.Drawing.Point(447, 147);
+            this.AddNoteBT.Name = "AddNoteBT";
+            this.AddNoteBT.Size = new System.Drawing.Size(25, 25);
+            this.AddNoteBT.TabIndex = 26;
+            this.AddNoteBT.UseVisualStyleBackColor = false;
+            this.AddNoteBT.Click += new System.EventHandler(this.AddNoteBT_Click);
+            this.AddNoteBT.MouseEnter += new System.EventHandler(this.AddNoteBT_MouseEnter);
+            this.AddNoteBT.MouseLeave += new System.EventHandler(this.AddNoteBT_MouseLeave);
             // 
             // MainViewFRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(812, 468);
+            this.ClientSize = new System.Drawing.Size(812, 494);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.statusStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "MainViewFRM";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GIT Repository Manager";
             this.Load += new System.EventHandler(this.MainViewFRM_Load);
@@ -482,7 +546,6 @@
             this.panel3.ResumeLayout(false);
             this.EditRepoP.ResumeLayout(false);
             this.EditRepoP.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.managerDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -521,6 +584,8 @@
         private System.Windows.Forms.RichTextBox NotesTB;
         private System.Windows.Forms.ComboBox NotesCB;
         private System.Windows.Forms.ComboBox RepoStatusCB;
-        private System.Windows.Forms.BindingSource managerDataBindingSource;
+        private NoFocusSelectionRectangleButton ClearRepoChangesBT;
+        private NoFocusSelectionRectangleButton SaveRepoChangesBT;
+        private NoFocusSelectionRectangleButton AddNoteBT;
     }
 }

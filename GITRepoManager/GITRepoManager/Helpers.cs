@@ -226,6 +226,63 @@ namespace GITRepoManager
             return Entries;
         }
 
+        public static string Stores_To_String()
+        {
+            string message = string.Empty;
+
+            if (ManagerData.Stores != null)
+            {
+                foreach (KeyValuePair<string, StoreCell> kvp in ManagerData.Stores)
+                {
+                    message += kvp.Key + Environment.NewLine + Environment.NewLine;
+
+                    StoreCell Store = kvp.Value;
+
+                    foreach (KeyValuePair<string, RepoCell> repokvp in Store._Repos)
+                    {
+                        message += repokvp.Key + Environment.NewLine;
+                        message += RepoCell.Status.ToString(repokvp.Value.Current_Status) + Environment.NewLine;
+                        message += repokvp.Value.Last_Commit.ToString() + Environment.NewLine;
+                        message += repokvp.Value.Last_Commit_Message + Environment.NewLine + Environment.NewLine;
+
+                        foreach (KeyValuePair<string, string> notekvp in repokvp.Value.Notes)
+                        {
+                            message += notekvp.Key + Environment.NewLine;
+                            message += notekvp.Value + Environment.NewLine + Environment.NewLine;
+                        }
+
+                        message += Environment.NewLine;
+
+                        foreach (KeyValuePair<string, List<EntryCell>> logkvp in repokvp.Value.Logs)
+                        {
+                            message += logkvp.Key + Environment.NewLine;
+
+                            foreach (EntryCell entry in logkvp.Value)
+                            {
+                                message += entry.ID + Environment.NewLine;
+                                message += entry.Date + Environment.NewLine;
+                                message += entry.Author + Environment.NewLine;
+                                message += entry.Message + Environment.NewLine + Environment.NewLine;
+                            }
+                        }
+
+                        message += Environment.NewLine;
+                    }
+
+                    message += Environment.NewLine;
+                }
+
+                message += Environment.NewLine + Environment.NewLine;
+
+                return message;
+            }
+
+            else
+            {
+                return string.Empty;
+            }
+        }
+
         #endregion
     }
 }

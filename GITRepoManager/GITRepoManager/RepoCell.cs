@@ -13,7 +13,7 @@ namespace GITRepoManager
         public DateTime Last_Commit { get; set; }               
         public string Last_Commit_Message { get; set; }         
 
-        public Dictionary<string, List<NoteCell>> Notes { get; set; }                 
+        public Dictionary<string, string> Notes { get; set; }                 
         public Dictionary<string, List<EntryCell>> Logs { get; set; }
 
         public static class Status
@@ -44,6 +44,29 @@ namespace GITRepoManager
 
                     default:
                         return "";
+                }
+            }
+
+            public static Type ToType(string temp)
+            {
+                temp = temp.ToLower();
+
+                switch (temp)
+                {
+                    case "none":
+                        return Type.NONE;
+
+                    case "new":
+                        return Type.NEW;
+
+                    case "development":
+                        return Type.DEVELOPMENT;
+
+                    case "production":
+                        return Type.PRODUCTION;
+
+                    default:
+                        return Type.NONE;
                 }
             }
         }

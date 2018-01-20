@@ -18,7 +18,11 @@ namespace GITRepoManager
         
         public MainViewFRM()
         {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath))
+            FileInfo ConfigInfo = new FileInfo(Properties.Settings.Default.ConfigPath);
+
+            if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath)
+                || !ConfigInfo.Exists
+               )
             {
                 SettingsViewFRM init = new SettingsViewFRM();
                 init.ShowDialog();
@@ -83,6 +87,10 @@ namespace GITRepoManager
             MainStatusSSL.Text = string.Empty;
 
             RootLocationCB_Initialize();
+            RootLocationCB.SelectedIndex = 0;
+
+            ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedValue.ToString()];
+
             ReposLV_Initialize();
         }
 
@@ -145,11 +153,34 @@ namespace GITRepoManager
         private void SettingsBT_MouseEnter(object sender, EventArgs e)
         {
             SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon_Hover;
+            MainStatusSSL.Text = "Open the settings window.";
         }
 
         private void SettingsBT_MouseLeave(object sender, EventArgs e)
         {
             SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                    Populate_Info_List();
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = string.Empty;
+                }
+            }
         }
 
         private void RootLocationCB_Initialize()
@@ -161,23 +192,23 @@ namespace GITRepoManager
                 RootLocationCB.Items.Add(key);
             }
 
-            RootLocationCB.SelectedIndex = 0;
+            RootLocationCB.SelectedIndex = 1;
 
-            ManagerData.Selected_Root = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
+            ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
 
-            if (ManagerData.Selected_Root != null)
+            if (ManagerData.Selected_Store != null)
             {
-                MainStatusSSL.Text = ManagerData.Selected_Root._Path;
+                MainStatusSSL.Text = ManagerData.Selected_Store._Path;
             }
         }
 
         private void RootLocationCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ManagerData.Selected_Root != null)
+            if (ManagerData.Selected_Store != null)
             {
-                ManagerData.Selected_Root = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
+                ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
                 ReposLV_Initialize();
-                MainStatusSSL.Text = ManagerData.Selected_Root._Path;
+                MainStatusSSL.Text = ManagerData.Selected_Store._Path;
             }
         }
 
@@ -185,7 +216,7 @@ namespace GITRepoManager
         {
             ReposLV.Items.Clear();
 
-            foreach (string repo in ManagerData.Selected_Root._Repos.Keys)
+            foreach (string repo in ManagerData.Selected_Store._Repos.Keys)
             {
                 ListViewItem lvi = new ListViewItem
                 {
@@ -206,7 +237,7 @@ namespace GITRepoManager
 
             if (ReposLV.SelectedItems.Count > 0)
             {
-                ManagerData.Selected_Repo = ManagerData.Selected_Root._Repos[ReposLV.SelectedItems[0].Name];
+                ManagerData.Selected_Repo = ManagerData.Selected_Store._Repos[ReposLV.SelectedItems[0].Name];
 
                 if (ManagerData.Selected_Repo != null)
                 {
@@ -220,7 +251,7 @@ namespace GITRepoManager
         {
             // Save any changes to the last selected repo
             ReposLV.SelectedItems.Clear();
-            MainStatusSSL.Text = ManagerData.Selected_Root._Path;
+            MainStatusSSL.Text = ManagerData.Selected_Store._Path;
             
         }
 
@@ -255,16 +286,21 @@ namespace GITRepoManager
         private void DeleteRepoBT_MouseEnter(object sender, EventArgs e)
         {
             DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon_Hover;
+            MainStatusSSL.Text = "Delete the current repository.";
         }
 
         private void MoveRepoBT_MouseEnter(object sender, EventArgs e)
         {
             MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon_Hover;
+            MainStatusSSL.Text = "Move the current repository.";
+
+            
         }
 
         private void CloneRepoBT_MouseEnter(object sender, EventArgs e)
         {
             CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon_Hover;
+            MainStatusSSL.Text = "Clone the current repository.";
         }
 
         
@@ -274,16 +310,213 @@ namespace GITRepoManager
         private void DeleteRepoBT_MouseLeave(object sender, EventArgs e)
         {
             DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                    Populate_Info_List();
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = string.Empty;
+                }
+            }
         }
 
         private void MoveRepoBT_MouseLeave(object sender, EventArgs e)
         {
             MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                    Populate_Info_List();
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = string.Empty;
+                }
+            }
         }
 
         private void CloneRepoBT_MouseLeave(object sender, EventArgs e)
         {
             CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                    Populate_Info_List();
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = string.Empty;
+                }
+            }
+        }
+
+        private void SaveRepoChangesBT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ClearRepoChangesBT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveRepoChangesBT_MouseEnter(object sender, EventArgs e)
+        {
+            SaveRepoChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon_Hover;
+            MainStatusSSL.Text = "Save all changes to the current repo.";
+        }
+
+        private void SaveRepoChangesBT_MouseLeave(object sender, EventArgs e)
+        {
+            SaveRepoChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                    Populate_Info_List();
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = string.Empty;
+                }
+            }
+        }
+
+        private void ClearRepoChangesBT_MouseEnter(object sender, EventArgs e)
+        {
+            ClearRepoChangesBT.BackgroundImage = Properties.Resources.Reset_Settings_Icon_Hover;
+            MainStatusSSL.Text = "Clear all changes to the current repo";
+        }
+
+        private void ClearRepoChangesBT_MouseLeave(object sender, EventArgs e)
+        {
+            ClearRepoChangesBT.BackgroundImage = Properties.Resources.Reset_Settings_Icon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                    Populate_Info_List();
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = string.Empty;
+                }
+            }
+        }
+
+        private void AddRepoBT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddRepoBT_MouseEnter(object sender, EventArgs e)
+        {
+            AddRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
+            MainStatusSSL.Text = "Add a repository to the current store";
+        }
+
+        private void AddRepoBT_MouseLeave(object sender, EventArgs e)
+        {
+            AddRepoBT.BackgroundImage = Properties.Resources.NewIcon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                    Populate_Info_List();
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = string.Empty;
+                }
+            }
+        }
+
+        private void AddNoteBT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddNoteBT_MouseEnter(object sender, EventArgs e)
+        {
+            AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
+            MainStatusSSL.Text = "Add a note to the current repository.";
+        }
+
+        private void AddNoteBT_MouseLeave(object sender, EventArgs e)
+        {
+            AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+            MainStatusSSL.Text = string.Empty;
         }
     }
 }
