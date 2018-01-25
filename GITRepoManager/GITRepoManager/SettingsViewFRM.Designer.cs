@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.MainViewP = new System.Windows.Forms.Panel();
+            this.DeleteLocationBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ConfigPathTB = new System.Windows.Forms.TextBox();
             this.TempPathTB = new System.Windows.Forms.TextBox();
             this.BrowseBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.ConfigFilesLV = new System.Windows.Forms.ListView();
-            this.FilenamesCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.StoreLocationLV = new System.Windows.Forms.ListView();
+            this.StoreNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LocationCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AddPathBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.SaveSettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.DeleteLocationBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.SettingsInfoSSSL = new System.Windows.Forms.ToolStripStatusLabel();
             this.MainViewP.SuspendLayout();
@@ -51,15 +51,36 @@
             this.MainViewP.Controls.Add(this.DeleteLocationBT);
             this.MainViewP.Controls.Add(this.label2);
             this.MainViewP.Controls.Add(this.label1);
-            this.MainViewP.Controls.Add(this.textBox1);
+            this.MainViewP.Controls.Add(this.ConfigPathTB);
             this.MainViewP.Controls.Add(this.TempPathTB);
             this.MainViewP.Controls.Add(this.BrowseBT);
-            this.MainViewP.Controls.Add(this.ConfigFilesLV);
+            this.MainViewP.Controls.Add(this.StoreLocationLV);
             this.MainViewP.Controls.Add(this.AddPathBT);
             this.MainViewP.Location = new System.Drawing.Point(12, 12);
             this.MainViewP.Name = "MainViewP";
             this.MainViewP.Size = new System.Drawing.Size(501, 332);
             this.MainViewP.TabIndex = 0;
+            // 
+            // DeleteLocationBT
+            // 
+            this.DeleteLocationBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.DeleteLocationBT.BackColor = System.Drawing.Color.Transparent;
+            this.DeleteLocationBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Delete_Tag_Icon;
+            this.DeleteLocationBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteLocationBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.DeleteLocationBT.FlatAppearance.BorderSize = 0;
+            this.DeleteLocationBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.DeleteLocationBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.DeleteLocationBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteLocationBT.Location = new System.Drawing.Point(472, 68);
+            this.DeleteLocationBT.Name = "DeleteLocationBT";
+            this.DeleteLocationBT.Size = new System.Drawing.Size(25, 25);
+            this.DeleteLocationBT.TabIndex = 31;
+            this.DeleteLocationBT.UseVisualStyleBackColor = false;
+            this.DeleteLocationBT.Visible = false;
+            this.DeleteLocationBT.Click += new System.EventHandler(this.DeleteLocationBT_Click);
+            this.DeleteLocationBT.MouseEnter += new System.EventHandler(this.DeleteLocationBT_MouseEnter);
+            this.DeleteLocationBT.MouseLeave += new System.EventHandler(this.DeleteLocationBT_MouseLeave);
             // 
             // label2
             // 
@@ -81,14 +102,14 @@
             this.label1.TabIndex = 29;
             this.label1.Text = "Configuration File";
             // 
-            // textBox1
+            // ConfigPathTB
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(3, 31);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(413, 26);
-            this.textBox1.TabIndex = 28;
+            this.ConfigPathTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigPathTB.Location = new System.Drawing.Point(3, 31);
+            this.ConfigPathTB.Name = "ConfigPathTB";
+            this.ConfigPathTB.ReadOnly = true;
+            this.ConfigPathTB.Size = new System.Drawing.Size(413, 26);
+            this.ConfigPathTB.TabIndex = 28;
             // 
             // TempPathTB
             // 
@@ -118,33 +139,33 @@
             this.BrowseBT.MouseEnter += new System.EventHandler(this.BrowseBT_MouseEnter);
             this.BrowseBT.MouseLeave += new System.EventHandler(this.BrowseBT_MouseLeave);
             // 
-            // ConfigFilesLV
+            // StoreLocationLV
             // 
-            this.ConfigFilesLV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.StoreLocationLV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ConfigFilesLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.FilenamesCH,
+            this.StoreLocationLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.StoreNameCH,
             this.LocationCH});
-            this.ConfigFilesLV.FullRowSelect = true;
-            this.ConfigFilesLV.GridLines = true;
-            this.ConfigFilesLV.Location = new System.Drawing.Point(3, 96);
-            this.ConfigFilesLV.MultiSelect = false;
-            this.ConfigFilesLV.Name = "ConfigFilesLV";
-            this.ConfigFilesLV.Size = new System.Drawing.Size(495, 192);
-            this.ConfigFilesLV.TabIndex = 21;
-            this.ConfigFilesLV.UseCompatibleStateImageBehavior = false;
-            this.ConfigFilesLV.View = System.Windows.Forms.View.Details;
-            this.ConfigFilesLV.SelectedIndexChanged += new System.EventHandler(this.ConfigFilesLV_SelectedIndexChanged);
+            this.StoreLocationLV.FullRowSelect = true;
+            this.StoreLocationLV.GridLines = true;
+            this.StoreLocationLV.Location = new System.Drawing.Point(3, 96);
+            this.StoreLocationLV.MultiSelect = false;
+            this.StoreLocationLV.Name = "StoreLocationLV";
+            this.StoreLocationLV.Size = new System.Drawing.Size(494, 192);
+            this.StoreLocationLV.TabIndex = 21;
+            this.StoreLocationLV.UseCompatibleStateImageBehavior = false;
+            this.StoreLocationLV.View = System.Windows.Forms.View.Details;
+            this.StoreLocationLV.SelectedIndexChanged += new System.EventHandler(this.StoreLocationsLV_SelectedIndexChanged);
             // 
-            // FilenamesCH
+            // StoreNameCH
             // 
-            this.FilenamesCH.Text = "Filename";
-            this.FilenamesCH.Width = 190;
+            this.StoreNameCH.Text = "Store Name";
+            this.StoreNameCH.Width = 187;
             // 
             // LocationCH
             // 
             this.LocationCH.Text = "Location";
-            this.LocationCH.Width = 300;
+            this.LocationCH.Width = 301;
             // 
             // AddPathBT
             // 
@@ -186,27 +207,6 @@
             this.SaveSettingsBT.MouseEnter += new System.EventHandler(this.SaveSettingsBT_MouseEnter);
             this.SaveSettingsBT.MouseLeave += new System.EventHandler(this.SaveSettingsBT_MouseLeave);
             // 
-            // DeleteLocationBT
-            // 
-            this.DeleteLocationBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.DeleteLocationBT.BackColor = System.Drawing.Color.Transparent;
-            this.DeleteLocationBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Delete_Tag_Icon;
-            this.DeleteLocationBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DeleteLocationBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.DeleteLocationBT.FlatAppearance.BorderSize = 0;
-            this.DeleteLocationBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.DeleteLocationBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.DeleteLocationBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeleteLocationBT.Location = new System.Drawing.Point(472, 68);
-            this.DeleteLocationBT.Name = "DeleteLocationBT";
-            this.DeleteLocationBT.Size = new System.Drawing.Size(25, 25);
-            this.DeleteLocationBT.TabIndex = 31;
-            this.DeleteLocationBT.UseVisualStyleBackColor = false;
-            this.DeleteLocationBT.Visible = false;
-            this.DeleteLocationBT.Click += new System.EventHandler(this.DeleteLocationBT_Click);
-            this.DeleteLocationBT.MouseEnter += new System.EventHandler(this.DeleteLocationBT_MouseEnter);
-            this.DeleteLocationBT.MouseLeave += new System.EventHandler(this.DeleteLocationBT_MouseLeave);
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -214,7 +214,7 @@
             this.SettingsInfoSSSL});
             this.statusStrip1.Location = new System.Drawing.Point(12, 396);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(48, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(17, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 24;
             this.statusStrip1.Text = "statusStrip1";
@@ -258,12 +258,12 @@
         private NoFocusSelectionRectangleButton SaveSettingsBT;
         private System.Windows.Forms.TextBox TempPathTB;
         private NoFocusSelectionRectangleButton BrowseBT;
-        private System.Windows.Forms.ListView ConfigFilesLV;
-        private System.Windows.Forms.ColumnHeader FilenamesCH;
+        private System.Windows.Forms.ListView StoreLocationLV;
+        private System.Windows.Forms.ColumnHeader StoreNameCH;
         private System.Windows.Forms.ColumnHeader LocationCH;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ConfigPathTB;
         private NoFocusSelectionRectangleButton DeleteLocationBT;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel SettingsInfoSSSL;

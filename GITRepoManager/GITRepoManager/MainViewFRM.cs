@@ -15,19 +15,10 @@ namespace GITRepoManager
 {
     public partial class MainViewFRM : Form
     {
-        
+        public static Color LBPanelBackgroundColor = Color.FromArgb(240, 240, 245);
+
         public MainViewFRM()
         {
-            FileInfo ConfigInfo = new FileInfo(Properties.Settings.Default.ConfigPath);
-
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath)
-                || !ConfigInfo.Exists
-               )
-            {
-                SettingsViewFRM init = new SettingsViewFRM();
-                init.ShowDialog();
-            }
-
             Thread t = new Thread(new ThreadStart(SplashStart));
             t.Start();
 
@@ -88,8 +79,8 @@ namespace GITRepoManager
 
             RootLocationCB_Initialize();
             RootLocationCB.SelectedIndex = 0;
-
-            ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedValue.ToString()];
+            
+            ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
 
             ReposLV_Initialize();
         }
@@ -122,20 +113,20 @@ namespace GITRepoManager
             LastCommitTB.Text = ManagerData.Selected_Repo.Last_Commit.ToString();
             LastCommitMessageTB.Text = ManagerData.Selected_Repo.Last_Commit_Message;
 
-            NotesTB.Clear();
-            NotesCB.Items.Clear();
+            //NotesTB.Clear();
+            //NotesCB.Items.Clear();
 
             foreach (string key in ManagerData.Selected_Repo.Notes.Keys)
             {
-                NotesCB.Items.Add(key);
+                //NotesCB.Items.Add(key);
             }
 
-            LogsTB.Clear();
-            LogsCB.Items.Clear();
+            //LogsTB.Clear();
+            //LogsCB.Items.Clear();
 
             foreach (string key in ManagerData.Selected_Repo.Logs.Keys)
             {
-                LogsCB.Items.Add(key);
+               // LogsCB.Items.Add(key);
             }
         }
 
@@ -200,16 +191,18 @@ namespace GITRepoManager
             {
                 MainStatusSSL.Text = ManagerData.Selected_Store._Path;
             }
+
+            else
+            {
+                MainStatusSSL.Text = "Invalid Store";
+            }
         }
 
         private void RootLocationCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ManagerData.Selected_Store != null)
-            {
-                ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
-                ReposLV_Initialize();
-                MainStatusSSL.Text = ManagerData.Selected_Store._Path;
-            }
+            ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
+            ReposLV_Initialize();
+            MainStatusSSL.Text = ManagerData.Selected_Store._Path;
         }
 
         private void ReposLV_Initialize()
@@ -509,13 +502,13 @@ namespace GITRepoManager
 
         private void AddNoteBT_MouseEnter(object sender, EventArgs e)
         {
-            AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
+            //AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
             MainStatusSSL.Text = "Add a note to the current repository.";
         }
 
         private void AddNoteBT_MouseLeave(object sender, EventArgs e)
         {
-            AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+            //AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
             MainStatusSSL.Text = string.Empty;
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,6 +14,7 @@ namespace GITRepoManager
 {
     public partial class InitializationViewFRM : Form
     {
+        public DialogResult GetFileResult { get; set; }
         public InitializationViewFRM()
         {
             InitializeComponent();
@@ -21,7 +23,105 @@ namespace GITRepoManager
 
         private void InitializationViewFRM_Load(object sender, EventArgs e)
         {
-            Configuration.Helpers.Deserialize(@"C:\Temp\config.gmc");
+            FileInfo ConfigInfo = new FileInfo(Properties.Settings.Default.ConfigPath);
+
+            if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath)
+                || !ConfigInfo.Exists)
+            {
+                string filter = "Config Files|*.txt;*.gmc;*.xml;*.conf";
+                bool retry = true;
+
+                MessageBox.Show("You must specify a configuration file.", "Setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                SaveFileDialog FileDialog = new SaveFileDialog
+                {
+                    Title = "Select Configuration File",
+                    CheckFileExists = true,
+                    SupportMultiDottedExtensions = true,
+                    CreatePrompt = false,
+                    OverwritePrompt = false,
+                    Filter = filter,
+                    DefaultExt = "gmc",
+                    InitialDirectory = @"C:\"
+                };
+
+                FileDialog.CheckFileExists = false;
+                FileDialog.CheckPathExists = false;
+
+                Thread GetFile = new Thread(() =>
+                {
+                    if (FileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        if (!string.IsNullOrEmpty(FileDialog.FileName) || !string.IsNullOrWhiteSpace(FileDialog.FileName))
+                        {
+                            FileInfo fileInfo = new FileInfo(FileDialog.FileName);
+
+                            if (fileInfo.Exists)
+                            {
+                                Properties.Settings.Default.ConfigPath = FileDialog.FileName;
+                                Properties.Settings.Default.Save();
+
+                                retry = false;
+                            }
+
+                            else
+                            {
+                                DialogResult create;
+                                create = MessageBox.Show("File doesnt exist, create?", "File Does Not Exist", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+                                if (create == DialogResult.Yes)
+                                {
+                                    try
+                                    {
+                                        fileInfo.Create();
+                                        retry = false;
+                                    }
+                                    catch
+                                    {
+                                        MessageBox.Show("Unable to create file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    while (retry)
+                    {
+                        DialogResult res;
+                        res = MessageBox.Show("You must specify a valid configuration file.", "Invalid Config File", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+
+                        if (res == DialogResult.Cancel)
+                        {
+                            Application.ExitThread();
+                            Application.Exit();
+                            Environment.Exit(1);
+                        }
+
+                        if (FileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            if (!string.IsNullOrEmpty(FileDialog.FileName) || !string.IsNullOrWhiteSpace(FileDialog.FileName))
+                            {
+                                FileInfo fileInfo = new FileInfo(FileDialog.FileName);
+
+                                if (fileInfo.Exists)
+                                {
+                                    Properties.Settings.Default.ConfigPath = FileDialog.FileName;
+                                    Properties.Settings.Default.Save();
+
+                                    retry = false;
+                                }
+                            }
+                        }
+                    }
+                });
+
+                GetFile.TrySetApartmentState(ApartmentState.STA);
+                GetFile.Start();
+
+                GetFile.Join();
+            }
+
+            Configuration.Helpers.Deserialize(Properties.Settings.Default.ConfigPath);
             string result = Helpers.Stores_To_String();
             bool cont = true;
 

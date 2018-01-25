@@ -15,7 +15,6 @@ namespace GITRepoManager
         /// </summary>
 
         [STAThread]
-
         static void Main()
         {
             Application.EnableVisualStyles();

@@ -31,8 +31,6 @@ namespace GITRepoManager
             Abort = false;
 
             Initializer = new InitializationViewFRM();
-
-            ManagerData.Stores = new Dictionary<string, StoreCell>();
             
             return true;
         }

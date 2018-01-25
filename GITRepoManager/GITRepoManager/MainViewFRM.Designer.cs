@@ -29,12 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.SettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.EditRepoBTP = new System.Windows.Forms.Panel();
-            this.DeleteRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.MoveRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.AddRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.RootLocationCB = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,16 +37,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.MainStatusSSL = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.ClearRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.SaveRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.EditRepoP = new System.Windows.Forms.Panel();
             this.RepoStatusCB = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.NotesTB = new System.Windows.Forms.RichTextBox();
-            this.NotesCB = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.LogsTB = new System.Windows.Forms.RichTextBox();
-            this.LogsCB = new System.Windows.Forms.ComboBox();
             this.LastCommitMessageTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.LastCommitTB = new System.Windows.Forms.TextBox();
@@ -61,7 +48,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.ReposLV = new System.Windows.Forms.ListView();
             this.RepoNameCHDR = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.AddNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.SettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.DeleteRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.MoveRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.AddRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.ClearRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.SaveRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.noFocusSelectionRectangleButton2 = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.noFocusSelectionRectangleButton1 = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.panel1.SuspendLayout();
             this.EditRepoBTP.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -88,8 +85,242 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(4, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(812, 70);
+            this.panel1.Size = new System.Drawing.Size(804, 70);
             this.panel1.TabIndex = 0;
+            // 
+            // EditRepoBTP
+            // 
+            this.EditRepoBTP.BackColor = System.Drawing.Color.Transparent;
+            this.EditRepoBTP.Controls.Add(this.DeleteRepoBT);
+            this.EditRepoBTP.Controls.Add(this.CloneRepoBT);
+            this.EditRepoBTP.Controls.Add(this.MoveRepoBT);
+            this.EditRepoBTP.Location = new System.Drawing.Point(460, 6);
+            this.EditRepoBTP.Name = "EditRepoBTP";
+            this.EditRepoBTP.Size = new System.Drawing.Size(142, 46);
+            this.EditRepoBTP.TabIndex = 3;
+            this.EditRepoBTP.Visible = false;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.RootLocationCB);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Location = new System.Drawing.Point(3, 11);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(385, 40);
+            this.panel2.TabIndex = 1;
+            // 
+            // RootLocationCB
+            // 
+            this.RootLocationCB.FormattingEnabled = true;
+            this.RootLocationCB.Location = new System.Drawing.Point(128, 8);
+            this.RootLocationCB.Name = "RootLocationCB";
+            this.RootLocationCB.Size = new System.Drawing.Size(244, 21);
+            this.RootLocationCB.TabIndex = 26;
+            this.RootLocationCB.SelectedIndexChanged += new System.EventHandler(this.RootLocationCB_SelectedIndexChanged);
+            this.RootLocationCB.Click += new System.EventHandler(this.RootLocationCB_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(7, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(115, 18);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Root Location";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::GITRepoManager.Properties.Resources.GitLogo;
+            this.pictureBox1.Location = new System.Drawing.Point(679, 3);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(116, 49);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainStatusSSL});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 422);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(818, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 1;
+            // 
+            // MainStatusSSL
+            // 
+            this.MainStatusSSL.Name = "MainStatusSSL";
+            this.MainStatusSSL.Size = new System.Drawing.Size(0, 17);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.EditRepoP);
+            this.panel3.Controls.Add(this.ReposLV);
+            this.panel3.Location = new System.Drawing.Point(4, 71);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(804, 343);
+            this.panel3.TabIndex = 2;
+            // 
+            // EditRepoP
+            // 
+            this.EditRepoP.Controls.Add(this.ClearRepoChangesBT);
+            this.EditRepoP.Controls.Add(this.SaveRepoChangesBT);
+            this.EditRepoP.Controls.Add(this.label7);
+            this.EditRepoP.Controls.Add(this.label6);
+            this.EditRepoP.Controls.Add(this.noFocusSelectionRectangleButton2);
+            this.EditRepoP.Controls.Add(this.noFocusSelectionRectangleButton1);
+            this.EditRepoP.Controls.Add(this.RepoStatusCB);
+            this.EditRepoP.Controls.Add(this.LastCommitMessageTB);
+            this.EditRepoP.Controls.Add(this.label5);
+            this.EditRepoP.Controls.Add(this.LastCommitTB);
+            this.EditRepoP.Controls.Add(this.label4);
+            this.EditRepoP.Controls.Add(this.label3);
+            this.EditRepoP.Controls.Add(this.RepoPathTB);
+            this.EditRepoP.Controls.Add(this.label2);
+            this.EditRepoP.Location = new System.Drawing.Point(321, 0);
+            this.EditRepoP.Name = "EditRepoP";
+            this.EditRepoP.Size = new System.Drawing.Size(480, 343);
+            this.EditRepoP.TabIndex = 2;
+            // 
+            // RepoStatusCB
+            // 
+            this.RepoStatusCB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RepoStatusCB.FormattingEnabled = true;
+            this.RepoStatusCB.Items.AddRange(new object[] {
+            "None",
+            "New",
+            "Development",
+            "Production"});
+            this.RepoStatusCB.Location = new System.Drawing.Point(114, 35);
+            this.RepoStatusCB.Name = "RepoStatusCB";
+            this.RepoStatusCB.Size = new System.Drawing.Size(358, 26);
+            this.RepoStatusCB.TabIndex = 17;
+            this.RepoStatusCB.SelectedIndexChanged += new System.EventHandler(this.RepoStatusCB_SelectedIndexChanged);
+            // 
+            // LastCommitMessageTB
+            // 
+            this.LastCommitMessageTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastCommitMessageTB.Location = new System.Drawing.Point(114, 97);
+            this.LastCommitMessageTB.Multiline = true;
+            this.LastCommitMessageTB.Name = "LastCommitMessageTB";
+            this.LastCommitMessageTB.ReadOnly = true;
+            this.LastCommitMessageTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.LastCommitMessageTB.Size = new System.Drawing.Size(358, 128);
+            this.LastCommitMessageTB.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(4, 97);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 16);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Message";
+            // 
+            // LastCommitTB
+            // 
+            this.LastCommitTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastCommitTB.Location = new System.Drawing.Point(114, 67);
+            this.LastCommitTB.Name = "LastCommitTB";
+            this.LastCommitTB.ReadOnly = true;
+            this.LastCommitTB.Size = new System.Drawing.Size(358, 24);
+            this.LastCommitTB.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(4, 72);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(92, 16);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Last Commit";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(4, 40);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(104, 16);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Current Status";
+            // 
+            // RepoPathTB
+            // 
+            this.RepoPathTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RepoPathTB.Location = new System.Drawing.Point(114, 5);
+            this.RepoPathTB.Name = "RepoPathTB";
+            this.RepoPathTB.ReadOnly = true;
+            this.RepoPathTB.Size = new System.Drawing.Size(358, 24);
+            this.RepoPathTB.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(4, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 16);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Full Path";
+            // 
+            // ReposLV
+            // 
+            this.ReposLV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ReposLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.RepoNameCHDR});
+            this.ReposLV.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ReposLV.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ReposLV.FullRowSelect = true;
+            this.ReposLV.GridLines = true;
+            this.ReposLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.ReposLV.Location = new System.Drawing.Point(0, 0);
+            this.ReposLV.MultiSelect = false;
+            this.ReposLV.Name = "ReposLV";
+            this.ReposLV.Size = new System.Drawing.Size(315, 343);
+            this.ReposLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.ReposLV.TabIndex = 1;
+            this.ReposLV.UseCompatibleStateImageBehavior = false;
+            this.ReposLV.View = System.Windows.Forms.View.Details;
+            this.ReposLV.SelectedIndexChanged += new System.EventHandler(this.ReposLV_SelectedIndexChanged);
+            // 
+            // RepoNameCHDR
+            // 
+            this.RepoNameCHDR.Text = "Repository Name";
+            this.RepoNameCHDR.Width = 310;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(4, 159);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(49, 16);
+            this.label6.TabIndex = 28;
+            this.label6.Text = "Notes";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(4, 201);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 16);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "Logs";
             // 
             // SettingsBT
             // 
@@ -110,18 +341,6 @@
             this.SettingsBT.Click += new System.EventHandler(this.SettingsBT_Click);
             this.SettingsBT.MouseEnter += new System.EventHandler(this.SettingsBT_MouseEnter);
             this.SettingsBT.MouseLeave += new System.EventHandler(this.SettingsBT_MouseLeave);
-            // 
-            // EditRepoBTP
-            // 
-            this.EditRepoBTP.BackColor = System.Drawing.Color.Transparent;
-            this.EditRepoBTP.Controls.Add(this.DeleteRepoBT);
-            this.EditRepoBTP.Controls.Add(this.CloneRepoBT);
-            this.EditRepoBTP.Controls.Add(this.MoveRepoBT);
-            this.EditRepoBTP.Location = new System.Drawing.Point(460, 6);
-            this.EditRepoBTP.Name = "EditRepoBTP";
-            this.EditRepoBTP.Size = new System.Drawing.Size(142, 46);
-            this.EditRepoBTP.TabIndex = 3;
-            this.EditRepoBTP.Visible = false;
             // 
             // DeleteRepoBT
             // 
@@ -203,80 +422,6 @@
             this.AddRepoBT.MouseEnter += new System.EventHandler(this.AddRepoBT_MouseEnter);
             this.AddRepoBT.MouseLeave += new System.EventHandler(this.AddRepoBT_MouseLeave);
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.RootLocationCB);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(3, 11);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(385, 40);
-            this.panel2.TabIndex = 1;
-            // 
-            // RootLocationCB
-            // 
-            this.RootLocationCB.FormattingEnabled = true;
-            this.RootLocationCB.Location = new System.Drawing.Point(128, 8);
-            this.RootLocationCB.Name = "RootLocationCB";
-            this.RootLocationCB.Size = new System.Drawing.Size(244, 21);
-            this.RootLocationCB.TabIndex = 26;
-            this.RootLocationCB.SelectedIndexChanged += new System.EventHandler(this.RootLocationCB_SelectedIndexChanged);
-            this.RootLocationCB.Click += new System.EventHandler(this.RootLocationCB_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 18);
-            this.label1.TabIndex = 25;
-            this.label1.Text = "Root Location";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::GITRepoManager.Properties.Resources.GitLogo;
-            this.pictureBox1.Location = new System.Drawing.Point(679, 3);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 49);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainStatusSSL});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 472);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(812, 22);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 1;
-            // 
-            // MainStatusSSL
-            // 
-            this.MainStatusSSL.Name = "MainStatusSSL";
-            this.MainStatusSSL.Size = new System.Drawing.Size(0, 17);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.ClearRepoChangesBT);
-            this.panel3.Controls.Add(this.SaveRepoChangesBT);
-            this.panel3.Controls.Add(this.EditRepoP);
-            this.panel3.Controls.Add(this.ReposLV);
-            this.panel3.Location = new System.Drawing.Point(4, 71);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(804, 389);
-            this.panel3.TabIndex = 2;
-            // 
             // ClearRepoChangesBT
             // 
             this.ClearRepoChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -288,14 +433,11 @@
             this.ClearRepoChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.ClearRepoChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ClearRepoChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ClearRepoChangesBT.Location = new System.Drawing.Point(761, 351);
+            this.ClearRepoChangesBT.Location = new System.Drawing.Point(7, 305);
             this.ClearRepoChangesBT.Name = "ClearRepoChangesBT";
             this.ClearRepoChangesBT.Size = new System.Drawing.Size(35, 35);
-            this.ClearRepoChangesBT.TabIndex = 26;
+            this.ClearRepoChangesBT.TabIndex = 32;
             this.ClearRepoChangesBT.UseVisualStyleBackColor = false;
-            this.ClearRepoChangesBT.Click += new System.EventHandler(this.ClearRepoChangesBT_Click);
-            this.ClearRepoChangesBT.MouseEnter += new System.EventHandler(this.ClearRepoChangesBT_MouseEnter);
-            this.ClearRepoChangesBT.MouseLeave += new System.EventHandler(this.ClearRepoChangesBT_MouseLeave);
             // 
             // SaveRepoChangesBT
             // 
@@ -308,224 +450,52 @@
             this.SaveRepoChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.SaveRepoChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.SaveRepoChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveRepoChangesBT.Location = new System.Drawing.Point(328, 351);
+            this.SaveRepoChangesBT.Location = new System.Drawing.Point(7, 264);
             this.SaveRepoChangesBT.Name = "SaveRepoChangesBT";
             this.SaveRepoChangesBT.Size = new System.Drawing.Size(35, 35);
-            this.SaveRepoChangesBT.TabIndex = 25;
+            this.SaveRepoChangesBT.TabIndex = 31;
             this.SaveRepoChangesBT.UseVisualStyleBackColor = false;
-            this.SaveRepoChangesBT.Click += new System.EventHandler(this.SaveRepoChangesBT_Click);
-            this.SaveRepoChangesBT.MouseEnter += new System.EventHandler(this.SaveRepoChangesBT_MouseEnter);
-            this.SaveRepoChangesBT.MouseLeave += new System.EventHandler(this.SaveRepoChangesBT_MouseLeave);
             // 
-            // EditRepoP
+            // noFocusSelectionRectangleButton2
             // 
-            this.EditRepoP.Controls.Add(this.AddNoteBT);
-            this.EditRepoP.Controls.Add(this.RepoStatusCB);
-            this.EditRepoP.Controls.Add(this.label6);
-            this.EditRepoP.Controls.Add(this.NotesTB);
-            this.EditRepoP.Controls.Add(this.NotesCB);
-            this.EditRepoP.Controls.Add(this.label7);
-            this.EditRepoP.Controls.Add(this.LogsTB);
-            this.EditRepoP.Controls.Add(this.LogsCB);
-            this.EditRepoP.Controls.Add(this.LastCommitMessageTB);
-            this.EditRepoP.Controls.Add(this.label5);
-            this.EditRepoP.Controls.Add(this.LastCommitTB);
-            this.EditRepoP.Controls.Add(this.label4);
-            this.EditRepoP.Controls.Add(this.label3);
-            this.EditRepoP.Controls.Add(this.RepoPathTB);
-            this.EditRepoP.Controls.Add(this.label2);
-            this.EditRepoP.Location = new System.Drawing.Point(321, 0);
-            this.EditRepoP.Name = "EditRepoP";
-            this.EditRepoP.Size = new System.Drawing.Size(480, 348);
-            this.EditRepoP.TabIndex = 2;
+            this.noFocusSelectionRectangleButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.noFocusSelectionRectangleButton2.BackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton2.BackgroundImage = global::GITRepoManager.Properties.Resources.Log_Icon;
+            this.noFocusSelectionRectangleButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noFocusSelectionRectangleButton2.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.noFocusSelectionRectangleButton2.FlatAppearance.BorderSize = 0;
+            this.noFocusSelectionRectangleButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.noFocusSelectionRectangleButton2.Location = new System.Drawing.Point(61, 192);
+            this.noFocusSelectionRectangleButton2.Name = "noFocusSelectionRectangleButton2";
+            this.noFocusSelectionRectangleButton2.Size = new System.Drawing.Size(35, 35);
+            this.noFocusSelectionRectangleButton2.TabIndex = 27;
+            this.noFocusSelectionRectangleButton2.UseVisualStyleBackColor = false;
             // 
-            // RepoStatusCB
+            // noFocusSelectionRectangleButton1
             // 
-            this.RepoStatusCB.FormattingEnabled = true;
-            this.RepoStatusCB.Items.AddRange(new object[] {
-            "None",
-            "New",
-            "Development",
-            "Production"});
-            this.RepoStatusCB.Location = new System.Drawing.Point(114, 31);
-            this.RepoStatusCB.Name = "RepoStatusCB";
-            this.RepoStatusCB.Size = new System.Drawing.Size(358, 21);
-            this.RepoStatusCB.TabIndex = 17;
-            this.RepoStatusCB.SelectedIndexChanged += new System.EventHandler(this.RepoStatusCB_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 151);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 20);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Notes";
-            // 
-            // NotesTB
-            // 
-            this.NotesTB.Location = new System.Drawing.Point(7, 178);
-            this.NotesTB.Name = "NotesTB";
-            this.NotesTB.ReadOnly = true;
-            this.NotesTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.NotesTB.Size = new System.Drawing.Size(465, 61);
-            this.NotesTB.TabIndex = 15;
-            this.NotesTB.Text = "";
-            // 
-            // NotesCB
-            // 
-            this.NotesCB.FormattingEnabled = true;
-            this.NotesCB.Location = new System.Drawing.Point(65, 151);
-            this.NotesCB.Name = "NotesCB";
-            this.NotesCB.Size = new System.Drawing.Size(376, 21);
-            this.NotesCB.TabIndex = 14;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(3, 254);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 20);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Logs";
-            // 
-            // LogsTB
-            // 
-            this.LogsTB.Location = new System.Drawing.Point(7, 280);
-            this.LogsTB.Name = "LogsTB";
-            this.LogsTB.ReadOnly = true;
-            this.LogsTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.LogsTB.Size = new System.Drawing.Size(465, 61);
-            this.LogsTB.TabIndex = 11;
-            this.LogsTB.Text = "";
-            // 
-            // LogsCB
-            // 
-            this.LogsCB.FormattingEnabled = true;
-            this.LogsCB.Location = new System.Drawing.Point(57, 253);
-            this.LogsCB.Name = "LogsCB";
-            this.LogsCB.Size = new System.Drawing.Size(415, 21);
-            this.LogsCB.TabIndex = 10;
-            // 
-            // LastCommitMessageTB
-            // 
-            this.LastCommitMessageTB.Location = new System.Drawing.Point(114, 83);
-            this.LastCommitMessageTB.Multiline = true;
-            this.LastCommitMessageTB.Name = "LastCommitMessageTB";
-            this.LastCommitMessageTB.ReadOnly = true;
-            this.LastCommitMessageTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LastCommitMessageTB.Size = new System.Drawing.Size(361, 58);
-            this.LastCommitMessageTB.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 84);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 16);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Message";
-            // 
-            // LastCommitTB
-            // 
-            this.LastCommitTB.Location = new System.Drawing.Point(114, 58);
-            this.LastCommitTB.Name = "LastCommitTB";
-            this.LastCommitTB.ReadOnly = true;
-            this.LastCommitTB.Size = new System.Drawing.Size(358, 20);
-            this.LastCommitTB.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(4, 58);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(92, 16);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Last Commit";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 16);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Current Status";
-            // 
-            // RepoPathTB
-            // 
-            this.RepoPathTB.Location = new System.Drawing.Point(114, 5);
-            this.RepoPathTB.Name = "RepoPathTB";
-            this.RepoPathTB.ReadOnly = true;
-            this.RepoPathTB.Size = new System.Drawing.Size(358, 20);
-            this.RepoPathTB.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(4, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 16);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Full Path";
-            // 
-            // ReposLV
-            // 
-            this.ReposLV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ReposLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.RepoNameCHDR});
-            this.ReposLV.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ReposLV.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ReposLV.FullRowSelect = true;
-            this.ReposLV.GridLines = true;
-            this.ReposLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.ReposLV.Location = new System.Drawing.Point(0, 0);
-            this.ReposLV.MultiSelect = false;
-            this.ReposLV.Name = "ReposLV";
-            this.ReposLV.Size = new System.Drawing.Size(315, 389);
-            this.ReposLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.ReposLV.TabIndex = 1;
-            this.ReposLV.UseCompatibleStateImageBehavior = false;
-            this.ReposLV.View = System.Windows.Forms.View.Details;
-            this.ReposLV.SelectedIndexChanged += new System.EventHandler(this.ReposLV_SelectedIndexChanged);
-            // 
-            // RepoNameCHDR
-            // 
-            this.RepoNameCHDR.Text = "Repository Name";
-            this.RepoNameCHDR.Width = 374;
-            // 
-            // AddNoteBT
-            // 
-            this.AddNoteBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AddNoteBT.BackColor = System.Drawing.Color.Transparent;
-            this.AddNoteBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
-            this.AddNoteBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AddNoteBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.AddNoteBT.FlatAppearance.BorderSize = 0;
-            this.AddNoteBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.AddNoteBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.AddNoteBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddNoteBT.Location = new System.Drawing.Point(447, 147);
-            this.AddNoteBT.Name = "AddNoteBT";
-            this.AddNoteBT.Size = new System.Drawing.Size(25, 25);
-            this.AddNoteBT.TabIndex = 26;
-            this.AddNoteBT.UseVisualStyleBackColor = false;
-            this.AddNoteBT.Click += new System.EventHandler(this.AddNoteBT_Click);
-            this.AddNoteBT.MouseEnter += new System.EventHandler(this.AddNoteBT_MouseEnter);
-            this.AddNoteBT.MouseLeave += new System.EventHandler(this.AddNoteBT_MouseLeave);
+            this.noFocusSelectionRectangleButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.noFocusSelectionRectangleButton1.BackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton1.BackgroundImage = global::GITRepoManager.Properties.Resources.Notes_Icon;
+            this.noFocusSelectionRectangleButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noFocusSelectionRectangleButton1.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.noFocusSelectionRectangleButton1.FlatAppearance.BorderSize = 0;
+            this.noFocusSelectionRectangleButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.noFocusSelectionRectangleButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.noFocusSelectionRectangleButton1.Location = new System.Drawing.Point(59, 150);
+            this.noFocusSelectionRectangleButton1.Name = "noFocusSelectionRectangleButton1";
+            this.noFocusSelectionRectangleButton1.Size = new System.Drawing.Size(35, 35);
+            this.noFocusSelectionRectangleButton1.TabIndex = 26;
+            this.noFocusSelectionRectangleButton1.UseVisualStyleBackColor = false;
             // 
             // MainViewFRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(812, 494);
+            this.ClientSize = new System.Drawing.Size(818, 444);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.statusStrip1);
@@ -572,20 +542,17 @@
         private System.Windows.Forms.Panel EditRepoP;
         private System.Windows.Forms.TextBox RepoPathTB;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.RichTextBox LogsTB;
-        private System.Windows.Forms.ComboBox LogsCB;
         private System.Windows.Forms.TextBox LastCommitMessageTB;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox LastCommitTB;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.RichTextBox NotesTB;
-        private System.Windows.Forms.ComboBox NotesCB;
         private System.Windows.Forms.ComboBox RepoStatusCB;
+        private NoFocusSelectionRectangleButton noFocusSelectionRectangleButton2;
+        private NoFocusSelectionRectangleButton noFocusSelectionRectangleButton1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
         private NoFocusSelectionRectangleButton ClearRepoChangesBT;
         private NoFocusSelectionRectangleButton SaveRepoChangesBT;
-        private NoFocusSelectionRectangleButton AddNoteBT;
     }
 }

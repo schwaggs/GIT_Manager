@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,26 +23,106 @@ namespace GITRepoManager
 
         #region Is GIT Repo
 
+       /*
+        *   ________________________________________________________________________________
+        *   # Method:              #
+        *   #                                                                              #
+        *   # Usage:               #
+        *   #                                                                              #
+        *   # Parameters:          #   
+        *   #                                                                              #
+        *   # Returns:             #
+        *   #                                                                              #
+        *   # Last Date Modified:  #
+        *   #                                                                              #
+        *   # Last Modified By:    #
+        *   #                                                                              #
+        *   ________________________________________________________________________________
+        */
+
         public static bool Is_Git_Repo(string dir)
         {
             Is_Repo = true;
-
             Process cmd = Create_Process(dir, "git log");
 
-            if (cmd != null)
+            StringBuilder error = new StringBuilder();
+            StringBuilder output = new StringBuilder();
+
+            using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
+            using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
             {
+                cmd.OutputDataReceived += (sender, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        outputWaitHandle.Set();
+                    }
+
+                    else
+                    {
+                        output.AppendLine(e.Data);
+                    }
+                };
+
+                cmd.ErrorDataReceived += (sender, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        errorWaitHandle.Set();
+                    }
+
+                    else
+                    {
+                        error.AppendLine(e.Data);
+                    }
+                };
+
                 cmd.Start();
+
                 cmd.BeginOutputReadLine();
                 cmd.BeginErrorReadLine();
-                cmd.WaitForExit();
 
-                if (Is_Repo)
+                if (cmd.WaitForExit(1000) && outputWaitHandle.WaitOne(1000) && errorWaitHandle.WaitOne(1000))
                 {
-                    return true;
+                    // Process completed, check cmd.ExitCode
+                    if (cmd.ExitCode == 0)
+                    {
+                        if (string.IsNullOrEmpty(error.ToString()) || string.IsNullOrWhiteSpace(error.ToString()))
+                        {
+                            return true;
+                        }
+
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    else
+                    {
+                        // Process exited with error
+                        //MessageBox.Show("Unable verify if current directory is a repository", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+
+                else
+                {
+                    // Timed out
+                    //MessageBox.Show("Checking if current directory is a repository has timed out.", "Timed Out", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
                 }
             }
+        }
 
-            return false;
+        private static void Cmd_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            MessageBox.Show(e.Data.ToString());
+        }
+
+        private static void Cmd_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            MessageBox.Show(e.Data.ToString());
         }
 
         #endregion
@@ -83,7 +164,7 @@ namespace GITRepoManager
             Process cmdProc = new Process();
             ProcessStartInfo cmdInfo = new ProcessStartInfo();
 
-            if (dirInfo != null || !dirInfo.Exists)
+            if (dirInfo == null || !dirInfo.Exists)
             {
                 Exception_Message = "DNE";
                 return null;
@@ -133,6 +214,23 @@ namespace GITRepoManager
 
         #region Clone Repository
 
+       /*
+        *   ________________________________________________________________________________
+        *   # Method:              #
+        *   #                                                                              #
+        *   # Usage:               #
+        *   #                                                                              #
+        *   # Parameters:          #   
+        *   #                                                                              #
+        *   # Returns:             #
+        *   #                                                                              #
+        *   # Last Date Modified:  #
+        *   #                                                                              #
+        *   # Last Modified By:    #
+        *   #                                                                              #
+        *   ________________________________________________________________________________
+        */
+
         public static bool Clone(string Destination)
         {
             try
@@ -166,6 +264,23 @@ namespace GITRepoManager
 
         #region Last Commit
 
+       /*
+        *   ________________________________________________________________________________
+        *   # Method:              #
+        *   #                                                                              #
+        *   # Usage:               #
+        *   #                                                                              #
+        *   # Parameters:          #   
+        *   #                                                                              #
+        *   # Returns:             #
+        *   #                                                                              #
+        *   # Last Date Modified:  #
+        *   #                                                                              #
+        *   # Last Modified By:    #
+        *   #                                                                              #
+        *   ________________________________________________________________________________
+        */
+
         public static DateTime Get_Last_Commit()
         {
             return DateTime.MinValue;
@@ -176,6 +291,23 @@ namespace GITRepoManager
 
         #region Last Commit Message
 
+       /*
+        *   ________________________________________________________________________________
+        *   # Method:              #
+        *   #                                                                              #
+        *   # Usage:               #
+        *   #                                                                              #
+        *   # Parameters:          #   
+        *   #                                                                              #
+        *   # Returns:             #
+        *   #                                                                              #
+        *   # Last Date Modified:  #
+        *   #                                                                              #
+        *   # Last Modified By:    #
+        *   #                                                                              #
+        *   ________________________________________________________________________________
+        */
+
         public static string Get_Last_Commit_Message()
         {
             return string.Empty;
@@ -185,6 +317,23 @@ namespace GITRepoManager
 
 
         #region Log Parser
+
+       /*
+        *   ________________________________________________________________________________
+        *   # Method:              #
+        *   #                                                                              #
+        *   # Usage:               #
+        *   #                                                                              #
+        *   # Parameters:          #   
+        *   #                                                                              #
+        *   # Returns:             #
+        *   #                                                                              #
+        *   # Last Date Modified:  #
+        *   #                                                                              #
+        *   # Last Modified By:    #
+        *   #                                                                              #
+        *   ________________________________________________________________________________
+        */
 
         public static List<EntryCell> Parse_Logs(string Full_Log)
         {
@@ -225,6 +374,23 @@ namespace GITRepoManager
 
             return Entries;
         }
+
+       /*
+        *   ________________________________________________________________________________
+        *   # Method:              #
+        *   #                                                                              #
+        *   # Usage:               #
+        *   #                                                                              #
+        *   # Parameters:          #   
+        *   #                                                                              #
+        *   # Returns:             #
+        *   #                                                                              #
+        *   # Last Date Modified:  #
+        *   #                                                                              #
+        *   # Last Modified By:    #
+        *   #                                                                              #
+        *   ________________________________________________________________________________
+        */
 
         public static string Stores_To_String()
         {
@@ -282,6 +448,44 @@ namespace GITRepoManager
                 return string.Empty;
             }
         }
+
+        #endregion
+
+
+        #region Save Configuration
+
+       /*
+        *   ________________________________________________________________________________
+        *   # Method:              #
+        *   #                                                                              #
+        *   # Usage:               #
+        *   #                                                                              #
+        *   # Parameters:          #   
+        *   #                                                                              #
+        *   # Returns:             #
+        *   #                                                                              #
+        *   # Last Date Modified:  #
+        *   #                                                                              #
+        *   # Last Modified By:    #
+        *   #                                                                              #
+        *   ________________________________________________________________________________
+        */
+
+        public static bool Save_Config(List<string> paths)
+        {
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath))
+            {
+                // Make a copy of the file with .bak ext
+
+                // Add store cells for all stringsin paths to managerdata.stores dictionary
+
+                // call Serialize_Replace(Properties.Settings.Default.ConfigPath, ManagerData.Stores)
+            }
+
+            return false;
+        }
+
+
 
         #endregion
     }

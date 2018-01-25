@@ -78,13 +78,13 @@ namespace GITRepoManager
             {
                 Parsed_Raw = null;
 
-                XmlSerializer serializer = new XmlSerializer(typeof(XML.Root));
+                XmlSerializer deserializer = new XmlSerializer(typeof(XML.Root));
                 StreamReader reader = new StreamReader(source);
 
                 XML.Root input = null;
                 try
                 {
-                    input = (XML.Root)serializer.Deserialize(reader);
+                    input = (XML.Root)deserializer.Deserialize(reader);
                 }
 
                 catch(Exception ex)
@@ -105,38 +105,52 @@ namespace GITRepoManager
 
 
 
-            public static void Serialize_Replace(string destination)
+            public static void Serialize_Replace(string destination, Dictionary<string, StoreCell> ToAdd)
             {
-                XML.Root root = new XML.Root();
-                root.Stores = new List<XML.Store>();
+                XML.Root tempRoot = new XML.Root();
+                tempRoot.Stores = new List<XML.Store>();
 
-                XML.Store store = new XML.Store();
-                store.Location = "New Location";
-                store.Repos = new XML.Repos();
+                foreach (KeyValuePair<string, StoreCell> Store in ToAdd)
+                {
+                    XML.Store tempStore = new XML.Store();
+                    tempStore.Location = Store.Value._Path;
+                    tempStore.Repos = new XML.Repos();
+                    tempStore.Repos.Items = new List<XML.Repo>();
 
-                store.Repos.Items = new List<XML.Repo>();
+                    foreach (KeyValuePair<string, RepoCell> Repo in Store.Value._Repos)
+                    {
+                        XML.Repo tempRepo = new XML.Repo();
+                        tempRepo.Name = Repo.Key;
+                        tempRepo.Status = RepoCell.Status.ToString(Repo.Value.Current_Status);
+                        tempRepo.Notes = new XML.Notes();
+                        tempRepo.Notes.Items = new List<XML.Note>();
 
-                XML.Repo repo = new XML.Repo();
-                repo.Name = "Test Add";
-                repo.Status = "DEVELOPMENT";
-                repo.Notes = new XML.Notes();
+                        foreach (KeyValuePair<string, string> Note in Repo.Value.Notes)
+                        {
+                            XML.Note tempNote = new XML.Note();
+                            tempNote.Title = Note.Key;
+                            tempNote.Body = Note.Value;
 
-                repo.Notes.Items = new List<XML.Note>();
+                            tempRepo.Notes.Items.Add(tempNote);
+                        }
 
-                XML.Note note = new XML.Note();
-                note.Title = "Test Note 1";
-                note.Body = "Test Message 1";
+                        tempStore.Repos.Items.Add(tempRepo);
+                    }
 
-                repo.Notes.Items.Add(note);
-                store.Repos.Items.Add(repo);
-                root.Stores.Add(store);
+                    tempRoot.Stores.Add(tempStore);
+                }
 
                 XmlSerializer serializer = new XmlSerializer(typeof(XML.Root));
                 StreamWriter writer = new StreamWriter(destination);
 
-                serializer.Serialize(writer, root);
+                serializer.Serialize(writer, tempRoot);
                 writer.Close();
             }
+
+
+
+
+
 
             public static void Get_Stores()
             {
@@ -150,9 +164,12 @@ namespace GITRepoManager
                         foreach (XML.Store Parsed_Store in Parsed_Raw.Stores)
                         {
                             currStore = new StoreCell(Parsed_Store.Location);
+                            currStore._Path = Parsed_Store.Location;
                             currStore._Repos = Get_Repos(Parsed_Store.Repos);
 
-                            ManagerData.Stores.Add(Parsed_Store.Location, currStore);
+                            DirectoryInfo currStoreInfo = new DirectoryInfo(Parsed_Store.Location);
+
+                            ManagerData.Stores.Add(currStoreInfo.Name, currStore);
                         }
                     }
 
@@ -162,6 +179,12 @@ namespace GITRepoManager
                     }
                 }
             }
+
+
+
+
+
+
             public static Dictionary<string, RepoCell> Get_Repos(XML.Repos ReposObj)
             {
                 Dictionary<string, RepoCell> RepoDict = new Dictionary<string, RepoCell>();
