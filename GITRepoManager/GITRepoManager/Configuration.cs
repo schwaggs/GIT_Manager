@@ -168,8 +168,15 @@ namespace GITRepoManager
                             currStore._Repos = Get_Repos(Parsed_Store.Repos);
 
                             DirectoryInfo currStoreInfo = new DirectoryInfo(Parsed_Store.Location);
-
                             ManagerData.Stores.Add(currStoreInfo.Name, currStore);
+                        }
+
+                        foreach (StoreCell store in ManagerData.Stores.Values)
+                        {
+                            foreach (RepoCell repo in store._Repos.Values)
+                            {
+                                repo.Path = store._Path + @"\" + repo.Name;
+                            }
                         }
                     }
 
@@ -218,6 +225,7 @@ namespace GITRepoManager
                 try
                 {
                     currRepo = new RepoCell();
+                    currRepo.Name = RepoObj.Name;
                     currRepo.Current_Status = RepoCell.Status.ToType(RepoObj.Status);
                     currRepo.Notes = Get_Notes(RepoObj.Notes);
                 }

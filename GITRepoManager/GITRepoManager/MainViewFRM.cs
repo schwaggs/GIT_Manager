@@ -17,72 +17,123 @@ namespace GITRepoManager
     {
         public static Color LBPanelBackgroundColor = Color.FromArgb(240, 240, 245);
 
-        public MainViewFRM()
+        public MainViewFRM(string [] filepaths = null)
         {
-            Thread t = new Thread(new ThreadStart(SplashStart));
-            t.Start();
-
-            while (!InitializationData.Initialized)
+            if (filepaths == null)
             {
-                Thread.Sleep(1000);
+                Thread t = new Thread(new ThreadStart(SplashStart));
+                t.Start();
 
-                if (InitializationData.Abort)
+                while (!InitializationData.Initialized)
                 {
-                    t.Abort();
+                    Thread.Sleep(1000);
 
-                    DialogResult retry = MessageBox.Show("Invalid Base Path\nWould you like to change it now?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-
-                    if (retry == DialogResult.No)
+                    if (InitializationData.Abort)
                     {
-                        MessageBox.Show("Base path must be a valid path to continue", "Closing Manager", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        t.Abort();
 
-                        Application.ExitThread();
-                        Application.Exit();
-                        Environment.Exit(1);
-                    }
-
-                    CommonOpenFileDialog dirbrowser = new CommonOpenFileDialog
-                    {
-                        InitialDirectory = @"C:\",
-                        IsFolderPicker = true
-                    };
-
-                    if (dirbrowser.ShowDialog() == CommonFileDialogResult.Ok)
-                    {
-                        InitializationData.Retry = true;
-                        InitializationData.Abort = false;
-                        InitializationData.Initialized = false;
-
-                        Properties.Settings.Default.RepoBaseDir = dirbrowser.FileName;
-                        Properties.Settings.Default.Save();
-
-                        t = new Thread(new ThreadStart(SplashStart));
-                        t.Start();
-                    }
-
-                    else
-                    {
-                        MessageBox.Show("Base path must be a valid path to continue", "Closing Manager", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Error loading configuration, closing GIT Manager.", "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         Application.ExitThread();
                         Application.Exit();
                         Environment.Exit(1);
                     }
                 }
+
+                t.Abort();
+                InitializeComponent();
+
+                ReposLV.ShowItemToolTips = true;
+                MainStatusSSL.Text = string.Empty;
+
+                RootLocationCB_Initialize();
+
+                if (ManagerData.Stores.Count > 0)
+                {
+                    //ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
+                }
+
+                else
+                {
+                    ManagerData.Selected_Store = null;
+                }
+
+                ReposLV_Initialize();
             }
-            
-            t.Abort();
-            InitializeComponent();
 
-            ReposLV.ShowItemToolTips = true;
-            MainStatusSSL.Text = string.Empty;
+            else
+            {
+                // Drag and dropped filepath
 
-            RootLocationCB_Initialize();
-            RootLocationCB.SelectedIndex = 0;
-            
-            ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
+                // Check to make sure the path is a directory
+                List<DirectoryInfo> ToAdd = new List<DirectoryInfo>();
+                int filecount = 0;
 
-            ReposLV_Initialize();
+                foreach (string filepath in filepaths)
+                {
+                    FileAttributes attr = File.GetAttributes(filepath);
+
+                    if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
+                    {
+                        // It's a directory so add it
+                        DirectoryInfo pathInfo = new DirectoryInfo(filepath);
+
+                        if (pathInfo.Exists)
+                        {
+                            ToAdd.Add(pathInfo);
+                        }
+                    }
+
+                    else
+                    {
+                        filecount++;
+                    }
+                }
+
+                if (filecount > 0)
+                {
+                    MessageBox.Show("Several file paths were detected, only directories can be used as stores.", "Files Detected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+                if (ToAdd.Count > 0)
+                {
+                    // Parse xml first and create Stores dictionary
+                    foreach (DirectoryInfo dirInfo in ToAdd)
+                    {
+                        StoreCell tempStore = new StoreCell(dirInfo.FullName)
+                        {
+                            _Repos = new Dictionary<string, RepoCell>()
+                        };
+
+                        foreach (string dir in Directory.GetDirectories(dirInfo.FullName))
+                        {
+                            if (Helpers.Is_Git_Repo(dir))
+                            {
+                                DirectoryInfo repoInfo = new DirectoryInfo(dir);
+
+                                RepoCell tempRepo = new RepoCell()
+                                {
+                                    Path = dir,
+                                    Current_Status = RepoCell.Status.Type.NEW,
+                                    Last_Commit = DateTime.MinValue,
+                                    Last_Commit_Message = string.Empty,
+                                    Notes = new Dictionary<string, string>(),
+                                    Logs = new Dictionary<string, List<EntryCell>>()
+                                };
+
+                                tempStore._Repos.Add(repoInfo.Name, tempRepo);
+                            }
+                        }
+
+                        //ManagerData.Stores.Add(dirInfo.Name, tempStore);
+                    }
+                }
+
+                // Dont open the program 
+                Application.ExitThread();
+                Application.Exit();
+                Environment.Exit(0);
+            }
         }
 
         public void SplashStart()
@@ -183,9 +234,16 @@ namespace GITRepoManager
                 RootLocationCB.Items.Add(key);
             }
 
-            RootLocationCB.SelectedIndex = 1;
+            if (ManagerData.Stores.Count > 0)
+            {
+                RootLocationCB.SelectedItem = RootLocationCB.Items[0];
+                ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
+            }
 
-            ManagerData.Selected_Store = ManagerData.Stores[RootLocationCB.SelectedItem.ToString()];
+            else
+            {
+                ManagerData.Selected_Store = null;
+            }
 
             if (ManagerData.Selected_Store != null)
             {
@@ -209,15 +267,18 @@ namespace GITRepoManager
         {
             ReposLV.Items.Clear();
 
-            foreach (string repo in ManagerData.Selected_Store._Repos.Keys)
+            if (ManagerData.Selected_Store != null)
             {
-                ListViewItem lvi = new ListViewItem
+                foreach (string repo in ManagerData.Selected_Store._Repos.Keys)
                 {
-                    Name = repo,
-                    Text = repo
-                };
+                    ListViewItem lvi = new ListViewItem
+                    {
+                        Name = repo,
+                        Text = repo
+                    };
 
-                ReposLV.Items.Add(lvi);
+                    ReposLV.Items.Add(lvi);
+                }
             }
         }
 
@@ -244,7 +305,16 @@ namespace GITRepoManager
         {
             // Save any changes to the last selected repo
             ReposLV.SelectedItems.Clear();
-            MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+
+            if (ManagerData.Selected_Store != null)
+            {
+                MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+            }
+
+            else
+            {
+                MainStatusSSL.Text = string.Empty;
+            }
             
         }
 
@@ -271,7 +341,7 @@ namespace GITRepoManager
 
         private void CloneRepoBT_Click(object sender, EventArgs e)
         {
-            CloneRepoFRM CloneRepo = new CloneRepoFRM();
+            CloneRepoFRM CloneRepo = new CloneRepoFRM(ManagerData.Selected_Repo.Path);
             CloneRepo.ShowDialog();
         }
 
@@ -510,6 +580,37 @@ namespace GITRepoManager
         {
             //AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
             MainStatusSSL.Text = string.Empty;
+        }
+
+        private void RefreshStoresBT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RefreshStoresBT_MouseEnter(object sender, EventArgs e)
+        {
+            RefreshStoresBT.BackgroundImage = Properties.Resources.RefreshIconHover;
+            MainStatusSSL.Text = "Manually refresh all repository stores.";
+        }
+
+        private void RefreshStoresBT_MouseLeave(object sender, EventArgs e)
+        {
+            RefreshStoresBT.BackgroundImage = Properties.Resources.RefreshIcon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+            }
+
+            else if (RootLocationCB.SelectedItem != null)
+            {
+                MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+            }
+
+            else
+            {
+                MainStatusSSL.Text = "";
+            }
         }
     }
 }

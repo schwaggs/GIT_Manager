@@ -153,5 +153,17 @@ namespace GITRepoManager.Properties {
                 this["ConfigExtensions"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Source")]
+        public string CloneLocalSourcePath {
+            get {
+                return ((string)(this["CloneLocalSourcePath"]));
+            }
+            set {
+                this["CloneLocalSourcePath"] = value;
+            }
+        }
     }
 }

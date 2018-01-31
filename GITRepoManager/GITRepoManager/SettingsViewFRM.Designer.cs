@@ -42,12 +42,18 @@
             this.SaveSettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.SettingsInfoSSSL = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.CloneDestinationTB = new System.Windows.Forms.TextBox();
+            this.BrowseClonePathBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.MainViewP.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainViewP
             // 
+            this.MainViewP.Controls.Add(this.BrowseClonePathBT);
+            this.MainViewP.Controls.Add(this.label3);
+            this.MainViewP.Controls.Add(this.CloneDestinationTB);
             this.MainViewP.Controls.Add(this.DeleteLocationBT);
             this.MainViewP.Controls.Add(this.label2);
             this.MainViewP.Controls.Add(this.label1);
@@ -58,7 +64,7 @@
             this.MainViewP.Controls.Add(this.AddPathBT);
             this.MainViewP.Location = new System.Drawing.Point(12, 12);
             this.MainViewP.Name = "MainViewP";
-            this.MainViewP.Size = new System.Drawing.Size(501, 332);
+            this.MainViewP.Size = new System.Drawing.Size(501, 412);
             this.MainViewP.TabIndex = 0;
             // 
             // DeleteLocationBT
@@ -72,7 +78,7 @@
             this.DeleteLocationBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.DeleteLocationBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.DeleteLocationBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeleteLocationBT.Location = new System.Drawing.Point(472, 68);
+            this.DeleteLocationBT.Location = new System.Drawing.Point(472, 139);
             this.DeleteLocationBT.Name = "DeleteLocationBT";
             this.DeleteLocationBT.Size = new System.Drawing.Size(25, 25);
             this.DeleteLocationBT.TabIndex = 31;
@@ -86,7 +92,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 73);
+            this.label2.Location = new System.Drawing.Point(3, 147);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(153, 20);
             this.label2.TabIndex = 30;
@@ -105,18 +111,18 @@
             // ConfigPathTB
             // 
             this.ConfigPathTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigPathTB.Location = new System.Drawing.Point(3, 31);
+            this.ConfigPathTB.Location = new System.Drawing.Point(7, 31);
             this.ConfigPathTB.Name = "ConfigPathTB";
             this.ConfigPathTB.ReadOnly = true;
-            this.ConfigPathTB.Size = new System.Drawing.Size(413, 26);
+            this.ConfigPathTB.Size = new System.Drawing.Size(409, 26);
             this.ConfigPathTB.TabIndex = 28;
             // 
             // TempPathTB
             // 
             this.TempPathTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TempPathTB.Location = new System.Drawing.Point(3, 300);
+            this.TempPathTB.Location = new System.Drawing.Point(7, 374);
             this.TempPathTB.Name = "TempPathTB";
-            this.TempPathTB.Size = new System.Drawing.Size(413, 26);
+            this.TempPathTB.Size = new System.Drawing.Size(409, 26);
             this.TempPathTB.TabIndex = 26;
             // 
             // BrowseBT
@@ -130,7 +136,7 @@
             this.BrowseBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BrowseBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BrowseBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseBT.Location = new System.Drawing.Point(421, 294);
+            this.BrowseBT.Location = new System.Drawing.Point(421, 368);
             this.BrowseBT.Name = "BrowseBT";
             this.BrowseBT.Size = new System.Drawing.Size(35, 35);
             this.BrowseBT.TabIndex = 25;
@@ -148,10 +154,10 @@
             this.LocationCH});
             this.StoreLocationLV.FullRowSelect = true;
             this.StoreLocationLV.GridLines = true;
-            this.StoreLocationLV.Location = new System.Drawing.Point(3, 96);
+            this.StoreLocationLV.Location = new System.Drawing.Point(7, 170);
             this.StoreLocationLV.MultiSelect = false;
             this.StoreLocationLV.Name = "StoreLocationLV";
-            this.StoreLocationLV.Size = new System.Drawing.Size(494, 192);
+            this.StoreLocationLV.Size = new System.Drawing.Size(490, 192);
             this.StoreLocationLV.TabIndex = 21;
             this.StoreLocationLV.UseCompatibleStateImageBehavior = false;
             this.StoreLocationLV.View = System.Windows.Forms.View.Details;
@@ -178,7 +184,7 @@
             this.AddPathBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.AddPathBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.AddPathBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddPathBT.Location = new System.Drawing.Point(462, 294);
+            this.AddPathBT.Location = new System.Drawing.Point(462, 368);
             this.AddPathBT.Name = "AddPathBT";
             this.AddPathBT.Size = new System.Drawing.Size(35, 35);
             this.AddPathBT.TabIndex = 20;
@@ -198,7 +204,7 @@
             this.SaveSettingsBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.SaveSettingsBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.SaveSettingsBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveSettingsBT.Location = new System.Drawing.Point(12, 344);
+            this.SaveSettingsBT.Location = new System.Drawing.Point(9, 430);
             this.SaveSettingsBT.Name = "SaveSettingsBT";
             this.SaveSettingsBT.Size = new System.Drawing.Size(45, 45);
             this.SaveSettingsBT.TabIndex = 23;
@@ -212,7 +218,7 @@
             this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SettingsInfoSSSL});
-            this.statusStrip1.Location = new System.Drawing.Point(12, 396);
+            this.statusStrip1.Location = new System.Drawing.Point(9, 488);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(17, 22);
             this.statusStrip1.SizingGrip = false;
@@ -224,13 +230,49 @@
             this.SettingsInfoSSSL.Name = "SettingsInfoSSSL";
             this.SettingsInfoSSSL.Size = new System.Drawing.Size(0, 17);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 73);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(216, 20);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "Default Clone Destination";
+            // 
+            // CloneDestinationTB
+            // 
+            this.CloneDestinationTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CloneDestinationTB.Location = new System.Drawing.Point(7, 96);
+            this.CloneDestinationTB.Name = "CloneDestinationTB";
+            this.CloneDestinationTB.Size = new System.Drawing.Size(409, 26);
+            this.CloneDestinationTB.TabIndex = 32;
+            // 
+            // BrowseClonePathBT
+            // 
+            this.BrowseClonePathBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BrowseClonePathBT.BackColor = System.Drawing.Color.Transparent;
+            this.BrowseClonePathBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Browse_Icon;
+            this.BrowseClonePathBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BrowseClonePathBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.BrowseClonePathBT.FlatAppearance.BorderSize = 0;
+            this.BrowseClonePathBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BrowseClonePathBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BrowseClonePathBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowseClonePathBT.Location = new System.Drawing.Point(422, 91);
+            this.BrowseClonePathBT.Name = "BrowseClonePathBT";
+            this.BrowseClonePathBT.Size = new System.Drawing.Size(35, 35);
+            this.BrowseClonePathBT.TabIndex = 34;
+            this.BrowseClonePathBT.UseVisualStyleBackColor = false;
+            this.BrowseClonePathBT.Click += new System.EventHandler(this.BrowseClonePathBT_Click);
+            // 
             // SettingsViewFRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(521, 421);
+            this.ClientSize = new System.Drawing.Size(521, 519);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.SaveSettingsBT);
             this.Controls.Add(this.MainViewP);
@@ -267,5 +309,8 @@
         private NoFocusSelectionRectangleButton DeleteLocationBT;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel SettingsInfoSSSL;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox CloneDestinationTB;
+        private NoFocusSelectionRectangleButton BrowseClonePathBT;
     }
 }

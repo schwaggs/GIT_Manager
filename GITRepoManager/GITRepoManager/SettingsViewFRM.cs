@@ -112,6 +112,11 @@ namespace GITRepoManager
             ConfigPathTB.Text = Properties.Settings.Default.ConfigPath;
 
             Populate_Stores();
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.CloneLocalSourcePath) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.CloneLocalSourcePath))
+            {
+                CloneDestinationTB.Text = Properties.Settings.Default.CloneLocalSourcePath;
+            }
         }
 
 
@@ -189,6 +194,12 @@ namespace GITRepoManager
         {
             Add_Temp_Stores();
             Configuration.Helpers.Serialize_Replace(Properties.Settings.Default.ConfigPath, ManagerData.Stores);
+
+            if (!string.IsNullOrEmpty(CloneDestinationTB.Text) || !string.IsNullOrWhiteSpace(CloneDestinationTB.Text))
+            {
+                Properties.Settings.Default.CloneLocalSourcePath = CloneDestinationTB.Text;
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void Add_Temp_Stores()
@@ -347,6 +358,21 @@ namespace GITRepoManager
             else
             {
                 DeleteLocationBT.Visible = false;
+            }
+        }
+
+        private void BrowseClonePathBT_Click(object sender, EventArgs e)
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+
+                IsFolderPicker = true
+            };
+
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                CloneDestinationTB.Text = dialog.FileName;
             }
         }
     }

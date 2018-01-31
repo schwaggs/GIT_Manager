@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -15,11 +16,13 @@ namespace GITRepoManager
     {
 
         public static bool retry { get; set; }
+        public static string dir { get; set; }
 
-        public CloneRepoFRM()
+        public CloneRepoFRM(string directory)
         {
             InitializeComponent();
             retry = false;
+            dir = directory;
         }
 
         private void BrowseRepoSourceBT_Click(object sender, EventArgs e)
@@ -39,6 +42,8 @@ namespace GITRepoManager
 
         private void CloneRepoBT_Click(object sender, EventArgs e)
         {
+            progressBar1.Show();
+
             if (string.IsNullOrEmpty(DestinationPathTB.Text) || string.IsNullOrWhiteSpace(DestinationPathTB.Text))
             {
                 MessageBox.Show("Not a valid destination!.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -48,14 +53,19 @@ namespace GITRepoManager
             {
                 if (Helpers.Is_Git_Repo(RepoPathTB.Text))
                 {
+                    bool ClonerResult = false;
+
                     if (Helpers.Clone(DestinationPathTB.Text))
                     {
+                        ClonerResult = false;
                     }
 
                     else
                     {
-                        retry = true;
+                        ClonerResult = true;
                     }
+
+                    retry = ClonerResult;
                 }
 
                 else
@@ -63,6 +73,8 @@ namespace GITRepoManager
                     MessageBox.Show("Not a valid repository!", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            progressBar1.Hide();
 
             if (retry)
             {
@@ -112,6 +124,15 @@ namespace GITRepoManager
         private void BrowseRepoSourceBT_MouseLeave(object sender, EventArgs e)
         {
             BrowseRepoSourceBT.BackgroundImage = Properties.Resources.Browse_Icon;
+        }
+
+        private void CloneRepoFRM_Load(object sender, EventArgs e)
+        {
+            RepoPathTB.Text = dir;
+            RepoPathTB.SelectionStart = RepoPathTB.SelectionStart;
+            RepoPathTB.SelectionLength = 0;
+            DestinationPathTB.Text = Properties.Settings.Default.CloneLocalSourcePath;
+            CloneRepoBT.Focus();
         }
     }
 }

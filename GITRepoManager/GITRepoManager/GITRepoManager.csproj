@@ -313,6 +313,8 @@
   <ItemGroup>
     <Content Include="PacketStructure.xml" />
     <Content Include="ReleaseNotes.css" />
+    <None Include="Resources\RefreshIconHover.png" />
+    <None Include="Resources\RefreshIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

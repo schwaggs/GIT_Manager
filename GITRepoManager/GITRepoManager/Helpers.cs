@@ -235,7 +235,7 @@ namespace GITRepoManager
         {
             try
             {
-                Process Cloner = Create_Process(Destination, string.Format(Properties.Resources.REPO_CLONE, ManagerData.Selected_Repo.Path));
+                Process Cloner = Create_Process(Destination, string.Format(Properties.Resources.REPO_CLONE, "\"" + ManagerData.Selected_Repo.Path + "\""));
 
                 if (Cloner != null)
                 {

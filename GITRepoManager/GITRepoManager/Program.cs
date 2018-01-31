@@ -15,12 +15,21 @@ namespace GITRepoManager
         /// </summary>
 
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MainViewFRM main = new MainViewFRM();
+            MainViewFRM main;
 
+            if (args.Length > 0)
+            {
+                main = new MainViewFRM(args);
+            }
+
+            else
+            {
+                main = new MainViewFRM();
+            }
             Application.Run(main);
         }
     }

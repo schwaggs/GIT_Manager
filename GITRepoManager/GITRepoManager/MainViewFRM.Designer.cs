@@ -38,6 +38,8 @@
             this.MainStatusSSL = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.EditRepoP = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.RepoStatusCB = new System.Windows.Forms.ComboBox();
             this.LastCommitMessageTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -48,13 +50,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.ReposLV = new System.Windows.Forms.ListView();
             this.RepoNameCHDR = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.SettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.DeleteRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.MoveRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.AddRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.RefreshStoresBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.ClearRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.SaveRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.noFocusSelectionRectangleButton2 = new GITRepoManager.NoFocusSelectionRectangleButton();
@@ -113,6 +114,7 @@
             // 
             // RootLocationCB
             // 
+            this.RootLocationCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.RootLocationCB.FormattingEnabled = true;
             this.RootLocationCB.Location = new System.Drawing.Point(128, 8);
             this.RootLocationCB.Name = "RootLocationCB";
@@ -174,6 +176,7 @@
             // 
             // EditRepoP
             // 
+            this.EditRepoP.Controls.Add(this.RefreshStoresBT);
             this.EditRepoP.Controls.Add(this.ClearRepoChangesBT);
             this.EditRepoP.Controls.Add(this.SaveRepoChangesBT);
             this.EditRepoP.Controls.Add(this.label7);
@@ -193,8 +196,29 @@
             this.EditRepoP.Size = new System.Drawing.Size(480, 343);
             this.EditRepoP.TabIndex = 2;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(4, 201);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 16);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "Logs";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(4, 159);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(49, 16);
+            this.label6.TabIndex = 28;
+            this.label6.Text = "Notes";
+            // 
             // RepoStatusCB
             // 
+            this.RepoStatusCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.RepoStatusCB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RepoStatusCB.FormattingEnabled = true;
             this.RepoStatusCB.Items.AddRange(new object[] {
@@ -302,26 +326,6 @@
             this.RepoNameCHDR.Text = "Repository Name";
             this.RepoNameCHDR.Width = 310;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(4, 159);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 16);
-            this.label6.TabIndex = 28;
-            this.label6.Text = "Notes";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(4, 201);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(42, 16);
-            this.label7.TabIndex = 29;
-            this.label7.Text = "Logs";
-            // 
             // SettingsBT
             // 
             this.SettingsBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -422,6 +426,23 @@
             this.AddRepoBT.MouseEnter += new System.EventHandler(this.AddRepoBT_MouseEnter);
             this.AddRepoBT.MouseLeave += new System.EventHandler(this.AddRepoBT_MouseLeave);
             // 
+            // RefreshStoresBT
+            // 
+            this.RefreshStoresBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.RefreshStoresBT.BackColor = System.Drawing.Color.Transparent;
+            this.RefreshStoresBT.BackgroundImage = global::GITRepoManager.Properties.Resources.RefreshIcon;
+            this.RefreshStoresBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshStoresBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.RefreshStoresBT.FlatAppearance.BorderSize = 0;
+            this.RefreshStoresBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RefreshStoresBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.RefreshStoresBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshStoresBT.Location = new System.Drawing.Point(59, 264);
+            this.RefreshStoresBT.Name = "RefreshStoresBT";
+            this.RefreshStoresBT.Size = new System.Drawing.Size(35, 35);
+            this.RefreshStoresBT.TabIndex = 34;
+            this.RefreshStoresBT.UseVisualStyleBackColor = false;
+            // 
             // ClearRepoChangesBT
             // 
             this.ClearRepoChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -501,6 +522,8 @@
             this.Controls.Add(this.statusStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(834, 483);
+            this.MinimumSize = new System.Drawing.Size(834, 483);
             this.Name = "MainViewFRM";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -524,7 +547,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox RootLocationCB;
@@ -554,5 +576,7 @@
         private System.Windows.Forms.Label label6;
         private NoFocusSelectionRectangleButton ClearRepoChangesBT;
         private NoFocusSelectionRectangleButton SaveRepoChangesBT;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private NoFocusSelectionRectangleButton RefreshStoresBT;
     }
 }

@@ -16,5 +16,20 @@ namespace GITRepoManager
         {
             InitializeComponent();
         }
+
+        private void NoteEditor_Load(object sender, EventArgs e)
+        {
+            NotesLV.Items.Clear();
+            foreach (string title in ManagerData.Selected_Repo.Notes.Keys)
+            {
+                ListViewItem temp = new ListViewItem()
+                {
+                    Name = title,
+                    Text = title
+                };
+
+                NotesLV.Items.Add(temp);
+            }
+        }
     }
 }

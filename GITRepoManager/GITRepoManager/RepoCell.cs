@@ -9,6 +9,7 @@ namespace GITRepoManager
     public class RepoCell
     {
         public string Path { get; set; }
+        public string Name { get; set; }
         public Status.Type Current_Status { get; set; }
         public DateTime Last_Commit { get; set; }               
         public string Last_Commit_Message { get; set; }         

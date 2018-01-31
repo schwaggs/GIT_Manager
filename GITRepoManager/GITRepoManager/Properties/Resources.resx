@@ -118,35 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Reset_Settings_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reset_Settings_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="TagIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TagIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Back_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Back_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Save_Settings_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save_Settings_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STORAGE_IN_HOUSE_SOFTWARE" xml:space="preserve">
+    <value>Z:\Engineering\Source Code\Software</value>
+    <comment>Software written and used in house</comment>
   </data>
   <data name="DeleteIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DeleteIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="STORAGE_HEX" xml:space="preserve">
+    <value>Z:\Engineering\Source Code\Hex Files</value>
+    <comment>Program hex files</comment>
+  </data>
   <data name="MoveIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MoveIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Delete_Tag_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Delete_Tag_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Settings_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MoveIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MoveIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Add_Tag_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add_Tag_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="GitLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GitLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="REGEX_PATTERN_MESSAGE" xml:space="preserve">
+    <value>(.*)\n</value>
+  </data>
+  <data name="Reset_Settings_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reset_Settings_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STORAGE_BASE_DIRECTORY" xml:space="preserve">
+    <value>Z:\Engineering\Source Code</value>
+    <comment>The base directory housing repository roots</comment>
+  </data>
+  <data name="STORAGE_FIRMWARE" xml:space="preserve">
+    <value>Z:\Engineering\Source Code\Firmware Files</value>
+    <comment>Firmware for various projects</comment>
+  </data>
+  <data name="BackGradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BackGradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NewIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DeleteIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DeleteIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Add_Tag_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add_Tag_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,17 +182,36 @@
   <data name="Delete_Tag_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Delete_Tag_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RepositoryIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RepositoryIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="REGEX_PATTERN_AUTHOR" xml:space="preserve">
+    <value>Author: (.*)\n</value>
   </data>
   <data name="Back_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Back_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Edit_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Settings_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add_Tag_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add_Tag_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STORAGE_TESTERS" xml:space="preserve">
+    <value>Z:\Engineering\Source Code\Production Testers</value>
+    <comment>Code for production level testers</comment>
   </data>
   <data name="Select_All_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Select_All_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="REGEX_LOG_PATTERN" xml:space="preserve">
+    <value>commit (.*)\nAuthor: (.*)\nDate: (.*)\s{4,}(.*)\n*</value>
+  </data>
+  <data name="REGEX_PATTERN_DATE" xml:space="preserve">
+    <value>Date: (.*)\n</value>
+  </data>
+  <data name="Save_Settings_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save_Settings_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RepositoryIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RepositoryIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Log_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Log_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,11 +219,18 @@
   <data name="Browse_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Browse_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="STORAGE_MOBILE_APPS" xml:space="preserve">
+    <value>Z:\Engineering\Source Code\Mobile Apps</value>
+    <comment>Smartphone app projects</comment>
+  </data>
   <data name="Log_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Log_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RepositoryIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RepositoryIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Delete_Tag_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete_Tag_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Notes_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Notes_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CloneIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CloneIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,89 +241,47 @@
   <data name="REPO_PUSH_ORIGIN_MASTER" xml:space="preserve">
     <value> push -u origin master</value>
   </data>
+  <data name="Browse_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Browse_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="TagIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TagIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Select_None_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Select_None_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Select_None_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Select_None_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="REPO_CLONE" xml:space="preserve">
+    <value>git clone {0} </value>
+    <comment>Command to clone a repository to the current location</comment>
   </data>
-  <data name="NewIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlusIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Browse_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Browse_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Settings_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Settings_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reset_Settings_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Reset_Settings_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reset_Settings_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Reset_Settings_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Save_Settings_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save_Settings_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Save_Settings_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save_Settings_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Notes_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Notes_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Notes_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Notes_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BackGradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BackGradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="STORAGE_BASE_DIRECTORY" xml:space="preserve">
-    <value>Z:\Engineering\Source Code</value>
-    <comment>The base directory housing repository roots</comment>
-  </data>
-  <data name="STORAGE_FIRMWARE" xml:space="preserve">
-    <value>Z:\Engineering\Source Code\Firmware Files</value>
-    <comment>Firmware for various projects</comment>
-  </data>
-  <data name="STORAGE_HEX" xml:space="preserve">
-    <value>Z:\Engineering\Source Code\Hex Files</value>
-    <comment>Program hex files</comment>
-  </data>
-  <data name="STORAGE_IN_HOUSE_SOFTWARE" xml:space="preserve">
-    <value>Z:\Engineering\Source Code\Software</value>
-    <comment>Software written and used in house</comment>
-  </data>
-  <data name="STORAGE_MOBILE_APPS" xml:space="preserve">
-    <value>Z:\Engineering\Source Code\Mobile Apps</value>
-    <comment>Smartphone app projects</comment>
-  </data>
-  <data name="STORAGE_TESTERS" xml:space="preserve">
-    <value>Z:\Engineering\Source Code\Production Testers</value>
-    <comment>Code for production level testers</comment>
-  </data>
-  <data name="REGEX_LOG_PATTERN" xml:space="preserve">
-    <value>commit (.*)\nAuthor: (.*)\nDate: (.*)\s{4,}(.*)\n*</value>
-  </data>
-  <data name="REGEX_PATTERN_AUTHOR" xml:space="preserve">
-    <value>Author: (.*)\n</value>
+  <data name="Edit_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="REGEX_PATTERN_COMMIT" xml:space="preserve">
     <value>commit (.*)\n</value>
   </data>
-  <data name="REGEX_PATTERN_DATE" xml:space="preserve">
-    <value>Date: (.*)\n</value>
+  <data name="NewIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PlusIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="REGEX_PATTERN_MESSAGE" xml:space="preserve">
-    <value>(.*)\n</value>
+  <data name="Select_None_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Select_None_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="REPO_CLONE" xml:space="preserve">
-    <value>git clone {0} </value>
-    <comment>Command to clone a repository to the current location</comment>
+  <data name="Notes_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Notes_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RepositoryIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RepositoryIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteIcon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteIcon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Back_Icon_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Back_Icon_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RefreshIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RefreshIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RefreshIconHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RefreshIconHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
