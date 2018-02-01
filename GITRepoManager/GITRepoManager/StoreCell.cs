@@ -32,31 +32,15 @@ namespace GITRepoManager
         ///  Only drive paths can be used such as Z:\Server Folder</param>
         public StoreCell(string Path = "")
         {
-            //_Repos = new Dictionary<string, RepoCell>();
-            //if (Path != "")
-            //{
-            //    _Path = Path;
-            //}
+            if (Path != "")
+            {
+                _Path = Path;
+            }
 
-            //else
-            //{
-            //    _Path = string.Empty;
-            //}
-
-            //Check_Path();
-
-            //if (_Valid_Path)
-            //{
-            //    Num_Repos();
-
-            //    _Repos = new Dictionary<string, RepoCell>();
-            //    Get_Repos();
-            //}
-
-            //else
-            //{
-            //    _Path = string.Empty;
-            //}
+            else
+            {
+                _Path = string.Empty;
+            }
         }
 
         /// <summary>

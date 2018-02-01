@@ -1,72 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <root>
+  
+  <!-- Structure 1 -->
   <Store>
-    <Location>\\Some\Location\</Location>
+    <Location></Location>
     <Repos>
       <Repo>
-        <Name>Some Repo</Name>
-        <Status>NEW</Status>
+        <Name></Name>
+        <Status></Status>
         <Notes>
           <Note>
-            <Title>Note Title</Title>
-            <Body>Note message</Body>
-          </Note>
-          <Note>
-            <Title>Note Title</Title>
-            <Body>Note message</Body>
-          </Note>
-        </Notes>
-      </Repo>
-
-      <Repo>
-        <Name>Some Repo</Name>
-        <Status>NEW</Status>
-        <Notes>
-          <Note>
-            <Title>Note Title</Title>
-            <Body>Note message</Body>
-          </Note>
-          <Note>
-            <Title>Note Title</Title>
-            <Body>Note message</Body>
+            <Title></Title>
+            <Body></Body>
           </Note>
         </Notes>
       </Repo>
     </Repos>
   </Store>
 
-  <Store>
-    <Location>\\Some\Location\</Location>
-    <Repos>
-      <Repo>
-        <Name>Some Repo</Name>
-        <Status>NEW</Status>
-        <Notes>
-          <Note>
-            <Title>Note Title</Title>
-            <Body>Note message</Body>
-          </Note>
-          <Note>
-            <Title>Note Title</Title>
-            <Body>Note message</Body>
-          </Note>
+  <!-- Structure 2 -->
+  <Store Location="">
+    
+    <Repo Name="" Status="">
+      <Notes>
+        <Note Title="">Body Goes Here</Note>
         </Notes>
       </Repo>
 
-      <Repo>
-        <Name>Some Repo</Name>
-        <Status>NEW</Status>
-        <Notes>
-          <Note>
-            <Title>Note Title</Title>
-            <Body>Note message</Body>
-          </Note>
-          <Note>
-            <Title>Note Title</Title>
-            <Body>Note message</Body>
-          </Note>
-        </Notes>
-      </Repo>
-    </Repos>
+    <Repo Name="" Status="">
+      <Notes>
+        <Note Title="">Body Goes Here</Note>
+      </Notes>
+    </Repo>
+    
   </Store>
 </root>

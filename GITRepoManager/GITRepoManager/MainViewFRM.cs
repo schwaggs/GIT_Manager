@@ -19,6 +19,7 @@ namespace GITRepoManager
 
         public MainViewFRM(string [] filepaths = null)
         {
+            Configuration.Helpers.Deserialize_Condensed("");
             if (filepaths == null)
             {
                 Thread t = new Thread(new ThreadStart(SplashStart));
@@ -107,7 +108,7 @@ namespace GITRepoManager
 
                         foreach (string dir in Directory.GetDirectories(dirInfo.FullName))
                         {
-                            if (Helpers.Is_Git_Repo(dir))
+                            if (RepoHelpers.Is_Git_Repo(dir))
                             {
                                 DirectoryInfo repoInfo = new DirectoryInfo(dir);
 

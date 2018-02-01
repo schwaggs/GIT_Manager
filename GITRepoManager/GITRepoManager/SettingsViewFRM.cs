@@ -234,7 +234,7 @@ namespace GITRepoManager
 
                 if (dirInfo.Exists)
                 {
-                    if (Helpers.Is_Git_Repo(dir))
+                    if (RepoHelpers.Is_Git_Repo(dir))
                     {
                         RepoCell tempRepo = new RepoCell()
                         {

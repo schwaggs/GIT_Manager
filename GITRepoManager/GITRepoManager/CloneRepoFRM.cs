@@ -51,11 +51,11 @@ namespace GITRepoManager
 
             else
             {
-                if (Helpers.Is_Git_Repo(RepoPathTB.Text))
+                if (RepoHelpers.Is_Git_Repo(RepoPathTB.Text))
                 {
                     bool ClonerResult = false;
 
-                    if (Helpers.Clone(DestinationPathTB.Text))
+                    if (RepoHelpers.Clone(DestinationPathTB.Text))
                     {
                         ClonerResult = false;
                     }

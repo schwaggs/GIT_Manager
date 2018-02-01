@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace GITRepoManager
 {
-    public static class Helpers
+    public static class RepoHelpers
     {
         public static string Exception_Message { get; set; }
         private static bool Is_Repo { get; set; }
@@ -42,76 +42,87 @@ namespace GITRepoManager
 
         public static bool Is_Git_Repo(string dir)
         {
-            Is_Repo = true;
-            Process cmd = Create_Process(dir, "git log");
+            DirectoryInfo dirInfo = new DirectoryInfo(dir);
 
-            StringBuilder error = new StringBuilder();
-            StringBuilder output = new StringBuilder();
-
-            using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
-            using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
+            if (dirInfo.Exists)
             {
-                cmd.OutputDataReceived += (sender, e) =>
+                Is_Repo = true;
+                Process cmd = Create_Process(dir, "git log");
+
+                StringBuilder error = new StringBuilder();
+                StringBuilder output = new StringBuilder();
+
+                using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
+                using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
                 {
-                    if (e.Data == null)
+                    cmd.OutputDataReceived += (sender, e) =>
                     {
-                        outputWaitHandle.Set();
-                    }
-
-                    else
-                    {
-                        output.AppendLine(e.Data);
-                    }
-                };
-
-                cmd.ErrorDataReceived += (sender, e) =>
-                {
-                    if (e.Data == null)
-                    {
-                        errorWaitHandle.Set();
-                    }
-
-                    else
-                    {
-                        error.AppendLine(e.Data);
-                    }
-                };
-
-                cmd.Start();
-
-                cmd.BeginOutputReadLine();
-                cmd.BeginErrorReadLine();
-
-                if (cmd.WaitForExit(1000) && outputWaitHandle.WaitOne(1000) && errorWaitHandle.WaitOne(1000))
-                {
-                    // Process completed, check cmd.ExitCode
-                    if (cmd.ExitCode == 0)
-                    {
-                        if (string.IsNullOrEmpty(error.ToString()) || string.IsNullOrWhiteSpace(error.ToString()))
+                        if (e.Data == null)
                         {
-                            return true;
+                            outputWaitHandle.Set();
                         }
 
                         else
                         {
+                            output.AppendLine(e.Data);
+                        }
+                    };
+
+                    cmd.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (e.Data == null)
+                        {
+                            errorWaitHandle.Set();
+                        }
+
+                        else
+                        {
+                            error.AppendLine(e.Data);
+                        }
+                    };
+
+                    cmd.Start();
+
+                    cmd.BeginOutputReadLine();
+                    cmd.BeginErrorReadLine();
+
+                    if (cmd.WaitForExit(1000) && outputWaitHandle.WaitOne(1000) && errorWaitHandle.WaitOne(1000))
+                    {
+                        // Process completed, check cmd.ExitCode
+                        if (cmd.ExitCode == 0)
+                        {
+                            if (string.IsNullOrEmpty(error.ToString()) || string.IsNullOrWhiteSpace(error.ToString()))
+                            {
+                                return true;
+                            }
+
+                            else
+                            {
+                                return false;
+                            }
+                        }
+
+                        else
+                        {
+                            // Process exited with error
+                            //MessageBox.Show("Unable verify if current directory is a repository", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
 
                     else
                     {
-                        // Process exited with error
-                        //MessageBox.Show("Unable verify if current directory is a repository", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Timed out
+                        //MessageBox.Show("Checking if current directory is a repository has timed out.", "Timed Out", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return false;
                     }
                 }
+            }
 
-                else
-                {
-                    // Timed out
-                    //MessageBox.Show("Checking if current directory is a repository has timed out.", "Timed Out", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
+            else
+            {
+                //Not a valid directory to check
+                return false;
             }
         }
 
