@@ -22,15 +22,11 @@
   <Store Location="">
     
     <Repo Name="" Status="">
-      <Notes>
         <Note Title="">Body Goes Here</Note>
-        </Notes>
       </Repo>
 
     <Repo Name="" Status="">
-      <Notes>
         <Note Title="">Body Goes Here</Note>
-      </Notes>
     </Repo>
     
   </Store>

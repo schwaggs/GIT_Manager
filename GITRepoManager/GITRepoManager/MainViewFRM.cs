@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace GITRepoManager
@@ -20,6 +21,19 @@ namespace GITRepoManager
         public MainViewFRM(string [] filepaths = null)
         {
             Configuration.Helpers.Deserialize_Condensed("");
+
+            foreach (XmlNode found in Configuration.Helpers.Search_Nodes("new", false))
+            {
+                string message = string.Empty;
+                foreach (XmlAttribute attr in found.Attributes)
+                {
+                    message += attr.Name + ":  " + attr.Value + Environment.NewLine;
+                }
+
+                MessageBox.Show(message);
+            }
+
+            Configuration.Helpers.Serialize_Condensed_All("");
             if (filepaths == null)
             {
                 Thread t = new Thread(new ThreadStart(SplashStart));

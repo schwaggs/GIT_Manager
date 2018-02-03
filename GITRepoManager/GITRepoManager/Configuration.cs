@@ -361,14 +361,15 @@ namespace GITRepoManager
 
             #endregion
 
+
             #region Deserialize Condensed Packet Structure
 
-            public static void Deserialize_Condensed(string source)
+            public static void Deserialize_Condensed(string file)
             {
-                source = @"C:\temp\test.gmc";
+                file = @"C:\temp\test.gmc";
                 // Load the document
                 XmlDocument Config = new XmlDocument();
-                Config.Load(source);
+                Config.Load(file);
 
                 ManagerData.Stores = new Dictionary<string, StoreCell>();
 
@@ -478,13 +479,326 @@ namespace GITRepoManager
 
                             if (storeInfo.Exists)
                             {
-                                ManagerData.Stores.Add(storeInfo.Name, storeCell);
+                                try
+                                {
+                                    ManagerData.Stores.Add(storeInfo.Name, storeCell);
+                                }
+
+                                catch
+                                {
+                                    MessageBox.Show("Duplicate Stores Found In Configuration, only the first one found will be used.");
+                                }
                             }
                         }
                     }
 
                     #endregion
                 }
+            }
+
+            #endregion
+
+
+            #region Serialize Condensed Packet Structure
+            /*
+             *  Node for each store, repo, and note
+             * 
+             *  Attributes
+             *  Store:  Location - Path to store
+             *  Repo:   Name - Name of the repository, not path
+             *          Status - Current status of the repository i.e New, Development, Production
+             *  Note    Title - The title of the note
+             *  
+             *  Other Data
+             *  Note body needs to be inner text of the Note node
+             */
+
+            public static bool Serialize_Condensed_All(string file)
+            {
+                file = @"C:\Temp\test.gmc";
+                XmlDocument Config = new XmlDocument();
+                Config.Load(file);
+
+                try
+                {
+                    Config.DocumentElement.RemoveAll();
+                    Config.Save(file);
+                }
+
+                catch
+                {
+                    return false;
+                }
+
+                XmlNode storeNode = null;
+                XmlNode repoNode = null;
+                XmlNode noteNode = Config.CreateElement("Note");
+
+                XmlAttribute storeLocationAttr = null;
+                XmlAttribute repoNameAttr = Config.CreateAttribute("Name");
+                XmlAttribute repoStatusAttr = Config.CreateAttribute("Status");
+                XmlAttribute noteTitleAttr = Config.CreateAttribute("Title");
+
+                if (ManagerData.Stores.Count > 0)
+                {
+                    foreach (StoreCell storeCell in ManagerData.Stores.Values)
+                    {
+                        storeLocationAttr = Config.CreateAttribute("Location");
+                        storeLocationAttr.Value = storeCell._Path;
+
+                        storeNode = Config.CreateElement("Store");
+                        storeNode.Attributes.Append(storeLocationAttr);
+
+                        if (storeCell._Repos.Count > 0)
+                        {
+                            foreach (RepoCell repoCell in storeCell._Repos.Values)
+                            {
+                                repoNameAttr = Config.CreateAttribute(File.ATTRIBUTE_T_ToString(File.ATTRIBUTE_T.NAME));
+                                repoNameAttr.Value = repoCell.Name;
+
+                                repoStatusAttr = Config.CreateAttribute(File.ATTRIBUTE_T_ToString(File.ATTRIBUTE_T.STATUS));
+                                repoStatusAttr.Value = RepoCell.Status.ToString(repoCell.Current_Status);
+
+                                repoNode = Config.CreateElement("Repo");
+                                repoNode.Attributes.Append(repoNameAttr);
+                                repoNode.Attributes.Append(repoStatusAttr);
+
+                                if (repoCell.Notes.Count > 0)
+                                {
+                                    foreach (KeyValuePair<string, string> note in repoCell.Notes)
+                                    {
+                                        noteTitleAttr = Config.CreateAttribute("Title");
+                                        noteTitleAttr.Value = note.Key;
+
+                                        noteNode = Config.CreateElement("Note");
+                                        noteNode.Attributes.Append(noteTitleAttr);
+                                        noteNode.InnerText = note.Value;
+
+                                        repoNode.AppendChild(noteNode);
+                                    }
+                                }
+
+                                storeNode.AppendChild(repoNode);
+                            }
+                        }
+
+                        Config.DocumentElement.AppendChild(storeNode);
+                    }
+                }
+
+                Config.Save(file);
+
+                return true;
+            }
+
+            #endregion
+
+
+            #region Get Parent A Node (Store, Repo, Note)
+
+            public static List<XmlNode> Search_Nodes(string searchItem, bool getParent)
+            {
+                List<XmlNode> FoundNodes = new List<XmlNode>();
+                searchItem = searchItem.ToLower();
+                XmlDocument Config = new XmlDocument();
+                //Config.Load(Properties.Settings.Default.ConfigPath);
+                Config.Load(@"C:\Temp\test.gmc");
+
+                if (Config.DocumentElement.ChildNodes.Count > 0)
+                {
+                    foreach (XmlNode storeNode in Config.DocumentElement.ChildNodes)
+                    {
+                        foreach (XmlAttribute storeAttr in storeNode.Attributes)
+                        {
+                            if (storeAttr.Value.ToLower() == searchItem)
+                            {
+                                if (getParent)
+                                {
+                                    if (!FoundNodes.Contains(storeNode.ParentNode))
+                                    {
+                                        FoundNodes.Add(storeNode.ParentNode);
+                                    }
+                                }
+
+                                else
+                                {
+                                    if (!FoundNodes.Contains(storeNode))
+                                    {
+                                        FoundNodes.Add(storeNode);
+                                    }
+                                }
+                            }
+                        }
+
+                        if (storeNode.ChildNodes.Count > 0)
+                        {
+                            foreach (XmlNode repoNode in storeNode.ChildNodes)
+                            {
+                                foreach (XmlAttribute repoAttr in repoNode.Attributes)
+                                {
+                                    if (repoAttr.Value.ToLower() == searchItem)
+                                    {
+                                        if (getParent)
+                                        {
+                                            if (!FoundNodes.Contains(repoNode.ParentNode))
+                                            {
+                                                FoundNodes.Add(repoNode.ParentNode);
+                                            }
+                                        }
+
+                                        else
+                                        {
+                                            if (!FoundNodes.Contains(repoNode))
+                                            {
+                                                FoundNodes.Add(repoNode);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (repoNode.ChildNodes.Count > 0)
+                                {
+                                    foreach (XmlNode noteNode in repoNode.ChildNodes)
+                                    {
+                                        foreach (XmlAttribute noteAttr in noteNode.Attributes)
+                                        {
+                                            if (noteAttr.Value.ToLower() == searchItem)
+                                            {
+                                                if (getParent)
+                                                {
+                                                    if (!FoundNodes.Contains(noteNode.ParentNode))
+                                                    {
+                                                        FoundNodes.Add(noteNode.ParentNode);
+                                                    }
+                                                }
+
+                                                else
+                                                {
+                                                    if (!FoundNodes.Contains(noteNode))
+                                                    {
+                                                        FoundNodes.Add(noteNode);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return FoundNodes;
+            }
+
+            public static XmlNode Get_Selected_Store()
+            {
+                bool HasLocation = false;
+
+                foreach (XmlNode store in Search_Nodes(ManagerData.Selected_Repo.Name, false))
+                {
+                    foreach (XmlAttribute attr in store.Attributes)
+                    {
+                        switch (attr.Name)
+                        {
+                            case "Location":
+
+                                if (attr.Value == ManagerData.Selected_Store._Path)
+                                {
+                                    HasLocation = true;
+                                }
+
+                                break;
+                        }
+                    }
+
+                    if (HasLocation)
+                    {
+                        return store;
+                    }
+                }
+
+                return null;
+            }
+
+            public static XmlNode Get_Selected_Repo()
+            {
+                foreach (XmlNode repo in Search_Nodes(ManagerData.Selected_Repo.Name, false))
+                {
+                    bool HasName = false;
+                    bool HasStatus = false;
+
+                    foreach (XmlAttribute attr in repo.Attributes)
+                    {
+                        switch (attr.Name)
+                        {
+                            case "Name":
+
+                                if (attr.Value == ManagerData.Selected_Repo.Name)
+                                {
+                                    HasName = true;
+                                }
+
+                                break;
+
+                            case "Status":
+
+                                if (attr.Value == RepoCell.Status.ToString(ManagerData.Selected_Repo.Current_Status))
+                                {
+                                    HasStatus = true;
+                                }
+
+                                break;
+                        }
+                    }
+
+                    if (HasName && HasStatus)
+                    {
+                        return repo;
+                    }
+                }
+
+                return null;
+            }
+
+            #endregion
+
+
+            #region Append New Store
+
+            public static bool Append_New_Store(StoreCell newStore)
+            {
+                // Convert store cell to store node
+                // Append store node to the XmlDocument.DocumentElement children
+                return true;
+            }
+
+            #endregion
+
+
+            #region Append New Repo
+
+            public static bool Append_New_Repo(RepoCell newRepo)
+            {
+                // Convert repo cell to repo node
+                // Get the node of the currently selected store
+                // Append the repo node to the store node's children
+
+                return true;
+            }
+
+            #endregion
+
+
+            #region Append New Note
+
+            public static bool Append_New_Note(string noteTitle, string noteBody)
+            {
+                // Convert the strings to note node
+                // Get the node of the currently selected repo
+                // Append the note node to the repo node's children
+
+                return true;
             }
 
             #endregion
