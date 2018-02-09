@@ -27,5 +27,27 @@ namespace GITRepoManager
 
         public static StoreCell Selected_Store { get; set; }
         public static RepoCell Selected_Repo { get; set; }
+        public static RepoCell Selected_Repo_Copy { get; set; }
+
+        public static void Copy_Selected_Repo()
+        {
+            if (Selected_Repo != null)
+            {
+                Selected_Repo_Copy = new RepoCell();
+
+                Selected_Repo_Copy.Name = Selected_Repo.Name;
+                Selected_Repo_Copy.Path = Selected_Repo.Path;
+                Selected_Repo_Copy.Current_Status = Selected_Repo.Current_Status;
+                Selected_Repo_Copy.Last_Commit = Selected_Repo.Last_Commit;
+                Selected_Repo_Copy.Last_Commit_Message = Selected_Repo.Last_Commit_Message;
+                Selected_Repo_Copy.Notes = Selected_Repo.Notes;
+                Selected_Repo_Copy.Logs = Selected_Repo.Logs;
+            }
+
+            else
+            {
+                Selected_Repo_Copy = null;
+            }
+        }
     }
 }

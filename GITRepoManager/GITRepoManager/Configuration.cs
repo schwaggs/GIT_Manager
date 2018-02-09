@@ -367,6 +367,7 @@ namespace GITRepoManager
             public static void Deserialize_Condensed(string file)
             {
                 file = @"C:\temp\test.gmc";
+
                 // Load the document
                 XmlDocument Config = new XmlDocument();
                 Config.Load(file);
@@ -431,6 +432,8 @@ namespace GITRepoManager
                                     }
 
                                     #endregion
+
+                                    repoCell.Path = storeCell._Path + @"\" + repoCell.Name;
                                 }
 
                                 // If the repo node has children (Notes) and the repo is valid, loop through them.
@@ -549,37 +552,44 @@ namespace GITRepoManager
                         storeNode = Config.CreateElement("Store");
                         storeNode.Attributes.Append(storeLocationAttr);
 
-                        if (storeCell._Repos.Count > 0)
+                        try
                         {
-                            foreach (RepoCell repoCell in storeCell._Repos.Values)
+                            if (storeCell._Repos.Count > 0)
                             {
-                                repoNameAttr = Config.CreateAttribute(File.ATTRIBUTE_T_ToString(File.ATTRIBUTE_T.NAME));
-                                repoNameAttr.Value = repoCell.Name;
-
-                                repoStatusAttr = Config.CreateAttribute(File.ATTRIBUTE_T_ToString(File.ATTRIBUTE_T.STATUS));
-                                repoStatusAttr.Value = RepoCell.Status.ToString(repoCell.Current_Status);
-
-                                repoNode = Config.CreateElement("Repo");
-                                repoNode.Attributes.Append(repoNameAttr);
-                                repoNode.Attributes.Append(repoStatusAttr);
-
-                                if (repoCell.Notes.Count > 0)
+                                foreach (RepoCell repoCell in storeCell._Repos.Values)
                                 {
-                                    foreach (KeyValuePair<string, string> note in repoCell.Notes)
+                                    repoNameAttr = Config.CreateAttribute(File.ATTRIBUTE_T_ToString(File.ATTRIBUTE_T.NAME));
+                                    repoNameAttr.Value = repoCell.Name;
+
+                                    repoStatusAttr = Config.CreateAttribute(File.ATTRIBUTE_T_ToString(File.ATTRIBUTE_T.STATUS));
+                                    repoStatusAttr.Value = RepoCell.Status.ToString(repoCell.Current_Status);
+
+                                    repoNode = Config.CreateElement("Repo");
+                                    repoNode.Attributes.Append(repoNameAttr);
+                                    repoNode.Attributes.Append(repoStatusAttr);
+
+                                    if (repoCell.Notes.Count > 0)
                                     {
-                                        noteTitleAttr = Config.CreateAttribute("Title");
-                                        noteTitleAttr.Value = note.Key;
+                                        foreach (KeyValuePair<string, string> note in repoCell.Notes)
+                                        {
+                                            noteTitleAttr = Config.CreateAttribute("Title");
+                                            noteTitleAttr.Value = note.Key;
 
-                                        noteNode = Config.CreateElement("Note");
-                                        noteNode.Attributes.Append(noteTitleAttr);
-                                        noteNode.InnerText = note.Value;
+                                            noteNode = Config.CreateElement("Note");
+                                            noteNode.Attributes.Append(noteTitleAttr);
+                                            noteNode.InnerText = note.Value;
 
-                                        repoNode.AppendChild(noteNode);
+                                            repoNode.AppendChild(noteNode);
+                                        }
                                     }
-                                }
 
-                                storeNode.AppendChild(repoNode);
+                                    storeNode.AppendChild(repoNode);
+                                }
                             }
+                        }
+
+                        catch
+                        {
                         }
 
                         Config.DocumentElement.AppendChild(storeNode);

@@ -30,6 +30,7 @@ namespace GITRepoManager
             {
                 main = new MainViewFRM();
             }
+
             Application.Run(main);
         }
     }

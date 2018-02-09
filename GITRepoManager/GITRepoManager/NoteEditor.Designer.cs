@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.NotesLV = new System.Windows.Forms.ListView();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.NoteTitleCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.NoteBodyTB = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.NoteTitleTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.AddNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
@@ -41,9 +42,10 @@
             // 
             // NotesLV
             // 
+            this.NotesLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.NoteTitleCH});
             this.NotesLV.FullRowSelect = true;
             this.NotesLV.GridLines = true;
-            this.NotesLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.NotesLV.Location = new System.Drawing.Point(13, 46);
             this.NotesLV.MultiSelect = false;
             this.NotesLV.Name = "NotesLV";
@@ -52,16 +54,24 @@
             this.NotesLV.TabIndex = 0;
             this.NotesLV.UseCompatibleStateImageBehavior = false;
             this.NotesLV.View = System.Windows.Forms.View.Details;
+            this.NotesLV.SelectedIndexChanged += new System.EventHandler(this.NotesLV_SelectedIndexChanged);
             // 
-            // richTextBox1
+            // NoteTitleCH
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(260, 127);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(507, 211);
-            this.richTextBox1.TabIndex = 7;
-            this.richTextBox1.Text = "";
+            this.NoteTitleCH.Text = "Title";
+            this.NoteTitleCH.Width = 217;
+            // 
+            // NoteBodyTB
+            // 
+            this.NoteBodyTB.Enabled = false;
+            this.NoteBodyTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NoteBodyTB.Location = new System.Drawing.Point(260, 127);
+            this.NoteBodyTB.Name = "NoteBodyTB";
+            this.NoteBodyTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.NoteBodyTB.Size = new System.Drawing.Size(507, 211);
+            this.NoteBodyTB.TabIndex = 7;
+            this.NoteBodyTB.Text = "";
+            this.NoteBodyTB.TextChanged += new System.EventHandler(this.NoteBodyTB_TextChanged);
             // 
             // label2
             // 
@@ -73,13 +83,17 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Body";
             // 
-            // textBox1
+            // NoteTitleTB
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(260, 69);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(357, 24);
-            this.textBox1.TabIndex = 5;
+            this.NoteTitleTB.AcceptsReturn = true;
+            this.NoteTitleTB.Enabled = false;
+            this.NoteTitleTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NoteTitleTB.Location = new System.Drawing.Point(260, 69);
+            this.NoteTitleTB.Name = "NoteTitleTB";
+            this.NoteTitleTB.Size = new System.Drawing.Size(357, 24);
+            this.NoteTitleTB.TabIndex = 5;
+            this.NoteTitleTB.TextChanged += new System.EventHandler(this.NoteTitleTB_TextChanged);
+            this.NoteTitleTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NoteTitleTB_KeyDown);
             // 
             // label1
             // 
@@ -117,6 +131,9 @@
             this.AddNoteBT.Size = new System.Drawing.Size(35, 35);
             this.AddNoteBT.TabIndex = 28;
             this.AddNoteBT.UseVisualStyleBackColor = false;
+            this.AddNoteBT.Click += new System.EventHandler(this.AddNoteBT_Click);
+            this.AddNoteBT.MouseEnter += new System.EventHandler(this.AddNoteBT_MouseEnter);
+            this.AddNoteBT.MouseLeave += new System.EventHandler(this.AddNoteBT_MouseLeave);
             // 
             // DeleteNoteBT
             // 
@@ -135,6 +152,9 @@
             this.DeleteNoteBT.TabIndex = 29;
             this.DeleteNoteBT.UseVisualStyleBackColor = false;
             this.DeleteNoteBT.Visible = false;
+            this.DeleteNoteBT.Click += new System.EventHandler(this.DeleteNoteBT_Click);
+            this.DeleteNoteBT.MouseEnter += new System.EventHandler(this.DeleteNoteBT_MouseEnter);
+            this.DeleteNoteBT.MouseLeave += new System.EventHandler(this.DeleteNoteBT_MouseLeave);
             // 
             // SaveChangesBT
             // 
@@ -152,7 +172,9 @@
             this.SaveChangesBT.Size = new System.Drawing.Size(35, 35);
             this.SaveChangesBT.TabIndex = 30;
             this.SaveChangesBT.UseVisualStyleBackColor = false;
-            this.SaveChangesBT.Visible = false;
+            this.SaveChangesBT.Click += new System.EventHandler(this.SaveChangesBT_Click);
+            this.SaveChangesBT.MouseEnter += new System.EventHandler(this.SaveChangesBT_MouseEnter);
+            this.SaveChangesBT.MouseLeave += new System.EventHandler(this.SaveChangesBT_MouseLeave);
             // 
             // NoteEditor
             // 
@@ -165,9 +187,9 @@
             this.Controls.Add(this.DeleteNoteBT);
             this.Controls.Add(this.AddNoteBT);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.NoteBodyTB);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.NoteTitleTB);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.NotesLV);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -185,13 +207,14 @@
         #endregion
 
         private System.Windows.Forms.ListView NotesLV;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox NoteBodyTB;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox NoteTitleTB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private NoFocusSelectionRectangleButton AddNoteBT;
         private NoFocusSelectionRectangleButton DeleteNoteBT;
         private NoFocusSelectionRectangleButton SaveChangesBT;
+        private System.Windows.Forms.ColumnHeader NoteTitleCH;
     }
 }

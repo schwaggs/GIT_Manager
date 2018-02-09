@@ -86,7 +86,7 @@ namespace GITRepoManager
             }
 
             // Now parse everything
-            Configuration.Helpers.Deserialize(Properties.Settings.Default.ConfigPath);
+            Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
             InitializationData.Initialized = true;
         }
 
