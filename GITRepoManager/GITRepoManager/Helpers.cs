@@ -59,7 +59,14 @@ namespace GITRepoManager
                     {
                         if (e.Data == null)
                         {
-                            outputWaitHandle.Set();
+                            try
+                            {
+                                outputWaitHandle.Set();
+                            }
+
+                            catch
+                            {
+                            }
                         }
 
                         else
@@ -72,7 +79,14 @@ namespace GITRepoManager
                     {
                         if (e.Data == null)
                         {
-                            errorWaitHandle.Set();
+                            try
+                            {
+                                errorWaitHandle.Set();
+                            }
+
+                            catch
+                            {
+                            }
                         }
 
                         else
@@ -499,5 +513,33 @@ namespace GITRepoManager
 
 
         #endregion
+
+        public static List<RepoCell> Get_Repositories(string dir)
+        {
+            List<RepoCell> Repos = new List<RepoCell>();
+
+            foreach (string subdir in Directory.GetDirectories(dir))
+            {
+                DirectoryInfo subdirInfo = new DirectoryInfo(subdir);
+
+                if (subdirInfo.Exists && Is_Git_Repo(subdirInfo.FullName))
+                {
+                    RepoCell newRepo = new RepoCell()
+                    {
+                        Name = subdirInfo.Name,
+                        Path = subdirInfo.FullName,
+                        Current_Status = RepoCell.Status.Type.NONE,
+                        Last_Commit = DateTime.MinValue,
+                        Last_Commit_Message = string.Empty,
+                        Logs = new Dictionary<string, List<EntryCell>>(),
+                        Notes = new Dictionary<string, string>()
+                    };
+
+                    Repos.Add(newRepo);
+                }
+            }
+
+            return Repos;
+        }
     }
 }

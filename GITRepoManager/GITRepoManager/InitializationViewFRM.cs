@@ -49,7 +49,7 @@ namespace GITRepoManager
                     retry = true;
                 }
 
-                else if (!Config_Exists(Properties.Settings.Default.ConfigPath))
+                if (!Config_Exists(Properties.Settings.Default.ConfigPath))
                 {
                     if (!CreateConfig_File_DNE(false))
                     {
@@ -86,7 +86,6 @@ namespace GITRepoManager
             }
 
             // Now parse everything
-            Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
             InitializationData.Initialized = true;
         }
 
@@ -176,14 +175,14 @@ namespace GITRepoManager
 
             if (required)
             {
-                message = "A configuration file is required.";
+                message = "A configuration file is required, fix now?";
                 buttons = MessageBoxButtons.RetryCancel;
                 icon = MessageBoxIcon.Exclamation;
             }
 
             else
             {
-                message = "The current configuration file could not be found, fix now?";
+                message = "Configuration file was not found, setup now?";
                 buttons = MessageBoxButtons.YesNo;
                 icon = MessageBoxIcon.Question;
             }
@@ -307,6 +306,11 @@ namespace GITRepoManager
             }
         }
 
+
+
+
+
+
         private bool Create_Blank_Config(string filename)
         {
             bool GetFileResult = true;
@@ -347,7 +351,7 @@ namespace GITRepoManager
         {
             if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath))
             {
-                return false;
+                return true;
             }
 
             else

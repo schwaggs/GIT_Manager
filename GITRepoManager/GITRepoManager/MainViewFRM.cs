@@ -17,28 +17,16 @@ namespace GITRepoManager
     public partial class MainViewFRM : Form
     {
         public static Color LBPanelBackgroundColor = Color.FromArgb(240, 240, 245);
+        public static Thread Splash { get; set; }
 
         public MainViewFRM(string [] filepaths = null)
         {
-            //foreach (XmlNode found in Configuration.Helpers.Search_Nodes("new", false))
-            //{
-            //    string message = string.Empty;
-            //    foreach (XmlAttribute attr in found.Attributes)
-            //    {
-            //        message += attr.Name + ":  " + attr.Value + Environment.NewLine;
-            //    }
-
-            //    MessageBox.Show(message);
-            //}
-
-            //Configuration.Helpers.Serialize_Condensed_All("");
-
             #region Normal Start
 
             if (filepaths == null)
             {
-                Thread t = new Thread(new ThreadStart(SplashStart));
-                t.Start();
+                Splash = new Thread(new ThreadStart(SplashStart));
+                Splash.Start();
 
                 while (!InitializationData.Initialized)
                 {
@@ -46,7 +34,7 @@ namespace GITRepoManager
 
                     if (InitializationData.Abort)
                     {
-                        t.Abort();
+                        Splash.Abort();
 
                         MessageBox.Show("Error loading configuration, closing GIT Manager.", "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -55,9 +43,12 @@ namespace GITRepoManager
                         Environment.Exit(1);
                     }
                 }
-
-                t.Abort();
+                
+                Splash.Abort();
                 InitializeComponent();
+
+                Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
+
 
                 //ReposLV.ShowItemToolTips = true;
                 MainStatusSSL.Text = string.Empty;
@@ -794,7 +785,16 @@ namespace GITRepoManager
         public void SplashStart()
         {
             InitializationData.Initializer = new InitializationViewFRM();
-            InitializationData.Initializer.ShowDialog();
+
+            try
+            {
+                InitializationData.Initializer.ShowDialog();
+            }
+
+            catch
+            {
+
+            }
         }
 
 

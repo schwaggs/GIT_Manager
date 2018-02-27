@@ -101,3 +101,7 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\WinFormAnimation.x
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.exe
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.pdb
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.NoteEditor.resources
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe.manifest
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.application
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.exe.manifest
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.application

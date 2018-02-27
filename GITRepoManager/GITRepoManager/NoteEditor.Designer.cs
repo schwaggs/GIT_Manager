@@ -38,6 +38,7 @@
             this.AddNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.DeleteNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.SaveChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // NotesLV
@@ -176,6 +177,15 @@
             this.SaveChangesBT.MouseEnter += new System.EventHandler(this.SaveChangesBT_MouseEnter);
             this.SaveChangesBT.MouseLeave += new System.EventHandler(this.SaveChangesBT_MouseLeave);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(305, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(166, 13);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "* Duplicate Titles Are Not Allowed";
+            // 
             // NoteEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,6 +193,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(778, 390);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.SaveChangesBT);
             this.Controls.Add(this.DeleteNoteBT);
             this.Controls.Add(this.AddNoteBT);
@@ -216,5 +227,6 @@
         private NoFocusSelectionRectangleButton DeleteNoteBT;
         private NoFocusSelectionRectangleButton SaveChangesBT;
         private System.Windows.Forms.ColumnHeader NoteTitleCH;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -12,6 +12,8 @@ namespace GITRepoManager
 {
     public static class Configuration
     {
+        #region Old
+
         public static XML.Root Parsed_Raw { get; set; }
         
 
@@ -72,6 +74,10 @@ namespace GITRepoManager
 
             }
         }
+
+        #endregion
+
+        #region File Class
 
         public static class File
         {
@@ -160,6 +166,10 @@ namespace GITRepoManager
                 }
             }
         }
+
+        #endregion
+
+        #region Helpers Class
 
         public static class Helpers
         {
@@ -366,138 +376,93 @@ namespace GITRepoManager
 
             public static void Deserialize_Condensed(string file)
             {
-                file = @"C:\temp\test.gmc";
-
                 // Load the document
                 XmlDocument Config = new XmlDocument();
                 Config.Load(file);
-
                 ManagerData.Stores = new Dictionary<string, StoreCell>();
 
-                if (Config.DocumentElement.HasChildNodes)
+                string currStoreLocation = string.Empty;
+                string currRepoName = string.Empty;
+                RepoCell.Status.Type currRepoStatus = RepoCell.Status.Type.NONE;
+                string currNoteTitle = string.Empty;
+                string currNoteMessage = string.Empty;
+                StoreCell newStore = null;
+                RepoCell newRepo = null;
+
+                // Under the root the layers will be Stores => Repos => Notes
+                foreach (XmlNode storeNode in Config.DocumentElement.ChildNodes)
                 {
-                    #region Get Each Store From Root
-
-                    // Loop through each store node of root
-                    foreach (XmlNode Store in Config.DocumentElement)
+                    foreach (XmlAttribute storeAttr in storeNode.Attributes)
                     {
-                        StoreCell storeCell = null;
-
-                        if (Store.Attributes.Count > 0)
+                        switch (File.String_ToATTRIBUTE_T(storeAttr.Name))
                         {
-                            #region Get Store Attributes
-
-                            // Loop through the store node's attributes (Location)
-                            foreach (XmlAttribute storeAttr in Store.Attributes)
-                            {
-                                storeCell = new StoreCell(storeAttr.Value);
-                            }
-
-                            #endregion
-                        }
-
-                        // If the store node has children (Repos) loop through them
-                        if (Store.HasChildNodes)
-                        {
-                            storeCell._Repos = new Dictionary<string, RepoCell>();
-                            RepoCell repoCell = null;
-
-                            #region Get Each Repository From Store
-
-                            foreach (XmlNode Repo in Store.ChildNodes)
-                            {
-                                if (Repo.Attributes.Count > 0)
-                                {
-                                    repoCell = new RepoCell();
-
-                                    #region Get Repository Attributes
-
-                                    // Loop through the repo node's attributes (Name, Status)
-                                    foreach (XmlAttribute repoAttr in Repo.Attributes)
-                                    {
-                                        switch (File.String_ToATTRIBUTE_T(repoAttr.Name))
-                                        {
-                                            case File.ATTRIBUTE_T.NAME:
-                                                repoCell.Name = repoAttr.Value;
-                                                break;
-
-                                            case File.ATTRIBUTE_T.STATUS:
-                                                repoCell.Current_Status = RepoCell.Status.ToType(repoAttr.Value);
-                                                break;
-
-                                            default:
-                                                break;
-
-                                        }
-                                    }
-
-                                    #endregion
-
-                                    repoCell.Path = storeCell._Path + @"\" + repoCell.Name;
-                                }
-
-                                // If the repo node has children (Notes) and the repo is valid, loop through them.
-                                if (Repo.HasChildNodes && RepoHelpers.Is_Git_Repo(storeCell._Path + @"\" + repoCell.Name))
-                                {
-                                    repoCell.Notes = new Dictionary<string, string>();
-
-                                    #region Get Each Note From Repository
-
-                                    foreach (XmlNode Note in Repo.ChildNodes)
-                                    {
-                                        if (Note.Attributes.Count > 0)
-                                        {
-                                            string Title = string.Empty;
-                                            string Body = string.Empty;
-
-                                            #region Get Note Attributes
-
-                                            // Loop through the note node's attributes (Title)
-                                            foreach (XmlAttribute noteAttr in Note.Attributes)
-                                            {
-                                                Title = noteAttr.Value;
-                                            }
-
-                                            #endregion
-
-                                            // Get the text of the note as inner text on the object i.e. Note.InnerText
-                                            Body = Note.InnerText;
-
-                                            repoCell.Notes.Add(Title, Body);
-                                        }
-                                    }
-
-                                    #endregion
-
-                                    storeCell._Repos.Add(repoCell.Name, repoCell);
-                                }
-                            }
-
-                            #endregion
-                        }
-
-                        if (storeCell != null)
-                        {
-                            DirectoryInfo storeInfo = new DirectoryInfo(storeCell._Path);
-
-                            if (storeInfo.Exists)
-                            {
-                                try
-                                {
-                                    ManagerData.Stores.Add(storeInfo.Name, storeCell);
-                                }
-
-                                catch
-                                {
-                                    MessageBox.Show("Duplicate Stores Found In Configuration, only the first one found will be used.");
-                                }
-                            }
+                            case File.ATTRIBUTE_T.LOCATION:
+                                currStoreLocation = storeAttr.Value;
+                                break;
                         }
                     }
 
-                    #endregion
+                    newStore = new StoreCell(currStoreLocation)
+                    {
+                        _Repos = new Dictionary<string, RepoCell>()
+                    };
+
+                    foreach (XmlNode repoNode in storeNode.ChildNodes)
+                    {
+                        foreach (XmlAttribute repoAttr in repoNode.Attributes)
+                        {
+                            switch (File.String_ToATTRIBUTE_T(repoAttr.Name))
+                            {
+                                case File.ATTRIBUTE_T.NAME:
+                                    currRepoName = repoAttr.Value;
+                                    break;
+
+                                case File.ATTRIBUTE_T.STATUS:
+                                    currRepoStatus = RepoCell.Status.ToType(repoAttr.Value);
+                                    break;
+                            }
+                        }
+
+                        newRepo = new RepoCell()
+                        {
+                            Name = currRepoName,
+                            Current_Status = currRepoStatus,
+                            Path = currStoreLocation + @"\" + currRepoName,
+                            Notes = new Dictionary<string, string>()
+                        };
+
+                        foreach (XmlNode noteNode in repoNode.ChildNodes)
+                        {
+                            foreach (XmlAttribute noteAttr in noteNode.Attributes)
+                            {
+                                switch (File.String_ToATTRIBUTE_T(noteAttr.Name))
+                                {
+                                    case File.ATTRIBUTE_T.TITLE:
+                                        currNoteTitle = noteAttr.Value;
+                                        break;
+                                }
+                            }
+
+                            currNoteMessage = noteNode.InnerText;
+
+                            newRepo.Notes.Add(currNoteTitle, currNoteMessage);
+
+                            currNoteMessage = string.Empty;
+                            currNoteTitle = string.Empty;
+                        }
+
+                        newStore._Repos.Add(currRepoName, newRepo);
+
+                        currRepoStatus = RepoCell.Status.Type.NONE;
+                    }
+
+                    DirectoryInfo dirInfo = new DirectoryInfo(currStoreLocation);
+
+                    ManagerData.Stores.Add(dirInfo.Name, newStore);
                 }
             }
+
+            
 
             #endregion
 
@@ -518,7 +483,6 @@ namespace GITRepoManager
 
             public static bool Serialize_Condensed_All(string file)
             {
-                file = @"C:\Temp\test.gmc";
                 XmlDocument Config = new XmlDocument();
                 Config.Load(file);
 
@@ -535,7 +499,7 @@ namespace GITRepoManager
 
                 XmlNode storeNode = null;
                 XmlNode repoNode = null;
-                XmlNode noteNode = Config.CreateElement("Note");
+                XmlNode noteNode = null;
 
                 XmlAttribute storeLocationAttr = null;
                 XmlAttribute repoNameAttr = Config.CreateAttribute("Name");
@@ -544,11 +508,14 @@ namespace GITRepoManager
 
                 if (ManagerData.Stores.Count > 0)
                 {
+                    // Cycle through each store cell and create a node.
+                    // The only attribute is the location of the store.
                     foreach (StoreCell storeCell in ManagerData.Stores.Values)
                     {
                         storeLocationAttr = Config.CreateAttribute("Location");
                         storeLocationAttr.Value = storeCell._Path;
 
+                        // Create a store node and add the location attribute
                         storeNode = Config.CreateElement("Store");
                         storeNode.Attributes.Append(storeLocationAttr);
 
@@ -556,6 +523,8 @@ namespace GITRepoManager
                         {
                             if (storeCell._Repos.Count > 0)
                             {
+                                // Cycle through each store's repo cells and create nodes
+                                // Attributes: Name, Status
                                 foreach (RepoCell repoCell in storeCell._Repos.Values)
                                 {
                                     repoNameAttr = Config.CreateAttribute(File.ATTRIBUTE_T_ToString(File.ATTRIBUTE_T.NAME));
@@ -564,17 +533,22 @@ namespace GITRepoManager
                                     repoStatusAttr = Config.CreateAttribute(File.ATTRIBUTE_T_ToString(File.ATTRIBUTE_T.STATUS));
                                     repoStatusAttr.Value = RepoCell.Status.ToString(repoCell.Current_Status);
 
+                                    // Create a repo node and add all it's attributes
                                     repoNode = Config.CreateElement("Repo");
                                     repoNode.Attributes.Append(repoNameAttr);
                                     repoNode.Attributes.Append(repoStatusAttr);
 
                                     if (repoCell.Notes.Count > 0)
                                     {
+                                        // Cycle through each repo's notes and create nodes
+                                        // The only attribute is the note's title
+                                        // The inner text is the note body
                                         foreach (KeyValuePair<string, string> note in repoCell.Notes)
                                         {
                                             noteTitleAttr = Config.CreateAttribute("Title");
                                             noteTitleAttr.Value = note.Key;
 
+                                            // Create a note node and add it's attribute as well as body
                                             noteNode = Config.CreateElement("Note");
                                             noteNode.Attributes.Append(noteTitleAttr);
                                             noteNode.InnerText = note.Value;
@@ -592,6 +566,7 @@ namespace GITRepoManager
                         {
                         }
 
+                        // After all information has been added to the store node add it to the file.
                         Config.DocumentElement.AppendChild(storeNode);
                     }
                 }
@@ -813,5 +788,7 @@ namespace GITRepoManager
 
             #endregion
         }
+
+        #endregion
     }
 }

@@ -28,94 +28,16 @@ namespace GITRepoManager
 
             FileInfo ConfigInfo = new FileInfo(Properties.Settings.Default.ConfigPath);
 
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath)
-                || !ConfigInfo.Exists)
+            if (ConfigInfo.Exists)
             {
-                string filter = "Config Files|*.txt;*.gmc;*.xml;*.conf";
-                bool retry = true;
+                ConfigPathTB.Text = Properties.Settings.Default.ConfigPath;
 
-                MessageBox.Show("You must specify a configuration file.", "Setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Populate_Stores();
 
-                SaveFileDialog FileDialog = new SaveFileDialog
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.CloneLocalSourcePath) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.CloneLocalSourcePath))
                 {
-                    Title = "Select Configuration File",
-                    CheckFileExists = true,
-                    SupportMultiDottedExtensions = true,
-                    CreatePrompt = false,
-                    OverwritePrompt = false,
-                    Filter = filter,
-                    DefaultExt = "gmc",
-                    InitialDirectory = @"C:\"
-                };
-
-                FileDialog.CheckFileExists = false;
-                FileDialog.CheckPathExists = false;
-
-                if (FileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (!string.IsNullOrEmpty(FileDialog.FileName) || !string.IsNullOrWhiteSpace(FileDialog.FileName))
-                    {
-                        FileInfo fileInfo = new FileInfo(FileDialog.FileName);
-
-                        if (fileInfo.Exists)
-                        {
-                            Properties.Settings.Default.ConfigPath = FileDialog.FileName;
-                            Properties.Settings.Default.Save();
-
-                            retry = false;
-                        }
-
-                        else
-                        {
-                            try
-                            {
-                                fileInfo.Create();
-                                retry = false;
-                            }
-                            catch
-                            {
-                            }
-                        }
-                    }
+                    CloneDestinationTB.Text = Properties.Settings.Default.CloneLocalSourcePath;
                 }
-
-                while (retry)
-                {
-                    DialogResult res;
-                    res = MessageBox.Show("You must specify a valid configuration file.", "Invalid Config File", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-
-                    if (res == DialogResult.Cancel)
-                    {
-                        Application.ExitThread();
-                        Application.Exit();
-                        Environment.Exit(1);
-                    }
-
-                    if (FileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        if (!string.IsNullOrEmpty(FileDialog.FileName) || !string.IsNullOrWhiteSpace(FileDialog.FileName))
-                        {
-                            FileInfo fileInfo = new FileInfo(FileDialog.FileName);
-
-                            if (fileInfo.Exists)
-                            {
-                                Properties.Settings.Default.ConfigPath = FileDialog.FileName;
-                                Properties.Settings.Default.Save();
-
-                                retry = false;
-                            }
-                        }
-                    }
-                }
-            }
-
-            ConfigPathTB.Text = Properties.Settings.Default.ConfigPath;
-
-            Populate_Stores();
-
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.CloneLocalSourcePath) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.CloneLocalSourcePath))
-            {
-                CloneDestinationTB.Text = Properties.Settings.Default.CloneLocalSourcePath;
             }
         }
 
@@ -126,23 +48,26 @@ namespace GITRepoManager
 
         private void Populate_Stores()
         {
-            foreach (KeyValuePair<string, StoreCell> kvp in ManagerData.Stores)
+            if (ManagerData.Stores.Count > 0)
             {
-                ListViewItem Main = new ListViewItem
+                foreach (KeyValuePair<string, StoreCell> kvp in ManagerData.Stores)
                 {
-                    Name = kvp.Key,
-                    Text = kvp.Key,
-                };
+                    ListViewItem Main = new ListViewItem
+                    {
+                        Name = kvp.Key,
+                        Text = kvp.Key,
+                    };
 
-                ListViewItem.ListViewSubItem Sub = new ListViewItem.ListViewSubItem
-                {
-                    Name = kvp.Value._Path,
-                    Text = kvp.Value._Path
-                };
+                    ListViewItem.ListViewSubItem Sub = new ListViewItem.ListViewSubItem
+                    {
+                        Name = kvp.Value._Path,
+                        Text = kvp.Value._Path
+                    };
 
-                Main.SubItems.Add(Sub);
+                    Main.SubItems.Add(Sub);
 
-                StoreLocationLV.Items.Add(Main);
+                    StoreLocationLV.Items.Add(Main);
+                }
             }
         }
 
@@ -193,7 +118,7 @@ namespace GITRepoManager
         private void SaveSettingsBT_Click(object sender, EventArgs e)
         {
             Add_Temp_Stores();
-            Configuration.Helpers.Serialize_Replace(Properties.Settings.Default.ConfigPath, ManagerData.Stores);
+            Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
 
             if (!string.IsNullOrEmpty(CloneDestinationTB.Text) || !string.IsNullOrWhiteSpace(CloneDestinationTB.Text))
             {
@@ -207,6 +132,7 @@ namespace GITRepoManager
             foreach (string path in TempPaths)
             {
                 DirectoryInfo pathInfo = new DirectoryInfo(path);
+
                 if (pathInfo.Exists)
                 {
                     StoreCell tempStore = new StoreCell(pathInfo.FullName)
@@ -238,6 +164,7 @@ namespace GITRepoManager
                     {
                         RepoCell tempRepo = new RepoCell()
                         {
+                            Name = dirInfo.Name,
                             Path = dirInfo.FullName,
                             Current_Status = RepoCell.Status.Type.NEW,
                             Last_Commit = DateTime.MinValue,

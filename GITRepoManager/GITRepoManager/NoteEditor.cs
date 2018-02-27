@@ -9,123 +9,262 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GITRepoManager
-{
+{   
     public partial class NoteEditor : Form
     {
         public static ListViewItem CurrentNote { get; set; }
-        public static string Previous_Note { get; set; }
-        public static Dictionary<string, string> Note_Changes { get; set; }
+        public static ListViewItem Previous_Note { get; set; }
+        public static bool FirstSelection { get; set; }
+        public static bool IncrementPrevious { get; set; }
+
+        public static System.Drawing.Font BoldFont = null;
+        public static System.Drawing.Font RegularFont = null;
+
 
         public NoteEditor()
         {
             InitializeComponent();
         }
 
+        #region Events
+
+        #region Form
+
+        #region Load
+
         private void NoteEditor_Load(object sender, EventArgs e)
         {
+            FirstSelection = true;
+
             NotesLV.Items.Clear();
-            Note_Changes = new Dictionary<string, string>();
 
-            foreach (string title in ManagerData.Selected_Repo_Copy.Notes.Keys)
+            if (ManagerData.Selected_Repo_Copy.Notes.Count > 0)
             {
-                ListViewItem temp = new ListViewItem()
+                foreach (string title in ManagerData.Selected_Repo_Copy.Notes.Keys)
                 {
-                    Name = title,
-                    Text = title,
-                };
+                    ListViewItem temp = new ListViewItem()
+                    {
+                        Name = title,
+                        Text = title,
+                    };
 
-                NotesLV.Items.Add(temp);
+                    NotesLV.Items.Add(temp);
+                }
 
-                Note_Changes.Add(temp.Name, string.Empty);
+                //NotesLV.Items[0].Selected = true;
+                NotesLV.Select();
+
+                BoldFont = new System.Drawing.Font(NotesLV.Items[0].Font.FontFamily, NotesLV.Items[0].Font.Size, FontStyle.Bold);
+                RegularFont = NotesLV.Items[0].Font;
+
+                NotesLV.Items[0].Selected = true;
+
+                CurrentNote = NotesLV.SelectedItems[0];
+                Previous_Note = CurrentNote;
+
+                CurrentNote.Font = BoldFont;
+            }
+
+            else
+            {
+                ListViewItem temp = new ListViewItem();
+                BoldFont = new System.Drawing.Font(temp.Font.FontFamily, temp.Font.Size, FontStyle.Bold);
+                RegularFont = temp.Font;
             }
         }
+
+        #endregion
+
+        #endregion
+
+
+        #region List View
 
         private void NotesLV_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
+                Previous_Note = CurrentNote;
                 CurrentNote = NotesLV.SelectedItems[0];
-                Previous_Note = CurrentNote.Name;
-                NoteTitleTB.Text = CurrentNote.Name;
-                NoteBodyTB.Text = ManagerData.Selected_Repo.Notes[CurrentNote.Name];
+
+                Previous_Note.Font = RegularFont;
+                CurrentNote.Font = BoldFont;
             }
+
             catch
             {
             }
 
-            if (NotesLV.SelectedItems.Count > 0)
-            {
-                DeleteNoteBT.Visible = true;
-                NoteTitleTB.Enabled = true;
-                NoteBodyTB.Enabled = true;
-            }
-
-            else
-            {
-                DeleteNoteBT.Visible = false;
-                NoteTitleTB.Enabled = false;
-                NoteBodyTB.Enabled = false;
-            }
+            NoteTitleTB.Text = CurrentNote.Text;
+            //NoteBodyTB.Text = ManagerData.Selected_Repo.Notes[CurrentNote.Name];
         }
+
+        #endregion
+
+
+        #region Mouse
+
+        #region Click
 
         private void AddNoteBT_Click(object sender, EventArgs e)
         {
-            CurrentNote = new ListViewItem
+            if (!Duplicate_Note("blanknote"))
             {
-                Name = "blanknote",
-                Text = "blanknote"
-            };
+                ListViewItem temp = new ListViewItem()
+                {
+                    Name = "blanknote",
+                    Text = "blanknote",
+                    Selected = true,
+                    Font = BoldFont
+                };
 
-            if (!Duplicate_Note(CurrentNote.Name))
-            {
                 NotesLV.Sorting = SortOrder.None;
-                NotesLV.Items.Insert(0, CurrentNote);
-                NotesLV.Items[NotesLV.Items.IndexOf(CurrentNote)].Selected = true;
+                NotesLV.Items.Insert(0, temp);
                 NotesLV.Select();
                 NoteTitleTB.Enabled = true;
                 NoteBodyTB.Enabled = true;
-                NoteBodyTB.Clear();
             }
 
             else
             {
-                MessageBox.Show("Please edit the note called \"blanknote\" before adding a new note.", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                try
-                {
-                    CurrentNote = NotesLV.Items[Get_Blank_Note_Index()];
-                    CurrentNote.Selected = true;
-                }
-
-                catch
-                {
-                    MessageBox.Show("Error selecting the blank note item in the list, please select it manually.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
+                MessageBox.Show("Duplicate notes are not allowed, please rename \"blanknote\".", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 NotesLV.Select();
+                NoteTitleTB.Enabled = true;
+                NoteBodyTB.Enabled = true;
             }
         }
+
+
+
+
+
+
+        private void SaveChangesBT_Click(object sender, EventArgs e)
+        {
+
+            // Write the changes to config file
+            Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+        }
+
+
+
+
+
+
+        private void DeleteNoteBT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+
+        #region Enter
+
+        private void AddNoteBT_MouseEnter(object sender, EventArgs e)
+        {
+            AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
+        }
+
+        private void DeleteNoteBT_MouseEnter(object sender, EventArgs e)
+        {
+            DeleteNoteBT.BackgroundImage = Properties.Resources.Delete_Tag_Icon_Hover;
+        }
+
+        private void SaveChangesBT_MouseEnter(object sender, EventArgs e)
+        {
+            SaveChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon_Hover;
+        }
+
+        #endregion
+
+
+        #region Leave
+
+        private void AddNoteBT_MouseLeave(object sender, EventArgs e)
+        {
+            AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
+        }
+        
+
+
+
+
+
+        private void DeleteNoteBT_MouseLeave(object sender, EventArgs e)
+        {
+            DeleteNoteBT.BackgroundImage = Properties.Resources.Delete_Tag_Icon;
+        }
+
+
+
+
+
+
+        private void SaveChangesBT_MouseLeave(object sender, EventArgs e)
+        {
+            SaveChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon;
+        }
+
+        #endregion
+
+        #endregion
+
+
+        #region Text Box
+
+        #region Text Changed
 
         private void NoteTitleTB_TextChanged(object sender, EventArgs e)
         {
-            if (CurrentNote != null)
-            {
-                NoteTitleTB.Enabled = true;
-                CurrentNote.Name = NoteTitleTB.Text;
-                CurrentNote.Text = NoteTitleTB.Text;
 
-                Note_Changes.Remove(Previous_Note);
-                Note_Changes.Add(CurrentNote.Name, NoteBodyTB.Text);
-            }
+        }
 
-            else
+
+
+
+
+        private void NoteBodyTB_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        #endregion
+
+        #endregion
+
+
+        #region Keys
+
+        #region Down
+
+        private void NoteTitleTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
-                NoteTitleTB.Enabled = false;
+                NotesLV.SelectedItems[0].Name = NoteTitleTB.Text;
+                NotesLV.SelectedItems[0].Text = NoteTitleTB.Text;
+                NotesLV.Sorting = SortOrder.Ascending;
+                NotesLV.Sort();
+                e.SuppressKeyPress = true;
             }
         }
-        
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+
+        #region Methods
+
+        #region Determine if a duplicate node exists
+
         public bool Duplicate_Note(string title)
         {
             title = title.ToLower();
+
             foreach (ListViewItem temp in NotesLV.Items)
             {
                 if (temp.Name.ToLower() == title || temp.Text.ToLower() == title)
@@ -136,6 +275,10 @@ namespace GITRepoManager
 
             return false;
         }
+
+        #endregion
+
+        #region Get the index of the blanknote in the list view
 
         public int Get_Blank_Note_Index()
         {
@@ -150,100 +293,9 @@ namespace GITRepoManager
             return -1;
         }
 
-        private void NoteTitleTB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                NotesLV.Sorting = SortOrder.Ascending;
-            }
-        }
+        #endregion
 
-        private void SaveChangesBT_Click(object sender, EventArgs e)
-        {
-            foreach (KeyValuePair<string, string> kvp in Note_Changes)
-            {
-                if (ManagerData.Selected_Repo.Notes.Keys.Contains(kvp.Key))
-                {
-                    ManagerData.Selected_Repo.Notes[kvp.Key] = kvp.Value;
-                }
+        #endregion
 
-                else
-                {
-                    ManagerData.Selected_Repo.Notes.Add(kvp.Key, kvp.Value);
-                }
-            }
-
-            Clear_Deleted_Notes();
-
-            // Write the changes to config file
-            Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
-        }
-
-        private void Clear_Deleted_Notes()
-        {
-            List<string> ToDelete = new List<string>();
-
-            foreach (string key in ManagerData.Selected_Repo.Notes.Keys)
-            {
-                if (!Note_Changes.Keys.Contains(key))
-                {
-                    ToDelete.Add(key);
-                }
-            }
-
-            foreach (string ToRemove in ToDelete)
-            {
-                ManagerData.Selected_Repo.Notes.Remove(ToRemove);
-            }
-        }
-
-        private void NoteBodyTB_TextChanged(object sender, EventArgs e)
-        {
-            if (CurrentNote != null)
-            {
-                Note_Changes[CurrentNote.Name] = NoteBodyTB.Text;
-            }
-        }
-
-        private void AddNoteBT_MouseEnter(object sender, EventArgs e)
-        {
-            AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
-        }
-
-        private void AddNoteBT_MouseLeave(object sender, EventArgs e)
-        {
-            AddNoteBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
-        }
-
-        private void DeleteNoteBT_MouseEnter(object sender, EventArgs e)
-        {
-            DeleteNoteBT.BackgroundImage = Properties.Resources.Delete_Tag_Icon_Hover;
-        }
-
-        private void DeleteNoteBT_MouseLeave(object sender, EventArgs e)
-        {
-            DeleteNoteBT.BackgroundImage = Properties.Resources.Delete_Tag_Icon;
-        }
-
-        private void SaveChangesBT_MouseEnter(object sender, EventArgs e)
-        {
-            SaveChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon_Hover;
-        }
-
-        private void SaveChangesBT_MouseLeave(object sender, EventArgs e)
-        {
-            SaveChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon;
-        }
-
-        private void DeleteNoteBT_Click(object sender, EventArgs e)
-        {
-            if (Note_Changes.Keys.Contains(CurrentNote.Name))
-            {
-                Note_Changes.Remove(CurrentNote.Name);
-            }
-
-            NotesLV.Items.Remove(CurrentNote);
-            CurrentNote = null;
-        }
     }
 }
