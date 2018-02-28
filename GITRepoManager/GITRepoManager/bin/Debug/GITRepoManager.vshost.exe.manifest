@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GITRepoManager.exe" size="513984">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GITRepoManager.exe" size="514496">
       <assemblyIdentity name="GITRepoManager" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1iP1jdWJNzTNG4WUhKIyNI7+AE0DD3yXtZNO0WLlm4g=</dsig:DigestValue>
+        <dsig:DigestValue>Rr5qx5CUM1WMsXL1Ze9lbf9wvJIf5m+Lo+LYhIlqCko=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

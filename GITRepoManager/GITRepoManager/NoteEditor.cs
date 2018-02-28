@@ -97,6 +97,8 @@ namespace GITRepoManager
 
             NoteTitleTB.Text = CurrentNote.Text;
             //NoteBodyTB.Text = ManagerData.Selected_Repo.Notes[CurrentNote.Name];
+
+            NotesLV.Sort();
         }
 
         #endregion
@@ -108,29 +110,59 @@ namespace GITRepoManager
 
         private void AddNoteBT_Click(object sender, EventArgs e)
         {
-            if (!Duplicate_Note("blanknote"))
+            bool cont = true;
+            // If a current note is selected, save it's changes
+            if (NotesLV.SelectedItems.Count > 0)
             {
-                ListViewItem temp = new ListViewItem()
+                if (NotesLV.Items.Count > 1)
                 {
-                    Name = "blanknote",
-                    Text = "blanknote",
-                    Selected = true,
-                    Font = BoldFont
-                };
+                    if (NoteTitleTB.Text != NotesLV.SelectedItems[0].Text)
+                    {
+                        if (!Duplicate_Note(NoteTitleTB.Text))
+                        {
+                            NotesLV.Sorting = SortOrder.None;
+                            NotesLV.SelectedItems[0].Name = NoteTitleTB.Text;
+                            NotesLV.SelectedItems[0].Text = NoteTitleTB.Text;
+                            NotesLV.Sorting = SortOrder.Ascending;
+                            NotesLV.Sort();
+                        }
 
-                NotesLV.Sorting = SortOrder.None;
-                NotesLV.Items.Insert(0, temp);
-                NotesLV.Select();
-                NoteTitleTB.Enabled = true;
-                NoteBodyTB.Enabled = true;
+                        else
+                        {
+                            MessageBox.Show("Duplicate note titles are not allowed, either change this note's title or delete it to continue.", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            NoteTitleTB.Focus();
+                            cont = false;
+                        }
+                    }
+                }
             }
 
-            else
+            if(cont)
             {
-                MessageBox.Show("Duplicate notes are not allowed, please rename \"blanknote\".", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                NotesLV.Select();
-                NoteTitleTB.Enabled = true;
-                NoteBodyTB.Enabled = true;
+                if (!Duplicate_Note("blanknote"))
+                {
+                    ListViewItem temp = new ListViewItem()
+                    {
+                        Name = "blanknote",
+                        Text = "blanknote",
+                        Selected = true,
+                        Font = BoldFont
+                    };
+
+                    NotesLV.Sorting = SortOrder.None;
+                    NotesLV.Items.Insert(0, temp);
+                    NotesLV.Select();
+                    NoteTitleTB.Enabled = true;
+                    NoteBodyTB.Enabled = true;
+                }
+
+                else
+                {
+                    MessageBox.Show("Duplicate notes are not allowed, please rename \"blanknote\".", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    NotesLV.Select();
+                    NoteTitleTB.Enabled = true;
+                    NoteBodyTB.Enabled = true;
+                }
             }
         }
 
@@ -242,10 +274,25 @@ namespace GITRepoManager
         {
             if (e.KeyCode == Keys.Enter)
             {
-                NotesLV.SelectedItems[0].Name = NoteTitleTB.Text;
-                NotesLV.SelectedItems[0].Text = NoteTitleTB.Text;
-                NotesLV.Sorting = SortOrder.Ascending;
-                NotesLV.Sort();
+                if (!Duplicate_Note(NoteTitleTB.Text))
+                {
+                    NotesLV.Sorting = SortOrder.None;
+
+                    NotesLV.SelectedItems[0].Name = NoteTitleTB.Text;
+                    NotesLV.SelectedItems[0].Text = NoteTitleTB.Text;
+
+                    NotesLV.Sorting = SortOrder.Ascending;
+
+                    NotesLV.Sort();
+                }
+
+                else
+                {
+                    MessageBox.Show("Duplicate note titles are not allowed, please edit" + NoteTitleTB.Text + "'s body instead.", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    NoteTitleTB.Focus();
+
+                }
+
                 e.SuppressKeyPress = true;
             }
         }
