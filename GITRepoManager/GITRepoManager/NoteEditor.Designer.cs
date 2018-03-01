@@ -35,14 +35,15 @@
             this.NoteTitleTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.AddNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.DeleteNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.SaveChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.label4 = new System.Windows.Forms.Label();
+            this.SaveChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.DeleteNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.AddNoteBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.SuspendLayout();
             // 
             // NotesLV
             // 
+            this.NotesLV.CausesValidation = false;
             this.NotesLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.NoteTitleCH});
             this.NotesLV.FullRowSelect = true;
@@ -56,6 +57,7 @@
             this.NotesLV.UseCompatibleStateImageBehavior = false;
             this.NotesLV.View = System.Windows.Forms.View.Details;
             this.NotesLV.SelectedIndexChanged += new System.EventHandler(this.NotesLV_SelectedIndexChanged);
+            this.NotesLV.MouseUp += new System.Windows.Forms.MouseEventHandler(this.NotesLV_MouseUp);
             // 
             // NoteTitleCH
             // 
@@ -116,25 +118,34 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Notes";
             // 
-            // AddNoteBT
+            // label4
             // 
-            this.AddNoteBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AddNoteBT.BackColor = System.Drawing.Color.Transparent;
-            this.AddNoteBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
-            this.AddNoteBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AddNoteBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.AddNoteBT.FlatAppearance.BorderSize = 0;
-            this.AddNoteBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.AddNoteBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.AddNoteBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddNoteBT.Location = new System.Drawing.Point(260, 344);
-            this.AddNoteBT.Name = "AddNoteBT";
-            this.AddNoteBT.Size = new System.Drawing.Size(35, 35);
-            this.AddNoteBT.TabIndex = 28;
-            this.AddNoteBT.UseVisualStyleBackColor = false;
-            this.AddNoteBT.Click += new System.EventHandler(this.AddNoteBT_Click);
-            this.AddNoteBT.MouseEnter += new System.EventHandler(this.AddNoteBT_MouseEnter);
-            this.AddNoteBT.MouseLeave += new System.EventHandler(this.AddNoteBT_MouseLeave);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(305, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(166, 13);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "* Duplicate Titles Are Not Allowed";
+            // 
+            // SaveChangesBT
+            // 
+            this.SaveChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.SaveChangesBT.BackColor = System.Drawing.Color.Transparent;
+            this.SaveChangesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Save_Settings_Icon;
+            this.SaveChangesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SaveChangesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.SaveChangesBT.FlatAppearance.BorderSize = 0;
+            this.SaveChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.SaveChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.SaveChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveChangesBT.Location = new System.Drawing.Point(731, 344);
+            this.SaveChangesBT.Name = "SaveChangesBT";
+            this.SaveChangesBT.Size = new System.Drawing.Size(35, 35);
+            this.SaveChangesBT.TabIndex = 30;
+            this.SaveChangesBT.UseVisualStyleBackColor = false;
+            this.SaveChangesBT.Click += new System.EventHandler(this.SaveChangesBT_Click);
+            this.SaveChangesBT.MouseEnter += new System.EventHandler(this.SaveChangesBT_MouseEnter);
+            this.SaveChangesBT.MouseLeave += new System.EventHandler(this.SaveChangesBT_MouseLeave);
             // 
             // DeleteNoteBT
             // 
@@ -157,34 +168,25 @@
             this.DeleteNoteBT.MouseEnter += new System.EventHandler(this.DeleteNoteBT_MouseEnter);
             this.DeleteNoteBT.MouseLeave += new System.EventHandler(this.DeleteNoteBT_MouseLeave);
             // 
-            // SaveChangesBT
+            // AddNoteBT
             // 
-            this.SaveChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.SaveChangesBT.BackColor = System.Drawing.Color.Transparent;
-            this.SaveChangesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Save_Settings_Icon;
-            this.SaveChangesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SaveChangesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.SaveChangesBT.FlatAppearance.BorderSize = 0;
-            this.SaveChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.SaveChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.SaveChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveChangesBT.Location = new System.Drawing.Point(731, 344);
-            this.SaveChangesBT.Name = "SaveChangesBT";
-            this.SaveChangesBT.Size = new System.Drawing.Size(35, 35);
-            this.SaveChangesBT.TabIndex = 30;
-            this.SaveChangesBT.UseVisualStyleBackColor = false;
-            this.SaveChangesBT.Click += new System.EventHandler(this.SaveChangesBT_Click);
-            this.SaveChangesBT.MouseEnter += new System.EventHandler(this.SaveChangesBT_MouseEnter);
-            this.SaveChangesBT.MouseLeave += new System.EventHandler(this.SaveChangesBT_MouseLeave);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(305, 48);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(166, 13);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "* Duplicate Titles Are Not Allowed";
+            this.AddNoteBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddNoteBT.BackColor = System.Drawing.Color.Transparent;
+            this.AddNoteBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
+            this.AddNoteBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddNoteBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.AddNoteBT.FlatAppearance.BorderSize = 0;
+            this.AddNoteBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AddNoteBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AddNoteBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddNoteBT.Location = new System.Drawing.Point(260, 344);
+            this.AddNoteBT.Name = "AddNoteBT";
+            this.AddNoteBT.Size = new System.Drawing.Size(35, 35);
+            this.AddNoteBT.TabIndex = 28;
+            this.AddNoteBT.UseVisualStyleBackColor = false;
+            this.AddNoteBT.Click += new System.EventHandler(this.AddNoteBT_Click);
+            this.AddNoteBT.MouseEnter += new System.EventHandler(this.AddNoteBT_MouseEnter);
+            this.AddNoteBT.MouseLeave += new System.EventHandler(this.AddNoteBT_MouseLeave);
             // 
             // NoteEditor
             // 

@@ -5,17 +5,20 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GITRepoManager
-{   
+{
     public partial class NoteEditor : Form
     {
-        public static ListViewItem CurrentNote { get; set; }
+        public static ListViewItem Current_Note { get; set; }
         public static ListViewItem Previous_Note { get; set; }
-        public static bool FirstSelection { get; set; }
-        public static bool IncrementPrevious { get; set; }
+
+        private static bool Selected { get; set; }
+
+        public static Dictionary<string, string> Note_Changes { get; set; }
 
         public static System.Drawing.Font BoldFont = null;
         public static System.Drawing.Font RegularFont = null;
@@ -34,13 +37,19 @@ namespace GITRepoManager
 
         private void NoteEditor_Load(object sender, EventArgs e)
         {
-            FirstSelection = true;
+            Note_Changes = new Dictionary<string, string>();
+            Selected = false;
+
+            foreach (KeyValuePair<string, string> kvp in ManagerData.Selected_Repo.Notes)
+            {
+                Note_Changes.Add(kvp.Key, kvp.Value);
+            }
 
             NotesLV.Items.Clear();
 
-            if (ManagerData.Selected_Repo_Copy.Notes.Count > 0)
+            if (Note_Changes.Count > 0)
             {
-                foreach (string title in ManagerData.Selected_Repo_Copy.Notes.Keys)
+                foreach (string title in Note_Changes.Keys)
                 {
                     ListViewItem temp = new ListViewItem()
                     {
@@ -59,10 +68,10 @@ namespace GITRepoManager
 
                 NotesLV.Items[0].Selected = true;
 
-                CurrentNote = NotesLV.SelectedItems[0];
-                Previous_Note = CurrentNote;
+                Current_Note = NotesLV.SelectedItems[0];
+                Previous_Note = Current_Note;
 
-                CurrentNote.Font = BoldFont;
+                Current_Note.Font = BoldFont;
             }
 
             else
@@ -82,23 +91,29 @@ namespace GITRepoManager
 
         private void NotesLV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            Selected = false;
+
+            if (Current_Note != null && NotesLV.SelectedItems.Count > 0)
             {
-                Previous_Note = CurrentNote;
-                CurrentNote = NotesLV.SelectedItems[0];
+                Previous_Note = Current_Note;
+                Current_Note = NotesLV.SelectedItems[0];
 
                 Previous_Note.Font = RegularFont;
-                CurrentNote.Font = BoldFont;
+                Current_Note.Font = BoldFont;
+
+                NoteTitleTB.Text = Current_Note.Text;
+
+                try
+                {
+                    NoteBodyTB.Text = Note_Changes[Current_Note.Text];
+                }
+
+                catch
+                {
+                }
             }
 
-            catch
-            {
-            }
-
-            NoteTitleTB.Text = CurrentNote.Text;
-            //NoteBodyTB.Text = ManagerData.Selected_Repo.Notes[CurrentNote.Name];
-
-            NotesLV.Sort();
+            Selected = true;
         }
 
         #endregion
@@ -110,60 +125,151 @@ namespace GITRepoManager
 
         private void AddNoteBT_Click(object sender, EventArgs e)
         {
-            bool cont = true;
-            // If a current note is selected, save it's changes
-            if (NotesLV.SelectedItems.Count > 0)
+            // Empty list and nothing selected
+            if (NotesLV.Items.Count == 0)
             {
-                if (NotesLV.Items.Count > 1)
+                ListViewItem temp = new ListViewItem()
                 {
-                    if (NoteTitleTB.Text != NotesLV.SelectedItems[0].Text)
-                    {
-                        if (!Duplicate_Note(NoteTitleTB.Text))
-                        {
-                            NotesLV.Sorting = SortOrder.None;
-                            NotesLV.SelectedItems[0].Name = NoteTitleTB.Text;
-                            NotesLV.SelectedItems[0].Text = NoteTitleTB.Text;
-                            NotesLV.Sorting = SortOrder.Ascending;
-                            NotesLV.Sort();
-                        }
+                    Name = "blanknote",
+                    Text = "blanknote"
+                };
 
-                        else
-                        {
-                            MessageBox.Show("Duplicate note titles are not allowed, either change this note's title or delete it to continue.", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            NoteTitleTB.Focus();
-                            cont = false;
-                        }
-                    }
-                }
+                NotesLV.Items.Add(temp);
+                NotesLV.Items[0].Selected = true;
+                NotesLV.Select();
+
+                Current_Note = NotesLV.SelectedItems[0];
+                Current_Note.Font = BoldFont;
+                NoteTitleTB.Text = Current_Note.Text;
+                NoteBodyTB.Text = string.Empty;
+
+                NoteTitleTB.Enabled = true;
+                NoteBodyTB.Enabled = true;
+                NoteTitleTB.Focus();
+
+                Note_Changes.Add(NoteTitleTB.Text, NoteBodyTB.Text);
             }
 
-            if(cont)
+            // Non empty list but nothing selected
+            else if (NotesLV.SelectedItems.Count == 0)
             {
                 if (!Duplicate_Note("blanknote"))
                 {
                     ListViewItem temp = new ListViewItem()
                     {
                         Name = "blanknote",
-                        Text = "blanknote",
-                        Selected = true,
-                        Font = BoldFont
+                        Text = "blanknote"
                     };
 
                     NotesLV.Sorting = SortOrder.None;
                     NotesLV.Items.Insert(0, temp);
+                    NotesLV.Items[0].Selected = true;
                     NotesLV.Select();
+
+                    Previous_Note = Current_Note;
+                    Current_Note = NotesLV.SelectedItems[0];
+                    Previous_Note.Font = RegularFont;
+                    Current_Note.Font = BoldFont;
+                    NoteTitleTB.Text = Current_Note.Text;
+                    NoteBodyTB.Text = string.Empty;
+
                     NoteTitleTB.Enabled = true;
                     NoteBodyTB.Enabled = true;
+                    NoteTitleTB.Focus();
+
+                    Note_Changes.Add(NoteTitleTB.Text, NoteBodyTB.Text);
                 }
 
                 else
                 {
-                    MessageBox.Show("Duplicate notes are not allowed, please rename \"blanknote\".", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    NotesLV.Items[Get_Blank_Note_Index()].Selected = true;
                     NotesLV.Select();
+                    Previous_Note = Current_Note;
+                    Current_Note = NotesLV.SelectedItems[0];
+                    Previous_Note.Font = RegularFont;
+                    Current_Note.Font = BoldFont;
+
+                    NoteTitleTB.Text = Current_Note.Text;
+                    NoteBodyTB.Text = Note_Changes[Current_Note.Text];
+
                     NoteTitleTB.Enabled = true;
                     NoteBodyTB.Enabled = true;
+
+                    Duplicate_Message();
+
+                    NoteTitleTB.Focus();
                 }
             }
+
+            else
+            {
+                if (Store_Note())
+                {
+                    if (!Duplicate_Note("blanknote"))
+                    {
+                        ListViewItem temp = new ListViewItem()
+                        {
+                            Name = "blanknote",
+                            Text = "blanknote"
+                        };
+
+                        NotesLV.Sorting = SortOrder.None;
+                        NotesLV.Items.Insert(0, temp);
+                        NotesLV.Items[0].Selected = true;
+                        NotesLV.Select();
+
+                        Previous_Note = Current_Note;
+                        Current_Note = NotesLV.SelectedItems[0];
+
+                        Previous_Note.Font = RegularFont;
+                        Current_Note.Font = BoldFont;
+
+                        NoteTitleTB.Text = Current_Note.Text;
+                        NoteBodyTB.Text = string.Empty;
+
+                        NoteTitleTB.Enabled = true;
+                        NoteBodyTB.Enabled = true;
+
+                        Note_Changes.Add(Current_Note.Text, string.Empty);
+                    }
+
+                    else
+                    {
+                        // Blank note already exists
+                        // Select it in the list and focus on title box
+                        NotesLV.SelectedItems.Clear();
+                        NotesLV.Items[Get_Blank_Note_Index()].Selected = true;
+                        NotesLV.Select();
+
+                        Previous_Note = Current_Note;
+                        Current_Note = NotesLV.SelectedItems[0];
+                        NoteTitleTB.Text = Current_Note.Text;
+                        NoteBodyTB.Text = Note_Changes[Current_Note.Text];
+
+                        NoteTitleTB.Enabled = true;
+                        NoteBodyTB.Enabled = true;
+
+                        Duplicate_Message();
+
+                        NoteTitleTB.Focus();
+                    }
+                }
+
+                else
+                {
+                    // Duplicate of current note's title
+                    NoteTitleTB.Focus();
+
+                }
+            }
+
+            while (!Selected)
+            {
+                Thread.Sleep(100);
+            }
+
+            NoteTitleTB.Focus();
+            Selected = false;
         }
 
 
@@ -173,6 +279,12 @@ namespace GITRepoManager
 
         private void SaveChangesBT_Click(object sender, EventArgs e)
         {
+            ManagerData.Selected_Repo.Notes.Clear();
+
+            foreach (KeyValuePair<string, string> kvp in Note_Changes)
+            {
+                ManagerData.Selected_Repo.Notes.Add(kvp.Key, kvp.Value);
+            }
 
             // Write the changes to config file
             Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
@@ -274,23 +386,17 @@ namespace GITRepoManager
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (!Duplicate_Note(NoteTitleTB.Text))
+                if (!Store_Note())
                 {
-                    NotesLV.Sorting = SortOrder.None;
+                    NotesLV.SelectedItems.Clear();
+                    Current_Note.Selected = true;
+                    NotesLV.Select();
+                    NoteTitleTB.Text = Current_Note.Text;
+                    NoteBodyTB.Text = Note_Changes[Current_Note.Text];
 
-                    NotesLV.SelectedItems[0].Name = NoteTitleTB.Text;
-                    NotesLV.SelectedItems[0].Text = NoteTitleTB.Text;
+                    Duplicate_Message();
 
-                    NotesLV.Sorting = SortOrder.Ascending;
-
-                    NotesLV.Sort();
-                }
-
-                else
-                {
-                    MessageBox.Show("Duplicate note titles are not allowed, please edit" + NoteTitleTB.Text + "'s body instead.", "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     NoteTitleTB.Focus();
-
                 }
 
                 e.SuppressKeyPress = true;
@@ -342,7 +448,66 @@ namespace GITRepoManager
 
         #endregion
 
+        #region Store Previous Note
+
+        private bool Store_Note()
+        {
+            if (Current_Note == null)
+            {
+                return true;
+            }
+
+            // Previously selected note's title has been modified
+            if (Current_Note.Text != NoteTitleTB.Text)
+            {
+                if (!Duplicate_Note(NoteTitleTB.Text))
+                {
+                    // Delete old entry in dictionary and add new
+                    if (Note_Changes.Keys.Contains(Current_Note.Text))
+                    {
+                        Note_Changes.Remove(Current_Note.Text);
+                    }
+
+                    Note_Changes.Add(NoteTitleTB.Text, NoteBodyTB.Text);
+
+                    // Modify list view
+                    NotesLV.Sorting = SortOrder.None;
+                    Current_Note.Name = NoteTitleTB.Text;
+                    Current_Note.Text = NoteTitleTB.Text;
+                    NotesLV.Sorting = SortOrder.Ascending;
+                    NotesLV.Sort();
+
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+
+            // No Change to title just store body
+            else
+            {
+                Note_Changes[Current_Note.Text] = NoteBodyTB.Text;
+                return true;
+            }
+        }
+
         #endregion
 
+        private void Duplicate_Message()
+        {
+            string message = "Duplicate titles are not allowed, please edit the body of the duplicate note or change this notes title.";
+            MessageBox.Show(message, "Duplicate Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        #endregion
+
+        private void NotesLV_MouseUp(object sender, MouseEventArgs e)
+        {
+            NoteTitleTB.Focus();
+            NoteTitleTB.SelectAll();
+        }
     }
 }
