@@ -16,9 +16,9 @@ namespace GITRepoManager
         public static ListViewItem Current_Note { get; set; }
         public static ListViewItem Previous_Note { get; set; }
 
-        private static bool Selected { get; set; }
-
         public static Dictionary<string, string> Note_Changes { get; set; }
+
+        private Variable_Change_Event Selection_Changed;
 
         public static System.Drawing.Font BoldFont = null;
         public static System.Drawing.Font RegularFont = null;
@@ -38,7 +38,9 @@ namespace GITRepoManager
         private void NoteEditor_Load(object sender, EventArgs e)
         {
             Note_Changes = new Dictionary<string, string>();
-            Selected = false;
+
+            Selection_Changed = new Variable_Change_Event(false);
+            Selection_Changed.Selection_Changed_EventHandler += Selection_Changed_Selection_Changed_EventHandler;
 
             foreach (KeyValuePair<string, string> kvp in ManagerData.Selected_Repo.Notes)
             {
@@ -59,8 +61,6 @@ namespace GITRepoManager
 
                     NotesLV.Items.Add(temp);
                 }
-
-                //NotesLV.Items[0].Selected = true;
                 NotesLV.Select();
 
                 BoldFont = new System.Drawing.Font(NotesLV.Items[0].Font.FontFamily, NotesLV.Items[0].Font.Size, FontStyle.Bold);
@@ -82,6 +82,15 @@ namespace GITRepoManager
             }
         }
 
+        private void Selection_Changed_Selection_Changed_EventHandler(object sender, EventArgs e)
+        {
+            if (Selection_Changed.Selection_Changed && NotesLV.SelectedItems.Count > 0)
+            {
+                Selection_Changed.Selection_Changed = false;
+                MessageBox.Show("changed");
+            }
+        }
+
         #endregion
 
         #endregion
@@ -91,29 +100,7 @@ namespace GITRepoManager
 
         private void NotesLV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Selected = false;
-
-            if (Current_Note != null && NotesLV.SelectedItems.Count > 0)
-            {
-                Previous_Note = Current_Note;
-                Current_Note = NotesLV.SelectedItems[0];
-
-                Previous_Note.Font = RegularFont;
-                Current_Note.Font = BoldFont;
-
-                NoteTitleTB.Text = Current_Note.Text;
-
-                try
-                {
-                    NoteBodyTB.Text = Note_Changes[Current_Note.Text];
-                }
-
-                catch
-                {
-                }
-            }
-
-            Selected = true;
+            Selection_Changed.Selection_Changed = true;
         }
 
         #endregion
@@ -125,151 +112,7 @@ namespace GITRepoManager
 
         private void AddNoteBT_Click(object sender, EventArgs e)
         {
-            // Empty list and nothing selected
-            if (NotesLV.Items.Count == 0)
-            {
-                ListViewItem temp = new ListViewItem()
-                {
-                    Name = "blanknote",
-                    Text = "blanknote"
-                };
-
-                NotesLV.Items.Add(temp);
-                NotesLV.Items[0].Selected = true;
-                NotesLV.Select();
-
-                Current_Note = NotesLV.SelectedItems[0];
-                Current_Note.Font = BoldFont;
-                NoteTitleTB.Text = Current_Note.Text;
-                NoteBodyTB.Text = string.Empty;
-
-                NoteTitleTB.Enabled = true;
-                NoteBodyTB.Enabled = true;
-                NoteTitleTB.Focus();
-
-                Note_Changes.Add(NoteTitleTB.Text, NoteBodyTB.Text);
-            }
-
-            // Non empty list but nothing selected
-            else if (NotesLV.SelectedItems.Count == 0)
-            {
-                if (!Duplicate_Note("blanknote"))
-                {
-                    ListViewItem temp = new ListViewItem()
-                    {
-                        Name = "blanknote",
-                        Text = "blanknote"
-                    };
-
-                    NotesLV.Sorting = SortOrder.None;
-                    NotesLV.Items.Insert(0, temp);
-                    NotesLV.Items[0].Selected = true;
-                    NotesLV.Select();
-
-                    Previous_Note = Current_Note;
-                    Current_Note = NotesLV.SelectedItems[0];
-                    Previous_Note.Font = RegularFont;
-                    Current_Note.Font = BoldFont;
-                    NoteTitleTB.Text = Current_Note.Text;
-                    NoteBodyTB.Text = string.Empty;
-
-                    NoteTitleTB.Enabled = true;
-                    NoteBodyTB.Enabled = true;
-                    NoteTitleTB.Focus();
-
-                    Note_Changes.Add(NoteTitleTB.Text, NoteBodyTB.Text);
-                }
-
-                else
-                {
-                    NotesLV.Items[Get_Blank_Note_Index()].Selected = true;
-                    NotesLV.Select();
-                    Previous_Note = Current_Note;
-                    Current_Note = NotesLV.SelectedItems[0];
-                    Previous_Note.Font = RegularFont;
-                    Current_Note.Font = BoldFont;
-
-                    NoteTitleTB.Text = Current_Note.Text;
-                    NoteBodyTB.Text = Note_Changes[Current_Note.Text];
-
-                    NoteTitleTB.Enabled = true;
-                    NoteBodyTB.Enabled = true;
-
-                    Duplicate_Message();
-
-                    NoteTitleTB.Focus();
-                }
-            }
-
-            else
-            {
-                if (Store_Note())
-                {
-                    if (!Duplicate_Note("blanknote"))
-                    {
-                        ListViewItem temp = new ListViewItem()
-                        {
-                            Name = "blanknote",
-                            Text = "blanknote"
-                        };
-
-                        NotesLV.Sorting = SortOrder.None;
-                        NotesLV.Items.Insert(0, temp);
-                        NotesLV.Items[0].Selected = true;
-                        NotesLV.Select();
-
-                        Previous_Note = Current_Note;
-                        Current_Note = NotesLV.SelectedItems[0];
-
-                        Previous_Note.Font = RegularFont;
-                        Current_Note.Font = BoldFont;
-
-                        NoteTitleTB.Text = Current_Note.Text;
-                        NoteBodyTB.Text = string.Empty;
-
-                        NoteTitleTB.Enabled = true;
-                        NoteBodyTB.Enabled = true;
-
-                        Note_Changes.Add(Current_Note.Text, string.Empty);
-                    }
-
-                    else
-                    {
-                        // Blank note already exists
-                        // Select it in the list and focus on title box
-                        NotesLV.SelectedItems.Clear();
-                        NotesLV.Items[Get_Blank_Note_Index()].Selected = true;
-                        NotesLV.Select();
-
-                        Previous_Note = Current_Note;
-                        Current_Note = NotesLV.SelectedItems[0];
-                        NoteTitleTB.Text = Current_Note.Text;
-                        NoteBodyTB.Text = Note_Changes[Current_Note.Text];
-
-                        NoteTitleTB.Enabled = true;
-                        NoteBodyTB.Enabled = true;
-
-                        Duplicate_Message();
-
-                        NoteTitleTB.Focus();
-                    }
-                }
-
-                else
-                {
-                    // Duplicate of current note's title
-                    NoteTitleTB.Focus();
-
-                }
-            }
-
-            while (!Selected)
-            {
-                Thread.Sleep(100);
-            }
-
-            NoteTitleTB.Focus();
-            Selected = false;
+            
         }
 
 
@@ -348,6 +191,16 @@ namespace GITRepoManager
         private void SaveChangesBT_MouseLeave(object sender, EventArgs e)
         {
             SaveChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon;
+        }
+
+        #endregion
+
+        #region Up
+
+        private void NotesLV_MouseUp(object sender, MouseEventArgs e)
+        {
+            NoteTitleTB.Focus();
+            NoteTitleTB.SelectAll();
         }
 
         #endregion
@@ -503,11 +356,5 @@ namespace GITRepoManager
         }
 
         #endregion
-
-        private void NotesLV_MouseUp(object sender, MouseEventArgs e)
-        {
-            NoteTitleTB.Focus();
-            NoteTitleTB.SelectAll();
-        }
     }
 }

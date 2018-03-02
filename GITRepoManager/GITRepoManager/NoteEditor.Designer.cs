@@ -43,7 +43,6 @@
             // 
             // NotesLV
             // 
-            this.NotesLV.CausesValidation = false;
             this.NotesLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.NoteTitleCH});
             this.NotesLV.FullRowSelect = true;

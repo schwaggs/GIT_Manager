@@ -223,6 +223,7 @@
       <DependentUpon>TagRepoFRM.cs</DependentUpon>
     </Compile>
     <Compile Include="TagRepoMethods.cs" />
+    <Compile Include="Variable_Change_Event.cs" />
     <EmbeddedResource Include="CloneRepoFRM.resx">
       <DependentUpon>CloneRepoFRM.cs</DependentUpon>
     </EmbeddedResource>
