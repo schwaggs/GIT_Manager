@@ -94,6 +94,7 @@
             this.NoteTitleTB.Name = "NoteTitleTB";
             this.NoteTitleTB.Size = new System.Drawing.Size(357, 24);
             this.NoteTitleTB.TabIndex = 5;
+            this.NoteTitleTB.Click += new System.EventHandler(this.NoteTitleTB_Click);
             this.NoteTitleTB.TextChanged += new System.EventHandler(this.NoteTitleTB_TextChanged);
             this.NoteTitleTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NoteTitleTB_KeyDown);
             // 

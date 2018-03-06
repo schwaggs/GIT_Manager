@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="GITRepoManager.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
+    </startup>
+    <userSettings>
+        <GITRepoManager.Properties.Settings>
+            <setting name="TagListDir" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="RepoListDir" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="StorageType" serializeAs="String">
+                <value>-1</value>
+            </setting>
+            <setting name="StatusListDir" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="RepoListDirIsImpty" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="StatusListDirIsEmpty" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="TagListDirIsEmpty" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="RepoBaseDir" serializeAs="String">
+                <value>Z:\Software Engineering</value>
+            </setting>
+            <setting name="ConfigPath" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="FirstRun" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="CloneLocalSourcePath" serializeAs="String">
+                <value>C:\Source</value>
+            </setting>
+        </GITRepoManager.Properties.Settings>
+    </userSettings>
+</configuration>
