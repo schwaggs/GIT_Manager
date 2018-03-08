@@ -352,15 +352,55 @@ namespace GITRepoManager
                     Deleting_Item = false;
 
                     NotesLV.SelectedItems.Clear();
-                    NotesLV.Items[0].Selected = true;
+
+                    try
+                    {
+                        NotesLV.Items[0].Selected = true;
+                    }
+
+                    catch
+                    {
+
+                    }
+
                     NotesLV.Select();
 
-                    Current_Note = NotesLV.SelectedItems[0];
+                    try
+                    {
+                        Current_Note = NotesLV.SelectedItems[0];
+                    }
+
+                    catch
+                    {
+                        Current_Note = null;
+                        NoteTitleTB.Clear();
+                        NoteBodyTB.Clear();
+                        NoteTitleTB.Enabled = false;
+                        NoteBodyTB.Enabled = false;
+                    }
+
                     Previous_Note = null;
 
-                    Current_Note.Font = BoldFont;
-                    NoteTitleTB.Text = Current_Note.Name;
-                    NoteBodyTB.Text = Note_Changes[Current_Note.Name];
+                    try
+                    {
+                        Current_Note.Font = BoldFont;
+                        NoteTitleTB.Text = Current_Note.Name;
+                    }
+
+                    catch
+                    {
+
+                    }
+
+                    try
+                    {
+                        NoteBodyTB.Text = Note_Changes[Current_Note.Name];
+                    }
+
+                    catch
+                    {
+
+                    }
                 }
             }
         }

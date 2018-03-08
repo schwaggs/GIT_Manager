@@ -379,7 +379,16 @@ namespace GITRepoManager
                 // Load the document
                 XmlDocument Config = new XmlDocument();
                 Config.Load(file);
-                ManagerData.Stores = new Dictionary<string, StoreCell>();
+
+                if (ManagerData.Stores != null)
+                {
+                    ManagerData.Stores.Clear();
+                }
+
+                else
+                {
+                    ManagerData.Stores = new Dictionary<string, StoreCell>();
+                }
 
                 string currStoreLocation = string.Empty;
                 string currRepoName = string.Empty;

@@ -29,7 +29,7 @@
     <ProductName>GIT Mananager</ProductName>
     <PublisherName>OEM Solutions, Inc</PublisherName>
     <SuiteName>GIT</SuiteName>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -134,7 +134,7 @@
     </Compile>
     <Compile Include="DeleteRepoMethods.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="Helpers.cs" />
+    <Compile Include="RepoHelpers.cs" />
     <Compile Include="HomeView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InitializationViewFRM.resx">
       <DependentUpon>InitializationViewFRM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogViewer.resx">
+      <DependentUpon>LogViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogViewFRM.resx">
       <DependentUpon>LogViewFRM.cs</DependentUpon>

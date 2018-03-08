@@ -165,5 +165,17 @@ namespace GITRepoManager.Properties {
                 this["CloneLocalSourcePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int LogProcessTimeout {
+            get {
+                return ((int)(this["LogProcessTimeout"]));
+            }
+            set {
+                this["LogProcessTimeout"] = value;
+            }
+        }
     }
 }

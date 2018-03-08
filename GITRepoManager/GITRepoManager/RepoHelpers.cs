@@ -14,6 +14,7 @@ namespace GITRepoManager
     public static class RepoHelpers
     {
         public static string Exception_Message { get; set; }
+        public static string Redirected_Output { get; set; }
         private static bool Is_Repo { get; set; }
 
 
@@ -208,8 +209,6 @@ namespace GITRepoManager
             {
                 cmdProc.StartInfo = cmdInfo;
                 cmdProc.EnableRaisingEvents = true;
-                cmdProc.OutputDataReceived += CmdProc_OutputDataReceived;
-                cmdProc.ErrorDataReceived += CmdProc_ErrorDataReceived;
 
                 return cmdProc;
             }
@@ -219,19 +218,6 @@ namespace GITRepoManager
                 Exception_Message = ex.Message;
                 return null;
             }
-        }
-
-        private static void CmdProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(e.Data) || !string.IsNullOrWhiteSpace(e.Data))
-            {
-                Is_Repo = false;
-            }
-        }
-
-        private static void CmdProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            
         }
 
         #endregion
@@ -343,22 +329,22 @@ namespace GITRepoManager
 
         #region Log Parser
 
-       /*
-        *   ________________________________________________________________________________
-        *   # Method:              #
-        *   #                                                                              #
-        *   # Usage:               #
-        *   #                                                                              #
-        *   # Parameters:          #   
-        *   #                                                                              #
-        *   # Returns:             #
-        *   #                                                                              #
-        *   # Last Date Modified:  #
-        *   #                                                                              #
-        *   # Last Modified By:    #
-        *   #                                                                              #
-        *   ________________________________________________________________________________
-        */
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              #
+         *   #                                                                              #
+         *   # Usage:               #
+         *   #                                                                              #
+         *   # Parameters:          #   
+         *   #                                                                              #
+         *   # Returns:             #
+         *   #                                                                              #
+         *   # Last Date Modified:  #
+         *   #                                                                              #
+         *   # Last Modified By:    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
 
         public static List<EntryCell> Parse_Logs(string Full_Log)
         {
@@ -400,22 +386,27 @@ namespace GITRepoManager
             return Entries;
         }
 
-       /*
-        *   ________________________________________________________________________________
-        *   # Method:              #
-        *   #                                                                              #
-        *   # Usage:               #
-        *   #                                                                              #
-        *   # Parameters:          #   
-        *   #                                                                              #
-        *   # Returns:             #
-        *   #                                                                              #
-        *   # Last Date Modified:  #
-        *   #                                                                              #
-        *   # Last Modified By:    #
-        *   #                                                                              #
-        *   ________________________________________________________________________________
-        */
+        #endregion
+
+
+        #region Stores_To_String
+
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              #
+         *   #                                                                              #
+         *   # Usage:               #
+         *   #                                                                              #
+         *   # Parameters:          #   
+         *   #                                                                              #
+         *   # Returns:             #
+         *   #                                                                              #
+         *   # Last Date Modified:  #
+         *   #                                                                              #
+         *   # Last Modified By:    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
 
         public static string Stores_To_String()
         {
@@ -475,71 +466,5 @@ namespace GITRepoManager
         }
 
         #endregion
-
-
-        #region Save Configuration
-
-       /*
-        *   ________________________________________________________________________________
-        *   # Method:              #
-        *   #                                                                              #
-        *   # Usage:               #
-        *   #                                                                              #
-        *   # Parameters:          #   
-        *   #                                                                              #
-        *   # Returns:             #
-        *   #                                                                              #
-        *   # Last Date Modified:  #
-        *   #                                                                              #
-        *   # Last Modified By:    #
-        *   #                                                                              #
-        *   ________________________________________________________________________________
-        */
-
-        public static bool Save_Config(List<string> paths)
-        {
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.ConfigPath) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.ConfigPath))
-            {
-                // Make a copy of the file with .bak ext
-
-                // Add store cells for all stringsin paths to managerdata.stores dictionary
-
-                // call Serialize_Replace(Properties.Settings.Default.ConfigPath, ManagerData.Stores)
-            }
-
-            return false;
-        }
-
-
-
-        #endregion
-
-        public static List<RepoCell> Get_Repositories(string dir)
-        {
-            List<RepoCell> Repos = new List<RepoCell>();
-
-            foreach (string subdir in Directory.GetDirectories(dir))
-            {
-                DirectoryInfo subdirInfo = new DirectoryInfo(subdir);
-
-                if (subdirInfo.Exists && Is_Git_Repo(subdirInfo.FullName))
-                {
-                    RepoCell newRepo = new RepoCell()
-                    {
-                        Name = subdirInfo.Name,
-                        Path = subdirInfo.FullName,
-                        Current_Status = RepoCell.Status.Type.NONE,
-                        Last_Commit = DateTime.MinValue,
-                        Last_Commit_Message = string.Empty,
-                        Logs = new Dictionary<string, List<EntryCell>>(),
-                        Notes = new Dictionary<string, string>()
-                    };
-
-                    Repos.Add(newRepo);
-                }
-            }
-
-            return Repos;
-        }
     }
 }

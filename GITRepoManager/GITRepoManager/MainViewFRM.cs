@@ -19,6 +19,8 @@ namespace GITRepoManager
         public static Color LBPanelBackgroundColor = Color.FromArgb(240, 240, 245);
         public static Thread Splash { get; set; }
 
+        public static bool Settings_Changed { get; set; }
+
         public MainViewFRM(string [] filepaths = null)
         {
             #region Normal Start
@@ -181,6 +183,13 @@ namespace GITRepoManager
         {
             SettingsViewFRM settings = new SettingsViewFRM();
             settings.ShowDialog();
+
+            if (Settings_Changed)
+            {
+                MainStatusSSL.Text = string.Empty;
+                StoreLocationCB_Initialize();
+                ReposLV_Initialize();
+            }
         }
 
         #endregion
@@ -238,8 +247,16 @@ namespace GITRepoManager
 
         private void CloneRepoBT_Click(object sender, EventArgs e)
         {
-            CloneRepoFRM CloneRepo = new CloneRepoFRM(ManagerData.Selected_Repo.Path);
-            CloneRepo.ShowDialog();
+            try
+            {
+                CloneRepoFRM CloneRepo = new CloneRepoFRM(ManagerData.Selected_Repo.Path);
+                CloneRepo.ShowDialog();
+            }
+
+            catch
+            {
+
+            }
         }
 
         #endregion
@@ -251,6 +268,8 @@ namespace GITRepoManager
         {
             ManagerData.Selected_Repo.Current_Status = ManagerData.Selected_Repo_Copy.Current_Status;
             Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+
+            ReposLV.Select();
         }
 
         #endregion
@@ -292,10 +311,15 @@ namespace GITRepoManager
 
         private void NotesBT_Click(object sender, EventArgs e)
         {
-            if (ManagerData.Selected_Repo_Copy != null)
+            if (ReposLV.SelectedItems.Count > 0)
             {
-                NoteEditor EditNotes = new NoteEditor();
-                EditNotes.ShowDialog();
+                if (ManagerData.Selected_Repo_Copy != null)
+                {
+                    NoteEditor EditNotes = new NoteEditor();
+                    EditNotes.ShowDialog();
+
+                    ReposLV.Select();
+                }
             }
         }
 
@@ -306,7 +330,14 @@ namespace GITRepoManager
 
         private void LogsBT_Click(object sender, EventArgs e)
         {
-
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    LogViewer logs = new LogViewer(ManagerData.Selected_Repo.Path);
+                    logs.ShowDialog();
+                }
+            }
         }
 
         #endregion
@@ -349,30 +380,6 @@ namespace GITRepoManager
         {
             SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon_Hover;
             MainStatusSSL.Text = "Open the settings window.";
-        }
-
-        #endregion
-
-
-        #region DeleteRepoBT
-
-        private void DeleteRepoBT_MouseEnter(object sender, EventArgs e)
-        {
-            DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon_Hover;
-            MainStatusSSL.Text = "Delete the current repository.";
-        }
-
-        #endregion
-
-
-        #region MoveRepoBT
-
-        private void MoveRepoBT_MouseEnter(object sender, EventArgs e)
-        {
-            MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon_Hover;
-            MainStatusSSL.Text = "Move the current repository.";
-
-
         }
 
         #endregion
@@ -463,70 +470,6 @@ namespace GITRepoManager
         private void SettingsBT_MouseLeave(object sender, EventArgs e)
         {
             SettingsBT.BackgroundImage = Properties.Resources.Settings_Icon;
-
-            if (ReposLV.SelectedItems.Count > 0)
-            {
-                if (ManagerData.Selected_Repo != null)
-                {
-                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
-                    Populate_Info_List();
-                }
-            }
-
-            else
-            {
-                if (ManagerData.Selected_Store != null)
-                {
-                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
-                }
-
-                else
-                {
-                    MainStatusSSL.Text = string.Empty;
-                }
-            }
-        }
-
-        #endregion
-
-
-        #region DeleteRepoBT
-
-        private void DeleteRepoBT_MouseLeave(object sender, EventArgs e)
-        {
-            DeleteRepoBT.BackgroundImage = Properties.Resources.DeleteIcon;
-
-            if (ReposLV.SelectedItems.Count > 0)
-            {
-                if (ManagerData.Selected_Repo != null)
-                {
-                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
-                    Populate_Info_List();
-                }
-            }
-
-            else
-            {
-                if (ManagerData.Selected_Store != null)
-                {
-                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
-                }
-
-                else
-                {
-                    MainStatusSSL.Text = string.Empty;
-                }
-            }
-        }
-
-        #endregion
-
-
-        #region MoveRepoBT
-
-        private void MoveRepoBT_MouseLeave(object sender, EventArgs e)
-        {
-            MoveRepoBT.BackgroundImage = Properties.Resources.MoveIcon;
 
             if (ReposLV.SelectedItems.Count > 0)
             {
@@ -733,9 +676,19 @@ namespace GITRepoManager
 
         private void StoreLocationCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ManagerData.Selected_Store = ManagerData.Stores[StoreLocationCB.SelectedItem.ToString()];
-            ReposLV_Initialize();
-            MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+            try
+            {
+                ManagerData.Selected_Store = ManagerData.Stores[StoreLocationCB.SelectedItem.ToString()];
+                ReposLV_Initialize();
+                MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+            }
+
+            catch
+            {
+                RepoPathTB.Clear();
+                LastCommitTB.Clear();
+                LastCommitMessageTB.Clear();
+            }
         }
 
         #endregion
@@ -745,11 +698,6 @@ namespace GITRepoManager
 
         private void ReposLV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!EditRepoBTP.Visible)
-            {
-                EditRepoBTP.Visible = true;
-            }
-
             if (ReposLV.SelectedItems.Count > 0)
             {
                 ManagerData.Selected_Repo = ManagerData.Selected_Store._Repos[ReposLV.SelectedItems[0].Name];
@@ -761,6 +709,20 @@ namespace GITRepoManager
                     MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
                     Populate_Info_List();
                 }
+
+                RepoStatusCB.Enabled = true;
+                CloneRepoBT.Visible = true;
+            }
+
+            else
+            {
+                RepoStatusCB.Enabled = false;
+                RepoStatusCB.SelectedIndex = -1;
+                RepoPathTB.Clear();
+                LastCommitTB.Clear();
+                LastCommitMessageTB.Clear();
+                MainStatusSSL.Text = string.Empty;
+                CloneRepoBT.Visible = false;
             }
         }
 
@@ -771,7 +733,10 @@ namespace GITRepoManager
 
         private void RepoStatusCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ManagerData.Selected_Repo_Copy.Current_Status = RepoCell.Status.ToType(RepoStatusCB.SelectedItem.ToString());
+            if (RepoStatusCB.SelectedIndex > -1)
+            {
+                ManagerData.Selected_Repo_Copy.Current_Status = RepoCell.Status.ToType(RepoStatusCB.SelectedItem.ToString());
+            }
         }
 
         #endregion
@@ -873,6 +838,20 @@ namespace GITRepoManager
                 {
                 }
             }
+
+            if (ReposLV.SelectedItems.Count == 0)
+            {
+                RepoStatusCB.SelectedIndex = -1;
+                RepoStatusCB.Enabled = false;
+                RepoPathTB.Clear();
+                LastCommitTB.Clear();
+                LastCommitMessageTB.Clear();
+            }
+
+            else
+            {
+                RepoStatusCB.Enabled = true;
+            }
         }
 
 
@@ -899,5 +878,10 @@ namespace GITRepoManager
         }
 
         #endregion
+
+        private void RepoPathTB_Click(object sender, EventArgs e)
+        {
+            RepoPathTB.SelectAll();
+        }
     }
 }

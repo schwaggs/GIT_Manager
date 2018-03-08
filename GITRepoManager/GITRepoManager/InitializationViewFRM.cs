@@ -85,7 +85,6 @@ namespace GITRepoManager
                 retry = false;
             }
 
-            // Now parse everything
             InitializationData.Initialized = true;
         }
 
@@ -465,7 +464,9 @@ namespace GITRepoManager
 
             if (this.DialogResult == DialogResult.Cancel)
             {
-                MessageBox.Show("X pressed");
+                Application.ExitThread();
+                Application.Exit();
+                Environment.Exit(0);
             }
         }
 

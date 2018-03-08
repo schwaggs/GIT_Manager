@@ -29,7 +29,7 @@ namespace GITRepoManager
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
-                InitialDirectory = @"C:\",
+                InitialDirectory = DestinationPathTB.Text,
 
                 IsFolderPicker = true
             };
@@ -133,6 +133,11 @@ namespace GITRepoManager
             RepoPathTB.SelectionLength = 0;
             DestinationPathTB.Text = Properties.Settings.Default.CloneLocalSourcePath;
             CloneRepoBT.Focus();
+        }
+
+        private void RepoPathTB_Click(object sender, EventArgs e)
+        {
+            RepoPathTB.SelectAll();
         }
     }
 }

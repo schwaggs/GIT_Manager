@@ -58,6 +58,7 @@
             this.RepoPathTB.ReadOnly = true;
             this.RepoPathTB.Size = new System.Drawing.Size(399, 26);
             this.RepoPathTB.TabIndex = 4;
+            this.RepoPathTB.Click += new System.EventHandler(this.RepoPathTB_Click);
             // 
             // groupBox2
             // 
@@ -157,8 +158,10 @@
             this.Controls.Add(this.CloneRepoBT);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
             this.Name = "CloneRepoFRM";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Clone Repository";
             this.Load += new System.EventHandler(this.CloneRepoFRM_Load);
             this.groupBox1.ResumeLayout(false);
