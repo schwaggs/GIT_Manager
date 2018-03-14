@@ -111,11 +111,11 @@ namespace GITRepoManager
             if (!string.IsNullOrEmpty(Repo_Path) && !string.IsNullOrWhiteSpace(Repo_Path))
             {
                 RepoHelpers.Redirected_Output = string.Empty;
-                Process LogP = RepoHelpers.Create_Process(Repo_Path, " git log");
+                Process LogP = RepoHelpers.Create_Process(Repo_Path, " git --no-pager log");
                 LogP.Start();
-                LogP.WaitForExit(Properties.Settings.Default.LogProcessTimeout);
-                Raw_Log = string.Empty;
                 Raw_Log = LogP.StandardOutput.ReadToEnd();
+                LogP.StandardInput.WriteLine("exit");
+                LogP.WaitForExit();
 
                 RawLogBT.Visible = true;
 

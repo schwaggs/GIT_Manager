@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.RefreshStoresBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.SettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.AddRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.StoreLocationCB = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,8 +41,12 @@
             this.MainStatusSSL = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.EditRepoP = new System.Windows.Forms.Panel();
+            this.ClearRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.SaveRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.LogsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.NotesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.RepoStatusCB = new System.Windows.Forms.ComboBox();
             this.LastCommitMessageTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -49,14 +57,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.ReposLV = new System.Windows.Forms.ListView();
             this.RepoNameCHDR = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.RefreshStoresBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.SettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.AddRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.ClearRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.SaveRepoChangesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.LogsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
-            this.NotesBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -83,6 +83,87 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(849, 55);
             this.panel1.TabIndex = 0;
+            // 
+            // CloneRepoBT
+            // 
+            this.CloneRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.CloneRepoBT.BackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.CloneIcon;
+            this.CloneRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CloneRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.CloneRepoBT.FlatAppearance.BorderSize = 0;
+            this.CloneRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.CloneRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CloneRepoBT.Location = new System.Drawing.Point(486, 8);
+            this.CloneRepoBT.Name = "CloneRepoBT";
+            this.CloneRepoBT.Size = new System.Drawing.Size(40, 40);
+            this.CloneRepoBT.TabIndex = 24;
+            this.CloneRepoBT.UseVisualStyleBackColor = false;
+            this.CloneRepoBT.Visible = false;
+            this.CloneRepoBT.Click += new System.EventHandler(this.CloneRepoBT_Click);
+            this.CloneRepoBT.MouseEnter += new System.EventHandler(this.CloneRepoBT_MouseEnter);
+            this.CloneRepoBT.MouseLeave += new System.EventHandler(this.CloneRepoBT_MouseLeave);
+            // 
+            // RefreshStoresBT
+            // 
+            this.RefreshStoresBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.RefreshStoresBT.BackColor = System.Drawing.Color.Transparent;
+            this.RefreshStoresBT.BackgroundImage = global::GITRepoManager.Properties.Resources.RefreshIcon;
+            this.RefreshStoresBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RefreshStoresBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.RefreshStoresBT.FlatAppearance.BorderSize = 0;
+            this.RefreshStoresBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RefreshStoresBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.RefreshStoresBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshStoresBT.Location = new System.Drawing.Point(602, 11);
+            this.RefreshStoresBT.Name = "RefreshStoresBT";
+            this.RefreshStoresBT.Size = new System.Drawing.Size(35, 35);
+            this.RefreshStoresBT.TabIndex = 34;
+            this.RefreshStoresBT.UseVisualStyleBackColor = false;
+            this.RefreshStoresBT.Click += new System.EventHandler(this.RefreshStoresBT_Click);
+            this.RefreshStoresBT.MouseEnter += new System.EventHandler(this.RefreshStoresBT_MouseEnter);
+            this.RefreshStoresBT.MouseLeave += new System.EventHandler(this.RefreshStoresBT_MouseLeave);
+            // 
+            // SettingsBT
+            // 
+            this.SettingsBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.SettingsBT.BackColor = System.Drawing.Color.Transparent;
+            this.SettingsBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Settings_Icon;
+            this.SettingsBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SettingsBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.SettingsBT.FlatAppearance.BorderSize = 0;
+            this.SettingsBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.SettingsBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.SettingsBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SettingsBT.Location = new System.Drawing.Point(556, 8);
+            this.SettingsBT.Name = "SettingsBT";
+            this.SettingsBT.Size = new System.Drawing.Size(40, 40);
+            this.SettingsBT.TabIndex = 25;
+            this.SettingsBT.UseVisualStyleBackColor = false;
+            this.SettingsBT.Click += new System.EventHandler(this.SettingsBT_Click);
+            this.SettingsBT.MouseEnter += new System.EventHandler(this.SettingsBT_MouseEnter);
+            this.SettingsBT.MouseLeave += new System.EventHandler(this.SettingsBT_MouseLeave);
+            // 
+            // AddRepoBT
+            // 
+            this.AddRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddRepoBT.BackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.NewIcon;
+            this.AddRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.AddRepoBT.FlatAppearance.BorderSize = 0;
+            this.AddRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddRepoBT.Location = new System.Drawing.Point(435, 6);
+            this.AddRepoBT.Name = "AddRepoBT";
+            this.AddRepoBT.Size = new System.Drawing.Size(45, 45);
+            this.AddRepoBT.TabIndex = 21;
+            this.AddRepoBT.UseVisualStyleBackColor = false;
+            this.AddRepoBT.Click += new System.EventHandler(this.AddRepoBT_Click);
+            this.AddRepoBT.MouseEnter += new System.EventHandler(this.AddRepoBT_MouseEnter);
+            this.AddRepoBT.MouseLeave += new System.EventHandler(this.AddRepoBT_MouseLeave);
             // 
             // panel2
             // 
@@ -178,6 +259,46 @@
             this.EditRepoP.Size = new System.Drawing.Size(480, 343);
             this.EditRepoP.TabIndex = 2;
             // 
+            // ClearRepoChangesBT
+            // 
+            this.ClearRepoChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClearRepoChangesBT.BackColor = System.Drawing.Color.Transparent;
+            this.ClearRepoChangesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Reset_Settings_Icon;
+            this.ClearRepoChangesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClearRepoChangesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.ClearRepoChangesBT.FlatAppearance.BorderSize = 0;
+            this.ClearRepoChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ClearRepoChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ClearRepoChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClearRepoChangesBT.Location = new System.Drawing.Point(442, 305);
+            this.ClearRepoChangesBT.Name = "ClearRepoChangesBT";
+            this.ClearRepoChangesBT.Size = new System.Drawing.Size(35, 35);
+            this.ClearRepoChangesBT.TabIndex = 32;
+            this.ClearRepoChangesBT.UseVisualStyleBackColor = false;
+            this.ClearRepoChangesBT.Click += new System.EventHandler(this.ClearRepoChangesBT_Click);
+            this.ClearRepoChangesBT.MouseEnter += new System.EventHandler(this.ClearRepoChangesBT_MouseEnter);
+            this.ClearRepoChangesBT.MouseLeave += new System.EventHandler(this.ClearRepoChangesBT_MouseLeave);
+            // 
+            // SaveRepoChangesBT
+            // 
+            this.SaveRepoChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.SaveRepoChangesBT.BackColor = System.Drawing.Color.Transparent;
+            this.SaveRepoChangesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Save_Settings_Icon;
+            this.SaveRepoChangesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SaveRepoChangesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.SaveRepoChangesBT.FlatAppearance.BorderSize = 0;
+            this.SaveRepoChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.SaveRepoChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.SaveRepoChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveRepoChangesBT.Location = new System.Drawing.Point(7, 305);
+            this.SaveRepoChangesBT.Name = "SaveRepoChangesBT";
+            this.SaveRepoChangesBT.Size = new System.Drawing.Size(35, 35);
+            this.SaveRepoChangesBT.TabIndex = 31;
+            this.SaveRepoChangesBT.UseVisualStyleBackColor = false;
+            this.SaveRepoChangesBT.Click += new System.EventHandler(this.SaveRepoChangesBT_Click);
+            this.SaveRepoChangesBT.MouseEnter += new System.EventHandler(this.SaveRepoChangesBT_MouseEnter);
+            this.SaveRepoChangesBT.MouseLeave += new System.EventHandler(this.SaveRepoChangesBT_MouseLeave);
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -197,6 +318,46 @@
             this.label6.Size = new System.Drawing.Size(49, 16);
             this.label6.TabIndex = 28;
             this.label6.Text = "Notes";
+            // 
+            // LogsBT
+            // 
+            this.LogsBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.LogsBT.BackColor = System.Drawing.Color.Transparent;
+            this.LogsBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Log_Icon;
+            this.LogsBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.LogsBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.LogsBT.FlatAppearance.BorderSize = 0;
+            this.LogsBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.LogsBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.LogsBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LogsBT.Location = new System.Drawing.Point(61, 192);
+            this.LogsBT.Name = "LogsBT";
+            this.LogsBT.Size = new System.Drawing.Size(35, 35);
+            this.LogsBT.TabIndex = 27;
+            this.LogsBT.UseVisualStyleBackColor = false;
+            this.LogsBT.Click += new System.EventHandler(this.LogsBT_Click);
+            this.LogsBT.MouseEnter += new System.EventHandler(this.LogsBT_MouseEnter);
+            this.LogsBT.MouseLeave += new System.EventHandler(this.LogsBT_MouseLeave);
+            // 
+            // NotesBT
+            // 
+            this.NotesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.NotesBT.BackColor = System.Drawing.Color.Transparent;
+            this.NotesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Notes_Icon;
+            this.NotesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.NotesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.NotesBT.FlatAppearance.BorderSize = 0;
+            this.NotesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.NotesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.NotesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NotesBT.Location = new System.Drawing.Point(59, 150);
+            this.NotesBT.Name = "NotesBT";
+            this.NotesBT.Size = new System.Drawing.Size(35, 35);
+            this.NotesBT.TabIndex = 26;
+            this.NotesBT.UseVisualStyleBackColor = false;
+            this.NotesBT.Click += new System.EventHandler(this.NotesBT_Click);
+            this.NotesBT.MouseEnter += new System.EventHandler(this.NotesBT_MouseEnter);
+            this.NotesBT.MouseLeave += new System.EventHandler(this.NotesBT_MouseLeave);
             // 
             // RepoStatusCB
             // 
@@ -294,6 +455,7 @@
             this.ReposLV.FullRowSelect = true;
             this.ReposLV.GridLines = true;
             this.ReposLV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.ReposLV.HideSelection = false;
             this.ReposLV.Location = new System.Drawing.Point(0, 0);
             this.ReposLV.MultiSelect = false;
             this.ReposLV.Name = "ReposLV";
@@ -308,167 +470,6 @@
             // 
             this.RepoNameCHDR.Text = "Repository Name";
             this.RepoNameCHDR.Width = 310;
-            // 
-            // CloneRepoBT
-            // 
-            this.CloneRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.CloneRepoBT.BackColor = System.Drawing.Color.Transparent;
-            this.CloneRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.CloneIcon;
-            this.CloneRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CloneRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.CloneRepoBT.FlatAppearance.BorderSize = 0;
-            this.CloneRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.CloneRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.CloneRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloneRepoBT.Location = new System.Drawing.Point(486, 8);
-            this.CloneRepoBT.Name = "CloneRepoBT";
-            this.CloneRepoBT.Size = new System.Drawing.Size(40, 40);
-            this.CloneRepoBT.TabIndex = 24;
-            this.CloneRepoBT.UseVisualStyleBackColor = false;
-            this.CloneRepoBT.Visible = false;
-            this.CloneRepoBT.Click += new System.EventHandler(this.CloneRepoBT_Click);
-            this.CloneRepoBT.MouseEnter += new System.EventHandler(this.CloneRepoBT_MouseEnter);
-            this.CloneRepoBT.MouseLeave += new System.EventHandler(this.CloneRepoBT_MouseLeave);
-            // 
-            // RefreshStoresBT
-            // 
-            this.RefreshStoresBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.RefreshStoresBT.BackColor = System.Drawing.Color.Transparent;
-            this.RefreshStoresBT.BackgroundImage = global::GITRepoManager.Properties.Resources.RefreshIcon;
-            this.RefreshStoresBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RefreshStoresBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.RefreshStoresBT.FlatAppearance.BorderSize = 0;
-            this.RefreshStoresBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.RefreshStoresBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.RefreshStoresBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RefreshStoresBT.Location = new System.Drawing.Point(602, 11);
-            this.RefreshStoresBT.Name = "RefreshStoresBT";
-            this.RefreshStoresBT.Size = new System.Drawing.Size(35, 35);
-            this.RefreshStoresBT.TabIndex = 34;
-            this.RefreshStoresBT.UseVisualStyleBackColor = false;
-            this.RefreshStoresBT.Click += new System.EventHandler(this.RefreshStoresBT_Click);
-            this.RefreshStoresBT.MouseEnter += new System.EventHandler(this.RefreshStoresBT_MouseEnter);
-            this.RefreshStoresBT.MouseLeave += new System.EventHandler(this.RefreshStoresBT_MouseLeave);
-            // 
-            // SettingsBT
-            // 
-            this.SettingsBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.SettingsBT.BackColor = System.Drawing.Color.Transparent;
-            this.SettingsBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Settings_Icon;
-            this.SettingsBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SettingsBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.SettingsBT.FlatAppearance.BorderSize = 0;
-            this.SettingsBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.SettingsBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.SettingsBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SettingsBT.Location = new System.Drawing.Point(556, 8);
-            this.SettingsBT.Name = "SettingsBT";
-            this.SettingsBT.Size = new System.Drawing.Size(40, 40);
-            this.SettingsBT.TabIndex = 25;
-            this.SettingsBT.UseVisualStyleBackColor = false;
-            this.SettingsBT.Click += new System.EventHandler(this.SettingsBT_Click);
-            this.SettingsBT.MouseEnter += new System.EventHandler(this.SettingsBT_MouseEnter);
-            this.SettingsBT.MouseLeave += new System.EventHandler(this.SettingsBT_MouseLeave);
-            // 
-            // AddRepoBT
-            // 
-            this.AddRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AddRepoBT.BackColor = System.Drawing.Color.Transparent;
-            this.AddRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.NewIcon;
-            this.AddRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AddRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.AddRepoBT.FlatAppearance.BorderSize = 0;
-            this.AddRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.AddRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.AddRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddRepoBT.Location = new System.Drawing.Point(435, 6);
-            this.AddRepoBT.Name = "AddRepoBT";
-            this.AddRepoBT.Size = new System.Drawing.Size(45, 45);
-            this.AddRepoBT.TabIndex = 21;
-            this.AddRepoBT.UseVisualStyleBackColor = false;
-            this.AddRepoBT.Click += new System.EventHandler(this.AddRepoBT_Click);
-            this.AddRepoBT.MouseEnter += new System.EventHandler(this.AddRepoBT_MouseEnter);
-            this.AddRepoBT.MouseLeave += new System.EventHandler(this.AddRepoBT_MouseLeave);
-            // 
-            // ClearRepoChangesBT
-            // 
-            this.ClearRepoChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClearRepoChangesBT.BackColor = System.Drawing.Color.Transparent;
-            this.ClearRepoChangesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Reset_Settings_Icon;
-            this.ClearRepoChangesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClearRepoChangesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.ClearRepoChangesBT.FlatAppearance.BorderSize = 0;
-            this.ClearRepoChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.ClearRepoChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.ClearRepoChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ClearRepoChangesBT.Location = new System.Drawing.Point(442, 305);
-            this.ClearRepoChangesBT.Name = "ClearRepoChangesBT";
-            this.ClearRepoChangesBT.Size = new System.Drawing.Size(35, 35);
-            this.ClearRepoChangesBT.TabIndex = 32;
-            this.ClearRepoChangesBT.UseVisualStyleBackColor = false;
-            this.ClearRepoChangesBT.Click += new System.EventHandler(this.ClearRepoChangesBT_Click);
-            this.ClearRepoChangesBT.MouseEnter += new System.EventHandler(this.ClearRepoChangesBT_MouseEnter);
-            this.ClearRepoChangesBT.MouseLeave += new System.EventHandler(this.ClearRepoChangesBT_MouseLeave);
-            // 
-            // SaveRepoChangesBT
-            // 
-            this.SaveRepoChangesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.SaveRepoChangesBT.BackColor = System.Drawing.Color.Transparent;
-            this.SaveRepoChangesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Save_Settings_Icon;
-            this.SaveRepoChangesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SaveRepoChangesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.SaveRepoChangesBT.FlatAppearance.BorderSize = 0;
-            this.SaveRepoChangesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.SaveRepoChangesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.SaveRepoChangesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveRepoChangesBT.Location = new System.Drawing.Point(7, 305);
-            this.SaveRepoChangesBT.Name = "SaveRepoChangesBT";
-            this.SaveRepoChangesBT.Size = new System.Drawing.Size(35, 35);
-            this.SaveRepoChangesBT.TabIndex = 31;
-            this.SaveRepoChangesBT.UseVisualStyleBackColor = false;
-            this.SaveRepoChangesBT.Click += new System.EventHandler(this.SaveRepoChangesBT_Click);
-            this.SaveRepoChangesBT.MouseEnter += new System.EventHandler(this.SaveRepoChangesBT_MouseEnter);
-            this.SaveRepoChangesBT.MouseLeave += new System.EventHandler(this.SaveRepoChangesBT_MouseLeave);
-            // 
-            // LogsBT
-            // 
-            this.LogsBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.LogsBT.BackColor = System.Drawing.Color.Transparent;
-            this.LogsBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Log_Icon;
-            this.LogsBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.LogsBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.LogsBT.FlatAppearance.BorderSize = 0;
-            this.LogsBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.LogsBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.LogsBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LogsBT.Location = new System.Drawing.Point(61, 192);
-            this.LogsBT.Name = "LogsBT";
-            this.LogsBT.Size = new System.Drawing.Size(35, 35);
-            this.LogsBT.TabIndex = 27;
-            this.LogsBT.UseVisualStyleBackColor = false;
-            this.LogsBT.Click += new System.EventHandler(this.LogsBT_Click);
-            this.LogsBT.MouseEnter += new System.EventHandler(this.LogsBT_MouseEnter);
-            this.LogsBT.MouseLeave += new System.EventHandler(this.LogsBT_MouseLeave);
-            // 
-            // NotesBT
-            // 
-            this.NotesBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.NotesBT.BackColor = System.Drawing.Color.Transparent;
-            this.NotesBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Notes_Icon;
-            this.NotesBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.NotesBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.NotesBT.FlatAppearance.BorderSize = 0;
-            this.NotesBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.NotesBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.NotesBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NotesBT.Location = new System.Drawing.Point(59, 150);
-            this.NotesBT.Name = "NotesBT";
-            this.NotesBT.Size = new System.Drawing.Size(35, 35);
-            this.NotesBT.TabIndex = 26;
-            this.NotesBT.UseVisualStyleBackColor = false;
-            this.NotesBT.Click += new System.EventHandler(this.NotesBT_Click);
-            this.NotesBT.MouseEnter += new System.EventHandler(this.NotesBT_MouseEnter);
-            this.NotesBT.MouseLeave += new System.EventHandler(this.NotesBT_MouseLeave);
             // 
             // MainViewFRM
             // 

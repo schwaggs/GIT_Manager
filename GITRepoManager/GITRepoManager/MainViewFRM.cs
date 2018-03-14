@@ -20,6 +20,9 @@ namespace GITRepoManager
         public static Thread Splash { get; set; }
 
         public static bool Settings_Changed { get; set; }
+        private static List<string> Refresh_Repo_Additions { get; set; }
+        private static List<RepoCell> Refresh_Repo_Deletions { get; set; }
+
 
         public MainViewFRM(string [] filepaths = null)
         {
@@ -45,11 +48,18 @@ namespace GITRepoManager
                         Environment.Exit(1);
                     }
                 }
-                
-                Splash.Abort();
+
                 InitializeComponent();
 
                 Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
+
+                if (RepoHelpers.Detect_Changes())
+                {
+                    Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+                    Refresh_Elements();
+                }
+
+                Splash.Abort();
 
 
                 //ReposLV.ShowItemToolTips = true;
@@ -151,18 +161,20 @@ namespace GITRepoManager
             #endregion
         }
 
-        #region Event - Form Load
+        #region Events
 
-        #region Event Handler - MainViewFRM
+        #region Form Load
+
+        #region MainViewFRM
 
         private void MainViewFRM_Load(object sender, EventArgs e)
         {
 
         }
 
-        #endregion Event Handler - MainViewFRM
+        #endregion
 
-        #endregion Event -Form Load
+        #endregion Form Load
 
 
         #region Mouse Click
@@ -186,6 +198,7 @@ namespace GITRepoManager
 
             if (Settings_Changed)
             {
+                Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
                 MainStatusSSL.Text = string.Empty;
                 StoreLocationCB_Initialize();
                 ReposLV_Initialize();
@@ -351,16 +364,43 @@ namespace GITRepoManager
 
             MainStatusSSL.Text = "Refreshing ...";
 
-            Refresh_Elements();
+            // Need to rescan the current store for any new repos
+            if (ManagerData.Selected_Store != null || !(string.IsNullOrEmpty(StoreLocationCB.SelectedItem.ToString()) && string.IsNullOrWhiteSpace(StoreLocationCB.SelectedItem.ToString())))
+            {
+                int instanceCount = ManagerData.Selected_Store._Repos.Count;
+                int currCount = Get_Store_Count();
 
-            this.Cursor = Cursors.Default;
+                if (RepoHelpers.Detect_Changes())
+                {
 
+                    Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+                    Refresh_Elements();
+                    MessageBox.Show("Changes were detected and applied.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                else
+                {
+                    MessageBox.Show("No changes were detected\n\nIf you just added a repo you will need to commit at least once for it to be detected.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                this.Cursor = Cursors.Default;
+            }
         }
 
         #endregion
-        
+
+
+        #region RepoPathTB
+
+        private void RepoPathTB_Click(object sender, EventArgs e)
+        {
+            RepoPathTB.SelectAll();
+        }
+
         #endregion
-        
+
+        #endregion
+
 
         #region Mouse Enter
 
@@ -678,9 +718,12 @@ namespace GITRepoManager
         {
             try
             {
-                ManagerData.Selected_Store = ManagerData.Stores[StoreLocationCB.SelectedItem.ToString()];
-                ReposLV_Initialize();
-                MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                if (ManagerData.Stores.Keys.Contains(StoreLocationCB.SelectedItem.ToString()))
+                {
+                    ManagerData.Selected_Store = ManagerData.Stores[StoreLocationCB.SelectedItem.ToString()];
+                    ReposLV_Initialize();
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
             }
 
             catch
@@ -744,8 +787,12 @@ namespace GITRepoManager
 
         #endregion
 
+        #endregion Events
+
 
         #region Main Form Methods
+
+        #region SplashStart
 
         public void SplashStart()
         {
@@ -762,10 +809,10 @@ namespace GITRepoManager
             }
         }
 
+        #endregion SplashStart
 
 
-
-
+        #region Populate_Info_List
 
         private void Populate_Info_List()
         {
@@ -783,9 +830,10 @@ namespace GITRepoManager
             }
         }
 
+        #endregion Populate_Info_List
 
 
-
+        #region StoreLocationCB_Initialize
 
         private void StoreLocationCB_Initialize()
         {
@@ -810,9 +858,10 @@ namespace GITRepoManager
             }
         }
 
+        #endregion StoreLocationCB_Initialize
 
 
-
+        #region ReposLV_Initialize
 
         private void ReposLV_Initialize()
         {
@@ -854,9 +903,10 @@ namespace GITRepoManager
             }
         }
 
+        #endregion ReposLV_Initialize
 
 
-
+        #region Refresh_Elements
 
         public void Refresh_Elements()
         {
@@ -877,11 +927,150 @@ namespace GITRepoManager
             ReposLV_Initialize();
         }
 
-        #endregion
+        #endregion Refresh_Elements
 
-        private void RepoPathTB_Click(object sender, EventArgs e)
+
+        #region Get_Store_Count
+
+        public static int Get_Store_Count()
         {
-            RepoPathTB.SelectAll();
+            List<string> temp = Directory.GetDirectories(ManagerData.Selected_Store._Path).ToList();
+
+            int count = temp.Count;
+
+            foreach (string path in temp)
+            {
+                if (!RepoHelpers.Is_Git_Repo(path))
+                {
+                    count--;
+                }
+            }
+
+            return count;
         }
+
+        #endregion Get_Store_Count
+
+
+        #region Get_Store_Additions
+
+        public void Get_Store_Additions()
+        {
+            List<string> temp = Directory.GetDirectories(ManagerData.Selected_Store._Path).ToList();
+
+            if (Refresh_Repo_Additions != null)
+            {
+                Refresh_Repo_Additions.Clear();
+            }
+
+            else
+            {
+                Refresh_Repo_Additions = new List<string>();
+            }
+
+            foreach (string path in temp)
+            {
+                bool contains = false;
+
+                foreach (RepoCell cell in ManagerData.Selected_Store._Repos.Values)
+                {
+                    if (path == cell.Path)
+                    {
+                        contains = true;
+                        break;
+                    }
+                }
+
+                if (!contains)
+                {
+                    // Addition
+                    if (RepoHelpers.Is_Git_Repo(path))
+                    {
+                        Refresh_Repo_Additions.Add(path);
+                    }
+                }
+            }
+        }
+
+        #endregion Get_Store_Additions
+
+
+        #region Get_Store_Deletions
+
+        public static void Get_Store_Deletions()
+        {
+            List<string> temp = Directory.GetDirectories(ManagerData.Selected_Store._Path).ToList();
+
+            if (Refresh_Repo_Deletions != null)
+            {
+                Refresh_Repo_Deletions.Clear();
+            }
+
+            else
+            {
+                Refresh_Repo_Deletions = new List<RepoCell>();
+            }
+
+            foreach (RepoCell cell in ManagerData.Selected_Store._Repos.Values)
+            {
+                bool contains = false;
+
+                foreach (string path in temp)
+                {
+                    if (path == cell.Path)
+                    {
+                        contains = true;
+                        break;
+                    }
+                }
+
+                if (!contains)
+                {
+                    // Deletion
+                    Refresh_Repo_Deletions.Add(cell);
+                }
+            }
+        }
+
+        #endregion Get_Store_Deletions
+
+
+        #region Refresh_Store_Dictionary
+
+        public void Refresh_Store_Dictionary()
+        {
+            foreach (RepoCell cell in Refresh_Repo_Deletions)
+            {
+                ManagerData.Selected_Store._Repos.Remove(cell.Name);
+            }
+
+            foreach (string path in Refresh_Repo_Additions)
+            {
+                DirectoryInfo temp = new DirectoryInfo(path);
+
+                RepoCell newCell = new RepoCell()
+                {
+                    Name = temp.Name,
+                    Path = temp.FullName,
+                    Current_Status = RepoCell.Status.Type.NONE,
+                    Notes = new Dictionary<string, string>(),
+                    Last_Commit = DateTime.MinValue,
+                    Last_Commit_Message = string.Empty,
+                    Logs = new Dictionary<string, List<EntryCell>>()
+                };
+
+                ManagerData.Selected_Store._Repos.Add(temp.Name, newCell);
+            }
+
+            Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+
+            var selectedItem = StoreLocationCB.SelectedItem;
+            Refresh_Elements();
+            StoreLocationCB.SelectedItem = selectedItem;
+        }
+
+        #endregion Refresh_Store_Dictionary
+
+        #endregion
     }
 }

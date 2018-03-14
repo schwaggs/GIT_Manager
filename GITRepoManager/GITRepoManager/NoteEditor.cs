@@ -247,13 +247,14 @@ namespace GITRepoManager
                 Text = "blanknote"
             };
 
-            if (NotesLV.Items.Contains(temp))
+            if (Duplicate_Note("blanknote"))
             {
                 MessageBox.Show("A blank note already exists, please edit this note before adding another.", "Duplicate Blank Note", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 NotesLV.SelectedItems.Clear();
-                NotesLV.Items[NotesLV.Items.IndexOf(temp)].Selected = true;
+                NotesLV.Items[Get_Blank_Note_Index()].Selected = true;
                 NotesLV.Select();
                 NoteTitleTB.Focus();
+                DeleteNoteBT.Visible = true;
             }
 
             else
@@ -275,6 +276,7 @@ namespace GITRepoManager
                     NoteTitleTB.Text = Current_Note.Name;
                     NoteBodyTB.Text = string.Empty;
                     NotesLV.Select();
+                    DeleteNoteBT.Visible = true;
                 }
             }
         }
@@ -286,45 +288,53 @@ namespace GITRepoManager
 
         private void SaveChangesBT_Click(object sender, EventArgs e)
         {
-            if (NoteTitleTB.Text != Current_Note.Name)
+            if (Current_Note == null)
             {
-                if (!string.IsNullOrEmpty(NoteTitleTB.Text) && !string.IsNullOrWhiteSpace(NoteTitleTB.Text))
-                {
-                    if (!Duplicate_Note(NoteTitleTB.Text))
-                    {
-                        Deleting_Item = true;
-
-                        Note_Changes.Remove(Current_Note.Name);
-                        Note_Changes.Add(NoteTitleTB.Text, NoteBodyTB.Text);
-
-                        NotesLV.Sorting = SortOrder.None;
-                        Current_Note.Name = NoteTitleTB.Text;
-                        Current_Note.Text = NoteTitleTB.Text;
-                        NotesLV.Sorting = SortOrder.Ascending;
-                        NotesLV.Sort();
-
-                        Deleting_Item = false;
-                    }
-
-                    else
-                    {
-                        MessageBox.Show("Duplicate note titles are not allowed, saving as previous title", "Duplicate Note Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        NoteTitleTB.Text = Current_Note.Name;
-                        Note_Changes[Current_Note.Name] = NoteBodyTB.Text;
-                    }
-                }
+                ManagerData.Selected_Repo.Notes.Clear();
             }
 
             else
             {
-                Note_Changes[Current_Note.Name] = NoteBodyTB.Text;
-            }
+                if (NoteTitleTB.Text != Current_Note.Name)
+                {
+                    if (!string.IsNullOrEmpty(NoteTitleTB.Text) && !string.IsNullOrWhiteSpace(NoteTitleTB.Text))
+                    {
+                        if (!Duplicate_Note(NoteTitleTB.Text))
+                        {
+                            Deleting_Item = true;
 
-            ManagerData.Selected_Repo.Notes.Clear();
+                            Note_Changes.Remove(Current_Note.Name);
+                            Note_Changes.Add(NoteTitleTB.Text, NoteBodyTB.Text);
 
-            foreach (KeyValuePair<string, string> kvp in Note_Changes)
-            {
-                ManagerData.Selected_Repo.Notes.Add(kvp.Key, kvp.Value);
+                            NotesLV.Sorting = SortOrder.None;
+                            Current_Note.Name = NoteTitleTB.Text;
+                            Current_Note.Text = NoteTitleTB.Text;
+                            NotesLV.Sorting = SortOrder.Ascending;
+                            NotesLV.Sort();
+
+                            Deleting_Item = false;
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("Duplicate note titles are not allowed, saving as previous title", "Duplicate Note Title", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            NoteTitleTB.Text = Current_Note.Name;
+                            Note_Changes[Current_Note.Name] = NoteBodyTB.Text;
+                        }
+                    }
+                }
+
+                else
+                {
+                    Note_Changes[Current_Note.Name] = NoteBodyTB.Text;
+                }
+
+                ManagerData.Selected_Repo.Notes.Clear();
+
+                foreach (KeyValuePair<string, string> kvp in Note_Changes)
+                {
+                    ManagerData.Selected_Repo.Notes.Add(kvp.Key, kvp.Value);
+                }
             }
 
             // Write the changes to config file
@@ -402,6 +412,11 @@ namespace GITRepoManager
 
                     }
                 }
+            }
+
+            if (NotesLV.Items.Count == 0)
+            {
+                DeleteNoteBT.Visible = false;
             }
         }
 

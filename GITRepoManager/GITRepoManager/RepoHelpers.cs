@@ -357,17 +357,16 @@ namespace GITRepoManager
             string currDate = "";
             string currMessage = "";
 
-            Regex rgx = new Regex(Properties.Resources.REGEX_LOG_PATTERN, RegexOptions.IgnoreCase);
+            Regex rgx = new Regex(Properties.Resources.REGEX_LOG_PATTERN, RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
             List<EntryCell> Entries = new List<EntryCell>();
-            Entries.Clear();
-
-            foreach (Match commit in rgx.Matches(Full_Log))
+            var matches = rgx.Matches(Full_Log);
+            foreach (Match commit in matches)
             {
-                currID = commit.Groups[1].ToString();
-                currAuthor = commit.Groups[2].ToString();
-                currDate = commit.Groups[3].ToString();
-                currMessage = commit.Groups[4].ToString();
+                currID = commit.Groups[1].Value;
+                currAuthor = commit.Groups[2].Value;
+                currDate = commit.Groups[3].Value;
+                currMessage = commit.Groups[4].Value;
 
                 EntryCell entry = new EntryCell
                 {
@@ -464,6 +463,303 @@ namespace GITRepoManager
                 return string.Empty;
             }
         }
+
+        #endregion
+
+
+        #region Detect Changes
+
+        public static bool Detect_Changes()
+        {
+            #region Initialization
+
+            Dictionary<string, List<string>> currRepos = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> currRepos_Deletions = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> currRepos_Additions = new Dictionary<string, List<string>>();
+
+            bool changes = false;
+            
+
+            foreach (StoreCell store in ManagerData.Stores.Values)
+            {
+                foreach (RepoCell repo in store._Repos.Values)
+                {
+                    if (currRepos.Keys.Contains(store._Path))
+                    {
+                        if (currRepos[store._Path] == null)
+                        {
+                            currRepos[store._Path] = new List<string>();
+                            currRepos[store._Path].Add(repo.Path);
+                        }
+
+                        else
+                        {
+                            currRepos[store._Path].Add(repo.Path);
+                        }
+                    }
+
+                    else
+                    {
+                        currRepos.Add(store._Path, new List<string>());
+                        currRepos[store._Path].Add(repo.Path);
+                    }
+                }
+            }
+
+            #endregion Initialization
+
+
+            #region Find Changes
+
+            currRepos_Additions = Detect_Additions(currRepos);
+            currRepos_Deletions = Detect_Deletions(currRepos);
+
+            if (currRepos_Additions.Count > 0 || currRepos_Deletions.Count > 0)
+            {
+                changes = true;
+            }
+
+            #endregion Find Changes
+
+
+            #region Apply Changes
+
+            if (changes)
+            {
+                string response = string.Empty;
+
+                if (currRepos_Additions.Count > 0)
+                {
+                    response = Add_Repos(currRepos_Additions);
+
+                    if (response != string.Empty)
+                    {
+                        MessageBox.Show(response, "Error Adding Repo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                if (currRepos_Deletions.Count > 0)
+                {
+                    response = Remove_Repos(currRepos_Deletions);
+
+                    if (response != string.Empty)
+                    {
+                        MessageBox.Show(response, "Error Removing Repo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
+            #endregion Apply Changes
+
+
+            #region Return
+
+            return changes;
+
+            #endregion Return
+        }
+
+        #region Get_Store_Count
+
+        public static int Get_Store_Count(List<string> stores, ref List<string> validStores)
+        {
+            int count = stores.Count;
+            foreach (string path in stores)
+            {
+                if (!Directory.Exists(path))
+                {
+                    count--;
+                }
+            }
+
+            return count;
+        }
+
+        #endregion Get_Store_Count
+
+
+        #region Get_Repo_Count
+
+        public static int Get_Repo_Count(Dictionary<string, List<string>> stores)
+        {
+            int count = 0;
+
+            foreach (List<string> repos in stores.Values)
+            {
+                count += repos.Count;
+            }
+
+            return count;
+        }
+
+        #endregion Get_Repo_Count
+
+
+        #region Detect_Additions
+
+        public static Dictionary<string, List<string>> Detect_Additions(Dictionary<string, List<string>> currList)
+        {
+            Dictionary<string, List<string>> additions = new Dictionary<string, List<string>>();
+
+            foreach (KeyValuePair<string, List<string>> kvp in currList)
+            {
+                // Outer = dir inner = repo => Addition
+
+                foreach (string path in Directory.GetDirectories(kvp.Key))
+                {
+                    bool contains = false;
+
+                    foreach (string currRepo in kvp.Value)
+                    {
+                        if (path == currRepo)
+                        {
+                            contains = true;
+                            break;
+                        }
+                    }
+
+                    if (!contains)
+                    {
+                        if (Is_Git_Repo(path))
+                        {
+                            if (additions.Keys.Contains(kvp.Key))
+                            {
+                                additions[kvp.Key].Add(path);
+                            }
+
+                            else
+                            {
+                                additions.Add(kvp.Key, new List<string>());
+                                additions[kvp.Key].Add(path);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return additions;
+        }
+
+        #endregion Detect_Additions
+
+
+        #region Detect_Deletions
+
+        public static Dictionary<string, List<string>> Detect_Deletions(Dictionary<string, List<string>> currList)
+        {
+            Dictionary<string, List<string>> deletions = new Dictionary<string, List<string>>();
+
+            foreach (KeyValuePair<string, List<string>> kvp in currList)
+            {
+                // Outer = repo inner = dir => Deletion
+                foreach (string repoPath in kvp.Value)
+                {
+                    bool contains = false;
+
+                    foreach (string path in Directory.GetDirectories(kvp.Key))
+                    {
+                        if (repoPath == path)
+                        {
+                            contains = true;
+                            break;
+                        }
+                    }
+
+                    if (!contains)
+                    {
+                        if (deletions.Keys.Contains(kvp.Key))
+                        {
+                            deletions[kvp.Key].Add(repoPath);
+                        }
+
+                        else
+                        {
+                            deletions.Add(kvp.Key, new List<string>());
+                            deletions[kvp.Key].Add(repoPath);
+                        }
+                    }
+                }
+            }
+
+            return deletions;
+        }
+
+        #endregion Detect_Deletions
+
+
+        #region Add_Repos
+
+        public static string Add_Repos(Dictionary<string, List<string>> additions)
+        {
+            string response = string.Empty;
+
+            foreach (KeyValuePair<string, List<string>> kvp in additions)
+            {
+                DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
+
+                foreach (string path in kvp.Value)
+                {
+                    DirectoryInfo repoInfo = new DirectoryInfo(path);
+
+                    RepoCell repo = new RepoCell()
+                    {
+                        Name = repoInfo.Name,
+                        Path = repoInfo.FullName,
+                        Current_Status = RepoCell.Status.Type.NONE,
+                        Last_Commit = DateTime.MinValue,
+                        Last_Commit_Message = string.Empty,
+                        Notes = new Dictionary<string, string>(),
+                        Logs = new Dictionary<string, List<EntryCell>>()
+                    };
+
+                    try
+                    {
+                        ManagerData.Stores[storeInfo.Name]._Repos.Add(repoInfo.Name, repo);
+                    }
+
+                    catch (Exception ex)
+                    {
+                        response += ex.Message + Environment.NewLine + Environment.NewLine;
+                    }
+                }
+            }
+
+            return response;
+        }
+
+        #endregion Add_Repos
+
+
+        #region Remove_Repos
+
+        public static string Remove_Repos(Dictionary<string, List<string>> deletions)
+        {
+            string response = string.Empty;
+
+            foreach (KeyValuePair<string, List<string>> kvp in deletions)
+            {
+                DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
+
+                foreach (string path in kvp.Value)
+                {
+                    DirectoryInfo repoInfo = new DirectoryInfo(path);
+
+                    try
+                    {
+                        ManagerData.Stores[storeInfo.Name]._Repos.Remove(repoInfo.Name);
+                    }
+
+                    catch(Exception ex)
+                    {
+                        response += ex.Message + Environment.NewLine + Environment.NewLine;
+                    }
+                }
+            }
+
+            return response;
+        }
+
+        #endregion Remove_Repos
 
         #endregion
     }

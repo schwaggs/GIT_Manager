@@ -321,7 +321,7 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to commit (.*)\nAuthor: (.*)\nDate: (.*)\s{4,}(.*)\n*.
+        ///   Looks up a localized string similar to commit (.*?)\nAuthor: (.*?)\nDate: (.*?)\s{4,}(.*)\n*.
         /// </summary>
         internal static string REGEX_LOG_PATTERN {
             get {

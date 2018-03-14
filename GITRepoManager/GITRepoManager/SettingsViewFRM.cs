@@ -10,12 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using static System.Windows.Forms.ListViewItem;
 
 namespace GITRepoManager
 {
     public partial class SettingsViewFRM : Form
     {
-        public static List<string> TempPaths { get; set; }
         private string Clone_Path { get; set; }
         private int Store_Count { get; set; }
 
@@ -32,9 +32,8 @@ namespace GITRepoManager
 
         private void SettingsViewFRM_Load(object sender, EventArgs e)
         {
-            TempPaths = new List<string>();
-
             FileInfo ConfigInfo = new FileInfo(Properties.Settings.Default.ConfigPath);
+            MainViewFRM.Settings_Changed = false;
 
             if (ConfigInfo.Exists)
             {
@@ -50,7 +49,6 @@ namespace GITRepoManager
 
             Clone_Path = CloneDestinationTB.Text;
             Store_Count = StoreLocationLV.Items.Count;
-            TimeoutTB.Text = Properties.Settings.Default.LogProcessTimeout.ToString();
         }
 
         #endregion
@@ -76,6 +74,8 @@ namespace GITRepoManager
 
         private void BrowseBT_Click(object sender, EventArgs e)
         {
+            SaveMessageLB.Text = string.Empty;
+
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
                 InitialDirectory = @"C:\",
@@ -85,7 +85,39 @@ namespace GITRepoManager
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                TempPathTB.Text = dialog.FileName;
+                if (string.IsNullOrEmpty(dialog.FileName) || string.IsNullOrWhiteSpace(dialog.FileName))
+                {
+                    MessageBox.Show("Path to add cannot be empty.", "Empty Path", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+                else
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(dialog.FileName);
+
+                    if (dirInfo.Exists)
+                    {
+                        ListViewItem Main = new ListViewItem
+                        {
+                            Name = dirInfo.Name,
+                            Text = dirInfo.Name,
+                        };
+
+                        ListViewItem.ListViewSubItem Sub = new ListViewItem.ListViewSubItem
+                        {
+                            Name = dirInfo.FullName,
+                            Text = dirInfo.FullName
+                        };
+
+                        Main.SubItems.Add(Sub);
+
+                        StoreLocationLV.Items.Add(Main);
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Could not find " + dialog.FileName);
+                    }
+                }
             }
         }
 
@@ -96,31 +128,76 @@ namespace GITRepoManager
 
         private void SaveSettingsBT_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(TimeoutTB.Text) && !string.IsNullOrWhiteSpace(TimeoutTB.Text))
+            SaveMessageLB.Text = string.Empty;
+
+            if (!string.IsNullOrEmpty(CloneDestinationTB.Text) && !string.IsNullOrWhiteSpace(CloneDestinationTB.Text))
             {
-                int temp = Properties.Settings.Default.LogProcessTimeout;
-
-                int.TryParse(TimeoutTB.Text, out temp);
-                Properties.Settings.Default.LogProcessTimeout = temp;
-            }
-
-            if (CloneDestinationTB.Text != Clone_Path || StoreLocationLV.Items.Count != Store_Count)
-            {
-                MainViewFRM.Settings_Changed = true;
-
-                Add_Temp_Stores();
-                Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
-
-                if (!string.IsNullOrEmpty(CloneDestinationTB.Text) || !string.IsNullOrWhiteSpace(CloneDestinationTB.Text))
+                if (CloneDestinationTB.Text != Properties.Settings.Default.CloneLocalSourcePath)
                 {
                     Properties.Settings.Default.CloneLocalSourcePath = CloneDestinationTB.Text;
-                    Properties.Settings.Default.Save();
                 }
             }
 
-            else
+            if (Store_List_Changed())
             {
-                MainViewFRM.Settings_Changed = false;
+                MainViewFRM.Settings_Changed = true;
+
+                // Add new items
+                foreach (ListViewItem lvi in StoreLocationLV.Items)
+                {
+                    if (!ManagerData.Stores.Keys.Contains(lvi.Name))
+                    {
+                        StoreCell temp = null;
+                        temp = new StoreCell(lvi.SubItems[1].Name);
+                        temp._Repos = Get_Repos(new DirectoryInfo(lvi.SubItems[1].Name));
+
+                        if (temp != null)
+                        {
+                            DirectoryInfo tempInfo = new DirectoryInfo(temp._Path);
+                            ManagerData.Stores.Add(tempInfo.Name, temp);
+                        }
+                    }
+                }
+
+                List<string> DeletedKeys = new List<string>();
+
+                foreach (string key in ManagerData.Stores.Keys)
+                {
+                    if (StoreLocationLV.Items.Count > 0)
+                    {
+                        bool removeKey = true;
+
+                        foreach (ListViewItem lvi in StoreLocationLV.Items)
+                        {
+                            if (lvi.Name == key)
+                            {
+                                removeKey = false;
+                            }
+                        }
+
+                        if (removeKey)
+                        {
+                            DeletedKeys.Add(key);
+                        }
+                    }
+                }
+
+                if (StoreLocationLV.Items.Count == 0 && ManagerData.Stores.Count != 0)
+                {
+                    ManagerData.Stores.Clear();
+                }
+
+                else
+                {
+                    foreach (string key in DeletedKeys)
+                    {
+                        ManagerData.Stores.Remove(key);
+                    }
+                }
+
+                Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+
+                SaveMessageLB.Text = "Settings successfully saved.";
             }
         }
 
@@ -131,6 +208,8 @@ namespace GITRepoManager
 
         private void BrowseClonePathBT_Click(object sender, EventArgs e)
         {
+            SaveMessageLB.Text = string.Empty;
+
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
                 InitialDirectory = @"C:\",
@@ -151,40 +230,12 @@ namespace GITRepoManager
 
         private void DeleteLocationBT_Click(object sender, EventArgs e)
         {
-            ListViewItem selected = StoreLocationLV.SelectedItems[0];
+            SaveMessageLB.Text = string.Empty;
 
-            if (!string.IsNullOrEmpty(selected.Text) || !string.IsNullOrWhiteSpace(selected.Text))
-            {
-                ManagerData.Stores.Remove(selected.Text);
-            }
+            ListViewItem selected = StoreLocationLV.SelectedItems[0];
 
             StoreLocationLV.SelectedItems.Clear();
             StoreLocationLV.Items.Remove(selected);
-        }
-
-        #endregion
-
-
-        #region ResetSettingsBT
-
-        private void ResetSettingsBT_Click(object sender, EventArgs e)
-        {
-            DialogResult reset = MessageBox.Show
-            (
-                "Are You Sure You Want To Clear All Config File Paths?\nYou will need to add at least one path for program to run.",
-                "Reset Config Paths",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (reset == DialogResult.Yes)
-            {
-                Properties.Settings.Default.Reset();
-                Properties.Settings.Default.Save();
-
-                TempPathTB.Clear();
-                TempPaths.Clear();
-            }
         }
 
         #endregion
@@ -194,45 +245,7 @@ namespace GITRepoManager
 
         private void AddPathBT_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(TempPathTB.Text) || string.IsNullOrWhiteSpace(TempPathTB.Text))
-            {
-                MessageBox.Show("Path to add cannot be empty.", "Empty Path", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            else
-            {
-                DirectoryInfo dirInfo = new DirectoryInfo(TempPathTB.Text);
-
-                if (dirInfo.Exists)
-                {
-                    ListViewItem Main = new ListViewItem
-                    {
-                        Name = dirInfo.Name,
-                        Text = dirInfo.Name,
-                    };
-
-                    ListViewItem.ListViewSubItem Sub = new ListViewItem.ListViewSubItem
-                    {
-                        Name = dirInfo.FullName,
-                        Text = dirInfo.FullName
-                    };
-
-                    Main.SubItems.Add(Sub);
-
-                    StoreLocationLV.Items.Add(Main);
-
-                    TempPathTB.Clear();
-                    TempPathTB.Focus();
-
-                    TempPaths.Add(dirInfo.FullName);
-                }
-
-                else
-                {
-                    MessageBox.Show("Could not find " + TempPathTB.Text);
-                    TempPathTB.Focus();
-                }
-            }
+            
         }
 
         #endregion
@@ -247,16 +260,6 @@ namespace GITRepoManager
 
         #endregion
 
-
-        #region TimeoutTB
-
-        private void TimeoutTB_Click(object sender, EventArgs e)
-        {
-            TimeoutTB.SelectAll();
-        }
-
-        #endregion
-
         #endregion Click
 
 
@@ -266,7 +269,7 @@ namespace GITRepoManager
 
         private void BrowseBT_MouseEnter(object sender, EventArgs e)
         {
-            BrowseBT.BackgroundImage = Properties.Resources.Browse_Icon_Hover;
+            BrowseBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
             SettingsInfoSSSL.Text = "Browse to a store location.";
         }
 
@@ -284,23 +287,12 @@ namespace GITRepoManager
         #endregion
 
 
-        #region AddPathBT
-
-        private void AddPathBT_MouseEnter(object sender, EventArgs e)
-        {
-            AddPathBT.BackgroundImage = Properties.Resources.Add_Tag_Icon_Hover;
-            SettingsInfoSSSL.Text = "Add a store to the configuration.";
-        }
-
-        #endregion
-
-
         #region DeleteLocationBT
 
         private void DeleteLocationBT_MouseEnter(object sender, EventArgs e)
         {
             DeleteLocationBT.BackgroundImage = Properties.Resources.DeleteIcon_Hover;
-            SettingsInfoSSSL.Text = "Remove the selected store(s) from the configuration.";
+            SettingsInfoSSSL.Text = "Remove the selected store from the configuration.";
         }
 
         #endregion
@@ -325,7 +317,7 @@ namespace GITRepoManager
 
         private void BrowseBT_MouseLeave(object sender, EventArgs e)
         {
-            BrowseBT.BackgroundImage = Properties.Resources.Browse_Icon;
+            BrowseBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
             SettingsInfoSSSL.Text = string.Empty;
         }
 
@@ -337,17 +329,6 @@ namespace GITRepoManager
         private void SaveSettingsBT_MouseLeave(object sender, EventArgs e)
         {
             SaveSettingsBT.BackgroundImage = Properties.Resources.Save_Settings_Icon;
-            SettingsInfoSSSL.Text = string.Empty;
-        }
-
-        #endregion
-
-
-        #region AddPathBT
-
-        private void AddPathBT_MouseLeave(object sender, EventArgs e)
-        {
-            AddPathBT.BackgroundImage = Properties.Resources.Add_Tag_Icon;
             SettingsInfoSSSL.Text = string.Empty;
         }
 
@@ -442,39 +423,12 @@ namespace GITRepoManager
         #endregion
 
 
-        #region Add_Temp_Stores
-
-        private void Add_Temp_Stores()
-        {
-            foreach (string path in TempPaths)
-            {
-                DirectoryInfo pathInfo = new DirectoryInfo(path);
-
-                if (pathInfo.Exists)
-                {
-                    StoreCell tempStore = new StoreCell(pathInfo.FullName)
-                    {
-                        _Path = pathInfo.FullName,
-                        _Repos = Get_Repos(pathInfo)
-                    };
-
-                    tempStore._Count = tempStore._Repos.Count();
-
-                    ManagerData.Stores.Add(pathInfo.Name, tempStore);
-                }
-            }
-
-            TempPaths.Clear();
-        }
-
-        #endregion
-
-
         #region Get_Repos
 
         private Dictionary<string, RepoCell> Get_Repos(DirectoryInfo pathInfo)
         {
             Dictionary<string, RepoCell> Repos = new Dictionary<string, RepoCell>();
+
 
             foreach (string dir in Directory.GetDirectories(pathInfo.FullName))
             {
@@ -505,7 +459,34 @@ namespace GITRepoManager
 
         #endregion
 
+
+        #region Store_List_Changed
+
+        private bool Store_List_Changed()
+        {
+            foreach (ListViewItem lvi in StoreLocationLV.Items)
+            {
+                if (!ManagerData.Stores.Keys.Contains(lvi.Name))
+                {
+                    return true;
+                }
+            }
+
+            if (StoreLocationLV.Items.Count != ManagerData.Stores.Count)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
         #endregion Methods
 
+        private void CloneDestinationTB_TextChanged(object sender, EventArgs e)
+        {
+            SaveMessageLB.Text = string.Empty;
+        }
     }
 }

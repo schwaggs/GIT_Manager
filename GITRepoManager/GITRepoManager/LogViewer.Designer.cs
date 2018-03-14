@@ -49,7 +49,6 @@
             this.LogNamesLV.Name = "LogNamesLV";
             this.LogNamesLV.ShowGroups = false;
             this.LogNamesLV.Size = new System.Drawing.Size(211, 352);
-            this.LogNamesLV.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.LogNamesLV.TabIndex = 0;
             this.LogNamesLV.UseCompatibleStateImageBehavior = false;
             this.LogNamesLV.View = System.Windows.Forms.View.Details;
