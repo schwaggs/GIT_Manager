@@ -29,7 +29,7 @@
     <ProductName>GIT Mananager</ProductName>
     <PublisherName>OEM Solutions, Inc</PublisherName>
     <SuiteName>GIT</SuiteName>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -66,6 +66,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ManagerIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoClosingMessageBox, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
@@ -303,8 +306,13 @@
     <None Include="Resources\Browse_Icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ManagerIcon.ico" />
+    <Content Include="ManagerIcon.png" />
     <Content Include="PacketStructure.xml" />
     <Content Include="ReleaseNotes.css" />
+    <Content Include="Resources\ManagerIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\RefreshIconHover.png" />
     <None Include="Resources\RefreshIcon.png" />
   </ItemGroup>
@@ -319,6 +327,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".gmc">
+      <Visible>False</Visible>
+      <Description>Git Manager Config File</Description>
+      <Progid>1</Progid>
+      <DefaultIcon>Resources\ManagerIcon.ico</DefaultIcon>
+    </FileAssociation>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
