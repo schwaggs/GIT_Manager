@@ -1,6 +1,6 @@
 ﻿namespace GITRepoManager
 {
-    partial class NoteEditor
+    partial class NoteEditorFRM
     {
         /// <summary>
         /// Required designer variable.
@@ -188,10 +188,10 @@
             this.AddNoteBT.MouseEnter += new System.EventHandler(this.AddNoteBT_MouseEnter);
             this.AddNoteBT.MouseLeave += new System.EventHandler(this.AddNoteBT_MouseLeave);
             // 
-            // NoteEditor
+            // NoteEditorFRM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(778, 390);
@@ -207,7 +207,7 @@
             this.Controls.Add(this.NotesLV);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "NoteEditor";
+            this.Name = "NoteEditorFRM";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Note Editor";

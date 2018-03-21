@@ -16,6 +16,7 @@ namespace GITRepoManager
 
         public Dictionary<string, string> Notes { get; set; }                 
         public Dictionary<string, List<EntryCell>> Logs { get; set; }
+        public bool Logs_Parsed { get; set; }
 
         public static class Status
         {

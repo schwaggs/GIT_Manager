@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,33 +14,35 @@ namespace GITRepoManager
 {
     public static class RepoHelpers
     {
+        #region Class Data
+
         public static string Exception_Message { get; set; }
         public static string Redirected_Output { get; set; }
         private static bool Is_Repo { get; set; }
 
+        #endregion Class Data
 
 
+        #region Class Methods
 
+        #region Is_Git_Repo
 
-
-        #region Is GIT Repo
-
-       /*
-        *   ________________________________________________________________________________
-        *   # Method:              #
-        *   #                                                                              #
-        *   # Usage:               #
-        *   #                                                                              #
-        *   # Parameters:          #   
-        *   #                                                                              #
-        *   # Returns:             #
-        *   #                                                                              #
-        *   # Last Date Modified:  #
-        *   #                                                                              #
-        *   # Last Modified By:    #
-        *   #                                                                              #
-        *   ________________________________________________________________________________
-        */
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              #
+         *   #                                                                              #
+         *   # Usage:               #
+         *   #                                                                              #
+         *   # Parameters:          #   
+         *   #                                                                              #
+         *   # Returns:             #
+         *   #                                                                              #
+         *   # Last Date Modified:  #
+         *   #                                                                              #
+         *   # Last Modified By:    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
 
         public static bool Is_Git_Repo(string dir)
         {
@@ -120,7 +123,6 @@ namespace GITRepoManager
                         else
                         {
                             // Process exited with error
-                            //MessageBox.Show("Unable verify if current directory is a repository", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
@@ -128,7 +130,6 @@ namespace GITRepoManager
                     else
                     {
                         // Timed out
-                        //MessageBox.Show("Checking if current directory is a repository has timed out.", "Timed Out", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return false;
                     }
                 }
@@ -141,20 +142,10 @@ namespace GITRepoManager
             }
         }
 
-        private static void Cmd_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            MessageBox.Show(e.Data.ToString());
-        }
-
-        private static void Cmd_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            MessageBox.Show(e.Data.ToString());
-        }
-
-        #endregion
+        #endregion Is_Git_Repo
 
 
-        #region Create Process
+        #region Create_Process
 
         /*
          *   ________________________________________________________________________________
@@ -220,10 +211,10 @@ namespace GITRepoManager
             }
         }
 
-        #endregion
+        #endregion Create_Process
 
 
-        #region Clone Repository
+        #region Clone_Repo
 
        /*
         *   ________________________________________________________________________________
@@ -242,11 +233,21 @@ namespace GITRepoManager
         *   ________________________________________________________________________________
         */
 
-        public static bool Clone(string Destination)
+        public static bool Clone_Repo(string Destination, bool Use_Selected_Repo, string source = "")
         {
             try
             {
-                Process Cloner = Create_Process(Destination, string.Format(Properties.Resources.REPO_CLONE, "\"" + ManagerData.Selected_Repo.Path + "\""));
+                Process Cloner = null;
+
+                if (Use_Selected_Repo)
+                {
+                    Cloner = Create_Process(Destination, string.Format(Properties.Resources.REPO_CLONE, "\"" + ManagerData.Selected_Repo.Path + "\""));
+                }
+
+                else
+                {
+                    Cloner = Create_Process(Destination, string.Format(Properties.Resources.REPO_CLONE, "\"" + source + "\""));
+                }
 
                 if (Cloner != null)
                 {
@@ -262,18 +263,18 @@ namespace GITRepoManager
 
             catch
             {
-                MessageBox.Show("Unsuccessful at cloning repository", "Cloning Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Unsuccessful at cloning repository", "Cloning Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
-            MessageBox.Show("Repository cloned successfully", "Clone Sucessful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Repository cloned successfully", "Clone Sucessful", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
         }
 
-        #endregion
+        #endregion Clone_Repo
 
 
-        #region Last Commit
+        #region Get_Last_Commit
 
        /*
         *   ________________________________________________________________________________
@@ -294,13 +295,23 @@ namespace GITRepoManager
 
         public static DateTime Get_Last_Commit()
         {
-            return DateTime.MinValue;
+            if (ManagerData.Selected_Repo != null)
+            {
+                EntryCell commit = ManagerData.Selected_Repo.Logs.Values.First().First();
+
+                return commit.Date;
+            }
+
+            else
+            {
+                return DateTime.MinValue;
+            }
         }
 
-        #endregion
+        #endregion Get_Last_Commit
 
 
-        #region Last Commit Message
+        #region Get_Last_Commit_Message
 
        /*
         *   ________________________________________________________________________________
@@ -321,13 +332,23 @@ namespace GITRepoManager
 
         public static string Get_Last_Commit_Message()
         {
-            return string.Empty;
+            if (ManagerData.Selected_Repo != null)
+            {
+                EntryCell commit = ManagerData.Selected_Repo.Logs.Values.First().First();
+
+                return commit.Message;
+            }
+
+            else
+            {
+                return string.Empty;
+            }
         }
 
-        #endregion
+        #endregion Get_Last_Commit_Message
 
 
-        #region Log Parser
+        #region Parse_Logs
 
         /*
          *   ________________________________________________________________________________
@@ -346,7 +367,7 @@ namespace GITRepoManager
          *   ________________________________________________________________________________
          */
 
-        public static List<EntryCell> Parse_Logs(string Full_Log)
+        public static List<EntryCell> Parse_Logs(string Full_Log, RepoCell currRepo = null)
         {
             // Get a list of matches that match the log format
             // There will probably be two sets, one for the ID and one for the message
@@ -361,6 +382,9 @@ namespace GITRepoManager
 
             List<EntryCell> Entries = new List<EntryCell>();
             var matches = rgx.Matches(Full_Log);
+
+            bool first = true;
+
             foreach (Match commit in matches)
             {
                 currID = commit.Groups[1].Value;
@@ -376,16 +400,60 @@ namespace GITRepoManager
                 };
 
                 DateTime temp = DateTime.MinValue;
-                DateTime.TryParse(currDate, out temp);
+
+                currDate = currDate.Trim();
+
+                temp = DateTime.ParseExact(currDate, "ddd MMM d HH:mm:ss yyyy zz00", null); 
 
                 entry.Date = temp;
                 Entries.Add(entry);
+
+                string shortID = currID.Substring(0, 8);
+
+                if (first)
+                {
+                    first = false;
+
+                    if (currRepo.Last_Commit == DateTime.MinValue && currRepo.Last_Commit != null)
+                    {
+                        currRepo.Last_Commit = entry.Date;
+                    }
+
+                    if (currRepo.Last_Commit_Message == string.Empty || currRepo.Last_Commit_Message == null)
+                    {
+                        currRepo.Last_Commit_Message = entry.Message;
+                    }
+                }
+
+                if (currRepo != null)
+                {
+                    if (currRepo.Logs != null)
+                    {
+                        if (currRepo.Logs.Keys.Contains(currID.Substring(0, 8)))
+                        {
+                            currRepo.Logs[shortID].Add(entry);
+                        }
+
+                        else
+                        {
+                            currRepo.Logs.Add(shortID, new List<EntryCell>());
+                            currRepo.Logs[shortID].Add(entry);
+                        }
+                    }
+
+                    else
+                    {
+                        currRepo.Logs = new Dictionary<string, List<EntryCell>>();
+                        currRepo.Logs.Add(shortID, new List<EntryCell>());
+                        currRepo.Logs[shortID].Add(entry);
+                    }
+                }
             }
 
             return Entries;
         }
 
-        #endregion
+        #endregion Parse_Logs
 
 
         #region Stores_To_String
@@ -467,7 +535,7 @@ namespace GITRepoManager
         #endregion
 
 
-        #region Detect Changes
+        #region Detect_Changes
 
         public static bool Detect_Changes()
         {
@@ -761,6 +829,263 @@ namespace GITRepoManager
 
         #endregion Remove_Repos
 
-        #endregion
+        #endregion Detect_Changes
+
+
+        #region Create_Blank_Repository
+
+        public static bool Create_Blank_Repository(string source, string name)
+        {
+            string Full_Path = source + @"\" + name + ".git";
+
+            if (!Directory.GetDirectories(source).Contains(name))
+            {
+                DirectoryInfo fullInfo = new DirectoryInfo(Full_Path);
+                fullInfo.Create();
+
+                // Any output and error from the processes used during this operation
+                List<string> temp = Initialize_Blank_Repository(fullInfo.FullName);
+
+                if (temp == null)
+                {
+                    if (Is_Git_Repo(fullInfo.FullName))
+                    {
+                        return true;
+                    }
+
+                    else
+                    {
+                        try
+                        {
+                            fullInfo.Delete();
+                        }
+
+                        catch
+                        {
+                        }
+
+                        return false;
+                    }
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+
+        #region Initialize_Blank_Repository
+
+        public static List<string> Initialize_Blank_Repository(string path)
+        {
+            DirectoryInfo pathInfo = new DirectoryInfo(path);
+            List<string> response = new List<string>();
+
+            // First we need to do an init --bare inside the repo
+            try
+            {
+                Process Init = Create_Process(path, Properties.Resources.REPO_BLANK);
+
+                if (Init != null)
+                {
+                    response = Process_Output(Init, "Init");
+
+                    if (!(response[1] == "Init Error:\n\n"))
+                    {
+                        return response;
+                    }
+                }
+
+                else
+                {
+                    response.Add("Init Process Error");
+                    return response;
+                }
+            }
+
+            catch(Exception ex)
+            {
+                response.Add("Init Exception:\n\n" + ex.Message);
+                return response;
+            }
+
+            string localPath = Properties.Settings.Default.CloneLocalSourcePath + @"\" + pathInfo.Name.Substring(0, pathInfo.Name.Length - 4);
+
+            // Then we need to clone the repo down to the source folder and add a readme
+            Clone_Repo(Properties.Settings.Default.CloneLocalSourcePath, false, path);
+            File.CreateText(localPath + @"\ReadMe.txt").Close();
+
+            // Then we need to add, commit, and push the changes
+
+            response.Clear();
+
+            try
+            {
+                Process add = Create_Process(localPath, Properties.Resources.REPO_ADD);
+
+                if (add != null)
+                {
+                    response = Process_Output(add, "Add");
+
+                    if (!(response[1] == "Add Error:\n\n"))
+                    {
+                        return response;
+                    }
+                }
+
+                else
+                {
+                    response.Add("Add Process Error");
+                    return response;
+                }
+            }
+
+            catch(Exception ex)
+            {
+                response.Add("Add Exception:\n\n" + ex.Message);
+                return response;
+            }
+
+            response.Clear();
+
+            try
+            {
+                response.Clear();
+                Process Committer = Create_Process(localPath, Properties.Resources.REPO_COMMIT_BLANK);
+
+                if (Committer != null)
+                {
+                    response = Process_Output(Committer, "Commit");
+
+                    if (!(response[1] == "Commit Error:\n\n"))
+                    {
+                        return response;
+                    }
+                }
+
+                else
+                {
+                    response.Add("Commit Process Error");
+                    return response;
+                }
+            }
+
+            catch(Exception ex)
+            {
+                response.Add("Commit Exception:\n\n" + ex.Message);
+                return response;
+            }
+
+            response.Clear();
+
+            try
+            {
+                Process Pusher = Create_Process(localPath, Properties.Resources.REPO_PUSH);
+
+                if (Pusher != null)
+                {
+                    response = Process_Output(Pusher, "Push");
+
+                    if (!(response[1] == "Push Error:\n\n"))
+                    {
+                        //return response;
+                    }
+                }
+
+                else
+                {
+                    response.Add("Push Process Error");
+                    return response;
+                }
+            }
+
+            catch(Exception ex)
+            {
+                response.Add("Push Exception:\n\n" + ex.Message);
+                return response;
+            }
+
+            response.Clear();
+
+            // Then we need to delete the local repo
+            try
+            {
+                Delete_Directory(localPath);
+            }
+
+            catch (Exception ex)
+            {
+                response.Add("Delete Exception:\n\n" + ex.Message);
+                return response;
+            }
+
+            return null;
+        }
+
+        #endregion Initialize_Blank_Repository
+
+
+        #region Process_Output
+
+        public static List<string> Process_Output(Process cmd, string designator = "")
+        {
+            //Process LogP = RepoHelpers.Create_Process(ManagerData.Selected_Repo.Path, " git --no-pager log");
+            cmd.Start();
+            string output = string.Empty;
+            string error = string.Empty;
+            output = cmd.StandardOutput.ReadToEnd();
+            error = cmd.StandardError.ReadToEnd();
+            cmd.StandardInput.WriteLine("exit");
+            cmd.WaitForExit();
+
+            List<string> returns = new List<string>();
+
+            if (designator == "")
+            {
+                returns.Add(output);
+                returns.Add(error);
+            }
+
+            else
+            {
+                returns.Add(designator + " Output:\n\n" + output);
+                returns.Add(designator + " Error:\n\n" + error);
+            }
+
+            return returns;
+        }
+
+        #endregion Process_Output
+
+
+        #region Delete_Directory
+
+        public static void Delete_Directory(string path)
+        {
+            foreach (string file in Directory.GetFiles(path))
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string dir in Directory.GetDirectories(path))
+            {
+                Delete_Directory(dir);
+            }
+
+            Directory.Delete(path, true);
+        }
+
+        #endregion Delete_Directory
+
+        #endregion Create_Blank_Repository
+
+        #endregion Class Methods
     }
 }

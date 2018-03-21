@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace GITRepoManager
         private static List<string> Refresh_Repo_Additions { get; set; }
         private static List<RepoCell> Refresh_Repo_Deletions { get; set; }
 
+        private bool Refresh_Complete { get; set; }
+        private string Refresh_Message { get; set; }
 
         public MainViewFRM(string [] filepaths = null)
         {
@@ -245,17 +248,6 @@ namespace GITRepoManager
         #endregion
 
 
-        #region MoveRepoBT
-
-        private void MoveRepoBT_Click(object sender, EventArgs e)
-        {
-            MoveRepoFRM MoveRepo = new MoveRepoFRM();
-            MoveRepo.ShowDialog();
-        }
-
-        #endregion
-
-
         #region CloneRepoBT
 
         private void CloneRepoBT_Click(object sender, EventArgs e)
@@ -304,7 +296,13 @@ namespace GITRepoManager
 
         private void AddRepoBT_Click(object sender, EventArgs e)
         {
+            AddRepoFRM New_Repo = new AddRepoFRM(ManagerData.Selected_Store._Path);
+            New_Repo.ShowDialog();
 
+            if (New_Repo.Repo_Added)
+            {
+                RefreshStoresBT_Click(null, null);
+            }
         }
 
         #endregion
@@ -328,7 +326,7 @@ namespace GITRepoManager
             {
                 if (ManagerData.Selected_Repo_Copy != null)
                 {
-                    NoteEditor EditNotes = new NoteEditor();
+                    NoteEditorFRM EditNotes = new NoteEditorFRM();
                     EditNotes.ShowDialog();
 
                     ReposLV.Select();
@@ -347,7 +345,7 @@ namespace GITRepoManager
             {
                 if (ManagerData.Selected_Repo != null)
                 {
-                    LogViewer logs = new LogViewer(ManagerData.Selected_Repo.Path);
+                    LogViewerFRM logs = new LogViewerFRM(ManagerData.Selected_Repo.Path);
                     logs.ShowDialog();
                 }
             }
@@ -375,15 +373,24 @@ namespace GITRepoManager
 
                     Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
                     Refresh_Elements();
-                    MessageBox.Show("Changes were detected and applied.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MainStatusSSL.Text = "Refresh Complete - Changes Were Applied";
+                    //MessageBox.Show("Changes were detected and applied.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 else
                 {
-                    MessageBox.Show("No changes were detected\n\nIf you just added a repo you will need to commit at least once for it to be detected.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("No changes were detected\n\nIf you just added a repo you will need to commit at least once for it to be detected.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MainStatusSSL.Text = "Refresh Complete - No Changes Detected";
                 }
 
                 this.Cursor = Cursors.Default;
+
+                Refresh_Complete = true;
+            }
+
+            else
+            {
+                Refresh_Complete = false;
             }
         }
 
@@ -494,6 +501,18 @@ namespace GITRepoManager
         private void RefreshStoresBT_MouseEnter(object sender, EventArgs e)
         {
             RefreshStoresBT.BackgroundImage = Properties.Resources.RefreshIconHover;
+
+            if (Refresh_Complete)
+            {
+                Refresh_Complete = false;
+                Refresh_Message = MainStatusSSL.Text;
+            }
+
+            else
+            {
+                Refresh_Message = string.Empty;
+            }
+
             MainStatusSSL.Text = "Manually refresh all repository stores.";
         }
 
@@ -669,19 +688,38 @@ namespace GITRepoManager
         {
             RefreshStoresBT.BackgroundImage = Properties.Resources.RefreshIcon;
 
-            if (ReposLV.SelectedItems.Count > 0)
+            if (Refresh_Complete)
             {
-                MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
-            }
-
-            else if (StoreLocationCB.SelectedItem != null)
-            {
-                MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                Refresh_Complete = false;
+                Refresh_Message = MainStatusSSL.Text;
             }
 
             else
             {
-                MainStatusSSL.Text = "";
+                Refresh_Message = string.Empty;
+            }
+
+            if (Refresh_Message != string.Empty)
+            {
+                MainStatusSSL.Text = Refresh_Message;
+            }
+
+            else
+            {
+                if (ReposLV.SelectedItems.Count > 0)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                }
+
+                else if (StoreLocationCB.SelectedItem != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = "";
+                }
             }
         }
 
@@ -750,11 +788,25 @@ namespace GITRepoManager
                 if (ManagerData.Selected_Repo != null)
                 {
                     MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
-                    Populate_Info_List();
                 }
 
                 RepoStatusCB.Enabled = true;
                 CloneRepoBT.Visible = true;
+
+                if (!ManagerData.Selected_Repo.Logs_Parsed)
+                {
+                    //RepoHelpers.Redirected_Output = string.Empty;
+                    Process LogP = RepoHelpers.Create_Process(ManagerData.Selected_Repo.Path, " git --no-pager log");
+                    LogP.Start();
+                    string Raw_Log = LogP.StandardOutput.ReadToEnd();
+                    LogP.StandardInput.WriteLine("exit");
+                    LogP.WaitForExit();
+
+                    RepoHelpers.Parse_Logs(Raw_Log, ManagerData.Selected_Repo);
+                    ManagerData.Selected_Repo.Logs_Parsed = true;
+                }
+                
+                Populate_Info_List();
             }
 
             else
@@ -816,12 +868,12 @@ namespace GITRepoManager
 
         private void Populate_Info_List()
         {
-            if (ManagerData.Selected_Repo_Copy != null)
+            if (ManagerData.Selected_Repo != null)
             {
-                RepoPathTB.Text = ManagerData.Selected_Repo_Copy.Path;
-                RepoStatusCB.SelectedIndex = (int)ManagerData.Selected_Repo_Copy.Current_Status;
-                LastCommitTB.Text = ManagerData.Selected_Repo_Copy.Last_Commit.ToString();
-                LastCommitMessageTB.Text = ManagerData.Selected_Repo_Copy.Last_Commit_Message;
+                RepoPathTB.Text = ManagerData.Selected_Repo.Path;
+                RepoStatusCB.SelectedIndex = (int)ManagerData.Selected_Repo.Current_Status;
+                LastCommitTB.Text = ManagerData.Selected_Repo.Last_Commit.ToString();
+                LastCommitMessageTB.Text = ManagerData.Selected_Repo.Last_Commit_Message;
             }
 
             else

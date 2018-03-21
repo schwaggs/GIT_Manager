@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -55,9 +56,13 @@ namespace GITRepoManager
                 {
                     bool ClonerResult = false;
 
-                    if (RepoHelpers.Clone(DestinationPathTB.Text))
+                    if (RepoHelpers.Clone_Repo(DestinationPathTB.Text, true))
                     {
                         ClonerResult = false;
+
+                        DirectoryInfo cloneInfo = new DirectoryInfo(RepoPathTB.Text);
+                        DirectoryInfo localInfo = new DirectoryInfo(Properties.Settings.Default.CloneLocalSourcePath);
+                        MessageBox.Show(cloneInfo.Name + " successfully cloned to " + localInfo.Name, "Clone Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     else
@@ -88,7 +93,7 @@ namespace GITRepoManager
                 }
             }
 
-            return;
+            this.Close();
         }
 
         private void CloneRepoBT_MouseEnter(object sender, EventArgs e)

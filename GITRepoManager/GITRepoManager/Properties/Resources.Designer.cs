@@ -366,6 +366,24 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to git add -A.
+        /// </summary>
+        internal static string REPO_ADD {
+            get {
+                return ResourceManager.GetString("REPO_ADD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to git init --bare.
+        /// </summary>
+        internal static string REPO_BLANK {
+            get {
+                return ResourceManager.GetString("REPO_BLANK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to git clone {0} .
         /// </summary>
         internal static string REPO_CLONE {
@@ -375,11 +393,20 @@ namespace GITRepoManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  push -u origin master.
+        ///   Looks up a localized string similar to git commit -m &quot;Initial Commit&quot;.
         /// </summary>
-        internal static string REPO_PUSH_ORIGIN_MASTER {
+        internal static string REPO_COMMIT_BLANK {
             get {
-                return ResourceManager.GetString("REPO_PUSH_ORIGIN_MASTER", resourceCulture);
+                return ResourceManager.GetString("REPO_COMMIT_BLANK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to git push.
+        /// </summary>
+        internal static string REPO_PUSH {
+            get {
+                return ResourceManager.GetString("REPO_PUSH", resourceCulture);
             }
         }
         

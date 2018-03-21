@@ -12,14 +12,14 @@ using System.Windows.Forms;
 
 namespace GITRepoManager
 {
-    public partial class LogViewer : Form
+    public partial class LogViewerFRM : Form
     {
         private static Dictionary<string, string> Logs { get; set; }
         private static List<EntryCell> Found_Logs { get; set; }
         private static string Raw_Log { get; set; }
         private static string Repo_Path { get; set; }
 
-        public LogViewer(string _Repo_Path)
+        public LogViewerFRM(string _Repo_Path)
         {
             InitializeComponent();
 
@@ -61,6 +61,7 @@ namespace GITRepoManager
 
         private void RawLogBT_Click(object sender, EventArgs e)
         {
+            CopiedMessageLB.Text = string.Empty;
             CommitNumberLB.Text = "Raw Log Output";
             LogContentsTB.Text = Raw_Log;
         }
@@ -110,35 +111,35 @@ namespace GITRepoManager
         {
             if (!string.IsNullOrEmpty(Repo_Path) && !string.IsNullOrWhiteSpace(Repo_Path))
             {
-                RepoHelpers.Redirected_Output = string.Empty;
-                Process LogP = RepoHelpers.Create_Process(Repo_Path, " git --no-pager log");
-                LogP.Start();
-                Raw_Log = LogP.StandardOutput.ReadToEnd();
-                LogP.StandardInput.WriteLine("exit");
-                LogP.WaitForExit();
-
-                RawLogBT.Visible = true;
-
-                Found_Logs = RepoHelpers.Parse_Logs(Raw_Log);
                 Logs = new Dictionary<string, string>();
 
-                foreach (EntryCell entry in Found_Logs)
+                foreach (KeyValuePair<string, List<EntryCell>> kvp in ManagerData.Selected_Repo.Logs)
                 {
-                    string contents = string.Empty;
-
-                    contents = ("Author: " + entry.Author) + Environment.NewLine
-                            + ("Date: " + entry.Date.ToString("d")) + Environment.NewLine + Environment.NewLine
-                            + entry.Message;
-
-                    Logs.Add(entry.ID, contents);
-
-                    ListViewItem newLog = new ListViewItem()
+                    foreach (EntryCell entry in kvp.Value)
                     {
-                        Name = entry.ID,
-                        Text = entry.ID
-                    };
+                        string contents = string.Empty;
+                        string s1 = @"{\rtf1\ansi\b ID: \b0 " + entry.ID + @" \line\line";
+                        string s2 = @"\b Author: \b0 " + entry.Author + @" \line\line";
+                        string s3 = @"\b Date: \b0 " + entry.Date.ToString("d") + @" \line\line ";
+                        string s4 = entry.Message + @"}";
+                        contents = s1 + s2 + s3 + s4;
 
-                    LogNamesLV.Items.Add(newLog);
+                        Logs.Add(entry.ID.Substring(0, 8), contents);
+                        ListViewItem.ListViewSubItem commitDate = new ListViewItem.ListViewSubItem()
+                        {
+                            Name = entry.Date.ToString("d"),
+                            Text = entry.Date.ToString("d")
+                        };
+
+                        ListViewItem commitID = new ListViewItem()
+                        {
+                            Name = entry.ID.Substring(0, 8),
+                            Text = entry.ID.Substring(0, 8)
+                        };
+                        
+                        LogNamesLV.Items.Add(commitID);
+                        LogNamesLV.Items[commitID.Name].SubItems.Add(commitDate);
+                    }
                 }
 
                 if (LogNamesLV.Items.Count > 0)
@@ -157,8 +158,14 @@ namespace GITRepoManager
         {
             if (LogNamesLV.SelectedItems.Count > 0)
             {
-                CommitNumberLB.Text = LogNamesLV.SelectedItems[0].Name;
-                LogContentsTB.Text = Logs[LogNamesLV.SelectedItems[0].Name];
+                try
+                {
+                    CommitNumberLB.Text = LogNamesLV.SelectedItems[0].Name;
+                    LogContentsTB.Rtf = Logs[LogNamesLV.SelectedItems[0].Name];
+                }
+                catch
+                {
+                }
             }
 
             else
@@ -174,6 +181,7 @@ namespace GITRepoManager
 
         private void LogNamesLV_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CopiedMessageLB.Text = string.Empty;
             Populate_Log_Details();
         }
 
@@ -183,6 +191,29 @@ namespace GITRepoManager
             {
                 Populate_Log_Details();
             }
+        }
+
+        private void CommitNumberLB_Click(object sender, EventArgs e)
+        {
+            CopiedMessageLB.Text = string.Empty;
+            Clipboard.SetText(CommitNumberLB.Text);
+            CopiedMessageLB.Text = "Copied to the clipboard!";
+            //MessageBox.Show("Commit ID " + LogNamesLV.SelectedItems[0].SubItems[1].Name + " copied to the clipboard!", "ID Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void LogContentsTB_Click(object sender, EventArgs e)
+        {
+            CopiedMessageLB.Text = string.Empty;
+        }
+
+        private void LogNamesLV_MouseEnter(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.Hand;
+        }
+
+        private void LogNamesLV_MouseLeave(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.Default;
         }
     }
 }

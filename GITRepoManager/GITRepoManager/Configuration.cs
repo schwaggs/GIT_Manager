@@ -460,14 +460,18 @@ namespace GITRepoManager
                             currNoteTitle = string.Empty;
                         }
 
+                        newRepo.Logs_Parsed = false;
                         newStore._Repos.Add(currRepoName, newRepo);
 
                         currRepoStatus = RepoCell.Status.Type.NONE;
                     }
 
-                    DirectoryInfo dirInfo = new DirectoryInfo(currStoreLocation);
+                    if (currStoreLocation != "")
+                    {
+                        DirectoryInfo dirInfo = new DirectoryInfo(currStoreLocation);
 
-                    ManagerData.Stores.Add(dirInfo.Name, newStore);
+                        ManagerData.Stores.Add(dirInfo.Name, newStore);
+                    }
                 }
             }
 

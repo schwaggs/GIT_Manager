@@ -129,8 +129,7 @@ namespace GITRepoManager
                     CreatePrompt = false,
                     OverwritePrompt = false,
                     Filter = filter,
-                    DefaultExt = "gmc",
-                    InitialDirectory = @"C:\"
+                    DefaultExt = "gmc"
                 };
 
                 FileDialog.CheckFileExists = false;
@@ -200,8 +199,7 @@ namespace GITRepoManager
                     CreatePrompt = false,
                     OverwritePrompt = false,
                     Filter = filter,
-                    DefaultExt = "gmc",
-                    InitialDirectory = @"C:\"
+                    DefaultExt = "gmc"
                 };
 
                 FileDialog.CheckFileExists = false;
@@ -276,8 +274,7 @@ namespace GITRepoManager
                     CreatePrompt = false,
                     OverwritePrompt = false,
                     Filter = filter,
-                    DefaultExt = "gmc",
-                    InitialDirectory = @"C:\"
+                    DefaultExt = "gmc"
                 };
 
                 FileDialog.CheckFileExists = false;

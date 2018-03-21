@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace GITRepoManager
 {
-    public partial class NoteEditor : Form
+    public partial class NoteEditorFRM : Form
     {
         public static ListViewItem Current_Note { get; set; }
         public static ListViewItem Previous_Note { get; set; }
@@ -29,7 +29,7 @@ namespace GITRepoManager
         private bool _lock;
 
 
-        public NoteEditor()
+        public NoteEditorFRM()
         {
             InitializeComponent();
         }
