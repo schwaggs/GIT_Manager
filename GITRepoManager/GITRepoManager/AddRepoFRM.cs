@@ -70,7 +70,8 @@ namespace GITRepoManager
 
                 if (Repo_Added)
                 {
-                    MessageBox.Show(RepoName + " added to " + storeInfo.Name, "Repo Added Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    AutoClosingMessageBox.Show(RepoName + " added to " + storeInfo.Name, "Repo Added Successfully", 1500);
+                    Close();
                 }
             }
 

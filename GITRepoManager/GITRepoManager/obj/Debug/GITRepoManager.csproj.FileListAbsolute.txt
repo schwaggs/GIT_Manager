@@ -102,3 +102,4 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.app
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.AddRepoFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.LogViewerFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.NoteEditorFRM.resources
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\AutoClosingMessageBox.dll

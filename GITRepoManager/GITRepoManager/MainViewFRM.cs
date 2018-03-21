@@ -196,6 +196,8 @@ namespace GITRepoManager
 
         private void SettingsBT_Click(object sender, EventArgs e)
         {
+            string currStore = StoreLocationCB.SelectedItem.ToString();
+
             SettingsViewFRM settings = new SettingsViewFRM();
             settings.ShowDialog();
 
@@ -206,6 +208,8 @@ namespace GITRepoManager
                 StoreLocationCB_Initialize();
                 ReposLV_Initialize();
             }
+
+            StoreLocationCB.SelectedIndex = StoreLocationCB.FindStringExact(currStore);
         }
 
         #endregion
@@ -358,6 +362,8 @@ namespace GITRepoManager
 
         private void RefreshStoresBT_Click(object sender, EventArgs e)
         {
+            string currStore = StoreLocationCB.SelectedItem.ToString();
+
             this.Cursor = Cursors.WaitCursor;
 
             MainStatusSSL.Text = "Refreshing ...";
@@ -392,6 +398,9 @@ namespace GITRepoManager
             {
                 Refresh_Complete = false;
             }
+
+
+            StoreLocationCB.SelectedIndex = StoreLocationCB.FindStringExact(currStore);
         }
 
         #endregion

@@ -62,7 +62,8 @@ namespace GITRepoManager
 
                         DirectoryInfo cloneInfo = new DirectoryInfo(RepoPathTB.Text);
                         DirectoryInfo localInfo = new DirectoryInfo(Properties.Settings.Default.CloneLocalSourcePath);
-                        MessageBox.Show(cloneInfo.Name + " successfully cloned to " + localInfo.Name, "Clone Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        AutoClosingMessageBox.Show(cloneInfo.Name + " successfully cloned to " + localInfo.Name, "Clone Successful", 1500);
                     }
 
                     else
@@ -93,7 +94,7 @@ namespace GITRepoManager
                 }
             }
 
-            this.Close();
+            Close();
         }
 
         private void CloneRepoBT_MouseEnter(object sender, EventArgs e)
