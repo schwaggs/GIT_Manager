@@ -22,11 +22,14 @@ namespace GITRepoManager
         public InitializationViewFRM()
         {
             InitializeComponent();
-            ProgressCPB.Value = 0;
         }
 
         private void InitializationViewFRM_Load(object sender, EventArgs e)
         {
+            VerifyConfigCheckPB.Image = Properties.Resources.ConfigCheck_Default;
+            ReadConfigPB.Image = Properties.Resources.ConfigCheck_Default;
+            ChangesPB.Image = Properties.Resources.ConfigCheck_Default;
+
             bool retry = true;
 
             while (retry)
@@ -85,13 +88,21 @@ namespace GITRepoManager
                 retry = false;
             }
 
+            VerifyConfigCheckPB.BackgroundImage = Properties.Resources.ConfigCheck_Complete;
+
+            Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
+
+            ReadConfigPB.BackgroundImage = Properties.Resources.ConfigCheck_Complete;
+
+            if (RepoHelpers.Detect_Changes())
+            {
+                Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+
+                ChangesPB.BackgroundImage = Properties.Resources.ConfigCheck_Complete;
+            }
+
             InitializationData.Initialized = true;
         }
-
-
-
-
-
 
         private bool CreateConfig_Invalid_XML(bool required)
         {
@@ -420,30 +431,6 @@ namespace GITRepoManager
             catch (Exception ex)
             {
                 return false;
-            }
-        }
-
-
-
-
-
-
-        private void ProgressBarIncrT_Tick(object sender, EventArgs e)
-        {
-            if (ProgressCPB.Value + InitializationData.Progress_Inc < 100)
-            {
-                ProgressCPB.Value += InitializationData.Progress_Inc;
-            }
-
-            else
-            {
-                ProgressCPB.Value = 100;
-            }
-
-            if (ProgressCPB.Value == ProgressCPB.Maximum)
-            {
-                ProgressBarIncrT.Stop();
-                InitializationData.Initialized = true;
             }
         }
 

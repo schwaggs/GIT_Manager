@@ -374,7 +374,7 @@ namespace GITRepoManager
 
             #region Deserialize Condensed Packet Structure
 
-            public static void Deserialize_Condensed(string file)
+            public static void Deserialize_Condensed(string file, CircularProgressBar.CircularProgressBar cpb = null)
             {
                 // Load the document
                 XmlDocument Config = new XmlDocument();
@@ -494,7 +494,7 @@ namespace GITRepoManager
              *  Note body needs to be inner text of the Note node
              */
 
-            public static bool Serialize_Condensed_All(string file)
+            public static bool Serialize_Condensed_All(string file, CircularProgressBar.CircularProgressBar cpb = null)
             {
                 XmlDocument Config = new XmlDocument();
                 Config.Load(file);

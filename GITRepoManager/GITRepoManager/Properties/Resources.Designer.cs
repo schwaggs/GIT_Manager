@@ -153,6 +153,26 @@ namespace GITRepoManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ConfigCheck_Complete {
+            get {
+                object obj = ResourceManager.GetObject("ConfigCheck_Complete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConfigCheck_Default {
+            get {
+                object obj = ResourceManager.GetObject("ConfigCheck_Default", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Delete_Tag_Icon {
             get {
                 object obj = ResourceManager.GetObject("Delete_Tag_Icon", resourceCulture);
@@ -306,6 +326,26 @@ namespace GITRepoManager.Properties {
         internal static System.Drawing.Bitmap Notes_Icon_Hover {
             get {
                 object obj = ResourceManager.GetObject("Notes_Icon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("OpenFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenFolderIcon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("OpenFolderIcon_Hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

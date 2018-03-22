@@ -29,7 +29,7 @@
     <ProductName>GIT Mananager</ProductName>
     <PublisherName>OEM Solutions, Inc</PublisherName>
     <SuiteName>GIT</SuiteName>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -310,6 +310,10 @@
     <Content Include="ManagerIcon.png" />
     <Content Include="PacketStructure.xml" />
     <Content Include="ReleaseNotes.css" />
+    <None Include="Resources\OpenFolderIcon_Hover.png" />
+    <None Include="Resources\OpenFolderIcon.png" />
+    <None Include="Resources\ConfigCheck_Default.png" />
+    <None Include="Resources\ConfigCheck_Complete.png" />
     <Content Include="Resources\ManagerIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

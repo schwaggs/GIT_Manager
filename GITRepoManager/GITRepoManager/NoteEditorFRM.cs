@@ -339,6 +339,8 @@ namespace GITRepoManager
 
             // Write the changes to config file
             Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+
+            AutoClosingMessageBox.Show("Any changes to notes have been saved.", "Notes Saved Successfully", 1500);
         }
 
 

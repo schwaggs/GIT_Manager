@@ -26,131 +26,12 @@ namespace GITRepoManager.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TagListDir {
-            get {
-                return ((string)(this["TagListDir"]));
-            }
-            set {
-                this["TagListDir"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string RepoListDir {
-            get {
-                return ((string)(this["RepoListDir"]));
-            }
-            set {
-                this["RepoListDir"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int StorageType {
-            get {
-                return ((int)(this["StorageType"]));
-            }
-            set {
-                this["StorageType"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string StatusListDir {
-            get {
-                return ((string)(this["StatusListDir"]));
-            }
-            set {
-                this["StatusListDir"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool RepoListDirIsImpty {
-            get {
-                return ((bool)(this["RepoListDirIsImpty"]));
-            }
-            set {
-                this["RepoListDirIsImpty"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool StatusListDirIsEmpty {
-            get {
-                return ((bool)(this["StatusListDirIsEmpty"]));
-            }
-            set {
-                this["StatusListDirIsEmpty"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool TagListDirIsEmpty {
-            get {
-                return ((bool)(this["TagListDirIsEmpty"]));
-            }
-            set {
-                this["TagListDirIsEmpty"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Z:\\Software Engineering")]
-        public string RepoBaseDir {
-            get {
-                return ((string)(this["RepoBaseDir"]));
-            }
-            set {
-                this["RepoBaseDir"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ConfigPath {
             get {
                 return ((string)(this["ConfigPath"]));
             }
             set {
                 this["ConfigPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FirstRun {
-            get {
-                return ((bool)(this["FirstRun"]));
-            }
-            set {
-                this["FirstRun"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection ConfigExtensions {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["ConfigExtensions"]));
-            }
-            set {
-                this["ConfigExtensions"] = value;
             }
         }
         
@@ -175,6 +56,42 @@ namespace GITRepoManager.Properties {
             }
             set {
                 this["LogProcessTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RepoListDirIsImpty {
+            get {
+                return ((bool)(this["RepoListDirIsImpty"]));
+            }
+            set {
+                this["RepoListDirIsImpty"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Z:\\Software Engineering")]
+        public string RepoBaseDir {
+            get {
+                return ((string)(this["RepoBaseDir"]));
+            }
+            set {
+                this["RepoBaseDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LogParseMethod {
+            get {
+                return ((int)(this["LogParseMethod"]));
+            }
+            set {
+                this["LogParseMethod"] = value;
             }
         }
     }

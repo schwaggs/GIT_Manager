@@ -54,16 +54,9 @@ namespace GITRepoManager
 
                 InitializeComponent();
 
-                Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
-
-                if (RepoHelpers.Detect_Changes())
-                {
-                    Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
-                    Refresh_Elements();
-                }
-
                 Splash.Abort();
 
+                Refresh_Elements();
 
                 //ReposLV.ShowItemToolTips = true;
                 MainStatusSSL.Text = string.Empty;
@@ -415,6 +408,19 @@ namespace GITRepoManager
 
         #endregion
 
+
+        #region OpenStoreBT
+
+        private void OpenStoreBT_Click(object sender, EventArgs e)
+        {
+            if (ManagerData.Selected_Store != null)
+            {
+                System.Diagnostics.Process.Start("explorer.exe", ManagerData.Selected_Store._Path);
+            }
+        }
+
+        #endregion
+
         #endregion
 
 
@@ -527,12 +533,23 @@ namespace GITRepoManager
 
         #endregion
 
-                
+
+        #region OpenStoreBT
+
+        private void OpenStoreBT_MouseEnter(object sender, EventArgs e)
+        {
+            OpenStoreBT.BackgroundImage = Properties.Resources.OpenFolderIcon_Hover;
+
+            MainStatusSSL.Text = "Open the current store in explorer.";
+        }
+
+        #endregion
+
         #endregion Mouse Enter
 
 
         #region Mouse Leave
-                
+
         #region SettingsBT
 
         private void SettingsBT_MouseLeave(object sender, EventArgs e)
@@ -754,6 +771,37 @@ namespace GITRepoManager
 
         #endregion
 
+
+        #region OpenStoreBT
+
+        private void OpenStoreBT_MouseLeave(object sender, EventArgs e)
+        {
+            OpenStoreBT.BackgroundImage = Properties.Resources.OpenFolderIcon;
+
+            if (ReposLV.SelectedItems.Count > 0)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Repo.Path;
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    MainStatusSSL.Text = ManagerData.Selected_Store._Path;
+                }
+
+                else
+                {
+                    MainStatusSSL.Text = string.Empty;
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
 
@@ -802,19 +850,28 @@ namespace GITRepoManager
                 RepoStatusCB.Enabled = true;
                 CloneRepoBT.Visible = true;
 
-                if (!ManagerData.Selected_Repo.Logs_Parsed)
+                if (!ManagerData.Selected_Repo.Logs_Parsed && Properties.Settings.Default.LogParseMethod == 0 || Properties.Settings.Default.LogParseMethod == 1)
                 {
-                    //RepoHelpers.Redirected_Output = string.Empty;
                     Process LogP = RepoHelpers.Create_Process(ManagerData.Selected_Repo.Path, " git --no-pager log");
                     LogP.Start();
                     string Raw_Log = LogP.StandardOutput.ReadToEnd();
                     LogP.StandardInput.WriteLine("exit");
                     LogP.WaitForExit();
 
+                    if (Properties.Settings.Default.LogParseMethod == 1 && ManagerData.Selected_Repo.Logs != null)
+                    {
+                        ManagerData.Selected_Repo.Logs.Clear();
+                    }
+
                     RepoHelpers.Parse_Logs(Raw_Log, ManagerData.Selected_Repo);
                     ManagerData.Selected_Repo.Logs_Parsed = true;
+
+                    if (Properties.Settings.Default.LogParseMethod == 0)
+                    {
+                        ManagerData.Selected_Repo.Logs_Parsed = true;
+                    }
                 }
-                
+
                 Populate_Info_List();
             }
 
@@ -1133,5 +1190,6 @@ namespace GITRepoManager
         #endregion Refresh_Store_Dictionary
 
         #endregion
+
     }
 }

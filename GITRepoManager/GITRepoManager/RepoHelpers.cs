@@ -414,12 +414,12 @@ namespace GITRepoManager
                 {
                     first = false;
 
-                    if (currRepo.Last_Commit == DateTime.MinValue && currRepo.Last_Commit != null)
+                    if (currRepo.Last_Commit == DateTime.MinValue && currRepo.Last_Commit != null || Properties.Settings.Default.LogParseMethod == 1)
                     {
                         currRepo.Last_Commit = entry.Date;
                     }
 
-                    if (currRepo.Last_Commit_Message == string.Empty || currRepo.Last_Commit_Message == null)
+                    if (currRepo.Last_Commit_Message == string.Empty || currRepo.Last_Commit_Message == null || Properties.Settings.Default.LogParseMethod == 1)
                     {
                         currRepo.Last_Commit_Message = entry.Message;
                     }

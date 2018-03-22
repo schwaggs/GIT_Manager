@@ -44,12 +44,16 @@
             this.SettingsInfoSSSL = new System.Windows.Forms.ToolStripStatusLabel();
             this.SaveSettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.SaveMessageLB = new System.Windows.Forms.Label();
+            this.SingleParseRB = new System.Windows.Forms.RadioButton();
+            this.DynamicParseRB = new System.Windows.Forms.RadioButton();
             this.MainViewP.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainViewP
             // 
+            this.MainViewP.Controls.Add(this.DynamicParseRB);
+            this.MainViewP.Controls.Add(this.SingleParseRB);
             this.MainViewP.Controls.Add(this.BrowseClonePathBT);
             this.MainViewP.Controls.Add(this.label3);
             this.MainViewP.Controls.Add(this.CloneDestinationTB);
@@ -248,6 +252,28 @@
             this.SaveMessageLB.Size = new System.Drawing.Size(0, 20);
             this.SaveMessageLB.TabIndex = 25;
             // 
+            // SingleParseRB
+            // 
+            this.SingleParseRB.AutoSize = true;
+            this.SingleParseRB.Location = new System.Drawing.Point(56, 369);
+            this.SingleParseRB.Name = "SingleParseRB";
+            this.SingleParseRB.Size = new System.Drawing.Size(114, 17);
+            this.SingleParseRB.TabIndex = 35;
+            this.SingleParseRB.TabStop = true;
+            this.SingleParseRB.Text = "Singular Log Parse";
+            this.SingleParseRB.UseVisualStyleBackColor = true;
+            // 
+            // DynamicParseRB
+            // 
+            this.DynamicParseRB.AutoSize = true;
+            this.DynamicParseRB.Location = new System.Drawing.Point(56, 392);
+            this.DynamicParseRB.Name = "DynamicParseRB";
+            this.DynamicParseRB.Size = new System.Drawing.Size(117, 17);
+            this.DynamicParseRB.TabIndex = 36;
+            this.DynamicParseRB.TabStop = true;
+            this.DynamicParseRB.Text = "Dynamic Log Parse";
+            this.DynamicParseRB.UseVisualStyleBackColor = true;
+            // 
             // SettingsViewFRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -295,5 +321,7 @@
         private System.Windows.Forms.TextBox CloneDestinationTB;
         private NoFocusSelectionRectangleButton BrowseClonePathBT;
         private System.Windows.Forms.Label SaveMessageLB;
+        private System.Windows.Forms.RadioButton DynamicParseRB;
+        private System.Windows.Forms.RadioButton SingleParseRB;
     }
 }

@@ -49,6 +49,16 @@ namespace GITRepoManager
 
             Clone_Path = CloneDestinationTB.Text;
             Store_Count = StoreLocationLV.Items.Count;
+
+            if (Properties.Settings.Default.LogParseMethod == 0)
+            {
+                SingleParseRB.Checked = true;
+            }
+
+            else
+            {
+                DynamicParseRB.Checked = true;
+            }
         }
 
         #endregion
@@ -128,6 +138,8 @@ namespace GITRepoManager
 
         private void SaveSettingsBT_Click(object sender, EventArgs e)
         {
+            bool changed = false;
+
             SaveMessageLB.Text = string.Empty;
 
             if (!string.IsNullOrEmpty(CloneDestinationTB.Text) && !string.IsNullOrWhiteSpace(CloneDestinationTB.Text))
@@ -135,11 +147,13 @@ namespace GITRepoManager
                 if (CloneDestinationTB.Text != Properties.Settings.Default.CloneLocalSourcePath)
                 {
                     Properties.Settings.Default.CloneLocalSourcePath = CloneDestinationTB.Text;
+                    changed = true;
                 }
             }
 
             if (Store_List_Changed())
             {
+                changed = true;
                 MainViewFRM.Settings_Changed = true;
 
                 // Add new items
@@ -194,9 +208,31 @@ namespace GITRepoManager
                         ManagerData.Stores.Remove(key);
                     }
                 }
+            }
+
+            // Singular Parse
+            int selected = 0;
+
+            if (DynamicParseRB.Checked)
+            {
+                // Dynamic Parse
+                selected = 1;
+            }
+
+            if (selected != Properties.Settings.Default.LogParseMethod)
+            {
+                Properties.Settings.Default.LogParseMethod = selected;
+                changed = true;
+            }
+
+            if (changed)
+            {
+                changed = false;
 
                 Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
-
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.Reload();
                 SaveMessageLB.Text = "Settings successfully saved.";
             }
         }
@@ -388,6 +424,16 @@ namespace GITRepoManager
 
         #endregion List View
 
+
+        #region Text Box
+
+        private void CloneDestinationTB_TextChanged(object sender, EventArgs e)
+        {
+            SaveMessageLB.Text = string.Empty;
+        }
+
+        #endregion Text Box
+
         #endregion Events
 
 
@@ -483,10 +529,5 @@ namespace GITRepoManager
         #endregion
 
         #endregion Methods
-
-        private void CloneDestinationTB_TextChanged(object sender, EventArgs e)
-        {
-            SaveMessageLB.Text = string.Empty;
-        }
     }
 }
