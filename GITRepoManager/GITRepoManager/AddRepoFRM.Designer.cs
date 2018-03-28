@@ -33,6 +33,7 @@
             this.NewRepoNameTB = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.StorePathTB = new System.Windows.Forms.TextBox();
+            this.AddingPB = new System.Windows.Forms.ProgressBar();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -94,11 +95,20 @@
             this.StorePathTB.Size = new System.Drawing.Size(399, 26);
             this.StorePathTB.TabIndex = 4;
             // 
+            // AddingPB
+            // 
+            this.AddingPB.Location = new System.Drawing.Point(53, 163);
+            this.AddingPB.Name = "AddingPB";
+            this.AddingPB.Size = new System.Drawing.Size(364, 26);
+            this.AddingPB.TabIndex = 8;
+            this.AddingPB.Visible = false;
+            // 
             // AddRepoFRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(435, 205);
+            this.Controls.Add(this.AddingPB);
             this.Controls.Add(this.CloneRepoBT);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -123,5 +133,6 @@
         private System.Windows.Forms.TextBox NewRepoNameTB;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox StorePathTB;
+        private System.Windows.Forms.ProgressBar AddingPB;
     }
 }

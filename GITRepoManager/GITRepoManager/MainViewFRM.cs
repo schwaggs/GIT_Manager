@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace GITRepoManager
@@ -27,9 +28,52 @@ namespace GITRepoManager
         private bool Refresh_Complete { get; set; }
         private string Refresh_Message { get; set; }
 
+        private string Current_Status { get; set; }
+
         public MainViewFRM(string [] filepaths = null)
         {
             #region Normal Start
+
+            #region Registry Stuff - Not Used
+
+            //RegistryKey fileAssoc = Registry.ClassesRoot.OpenSubKey(@".gmc", true);
+
+            //if (fileAssoc != null)
+            //{
+            //    RegistryKey iconSet = fileAssoc.OpenSubKey("DefaultIcon", true);
+
+            //    if (iconSet != null)
+            //    {
+            //        string val = (string)iconSet.GetValue("", string.Empty);
+
+            //        if (val != string.Empty)
+            //        {
+
+            //        }
+
+            //        else
+            //        {
+            //            iconSet.SetValue("", @"Z:\Software Engineering\GIT Management Config\FileIcon.ico");
+            //        }
+            //    }
+
+            //    else
+            //    {
+            //        MessageBox.Show("No Icon Set");
+            //        fileAssoc.CreateSubKey("DefaultIcon");
+            //        iconSet = fileAssoc.OpenSubKey("DefaultIcon");
+            //        iconSet.SetValue("(Default)", @"Z:\Software Engineering\Published Applications\GIT Manager\FileIcon.ico");
+            //        iconSet.Close();
+            //        fileAssoc.Close();
+            //    }
+            //}
+
+            //else
+            //{
+
+            //}
+
+            #endregion Registry Stuff - Not Used
 
             if (filepaths == null)
             {
@@ -64,94 +108,6 @@ namespace GITRepoManager
                 StoreLocationCB_Initialize();
 
                 ReposLV_Initialize();
-            }
-
-            #endregion
-
-
-            #region Drag and Drop
-
-            else
-            {
-                // Drag and dropped filepath
-
-                // Check to make sure the path is a directory
-                List<DirectoryInfo> ToAdd = new List<DirectoryInfo>();
-
-                int filecount = 0;
-
-                foreach (string filepath in filepaths)
-                {
-                    FileAttributes attr = File.GetAttributes(filepath);
-
-                    if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
-                    {
-                        DirectoryInfo pathInfo = new DirectoryInfo(filepath);
-
-                        if (pathInfo.Exists)
-                        {
-                            // Add the directory to temporary store list
-                            ToAdd.Add(pathInfo);
-                        }
-                    }
-
-                    else
-                    {
-                        filecount++;
-                    }
-                }
-
-                if (filecount > 0)
-                {
-                    MessageBox.Show("Several file paths were detected, only directories can be used as stores.", "Files Detected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-
-                if (ToAdd.Count > 0)
-                {
-                    // Populate manager data with temporary data to only write out to config.
-
-                }
-
-                if (MessageBox.Show("Stores have been added to the configuration, open GIT Manager?", "Stores Added", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    ManagerData.Stores.Clear();
-                    Thread t = new Thread(new ThreadStart(SplashStart));
-                    t.Start();
-
-                    while (!InitializationData.Initialized)
-                    {
-                        Thread.Sleep(1000);
-
-                        if (InitializationData.Abort)
-                        {
-                            t.Abort();
-
-                            MessageBox.Show("Error loading configuration, closing GIT Manager.", "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                            Application.ExitThread();
-                            Application.Exit();
-                            Environment.Exit(1);
-                        }
-                    }
-
-                    t.Abort();
-                    InitializeComponent();
-
-                    //ReposLV.ShowItemToolTips = true;
-                    MainStatusSSL.Text = string.Empty;
-
-                    StoreLocationCB_Initialize();
-
-                    ReposLV_Initialize();
-                }
-
-                else
-                {
-                    // Dont open the program 
-                    Application.ExitThread();
-                    Application.Exit();
-                    Environment.Exit(0);
-                }
             }
 
             #endregion
@@ -202,7 +158,17 @@ namespace GITRepoManager
                 ReposLV_Initialize();
             }
 
-            StoreLocationCB.SelectedIndex = StoreLocationCB.FindStringExact(currStore);
+            int index = StoreLocationCB.FindStringExact(currStore);
+
+            if (index != -1)
+            {
+                StoreLocationCB.SelectedIndex = index;
+            }
+
+            else
+            {
+                StoreLocationCB.SelectedIndex = 0;
+            }
         }
 
         #endregion
@@ -306,11 +272,6 @@ namespace GITRepoManager
 
 
         #region AddNoteBT
-
-        private void AddNoteBT_Click(object sender, EventArgs e)
-        {
-
-        }
 
         #endregion
 
@@ -452,7 +413,7 @@ namespace GITRepoManager
         private void CloneRepoBT_MouseEnter(object sender, EventArgs e)
         {
             CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon_Hover;
-            MainStatusSSL.Text = "Clone the current repository.";
+            MainStatusSSL.Text = "Clone " + ManagerData.Selected_Repo.Name;
         }
 
         #endregion
@@ -463,7 +424,7 @@ namespace GITRepoManager
         private void SaveRepoChangesBT_MouseEnter(object sender, EventArgs e)
         {
             SaveRepoChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon_Hover;
-            MainStatusSSL.Text = "Save all changes to the current repo.";
+            MainStatusSSL.Text = "Save all changes to " + ManagerData.Selected_Repo.Name;
         }
 
         #endregion
@@ -474,7 +435,7 @@ namespace GITRepoManager
         private void ClearRepoChangesBT_MouseEnter(object sender, EventArgs e)
         {
             ClearRepoChangesBT.BackgroundImage = Properties.Resources.Reset_Settings_Icon_Hover;
-            MainStatusSSL.Text = "Clear all changes to the current repo";
+            MainStatusSSL.Text = "Clear all changes to " + ManagerData.Selected_Repo.Name;
         }
 
         #endregion
@@ -485,7 +446,7 @@ namespace GITRepoManager
         private void AddRepoBT_MouseEnter(object sender, EventArgs e)
         {
             AddRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
-            MainStatusSSL.Text = "Add a repository to the current store";
+            MainStatusSSL.Text = "Add a repository to " + StoreLocationCB.SelectedItem.ToString();
         }
 
         #endregion
@@ -496,6 +457,12 @@ namespace GITRepoManager
         private void LogsBT_MouseEnter(object sender, EventArgs e)
         {
             LogsBT.BackgroundImage = Properties.Resources.Log_Icon_Hover;
+
+            if (ManagerData.Selected_Repo != null)
+            {
+                Current_Status = MainStatusSSL.Text;
+                MainStatusSSL.Text = "Open the logs for " + ManagerData.Selected_Repo.Name;
+            }
         }
 
         #endregion
@@ -506,6 +473,12 @@ namespace GITRepoManager
         private void NotesBT_MouseEnter(object sender, EventArgs e)
         {
             NotesBT.BackgroundImage = Properties.Resources.Notes_Icon_Hover;
+
+            if (ManagerData.Selected_Repo != null)
+            {
+                Current_Status = MainStatusSSL.Text;
+                MainStatusSSL.Text = "Open notes for " + ManagerData.Selected_Repo.Name;
+            }
         }
 
         #endregion
@@ -540,7 +513,7 @@ namespace GITRepoManager
         {
             OpenStoreBT.BackgroundImage = Properties.Resources.OpenFolderIcon_Hover;
 
-            MainStatusSSL.Text = "Open the current store in explorer.";
+            MainStatusSSL.Text = "Open " + StoreLocationCB.SelectedItem.ToString() + " in explorer.";
         }
 
         #endregion
@@ -757,6 +730,12 @@ namespace GITRepoManager
         private void NotesBT_MouseLeave(object sender, EventArgs e)
         {
             NotesBT.BackgroundImage = Properties.Resources.Notes_Icon;
+
+            if (ManagerData.Selected_Repo != null)
+            {
+                MainStatusSSL.Text = Current_Status;
+                Current_Status = string.Empty;
+            }
         }
 
         #endregion
@@ -767,6 +746,13 @@ namespace GITRepoManager
         private void LogsBT_MouseLeave(object sender, EventArgs e)
         {
             LogsBT.BackgroundImage = Properties.Resources.Log_Icon;
+
+            if (ManagerData.Selected_Repo != null)
+            {
+                MainStatusSSL.Text = Current_Status;
+                Current_Status = string.Empty;
+            }
+
         }
 
         #endregion

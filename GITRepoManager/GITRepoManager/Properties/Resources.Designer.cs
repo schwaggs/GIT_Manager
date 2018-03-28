@@ -273,6 +273,26 @@ namespace GITRepoManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Map_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Map_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MapIcon_Hover {
+            get {
+                object obj = ResourceManager.GetObject("MapIcon_Hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MoveIcon {
             get {
                 object obj = ResourceManager.GetObject("MoveIcon", resourceCulture);

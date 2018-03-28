@@ -60,11 +60,18 @@ namespace GITRepoManager
         {
             this.Cursor = Cursors.WaitCursor;
 
+            AddingPB.MarqueeAnimationSpeed = 10;
+            AddingPB.Style = ProgressBarStyle.Marquee;
+            AddingPB.Visible = true;
+
             if (!string.IsNullOrEmpty(NewRepoNameTB.Text) && !string.IsNullOrWhiteSpace(NewRepoNameTB.Text))
             {
                 RepoName = NewRepoNameTB.Text;
 
-                Repo_Added = RepoHelpers.Create_Blank_Repository(StorePathTB.Text, RepoName);
+                Task.Run(() =>
+                {
+                    Repo_Added = RepoHelpers.Create_Blank_Repository(StorePathTB.Text, RepoName);
+                }).Start();
 
                 DirectoryInfo storeInfo = new DirectoryInfo(StorePath);
 
@@ -73,6 +80,7 @@ namespace GITRepoManager
                     AutoClosingMessageBox.Show(RepoName + " added to " + storeInfo.Name, "Repo Added Successfully", 1500);
                     Close();
                 }
+                
             }
 
             else
@@ -80,6 +88,8 @@ namespace GITRepoManager
                 MessageBox.Show("Please provide a repository name to continue", "Blank Repository Name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
+            AddingPB.Visible = false;
+            AddingPB.Style = ProgressBarStyle.Blocks;
             this.Cursor = Cursors.Default;
         }
 

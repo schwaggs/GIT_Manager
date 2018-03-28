@@ -673,35 +673,43 @@ namespace GITRepoManager
             {
                 // Outer = dir inner = repo => Addition
 
-                foreach (string path in Directory.GetDirectories(kvp.Key))
+                try
                 {
-                    bool contains = false;
-
-                    foreach (string currRepo in kvp.Value)
+                    foreach (string path in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
                     {
-                        if (path == currRepo)
-                        {
-                            contains = true;
-                            break;
-                        }
-                    }
+                        bool contains = false;
 
-                    if (!contains)
-                    {
-                        if (Is_Git_Repo(path))
+                        foreach (string currRepo in kvp.Value)
                         {
-                            if (additions.Keys.Contains(kvp.Key))
+                            if (path == currRepo)
                             {
-                                additions[kvp.Key].Add(path);
-                            }
-
-                            else
-                            {
-                                additions.Add(kvp.Key, new List<string>());
-                                additions[kvp.Key].Add(path);
+                                contains = true;
+                                break;
                             }
                         }
+
+                        if (!contains)
+                        {
+                            if (Is_Git_Repo(path))
+                            {
+                                if (additions.Keys.Contains(kvp.Key))
+                                {
+                                    additions[kvp.Key].Add(path);
+                                }
+
+                                else
+                                {
+                                    additions.Add(kvp.Key, new List<string>());
+                                    additions[kvp.Key].Add(path);
+                                }
+                            }
+                        }
                     }
+                }
+
+                catch (Exception ex)
+                {
+                    
                 }
             }
 
@@ -724,27 +732,34 @@ namespace GITRepoManager
                 {
                     bool contains = false;
 
-                    foreach (string path in Directory.GetDirectories(kvp.Key))
+                    try
                     {
-                        if (repoPath == path)
+                        foreach (string path in Directory.GetDirectories(kvp.Key))
                         {
-                            contains = true;
-                            break;
+                            if (repoPath == path)
+                            {
+                                contains = true;
+                                break;
+                            }
+                        }
+
+                        if (!contains)
+                        {
+                            if (deletions.Keys.Contains(kvp.Key))
+                            {
+                                deletions[kvp.Key].Add(repoPath);
+                            }
+
+                            else
+                            {
+                                deletions.Add(kvp.Key, new List<string>());
+                                deletions[kvp.Key].Add(repoPath);
+                            }
                         }
                     }
 
-                    if (!contains)
+                    catch (Exception ex)
                     {
-                        if (deletions.Keys.Contains(kvp.Key))
-                        {
-                            deletions[kvp.Key].Add(repoPath);
-                        }
-
-                        else
-                        {
-                            deletions.Add(kvp.Key, new List<string>());
-                            deletions[kvp.Key].Add(repoPath);
-                        }
                     }
                 }
             }

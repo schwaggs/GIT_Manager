@@ -29,7 +29,7 @@
     <ProductName>GIT Mananager</ProductName>
     <PublisherName>OEM Solutions, Inc</PublisherName>
     <SuiteName>GIT</SuiteName>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -69,6 +69,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>ManagerIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoClosingMessageBox, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
@@ -225,6 +231,9 @@
     <EmbeddedResource Include="TagRepoFRM.resx">
       <DependentUpon>TagRepoFRM.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="GITRepoManager_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ManagerData.datasource" />
@@ -310,6 +319,8 @@
     <Content Include="ManagerIcon.png" />
     <Content Include="PacketStructure.xml" />
     <Content Include="ReleaseNotes.css" />
+    <None Include="Resources\MapIcon_Hover.png" />
+    <None Include="Resources\Map_Icon.png" />
     <None Include="Resources\OpenFolderIcon_Hover.png" />
     <None Include="Resources\OpenFolderIcon.png" />
     <None Include="Resources\ConfigCheck_Default.png" />
