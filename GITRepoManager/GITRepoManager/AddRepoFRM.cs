@@ -54,9 +54,9 @@ namespace GITRepoManager
 
         #endregion
 
-        #region CloneRepoBT
+        #region AddRepoBT
 
-        private void CloneRepoBT_Click(object sender, EventArgs e)
+        private void AddRepoBT_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
 
@@ -68,10 +68,7 @@ namespace GITRepoManager
             {
                 RepoName = NewRepoNameTB.Text;
 
-                Task.Run(() =>
-                {
-                    Repo_Added = RepoHelpers.Create_Blank_Repository(StorePathTB.Text, RepoName);
-                }).Start();
+                Repo_Added = RepoHelpers.Create_Blank_Repository(StorePathTB.Text, RepoName);
 
                 DirectoryInfo storeInfo = new DirectoryInfo(StorePath);
 
@@ -79,6 +76,11 @@ namespace GITRepoManager
                 {
                     AutoClosingMessageBox.Show(RepoName + " added to " + storeInfo.Name, "Repo Added Successfully", 1500);
                     Close();
+                }
+
+                else
+                {
+                    MessageBox.Show("Unable to add repo.\nMay be issue with permissions on directory where GIT is located or on the destination directory.", "Unable To Add Repo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 
             }
@@ -95,20 +97,20 @@ namespace GITRepoManager
 
         #endregion
 
-        #region CloneRepoBT
+        #region AddRepoBT
 
-        private void CloneRepoBT_MouseEnter(object sender, EventArgs e)
+        private void AddRepoBT_MouseEnter(object sender, EventArgs e)
         {
-            CloneRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
+            AddRepoBT.BackgroundImage = Properties.Resources.NewIcon_Hover;
         }
 
         #endregion
 
-        #region CloneRepoBT
+        #region AddRepoBT
 
-        private void CloneRepoBT_MouseLeave(object sender, EventArgs e)
+        private void AddRepoBT_MouseLeave(object sender, EventArgs e)
         {
-            CloneRepoBT.BackgroundImage = Properties.Resources.NewIcon;
+            AddRepoBT.BackgroundImage = Properties.Resources.NewIcon;
         }
 
         #endregion

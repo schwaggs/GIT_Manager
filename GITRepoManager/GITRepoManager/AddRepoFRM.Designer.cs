@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.CloneRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.AddRepoBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.NewRepoNameTB = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -38,25 +38,25 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CloneRepoBT
+            // AddRepoBT
             // 
-            this.CloneRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.CloneRepoBT.BackColor = System.Drawing.Color.Transparent;
-            this.CloneRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.NewIcon;
-            this.CloneRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CloneRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.CloneRepoBT.FlatAppearance.BorderSize = 0;
-            this.CloneRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.CloneRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.CloneRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloneRepoBT.Location = new System.Drawing.Point(12, 158);
-            this.CloneRepoBT.Name = "CloneRepoBT";
-            this.CloneRepoBT.Size = new System.Drawing.Size(35, 35);
-            this.CloneRepoBT.TabIndex = 7;
-            this.CloneRepoBT.UseVisualStyleBackColor = false;
-            this.CloneRepoBT.Click += new System.EventHandler(this.CloneRepoBT_Click);
-            this.CloneRepoBT.MouseEnter += new System.EventHandler(this.CloneRepoBT_MouseEnter);
-            this.CloneRepoBT.MouseLeave += new System.EventHandler(this.CloneRepoBT_MouseLeave);
+            this.AddRepoBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddRepoBT.BackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.BackgroundImage = global::GITRepoManager.Properties.Resources.NewIcon;
+            this.AddRepoBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AddRepoBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.AddRepoBT.FlatAppearance.BorderSize = 0;
+            this.AddRepoBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AddRepoBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddRepoBT.Location = new System.Drawing.Point(12, 158);
+            this.AddRepoBT.Name = "AddRepoBT";
+            this.AddRepoBT.Size = new System.Drawing.Size(35, 35);
+            this.AddRepoBT.TabIndex = 7;
+            this.AddRepoBT.UseVisualStyleBackColor = false;
+            this.AddRepoBT.Click += new System.EventHandler(this.AddRepoBT_Click);
+            this.AddRepoBT.MouseEnter += new System.EventHandler(this.AddRepoBT_MouseEnter);
+            this.AddRepoBT.MouseLeave += new System.EventHandler(this.AddRepoBT_MouseLeave);
             // 
             // groupBox2
             // 
@@ -109,7 +109,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(435, 205);
             this.Controls.Add(this.AddingPB);
-            this.Controls.Add(this.CloneRepoBT);
+            this.Controls.Add(this.AddRepoBT);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -128,7 +128,7 @@
         }
 
         #endregion
-        private NoFocusSelectionRectangleButton CloneRepoBT;
+        private NoFocusSelectionRectangleButton AddRepoBT;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox NewRepoNameTB;
         private System.Windows.Forms.GroupBox groupBox1;

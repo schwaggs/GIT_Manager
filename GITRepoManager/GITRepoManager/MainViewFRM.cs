@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Deployment.Application;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -424,7 +425,11 @@ namespace GITRepoManager
         private void SaveRepoChangesBT_MouseEnter(object sender, EventArgs e)
         {
             SaveRepoChangesBT.BackgroundImage = Properties.Resources.Save_Settings_Icon_Hover;
-            MainStatusSSL.Text = "Save all changes to " + ManagerData.Selected_Repo.Name;
+
+            if (ManagerData.Selected_Repo != null)
+            {
+                MainStatusSSL.Text = "Save all changes to " + ManagerData.Selected_Repo.Name;
+            }
         }
 
         #endregion
@@ -435,7 +440,11 @@ namespace GITRepoManager
         private void ClearRepoChangesBT_MouseEnter(object sender, EventArgs e)
         {
             ClearRepoChangesBT.BackgroundImage = Properties.Resources.Reset_Settings_Icon_Hover;
-            MainStatusSSL.Text = "Clear all changes to " + ManagerData.Selected_Repo.Name;
+
+            if (ManagerData.Selected_Repo != null)
+            {
+                MainStatusSSL.Text = "Clear all changes to " + ManagerData.Selected_Repo.Name;
+            }
         }
 
         #endregion
@@ -1177,5 +1186,31 @@ namespace GITRepoManager
 
         #endregion
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show("Version: " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4), "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            catch
+            {
+                MessageBox.Show("About information is not available.", "About Not Available", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+            pictureBox1.Image = Properties.Resources.GitLogo;
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(this.pictureBox1, "View About Information");
+        }
+
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+            pictureBox1.Image = Properties.Resources.GitLogo_Inverted;
+        }
     }
 }

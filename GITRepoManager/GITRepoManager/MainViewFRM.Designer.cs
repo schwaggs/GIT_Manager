@@ -226,7 +226,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::GITRepoManager.Properties.Resources.GitLogo;
+            this.pictureBox1.Image = global::GITRepoManager.Properties.Resources.GitLogo_Inverted;
             this.pictureBox1.Location = new System.Drawing.Point(728, 3);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.pictureBox1.Name = "pictureBox1";
@@ -234,6 +234,9 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
+            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
             // 
             // statusStrip1
             // 

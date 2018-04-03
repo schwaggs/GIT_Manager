@@ -72,6 +72,8 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\lib\linux\x86_64\l
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\LibGit2Sharp.dll.config
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\Resources\ManagerIcon.ico
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe.config
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe.manifest
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.application
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.pdb
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\AutoClosingMessageBox.dll
@@ -97,11 +99,8 @@ C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.Pro
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.SettingsViewFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.TagRepoFRM.resources
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csproj.GenerateResource.Cache
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.exe
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.pdb
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.exe.manifest
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\bin\Debug\GITRepoManager.application
-C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.csprojResolveAssemblyReference.cache
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.TrustInfo.xml
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.exe.manifest
 C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.application
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.exe
+C:\Source\GIT_Manager\GITRepoManager\GITRepoManager\obj\Debug\GITRepoManager.pdb

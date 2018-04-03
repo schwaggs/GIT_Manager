@@ -243,6 +243,16 @@ namespace GITRepoManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GitLogo_Inverted {
+            get {
+                object obj = ResourceManager.GetObject("GitLogo_Inverted", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Log_Icon {
             get {
                 object obj = ResourceManager.GetObject("Log_Icon", resourceCulture);

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  
+  <!-- Structure 1 -->
+  <Store>
+    <Location></Location>
+    <Repos>
+      <Repo>
+        <Name></Name>
+        <Status></Status>
+        <Notes>
+          <Note>
+            <Title></Title>
+            <Body></Body>
+          </Note>
+        </Notes>
+      </Repo>
+    </Repos>
+  </Store>
+
+  <!-- Structure 2 -->
+  <Store Location="">
+    
+    <Repo Name="" Status="">
+        <Note Title="">Body Goes Here</Note>
+      </Repo>
+
+    <Repo Name="" Status="">
+        <Note Title="">Body Goes Here</Note>
+    </Repo>
+    
+  </Store>
+</root>
