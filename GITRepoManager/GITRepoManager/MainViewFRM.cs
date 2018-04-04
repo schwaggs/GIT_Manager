@@ -109,6 +109,8 @@ namespace GITRepoManager
                 StoreLocationCB_Initialize();
 
                 ReposLV_Initialize();
+
+                this.BringToFront();
             }
 
             #endregion
@@ -235,8 +237,14 @@ namespace GITRepoManager
 
         private void SaveRepoChangesBT_Click(object sender, EventArgs e)
         {
-            ManagerData.Selected_Repo.Current_Status = ManagerData.Selected_Repo_Copy.Current_Status;
-            Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+            if (ManagerData.Selected_Repo != null && ManagerData.Selected_Repo_Copy != null)
+            {
+                if (ManagerData.Selected_Repo.Current_Status != ManagerData.Selected_Repo_Copy.Current_Status)
+                {
+                    ManagerData.Selected_Repo.Current_Status = ManagerData.Selected_Repo_Copy.Current_Status;
+                    Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+                }
+            }
 
             ReposLV.Select();
         }
@@ -414,7 +422,11 @@ namespace GITRepoManager
         private void CloneRepoBT_MouseEnter(object sender, EventArgs e)
         {
             CloneRepoBT.BackgroundImage = Properties.Resources.CloneIcon_Hover;
-            MainStatusSSL.Text = "Clone " + ManagerData.Selected_Repo.Name;
+
+            if (ManagerData.Selected_Repo != null)
+            {
+                MainStatusSSL.Text = "Clone " + ManagerData.Selected_Repo.Name;
+            }
         }
 
         #endregion

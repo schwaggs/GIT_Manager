@@ -29,7 +29,7 @@
     <ProductName>GIT Mananager</ProductName>
     <PublisherName>OEM Solutions, Inc</PublisherName>
     <SuiteName>GIT</SuiteName>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

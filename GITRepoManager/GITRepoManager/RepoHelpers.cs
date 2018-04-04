@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -19,6 +20,9 @@ namespace GITRepoManager
         public static string Exception_Message { get; set; }
         public static string Redirected_Output { get; set; }
         private static bool Is_Repo { get; set; }
+        public static bool Detect_Changes_Initialization_Busy { get; set; }
+        public static bool Detect_Additions_Busy { get; set; }
+        public static bool Detect_Deletions_Busy { get; set; }
 
         #endregion Class Data
 
@@ -539,6 +543,9 @@ namespace GITRepoManager
 
         public static bool Detect_Changes()
         {
+            Stopwatch st = new Stopwatch();
+
+            st.Start();
             #region Initialization
 
             Dictionary<string, List<string>> currRepos = new Dictionary<string, List<string>>();
@@ -546,41 +553,19 @@ namespace GITRepoManager
             Dictionary<string, List<string>> currRepos_Additions = new Dictionary<string, List<string>>();
 
             bool changes = false;
-            
 
-            foreach (StoreCell store in ManagerData.Stores.Values)
-            {
-                foreach (RepoCell repo in store._Repos.Values)
-                {
-                    if (currRepos.Keys.Contains(store._Path))
-                    {
-                        if (currRepos[store._Path] == null)
-                        {
-                            currRepos[store._Path] = new List<string>();
-                            currRepos[store._Path].Add(repo.Path);
-                        }
-
-                        else
-                        {
-                            currRepos[store._Path].Add(repo.Path);
-                        }
-                    }
-
-                    else
-                    {
-                        currRepos.Add(store._Path, new List<string>());
-                        currRepos[store._Path].Add(repo.Path);
-                    }
-                }
-            }
+            currRepos = Initialization_Parallel();
 
             #endregion Initialization
 
 
             #region Find Changes
 
-            currRepos_Additions = Detect_Additions(currRepos);
-            currRepos_Deletions = Detect_Deletions(currRepos);
+            //currRepos_Additions = Detect_Additions(currRepos);
+            currRepos_Additions = Detect_Additions_Parallel(currRepos);
+
+            //currRepos_Deletions = Detect_Deletions(currRepos);
+            currRepos_Deletions = Detect_Deletions_Parallel(currRepos);
 
             if (currRepos_Additions.Count > 0 || currRepos_Deletions.Count > 0)
             {
@@ -622,6 +607,9 @@ namespace GITRepoManager
 
             #region Return
 
+            st.Stop();
+
+            //MessageBox.Show(st.Elapsed.TotalSeconds.ToString());
             return changes;
 
             #endregion Return
@@ -675,6 +663,7 @@ namespace GITRepoManager
 
                 try
                 {
+                    //Parallel.ForEach(Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly), (path) =>
                     foreach (string path in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
                     {
                         bool contains = false;
@@ -692,6 +681,10 @@ namespace GITRepoManager
                         {
                             if (Is_Git_Repo(path))
                             {
+                                while (Detect_Additions_Busy) ;
+
+                                //Detect_Additions_Busy = true;
+
                                 if (additions.Keys.Contains(kvp.Key))
                                 {
                                     additions[kvp.Key].Add(path);
@@ -702,9 +695,11 @@ namespace GITRepoManager
                                     additions.Add(kvp.Key, new List<string>());
                                     additions[kvp.Key].Add(path);
                                 }
+
+                                //Detect_Additions_Busy = false;
                             }
                         }
-                    }
+                    }//);
                 }
 
                 catch (Exception ex)
@@ -734,17 +729,21 @@ namespace GITRepoManager
 
                     try
                     {
+                        //Parallel.ForEach(Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly), (path) =>
                         foreach (string path in Directory.GetDirectories(kvp.Key))
                         {
                             if (repoPath == path)
                             {
                                 contains = true;
-                                break;
                             }
-                        }
+                        }//);
 
                         if (!contains)
                         {
+                            while (Detect_Deletions_Busy) ;
+
+                            //Detect_Deletions_Busy = true;
+
                             if (deletions.Keys.Contains(kvp.Key))
                             {
                                 deletions[kvp.Key].Add(repoPath);
@@ -755,6 +754,8 @@ namespace GITRepoManager
                                 deletions.Add(kvp.Key, new List<string>());
                                 deletions[kvp.Key].Add(repoPath);
                             }
+
+                            //Detect_Deletions_Busy = false;
                         }
                     }
 
@@ -843,6 +844,161 @@ namespace GITRepoManager
         }
 
         #endregion Remove_Repos
+
+
+        #region Initialization_Parallel
+
+        public static Dictionary<string, List<string>> Initialization_Parallel()
+        {
+            ConcurrentDictionary<string, List<string>> currRepos = new ConcurrentDictionary<string, List<string>>();
+
+            Parallel.ForEach(ManagerData.Stores.Values, (store) =>
+            {
+                ThreadPool.QueueUserWorkItem(x =>
+                {
+                    foreach (RepoCell repo in store._Repos.Values)
+                    {
+                        if (currRepos.Keys.Contains(store._Path))
+                        {
+                            if (currRepos[store._Path] == null)
+                            {
+                                currRepos[store._Path] = new List<string>();
+                                currRepos[store._Path].Add(repo.Path);
+                            }
+
+                            else
+                            {
+                                currRepos[store._Path].Add(repo.Path);
+                            }
+                        }
+
+                        else
+                        {
+                            currRepos.TryAdd(store._Path, new List<string>());
+                            currRepos[store._Path].Add(repo.Path);
+                        }
+                    }
+                });
+            });
+
+            Dictionary<string, List<string>> temp = currRepos.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            return temp;
+        }
+
+        #endregion Initialization_Parallel
+
+
+        #region Detect_Additions_Parallel
+
+        public static Dictionary<string, List<string>> Detect_Additions_Parallel(Dictionary<string, List<string>> currList)
+        {
+            ConcurrentDictionary<string, List<string>> additions = new ConcurrentDictionary<string, List<string>>();
+            ConcurrentDictionary<string, List<string>> currList_Parallel = new ConcurrentDictionary<string, List<string>>(currList);
+
+            Parallel.ForEach(currList_Parallel, (kvp) =>
+            {
+                // Outer = dir inner = repo => Addition
+
+                try
+                {
+                    foreach (string path in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
+                    {
+                        bool contains = false;
+
+                        foreach (string currRepo in kvp.Value)
+                        {
+                            if (path == currRepo)
+                            {
+                                contains = true;
+                                break;
+                            }
+                        }
+
+                        if (!contains)
+                        {
+                            if (Is_Git_Repo(path))
+                            {
+                                if (additions.Keys.Contains(kvp.Key))
+                                {
+                                    additions[kvp.Key].Add(path);
+                                }
+
+                                else
+                                {
+                                    additions.TryAdd(kvp.Key, new List<string>());
+                                    additions[kvp.Key].Add(path);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+
+                }
+            });
+
+            Dictionary<string, List<string>> temp = additions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            return temp;
+        }
+
+        #endregion
+
+
+        #region Detect_Deletions_Parallel
+
+        public static Dictionary<string, List<string>> Detect_Deletions_Parallel(Dictionary<string, List<string>> currList)
+        {
+            ConcurrentDictionary<string, List<string>> deletions = new ConcurrentDictionary<string, List<string>>();
+            ConcurrentDictionary<string, List<string>> currList_Parallel = new ConcurrentDictionary<string, List<string>>(currList);
+
+            Parallel.ForEach(currList_Parallel, (kvp) =>
+            {
+                // Outer = repo inner = dir => Deletion
+                foreach (string repoPath in kvp.Value)
+                {
+                    bool contains = false;
+                    
+                    try
+                    {
+                        foreach (string path in Directory.GetDirectories(kvp.Key))
+                        {
+                            if (repoPath == path)
+                            {
+                                contains = true;
+                            }
+                        }
+
+                        if (!contains)
+                        {
+                            while (Detect_Deletions_Busy) ;
+
+                            if (deletions.Keys.Contains(kvp.Key))
+                            {
+                                deletions[kvp.Key].Add(repoPath);
+                            }
+
+                            else
+                            {
+                                deletions.TryAdd(kvp.Key, new List<string>());
+                                deletions[kvp.Key].Add(repoPath);
+                            }
+                        }
+                    }
+
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            });
+
+            Dictionary<string, List<string>> temp = deletions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            return temp;
+        }
+
+        #endregion Detect_Deletions_Parallel
 
         #endregion Detect_Changes
 

@@ -123,7 +123,7 @@
             this.CloneRepoBT.TabIndex = 24;
             this.CloneRepoBT.UseVisualStyleBackColor = false;
             this.CloneRepoBT.Visible = false;
-            this.CloneRepoBT.Click += new System.EventHandler(this.AddRepoBT_Click);
+            this.CloneRepoBT.Click += new System.EventHandler(this.CloneRepoBT_Click);
             this.CloneRepoBT.MouseEnter += new System.EventHandler(this.CloneRepoBT_MouseEnter);
             this.CloneRepoBT.MouseLeave += new System.EventHandler(this.CloneRepoBT_MouseLeave);
             // 
