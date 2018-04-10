@@ -337,9 +337,8 @@ namespace GITRepoManager
                 int instanceCount = ManagerData.Selected_Store._Repos.Count;
                 int currCount = Get_Store_Count();
 
-                if (RepoHelpers.Detect_Changes())
+                if (RepoHelpers.Detect_Changes(false))
                 {
-
                     Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
                     Refresh_Elements();
                     MainStatusSSL.Text = "Refresh Complete - Changes Were Applied";
@@ -859,23 +858,31 @@ namespace GITRepoManager
 
                 if (!ManagerData.Selected_Repo.Logs_Parsed && Properties.Settings.Default.LogParseMethod == 0 || Properties.Settings.Default.LogParseMethod == 1)
                 {
-                    Process LogP = RepoHelpers.Create_Process(ManagerData.Selected_Repo.Path, " git --no-pager log");
-                    LogP.Start();
-                    string Raw_Log = LogP.StandardOutput.ReadToEnd();
-                    LogP.StandardInput.WriteLine("exit");
-                    LogP.WaitForExit();
-
-                    if (Properties.Settings.Default.LogParseMethod == 1 && ManagerData.Selected_Repo.Logs != null)
+                    try
                     {
-                        ManagerData.Selected_Repo.Logs.Clear();
+                        Process LogP = RepoHelpers.Create_Process(ManagerData.Selected_Repo.Path, " git --no-pager log");
+                        LogP.Start();
+                        string Raw_Log = LogP.StandardOutput.ReadToEnd();
+                        LogP.StandardInput.WriteLine("exit");
+                        LogP.WaitForExit();
+
+                        if (Properties.Settings.Default.LogParseMethod == 1 && ManagerData.Selected_Repo.Logs != null)
+                        {
+                            ManagerData.Selected_Repo.Logs.Clear();
+                        }
+
+                        RepoHelpers.Parse_Logs(Raw_Log, ManagerData.Selected_Repo);
+                        ManagerData.Selected_Repo.Logs_Parsed = true;
+
+                        if (Properties.Settings.Default.LogParseMethod == 0)
+                        {
+                            ManagerData.Selected_Repo.Logs_Parsed = true;
+                        }
                     }
 
-                    RepoHelpers.Parse_Logs(Raw_Log, ManagerData.Selected_Repo);
-                    ManagerData.Selected_Repo.Logs_Parsed = true;
-
-                    if (Properties.Settings.Default.LogParseMethod == 0)
+                    catch (Exception ex)
                     {
-                        ManagerData.Selected_Repo.Logs_Parsed = true;
+                        
                     }
                 }
 

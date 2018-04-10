@@ -220,22 +220,22 @@ namespace GITRepoManager
 
         #region Clone_Repo
 
-       /*
-        *   ________________________________________________________________________________
-        *   # Method:              #
-        *   #                                                                              #
-        *   # Usage:               #
-        *   #                                                                              #
-        *   # Parameters:          #   
-        *   #                                                                              #
-        *   # Returns:             #
-        *   #                                                                              #
-        *   # Last Date Modified:  #
-        *   #                                                                              #
-        *   # Last Modified By:    #
-        *   #                                                                              #
-        *   ________________________________________________________________________________
-        */
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              #
+         *   #                                                                              #
+         *   # Usage:               #
+         *   #                                                                              #
+         *   # Parameters:          #   
+         *   #                                                                              #
+         *   # Returns:             #
+         *   #                                                                              #
+         *   # Last Date Modified:  #
+         *   #                                                                              #
+         *   # Last Modified By:    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
 
         public static bool Clone_Repo(string Destination, bool Use_Selected_Repo, string source = "")
         {
@@ -280,22 +280,22 @@ namespace GITRepoManager
 
         #region Get_Last_Commit
 
-       /*
-        *   ________________________________________________________________________________
-        *   # Method:              #
-        *   #                                                                              #
-        *   # Usage:               #
-        *   #                                                                              #
-        *   # Parameters:          #   
-        *   #                                                                              #
-        *   # Returns:             #
-        *   #                                                                              #
-        *   # Last Date Modified:  #
-        *   #                                                                              #
-        *   # Last Modified By:    #
-        *   #                                                                              #
-        *   ________________________________________________________________________________
-        */
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              #
+         *   #                                                                              #
+         *   # Usage:               #
+         *   #                                                                              #
+         *   # Parameters:          #   
+         *   #                                                                              #
+         *   # Returns:             #
+         *   #                                                                              #
+         *   # Last Date Modified:  #
+         *   #                                                                              #
+         *   # Last Modified By:    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
 
         public static DateTime Get_Last_Commit()
         {
@@ -317,22 +317,22 @@ namespace GITRepoManager
 
         #region Get_Last_Commit_Message
 
-       /*
-        *   ________________________________________________________________________________
-        *   # Method:              #
-        *   #                                                                              #
-        *   # Usage:               #
-        *   #                                                                              #
-        *   # Parameters:          #   
-        *   #                                                                              #
-        *   # Returns:             #
-        *   #                                                                              #
-        *   # Last Date Modified:  #
-        *   #                                                                              #
-        *   # Last Modified By:    #
-        *   #                                                                              #
-        *   ________________________________________________________________________________
-        */
+        /*
+         *   ________________________________________________________________________________
+         *   # Method:              #
+         *   #                                                                              #
+         *   # Usage:               #
+         *   #                                                                              #
+         *   # Parameters:          #   
+         *   #                                                                              #
+         *   # Returns:             #
+         *   #                                                                              #
+         *   # Last Date Modified:  #
+         *   #                                                                              #
+         *   # Last Modified By:    #
+         *   #                                                                              #
+         *   ________________________________________________________________________________
+         */
 
         public static string Get_Last_Commit_Message()
         {
@@ -407,7 +407,7 @@ namespace GITRepoManager
 
                 currDate = currDate.Trim();
 
-                temp = DateTime.ParseExact(currDate, "ddd MMM d HH:mm:ss yyyy zz00", null); 
+                temp = DateTime.ParseExact(currDate, "ddd MMM d HH:mm:ss yyyy zz00", null);
 
                 entry.Date = temp;
                 Entries.Add(entry);
@@ -541,11 +541,12 @@ namespace GITRepoManager
 
         #region Detect_Changes
 
-        public static bool Detect_Changes()
+        public static bool Detect_Changes(bool FullDetect)
         {
             Stopwatch st = new Stopwatch();
 
             st.Start();
+
             #region Initialization
 
             Dictionary<string, List<string>> currRepos = new Dictionary<string, List<string>>();
@@ -554,18 +555,26 @@ namespace GITRepoManager
 
             bool changes = false;
 
-            currRepos = Initialization_Parallel();
+            currRepos = Initialization(FullDetect);
 
             #endregion Initialization
 
 
             #region Find Changes
 
-            //currRepos_Additions = Detect_Additions(currRepos);
-            currRepos_Additions = Detect_Additions_Parallel(currRepos);
+            Task[] Tasks = new Task[2];
 
-            //currRepos_Deletions = Detect_Deletions(currRepos);
-            currRepos_Deletions = Detect_Deletions_Parallel(currRepos);
+            Tasks[0] = Task.Run(() =>
+            {
+                currRepos_Additions = Detect_Additions(currRepos);
+            });
+
+            Tasks[1] = Task.Run(() =>
+            {
+                currRepos_Deletions = Detect_Deletions(currRepos);
+            });
+
+            Task.WaitAll(Tasks);
 
             if (currRepos_Additions.Count > 0 || currRepos_Deletions.Count > 0)
             {
@@ -579,28 +588,22 @@ namespace GITRepoManager
 
             if (changes)
             {
-                string response = string.Empty;
+                string additions = Add_Repos(currRepos_Additions);
 
-                if (currRepos_Additions.Count > 0)
+                if (additions != string.Empty)
                 {
-                    response = Add_Repos(currRepos_Additions);
-
-                    if (response != string.Empty)
-                    {
-                        MessageBox.Show(response, "Error Adding Repo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Error Adding Repos:\n" + additions);
                 }
 
-                if (currRepos_Deletions.Count > 0)
-                {
-                    response = Remove_Repos(currRepos_Deletions);
+                string deletions = Remove_Repos(currRepos_Deletions);
 
-                    if (response != string.Empty)
-                    {
-                        MessageBox.Show(response, "Error Removing Repo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                if (deletions != string.Empty)
+                {
+                    MessageBox.Show("Error Removing Repos:\n" + deletions);
                 }
             }
+
+            Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
 
             #endregion Apply Changes
 
@@ -651,6 +654,59 @@ namespace GITRepoManager
         #endregion Get_Repo_Count
 
 
+        #region Initialization
+
+        public static Dictionary<string, List<string>> Initialization(bool FullDetect)
+        {
+            Dictionary<string, List<string>> currRepos = new Dictionary<string, List<string>>();
+
+            if (FullDetect)
+            {
+                if (ManagerData.Stores != null)
+                {
+                    foreach (StoreCell store in ManagerData.Stores.Values)
+                    {
+                        if (!currRepos.ContainsKey(store._Path))
+                        {
+                            currRepos.Add(store._Path, new List<string>());
+
+                            foreach (RepoCell repo in store._Repos.Values)
+                            {
+                                if (!currRepos[store._Path].Contains(repo.Path))
+                                {
+                                    currRepos[store._Path].Add(repo.Path);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                if (ManagerData.Selected_Store != null)
+                {
+                    if (!currRepos.ContainsKey(ManagerData.Selected_Store._Path))
+                    {
+                        currRepos.Add(ManagerData.Selected_Store._Path, new List<string>());
+
+                        foreach (RepoCell repo in ManagerData.Selected_Store._Repos.Values)
+                        {
+                            if (!currRepos[ManagerData.Selected_Store._Path].Contains(repo.Path))
+                            {
+                                currRepos[ManagerData.Selected_Store._Path].Add(repo.Path);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return currRepos;
+        }
+
+        #endregion Initialization
+
+
         #region Detect_Additions
 
         public static Dictionary<string, List<string>> Detect_Additions(Dictionary<string, List<string>> currList)
@@ -659,52 +715,20 @@ namespace GITRepoManager
 
             foreach (KeyValuePair<string, List<string>> kvp in currList)
             {
-                // Outer = dir inner = repo => Addition
-
-                try
+                if (!additions.ContainsKey(kvp.Key))
                 {
-                    //Parallel.ForEach(Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly), (path) =>
-                    foreach (string path in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
+                    additions.Add(kvp.Key, new List<string>());
+
+                    foreach (string repo in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
                     {
-                        bool contains = false;
-
-                        foreach (string currRepo in kvp.Value)
+                        if (!kvp.Value.Contains(repo))
                         {
-                            if (path == currRepo)
+                            if (!additions[kvp.Key].Contains(repo))
                             {
-                                contains = true;
-                                break;
+                                additions[kvp.Key].Add(repo);
                             }
                         }
-
-                        if (!contains)
-                        {
-                            if (Is_Git_Repo(path))
-                            {
-                                while (Detect_Additions_Busy) ;
-
-                                //Detect_Additions_Busy = true;
-
-                                if (additions.Keys.Contains(kvp.Key))
-                                {
-                                    additions[kvp.Key].Add(path);
-                                }
-
-                                else
-                                {
-                                    additions.Add(kvp.Key, new List<string>());
-                                    additions[kvp.Key].Add(path);
-                                }
-
-                                //Detect_Additions_Busy = false;
-                            }
-                        }
-                    }//);
-                }
-
-                catch (Exception ex)
-                {
-                    
+                    }
                 }
             }
 
@@ -722,45 +746,19 @@ namespace GITRepoManager
 
             foreach (KeyValuePair<string, List<string>> kvp in currList)
             {
-                // Outer = repo inner = dir => Deletion
-                foreach (string repoPath in kvp.Value)
+                if (!deletions.ContainsKey(kvp.Key))
                 {
-                    bool contains = false;
+                    deletions.Add(kvp.Key, new List<string>());
 
-                    try
+                    foreach (string repo in kvp.Value)
                     {
-                        //Parallel.ForEach(Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly), (path) =>
-                        foreach (string path in Directory.GetDirectories(kvp.Key))
+                        if (!Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly).Contains(repo))
                         {
-                            if (repoPath == path)
+                            if (!deletions[kvp.Key].Contains(repo))
                             {
-                                contains = true;
+                                deletions[kvp.Key].Add(repo);
                             }
-                        }//);
-
-                        if (!contains)
-                        {
-                            while (Detect_Deletions_Busy) ;
-
-                            //Detect_Deletions_Busy = true;
-
-                            if (deletions.Keys.Contains(kvp.Key))
-                            {
-                                deletions[kvp.Key].Add(repoPath);
-                            }
-
-                            else
-                            {
-                                deletions.Add(kvp.Key, new List<string>());
-                                deletions[kvp.Key].Add(repoPath);
-                            }
-
-                            //Detect_Deletions_Busy = false;
                         }
-                    }
-
-                    catch (Exception ex)
-                    {
                     }
                 }
             }
@@ -779,31 +777,38 @@ namespace GITRepoManager
 
             foreach (KeyValuePair<string, List<string>> kvp in additions)
             {
-                DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
-
                 foreach (string path in kvp.Value)
                 {
-                    DirectoryInfo repoInfo = new DirectoryInfo(path);
-
-                    RepoCell repo = new RepoCell()
+                    if (Is_Git_Repo(path))
                     {
-                        Name = repoInfo.Name,
-                        Path = repoInfo.FullName,
-                        Current_Status = RepoCell.Status.Type.NONE,
-                        Last_Commit = DateTime.MinValue,
-                        Last_Commit_Message = string.Empty,
-                        Notes = new Dictionary<string, string>(),
-                        Logs = new Dictionary<string, List<EntryCell>>()
-                    };
+                        DirectoryInfo repoInfo = new DirectoryInfo(path);
 
-                    try
-                    {
-                        ManagerData.Stores[storeInfo.Name]._Repos.Add(repoInfo.Name, repo);
-                    }
+                        RepoCell newRepo = new RepoCell()
+                        {
+                            Name = repoInfo.Name,
+                            Path = repoInfo.FullName,
+                            Current_Status = RepoCell.Status.Type.NONE,
+                            Logs_Parsed = false,
+                            Last_Commit = DateTime.MinValue,
+                            Last_Commit_Message = string.Empty,
+                            Logs = new Dictionary<string, List<EntryCell>>(),
+                            Notes = new Dictionary<string, string>()
+                        };
 
-                    catch (Exception ex)
-                    {
-                        response += ex.Message + Environment.NewLine + Environment.NewLine;
+                        try
+                        {
+                            DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
+
+                            if (!ManagerData.Stores[storeInfo.Name]._Repos.ContainsKey(repoInfo.Name))
+                            {
+                                ManagerData.Stores[storeInfo.Name]._Repos.Add(repoInfo.Name, newRepo);
+                            }
+                        }
+
+                        catch (Exception ex)
+                        {
+                            response += ex.Message + Environment.NewLine + Environment.NewLine;
+                        }
                     }
                 }
             }
@@ -822,18 +827,21 @@ namespace GITRepoManager
 
             foreach (KeyValuePair<string, List<string>> kvp in deletions)
             {
-                DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
-
                 foreach (string path in kvp.Value)
                 {
-                    DirectoryInfo repoInfo = new DirectoryInfo(path);
+                    DirectoryInfo pathInfo = new DirectoryInfo(path);
 
                     try
                     {
-                        ManagerData.Stores[storeInfo.Name]._Repos.Remove(repoInfo.Name);
+                        DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
+
+                        if (ManagerData.Stores[storeInfo.Name]._Repos.ContainsKey(pathInfo.Name))
+                        {
+                            ManagerData.Stores[storeInfo.Name]._Repos.Remove(pathInfo.Name);
+                        }
                     }
 
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         response += ex.Message + Environment.NewLine + Environment.NewLine;
                     }
@@ -843,204 +851,198 @@ namespace GITRepoManager
             return response;
         }
 
-        #endregion Remove_Repos
+    #endregion Remove_Repos
 
 
-        #region Initialization_Parallel
+    #region Initialization_Parallel
 
-        public static Dictionary<string, List<string>> Initialization_Parallel()
+    public static Dictionary<string, List<string>> Initialization_Parallel()
+    {
+        ConcurrentDictionary<string, List<string>> currRepos = new ConcurrentDictionary<string, List<string>>();
+
+        Parallel.ForEach(ManagerData.Stores.Values, (store) =>
         {
-            ConcurrentDictionary<string, List<string>> currRepos = new ConcurrentDictionary<string, List<string>>();
-
-            Parallel.ForEach(ManagerData.Stores.Values, (store) =>
+            ThreadPool.QueueUserWorkItem(x =>
             {
-                ThreadPool.QueueUserWorkItem(x =>
+                foreach (RepoCell repo in store._Repos.Values)
                 {
-                    foreach (RepoCell repo in store._Repos.Values)
+                    if (currRepos.Keys.Contains(store._Path))
                     {
-                        if (currRepos.Keys.Contains(store._Path))
+                        if (currRepos[store._Path] == null)
                         {
-                            if (currRepos[store._Path] == null)
-                            {
-                                currRepos[store._Path] = new List<string>();
-                                currRepos[store._Path].Add(repo.Path);
-                            }
-
-                            else
-                            {
-                                currRepos[store._Path].Add(repo.Path);
-                            }
+                            currRepos[store._Path] = new List<string>();
+                            currRepos[store._Path].Add(repo.Path);
                         }
 
                         else
                         {
-                            currRepos.TryAdd(store._Path, new List<string>());
                             currRepos[store._Path].Add(repo.Path);
                         }
                     }
-                });
+
+                    else
+                    {
+                        currRepos.TryAdd(store._Path, new List<string>());
+                        currRepos[store._Path].Add(repo.Path);
+                    }
+                }
             });
+        });
 
-            Dictionary<string, List<string>> temp = currRepos.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        Dictionary<string, List<string>> temp = currRepos.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
-            return temp;
-        }
+        return temp;
+    }
 
-        #endregion Initialization_Parallel
+    #endregion Initialization_Parallel
 
 
-        #region Detect_Additions_Parallel
+    #region Detect_Additions_Parallel
 
-        public static Dictionary<string, List<string>> Detect_Additions_Parallel(Dictionary<string, List<string>> currList)
+    public static Dictionary<string, List<string>> Detect_Additions_Parallel(Dictionary<string, List<string>> currList)
+    {
+        ConcurrentDictionary<string, List<string>> additions = new ConcurrentDictionary<string, List<string>>();
+        ConcurrentDictionary<string, List<string>> currList_Parallel = new ConcurrentDictionary<string, List<string>>(currList);
+
+        Parallel.ForEach(currList_Parallel, (kvp) =>
         {
-            ConcurrentDictionary<string, List<string>> additions = new ConcurrentDictionary<string, List<string>>();
-            ConcurrentDictionary<string, List<string>> currList_Parallel = new ConcurrentDictionary<string, List<string>>(currList);
-
-            Parallel.ForEach(currList_Parallel, (kvp) =>
-            {
                 // Outer = dir inner = repo => Addition
 
                 try
+            {
+                foreach (string path in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
                 {
-                    foreach (string path in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
-                    {
-                        bool contains = false;
+                    bool contains = false;
 
-                        foreach (string currRepo in kvp.Value)
+                    foreach (string currRepo in kvp.Value)
+                    {
+                        if (path == currRepo)
                         {
-                            if (path == currRepo)
+                            contains = true;
+                            break;
+                        }
+                    }
+
+                    if (!contains)
+                    {
+                        if (Is_Git_Repo(path))
+                        {
+                            if (additions.Keys.Contains(kvp.Key))
                             {
-                                contains = true;
-                                break;
+                                additions[kvp.Key].Add(path);
+                            }
+
+                            else
+                            {
+                                additions.TryAdd(kvp.Key, new List<string>());
+                                additions[kvp.Key].Add(path);
                             }
                         }
+                    }
+                }
+            }
 
-                        if (!contains)
+            catch (Exception ex)
+            {
+
+            }
+        });
+
+        Dictionary<string, List<string>> temp = additions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        return temp;
+    }
+
+    #endregion
+
+
+    #region Detect_Deletions_Parallel
+
+    public static Dictionary<string, List<string>> Detect_Deletions_Parallel(Dictionary<string, List<string>> currList)
+    {
+        ConcurrentDictionary<string, List<string>> deletions = new ConcurrentDictionary<string, List<string>>();
+        ConcurrentDictionary<string, List<string>> currList_Parallel = new ConcurrentDictionary<string, List<string>>(currList);
+
+        Parallel.ForEach(currList_Parallel, (kvp) =>
+        {
+                // Outer = repo inner = dir => Deletion
+                foreach (string repoPath in kvp.Value)
+            {
+                bool contains = false;
+
+                try
+                {
+                    foreach (string path in Directory.GetDirectories(kvp.Key))
+                    {
+                        if (repoPath == path)
                         {
-                            if (Is_Git_Repo(path))
-                            {
-                                if (additions.Keys.Contains(kvp.Key))
-                                {
-                                    additions[kvp.Key].Add(path);
-                                }
+                            contains = true;
+                        }
+                    }
 
-                                else
-                                {
-                                    additions.TryAdd(kvp.Key, new List<string>());
-                                    additions[kvp.Key].Add(path);
-                                }
-                            }
+                    if (!contains)
+                    {
+                        while (Detect_Deletions_Busy) ;
+
+                        if (deletions.Keys.Contains(kvp.Key))
+                        {
+                            deletions[kvp.Key].Add(repoPath);
+                        }
+
+                        else
+                        {
+                            deletions.TryAdd(kvp.Key, new List<string>());
+                            deletions[kvp.Key].Add(repoPath);
                         }
                     }
                 }
 
                 catch (Exception ex)
                 {
-
                 }
-            });
+            }
+        });
 
-            Dictionary<string, List<string>> temp = additions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            return temp;
-        }
+        Dictionary<string, List<string>> temp = deletions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        return temp;
+    }
 
-        #endregion
+    #endregion Detect_Deletions_Parallel
+
+    #endregion Detect_Changes
 
 
-        #region Detect_Deletions_Parallel
+    #region Create_Blank_Repository
 
-        public static Dictionary<string, List<string>> Detect_Deletions_Parallel(Dictionary<string, List<string>> currList)
+    public static bool Create_Blank_Repository(string source, string name)
+    {
+        string Full_Path = source + @"\" + name + ".git";
+
+        if (!Directory.GetDirectories(source).Contains(name))
         {
-            ConcurrentDictionary<string, List<string>> deletions = new ConcurrentDictionary<string, List<string>>();
-            ConcurrentDictionary<string, List<string>> currList_Parallel = new ConcurrentDictionary<string, List<string>>(currList);
+            DirectoryInfo fullInfo = new DirectoryInfo(Full_Path);
+            fullInfo.Create();
 
-            Parallel.ForEach(currList_Parallel, (kvp) =>
+            // Any output and error from the processes used during this operation
+            List<string> temp = Initialize_Blank_Repository(fullInfo.FullName);
+
+            if (temp == null)
             {
-                // Outer = repo inner = dir => Deletion
-                foreach (string repoPath in kvp.Value)
+                if (Is_Git_Repo(fullInfo.FullName))
                 {
-                    bool contains = false;
-                    
-                    try
-                    {
-                        foreach (string path in Directory.GetDirectories(kvp.Key))
-                        {
-                            if (repoPath == path)
-                            {
-                                contains = true;
-                            }
-                        }
-
-                        if (!contains)
-                        {
-                            while (Detect_Deletions_Busy) ;
-
-                            if (deletions.Keys.Contains(kvp.Key))
-                            {
-                                deletions[kvp.Key].Add(repoPath);
-                            }
-
-                            else
-                            {
-                                deletions.TryAdd(kvp.Key, new List<string>());
-                                deletions[kvp.Key].Add(repoPath);
-                            }
-                        }
-                    }
-
-                    catch (Exception ex)
-                    {
-                    }
-                }
-            });
-
-            Dictionary<string, List<string>> temp = deletions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            return temp;
-        }
-
-        #endregion Detect_Deletions_Parallel
-
-        #endregion Detect_Changes
-
-
-        #region Create_Blank_Repository
-
-        public static bool Create_Blank_Repository(string source, string name)
-        {
-            string Full_Path = source + @"\" + name + ".git";
-
-            if (!Directory.GetDirectories(source).Contains(name))
-            {
-                DirectoryInfo fullInfo = new DirectoryInfo(Full_Path);
-                fullInfo.Create();
-
-                // Any output and error from the processes used during this operation
-                List<string> temp = Initialize_Blank_Repository(fullInfo.FullName);
-
-                if (temp == null)
-                {
-                    if (Is_Git_Repo(fullInfo.FullName))
-                    {
-                        return true;
-                    }
-
-                    else
-                    {
-                        try
-                        {
-                            fullInfo.Delete();
-                        }
-
-                        catch
-                        {
-                        }
-
-                        return false;
-                    }
+                    return true;
                 }
 
                 else
                 {
+                    try
+                    {
+                        fullInfo.Delete();
+                    }
+
+                    catch
+                    {
+                    }
+
                     return false;
                 }
             }
@@ -1051,212 +1053,218 @@ namespace GITRepoManager
             }
         }
 
-        #region Initialize_Blank_Repository
-
-        public static List<string> Initialize_Blank_Repository(string path)
+        else
         {
-            DirectoryInfo pathInfo = new DirectoryInfo(path);
-            List<string> response = new List<string>();
-
-            // First we need to do an init --bare inside the repo
-            try
-            {
-                Process Init = Create_Process(path, Properties.Resources.REPO_BLANK);
-
-                if (Init != null)
-                {
-                    response = Process_Output(Init, "Init");
-
-                    if (!(response[1] == "Init Error:\n\n"))
-                    {
-                        return response;
-                    }
-                }
-
-                else
-                {
-                    response.Add("Init Process Error");
-                    return response;
-                }
-            }
-
-            catch(Exception ex)
-            {
-                response.Add("Init Exception:\n\n" + ex.Message);
-                return response;
-            }
-
-            string localPath = Properties.Settings.Default.CloneLocalSourcePath + @"\" + pathInfo.Name.Substring(0, pathInfo.Name.Length - 4);
-
-            // Then we need to clone the repo down to the source folder and add a readme
-            Clone_Repo(Properties.Settings.Default.CloneLocalSourcePath, false, path);
-            File.CreateText(localPath + @"\ReadMe.txt").Close();
-
-            // Then we need to add, commit, and push the changes
-
-            response.Clear();
-
-            try
-            {
-                Process add = Create_Process(localPath, Properties.Resources.REPO_ADD);
-
-                if (add != null)
-                {
-                    response = Process_Output(add, "Add");
-
-                    if (!(response[1] == "Add Error:\n\n"))
-                    {
-                        return response;
-                    }
-                }
-
-                else
-                {
-                    response.Add("Add Process Error");
-                    return response;
-                }
-            }
-
-            catch(Exception ex)
-            {
-                response.Add("Add Exception:\n\n" + ex.Message);
-                return response;
-            }
-
-            response.Clear();
-
-            try
-            {
-                response.Clear();
-                Process Committer = Create_Process(localPath, Properties.Resources.REPO_COMMIT_BLANK);
-
-                if (Committer != null)
-                {
-                    response = Process_Output(Committer, "Commit");
-
-                    if (!(response[1] == "Commit Error:\n\n"))
-                    {
-                        return response;
-                    }
-                }
-
-                else
-                {
-                    response.Add("Commit Process Error");
-                    return response;
-                }
-            }
-
-            catch(Exception ex)
-            {
-                response.Add("Commit Exception:\n\n" + ex.Message);
-                return response;
-            }
-
-            response.Clear();
-
-            try
-            {
-                Process Pusher = Create_Process(localPath, Properties.Resources.REPO_PUSH);
-
-                if (Pusher != null)
-                {
-                    response = Process_Output(Pusher, "Push");
-
-                    if (!(response[1] == "Push Error:\n\n"))
-                    {
-                        //return response;
-                    }
-                }
-
-                else
-                {
-                    response.Add("Push Process Error");
-                    return response;
-                }
-            }
-
-            catch(Exception ex)
-            {
-                response.Add("Push Exception:\n\n" + ex.Message);
-                return response;
-            }
-
-            response.Clear();
-
-            // Then we need to delete the local repo
-            try
-            {
-                Delete_Directory(localPath);
-            }
-
-            catch (Exception ex)
-            {
-                response.Add("Delete Exception:\n\n" + ex.Message);
-                return response;
-            }
-
-            return null;
+            return false;
         }
+    }
 
-        #endregion Initialize_Blank_Repository
+    #region Initialize_Blank_Repository
 
+    public static List<string> Initialize_Blank_Repository(string path)
+    {
+        DirectoryInfo pathInfo = new DirectoryInfo(path);
+        List<string> response = new List<string>();
 
-        #region Process_Output
-
-        public static List<string> Process_Output(Process cmd, string designator = "")
+        // First we need to do an init --bare inside the repo
+        try
         {
-            //Process LogP = RepoHelpers.Create_Process(ManagerData.Selected_Repo.Path, " git --no-pager log");
-            cmd.Start();
-            string output = string.Empty;
-            string error = string.Empty;
-            output = cmd.StandardOutput.ReadToEnd();
-            error = cmd.StandardError.ReadToEnd();
-            cmd.StandardInput.WriteLine("exit");
-            cmd.WaitForExit();
+            Process Init = Create_Process(path, Properties.Resources.REPO_BLANK);
 
-            List<string> returns = new List<string>();
-
-            if (designator == "")
+            if (Init != null)
             {
-                returns.Add(output);
-                returns.Add(error);
+                response = Process_Output(Init, "Init");
+
+                if (!(response[1] == "Init Error:\n\n"))
+                {
+                    return response;
+                }
             }
 
             else
             {
-                returns.Add(designator + " Output:\n\n" + output);
-                returns.Add(designator + " Error:\n\n" + error);
+                response.Add("Init Process Error");
+                return response;
             }
-
-            return returns;
         }
 
-        #endregion Process_Output
-
-
-        #region Delete_Directory
-
-        public static void Delete_Directory(string path)
+        catch (Exception ex)
         {
-            foreach (string file in Directory.GetFiles(path))
-            {
-                File.SetAttributes(file, FileAttributes.Normal);
-                File.Delete(file);
-            }
-
-            foreach (string dir in Directory.GetDirectories(path))
-            {
-                Delete_Directory(dir);
-            }
-
-            Directory.Delete(path, true);
+            response.Add("Init Exception:\n\n" + ex.Message);
+            return response;
         }
 
-        #endregion Delete_Directory
+        string localPath = Properties.Settings.Default.CloneLocalSourcePath + @"\" + pathInfo.Name.Substring(0, pathInfo.Name.Length - 4);
 
-        #endregion Create_Blank_Repository
+        // Then we need to clone the repo down to the source folder and add a readme
+        Clone_Repo(Properties.Settings.Default.CloneLocalSourcePath, false, path);
+        File.CreateText(localPath + @"\ReadMe.txt").Close();
 
-        #endregion Class Methods
+        // Then we need to add, commit, and push the changes
+
+        response.Clear();
+
+        try
+        {
+            Process add = Create_Process(localPath, Properties.Resources.REPO_ADD);
+
+            if (add != null)
+            {
+                response = Process_Output(add, "Add");
+
+                if (!(response[1] == "Add Error:\n\n"))
+                {
+                    return response;
+                }
+            }
+
+            else
+            {
+                response.Add("Add Process Error");
+                return response;
+            }
+        }
+
+        catch (Exception ex)
+        {
+            response.Add("Add Exception:\n\n" + ex.Message);
+            return response;
+        }
+
+        response.Clear();
+
+        try
+        {
+            response.Clear();
+            Process Committer = Create_Process(localPath, Properties.Resources.REPO_COMMIT_BLANK);
+
+            if (Committer != null)
+            {
+                response = Process_Output(Committer, "Commit");
+
+                if (!(response[1] == "Commit Error:\n\n"))
+                {
+                    return response;
+                }
+            }
+
+            else
+            {
+                response.Add("Commit Process Error");
+                return response;
+            }
+        }
+
+        catch (Exception ex)
+        {
+            response.Add("Commit Exception:\n\n" + ex.Message);
+            return response;
+        }
+
+        response.Clear();
+
+        try
+        {
+            Process Pusher = Create_Process(localPath, Properties.Resources.REPO_PUSH);
+
+            if (Pusher != null)
+            {
+                response = Process_Output(Pusher, "Push");
+
+                if (!(response[1] == "Push Error:\n\n"))
+                {
+                    //return response;
+                }
+            }
+
+            else
+            {
+                response.Add("Push Process Error");
+                return response;
+            }
+        }
+
+        catch (Exception ex)
+        {
+            response.Add("Push Exception:\n\n" + ex.Message);
+            return response;
+        }
+
+        response.Clear();
+
+        // Then we need to delete the local repo
+        try
+        {
+            Delete_Directory(localPath);
+        }
+
+        catch (Exception ex)
+        {
+            response.Add("Delete Exception:\n\n" + ex.Message);
+            return response;
+        }
+
+        return null;
     }
+
+    #endregion Initialize_Blank_Repository
+
+
+    #region Process_Output
+
+    public static List<string> Process_Output(Process cmd, string designator = "")
+    {
+        //Process LogP = RepoHelpers.Create_Process(ManagerData.Selected_Repo.Path, " git --no-pager log");
+        cmd.Start();
+        string output = string.Empty;
+        string error = string.Empty;
+        output = cmd.StandardOutput.ReadToEnd();
+        error = cmd.StandardError.ReadToEnd();
+        cmd.StandardInput.WriteLine("exit");
+        cmd.WaitForExit();
+
+        List<string> returns = new List<string>();
+
+        if (designator == "")
+        {
+            returns.Add(output);
+            returns.Add(error);
+        }
+
+        else
+        {
+            returns.Add(designator + " Output:\n\n" + output);
+            returns.Add(designator + " Error:\n\n" + error);
+        }
+
+        return returns;
+    }
+
+    #endregion Process_Output
+
+
+    #region Delete_Directory
+
+    public static void Delete_Directory(string path)
+    {
+        foreach (string file in Directory.GetFiles(path))
+        {
+            File.SetAttributes(file, FileAttributes.Normal);
+            File.Delete(file);
+        }
+
+        foreach (string dir in Directory.GetDirectories(path))
+        {
+            Delete_Directory(dir);
+        }
+
+        Directory.Delete(path, true);
+    }
+
+    #endregion Delete_Directory
+
+    #endregion Create_Blank_Repository
+
+    #endregion Class Methods
+}
 }

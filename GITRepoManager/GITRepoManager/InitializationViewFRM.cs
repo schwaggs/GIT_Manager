@@ -94,7 +94,7 @@ namespace GITRepoManager
 
             ReadConfigPB.BackgroundImage = Properties.Resources.ConfigCheck_Complete;
 
-            if (RepoHelpers.Detect_Changes())
+            if (RepoHelpers.Detect_Changes(true))
             {
                 Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
 
