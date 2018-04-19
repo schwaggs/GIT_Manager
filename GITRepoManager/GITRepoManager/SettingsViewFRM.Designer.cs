@@ -29,29 +29,37 @@
         private void InitializeComponent()
         {
             this.MainViewP = new System.Windows.Forms.Panel();
-            this.BrowseClonePathBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.AutoChangeRateTB = new System.Windows.Forms.TextBox();
+            this.AutoChangeLB2 = new System.Windows.Forms.Label();
+            this.AutoChangeLB1 = new System.Windows.Forms.Label();
+            this.AutoChangeCB = new System.Windows.Forms.CheckBox();
+            this.DynamicParseRB = new System.Windows.Forms.RadioButton();
+            this.SingleParseRB = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.CloneDestinationTB = new System.Windows.Forms.TextBox();
-            this.DeleteLocationBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ConfigPathTB = new System.Windows.Forms.TextBox();
-            this.BrowseBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.StoreLocationLV = new System.Windows.Forms.ListView();
             this.StoreNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LocationCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.SettingsInfoSSSL = new System.Windows.Forms.ToolStripStatusLabel();
-            this.SaveSettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.SaveMessageLB = new System.Windows.Forms.Label();
-            this.SingleParseRB = new System.Windows.Forms.RadioButton();
-            this.DynamicParseRB = new System.Windows.Forms.RadioButton();
+            this.SaveSettingsBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.BrowseClonePathBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.DeleteLocationBT = new GITRepoManager.NoFocusSelectionRectangleButton();
+            this.BrowseBT = new GITRepoManager.NoFocusSelectionRectangleButton();
             this.MainViewP.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainViewP
             // 
+            this.MainViewP.Controls.Add(this.AutoChangeRateTB);
+            this.MainViewP.Controls.Add(this.AutoChangeLB2);
+            this.MainViewP.Controls.Add(this.AutoChangeLB1);
+            this.MainViewP.Controls.Add(this.AutoChangeCB);
             this.MainViewP.Controls.Add(this.DynamicParseRB);
             this.MainViewP.Controls.Add(this.SingleParseRB);
             this.MainViewP.Controls.Add(this.BrowseClonePathBT);
@@ -65,28 +73,76 @@
             this.MainViewP.Controls.Add(this.StoreLocationLV);
             this.MainViewP.Location = new System.Drawing.Point(12, 12);
             this.MainViewP.Name = "MainViewP";
-            this.MainViewP.Size = new System.Drawing.Size(501, 412);
+            this.MainViewP.Size = new System.Drawing.Size(501, 485);
             this.MainViewP.TabIndex = 0;
             // 
-            // BrowseClonePathBT
+            // AutoChangeRateTB
             // 
-            this.BrowseClonePathBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BrowseClonePathBT.BackColor = System.Drawing.Color.Transparent;
-            this.BrowseClonePathBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Browse_Icon;
-            this.BrowseClonePathBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BrowseClonePathBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.BrowseClonePathBT.FlatAppearance.BorderSize = 0;
-            this.BrowseClonePathBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BrowseClonePathBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BrowseClonePathBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseClonePathBT.Location = new System.Drawing.Point(422, 91);
-            this.BrowseClonePathBT.Name = "BrowseClonePathBT";
-            this.BrowseClonePathBT.Size = new System.Drawing.Size(35, 35);
-            this.BrowseClonePathBT.TabIndex = 34;
-            this.BrowseClonePathBT.UseVisualStyleBackColor = false;
-            this.BrowseClonePathBT.Click += new System.EventHandler(this.BrowseClonePathBT_Click);
-            this.BrowseClonePathBT.MouseEnter += new System.EventHandler(this.BrowseClonePathBT_MouseEnter);
-            this.BrowseClonePathBT.MouseLeave += new System.EventHandler(this.BrowseClonePathBT_MouseLeave);
+            this.AutoChangeRateTB.Location = new System.Drawing.Point(219, 392);
+            this.AutoChangeRateTB.Name = "AutoChangeRateTB";
+            this.AutoChangeRateTB.Size = new System.Drawing.Size(67, 20);
+            this.AutoChangeRateTB.TabIndex = 40;
+            this.AutoChangeRateTB.Visible = false;
+            this.AutoChangeRateTB.TextChanged += new System.EventHandler(this.AutoChangeRateTB_TextChanged);
+            // 
+            // AutoChangeLB2
+            // 
+            this.AutoChangeLB2.AutoSize = true;
+            this.AutoChangeLB2.Location = new System.Drawing.Point(292, 396);
+            this.AutoChangeLB2.Name = "AutoChangeLB2";
+            this.AutoChangeLB2.Size = new System.Drawing.Size(50, 13);
+            this.AutoChangeLB2.TabIndex = 39;
+            this.AutoChangeLB2.Text = "seconds.";
+            this.AutoChangeLB2.Visible = false;
+            // 
+            // AutoChangeLB1
+            // 
+            this.AutoChangeLB1.AutoSize = true;
+            this.AutoChangeLB1.Location = new System.Drawing.Point(179, 396);
+            this.AutoChangeLB1.Name = "AutoChangeLB1";
+            this.AutoChangeLB1.Size = new System.Drawing.Size(34, 13);
+            this.AutoChangeLB1.TabIndex = 38;
+            this.AutoChangeLB1.Text = "Every";
+            this.AutoChangeLB1.Visible = false;
+            // 
+            // AutoChangeCB
+            // 
+            this.AutoChangeCB.AutoSize = true;
+            this.AutoChangeCB.Location = new System.Drawing.Point(56, 395);
+            this.AutoChangeCB.Name = "AutoChangeCB";
+            this.AutoChangeCB.Size = new System.Drawing.Size(128, 17);
+            this.AutoChangeCB.TabIndex = 37;
+            this.AutoChangeCB.Text = "Auto Detect Changes";
+            this.AutoChangeCB.UseVisualStyleBackColor = true;
+            this.AutoChangeCB.CheckedChanged += new System.EventHandler(this.AutoChangeCB_CheckedChanged);
+            this.AutoChangeCB.MouseEnter += new System.EventHandler(this.Object_MouseEnter);
+            this.AutoChangeCB.MouseLeave += new System.EventHandler(this.Object_MouseLeave);
+            // 
+            // DynamicParseRB
+            // 
+            this.DynamicParseRB.AutoSize = true;
+            this.DynamicParseRB.Location = new System.Drawing.Point(176, 369);
+            this.DynamicParseRB.Name = "DynamicParseRB";
+            this.DynamicParseRB.Size = new System.Drawing.Size(117, 17);
+            this.DynamicParseRB.TabIndex = 36;
+            this.DynamicParseRB.TabStop = true;
+            this.DynamicParseRB.Text = "Dynamic Log Parse";
+            this.DynamicParseRB.UseVisualStyleBackColor = true;
+            this.DynamicParseRB.MouseEnter += new System.EventHandler(this.Object_MouseEnter);
+            this.DynamicParseRB.MouseLeave += new System.EventHandler(this.Object_MouseLeave);
+            // 
+            // SingleParseRB
+            // 
+            this.SingleParseRB.AutoSize = true;
+            this.SingleParseRB.Location = new System.Drawing.Point(56, 369);
+            this.SingleParseRB.Name = "SingleParseRB";
+            this.SingleParseRB.Size = new System.Drawing.Size(114, 17);
+            this.SingleParseRB.TabIndex = 35;
+            this.SingleParseRB.TabStop = true;
+            this.SingleParseRB.Text = "Singular Log Parse";
+            this.SingleParseRB.UseVisualStyleBackColor = true;
+            this.SingleParseRB.MouseEnter += new System.EventHandler(this.Object_MouseEnter);
+            this.SingleParseRB.MouseLeave += new System.EventHandler(this.Object_MouseLeave);
             // 
             // label3
             // 
@@ -106,27 +162,6 @@
             this.CloneDestinationTB.Size = new System.Drawing.Size(409, 26);
             this.CloneDestinationTB.TabIndex = 32;
             this.CloneDestinationTB.TextChanged += new System.EventHandler(this.CloneDestinationTB_TextChanged);
-            // 
-            // DeleteLocationBT
-            // 
-            this.DeleteLocationBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.DeleteLocationBT.BackColor = System.Drawing.Color.Transparent;
-            this.DeleteLocationBT.BackgroundImage = global::GITRepoManager.Properties.Resources.DeleteIcon;
-            this.DeleteLocationBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.DeleteLocationBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.DeleteLocationBT.FlatAppearance.BorderSize = 0;
-            this.DeleteLocationBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.DeleteLocationBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.DeleteLocationBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeleteLocationBT.Location = new System.Drawing.Point(472, 139);
-            this.DeleteLocationBT.Name = "DeleteLocationBT";
-            this.DeleteLocationBT.Size = new System.Drawing.Size(25, 25);
-            this.DeleteLocationBT.TabIndex = 31;
-            this.DeleteLocationBT.UseVisualStyleBackColor = false;
-            this.DeleteLocationBT.Visible = false;
-            this.DeleteLocationBT.Click += new System.EventHandler(this.DeleteLocationBT_Click);
-            this.DeleteLocationBT.MouseEnter += new System.EventHandler(this.DeleteLocationBT_MouseEnter);
-            this.DeleteLocationBT.MouseLeave += new System.EventHandler(this.DeleteLocationBT_MouseLeave);
             // 
             // label2
             // 
@@ -157,26 +192,6 @@
             this.ConfigPathTB.Size = new System.Drawing.Size(409, 26);
             this.ConfigPathTB.TabIndex = 28;
             this.ConfigPathTB.Click += new System.EventHandler(this.ConfigPathTB_Click);
-            // 
-            // BrowseBT
-            // 
-            this.BrowseBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BrowseBT.BackColor = System.Drawing.Color.Transparent;
-            this.BrowseBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
-            this.BrowseBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BrowseBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.BrowseBT.FlatAppearance.BorderSize = 0;
-            this.BrowseBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BrowseBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BrowseBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseBT.Location = new System.Drawing.Point(3, 374);
-            this.BrowseBT.Name = "BrowseBT";
-            this.BrowseBT.Size = new System.Drawing.Size(35, 35);
-            this.BrowseBT.TabIndex = 25;
-            this.BrowseBT.UseVisualStyleBackColor = false;
-            this.BrowseBT.Click += new System.EventHandler(this.BrowseBT_Click);
-            this.BrowseBT.MouseEnter += new System.EventHandler(this.BrowseBT_MouseEnter);
-            this.BrowseBT.MouseLeave += new System.EventHandler(this.BrowseBT_MouseLeave);
             // 
             // StoreLocationLV
             // 
@@ -223,6 +238,15 @@
             this.SettingsInfoSSSL.Name = "SettingsInfoSSSL";
             this.SettingsInfoSSSL.Size = new System.Drawing.Size(0, 17);
             // 
+            // SaveMessageLB
+            // 
+            this.SaveMessageLB.AutoSize = true;
+            this.SaveMessageLB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveMessageLB.Location = new System.Drawing.Point(75, 451);
+            this.SaveMessageLB.Name = "SaveMessageLB";
+            this.SaveMessageLB.Size = new System.Drawing.Size(0, 20);
+            this.SaveMessageLB.TabIndex = 25;
+            // 
             // SaveSettingsBT
             // 
             this.SaveSettingsBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -234,7 +258,7 @@
             this.SaveSettingsBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.SaveSettingsBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.SaveSettingsBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveSettingsBT.Location = new System.Drawing.Point(12, 440);
+            this.SaveSettingsBT.Location = new System.Drawing.Point(13, 440);
             this.SaveSettingsBT.Name = "SaveSettingsBT";
             this.SaveSettingsBT.Size = new System.Drawing.Size(45, 45);
             this.SaveSettingsBT.TabIndex = 23;
@@ -243,36 +267,66 @@
             this.SaveSettingsBT.MouseEnter += new System.EventHandler(this.SaveSettingsBT_MouseEnter);
             this.SaveSettingsBT.MouseLeave += new System.EventHandler(this.SaveSettingsBT_MouseLeave);
             // 
-            // SaveMessageLB
+            // BrowseClonePathBT
             // 
-            this.SaveMessageLB.AutoSize = true;
-            this.SaveMessageLB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveMessageLB.Location = new System.Drawing.Point(75, 451);
-            this.SaveMessageLB.Name = "SaveMessageLB";
-            this.SaveMessageLB.Size = new System.Drawing.Size(0, 20);
-            this.SaveMessageLB.TabIndex = 25;
+            this.BrowseClonePathBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BrowseClonePathBT.BackColor = System.Drawing.Color.Transparent;
+            this.BrowseClonePathBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Browse_Icon;
+            this.BrowseClonePathBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BrowseClonePathBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.BrowseClonePathBT.FlatAppearance.BorderSize = 0;
+            this.BrowseClonePathBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BrowseClonePathBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BrowseClonePathBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowseClonePathBT.Location = new System.Drawing.Point(422, 91);
+            this.BrowseClonePathBT.Name = "BrowseClonePathBT";
+            this.BrowseClonePathBT.Size = new System.Drawing.Size(35, 35);
+            this.BrowseClonePathBT.TabIndex = 34;
+            this.BrowseClonePathBT.UseVisualStyleBackColor = false;
+            this.BrowseClonePathBT.Click += new System.EventHandler(this.BrowseClonePathBT_Click);
+            this.BrowseClonePathBT.MouseEnter += new System.EventHandler(this.BrowseClonePathBT_MouseEnter);
+            this.BrowseClonePathBT.MouseLeave += new System.EventHandler(this.BrowseClonePathBT_MouseLeave);
             // 
-            // SingleParseRB
+            // DeleteLocationBT
             // 
-            this.SingleParseRB.AutoSize = true;
-            this.SingleParseRB.Location = new System.Drawing.Point(56, 369);
-            this.SingleParseRB.Name = "SingleParseRB";
-            this.SingleParseRB.Size = new System.Drawing.Size(114, 17);
-            this.SingleParseRB.TabIndex = 35;
-            this.SingleParseRB.TabStop = true;
-            this.SingleParseRB.Text = "Singular Log Parse";
-            this.SingleParseRB.UseVisualStyleBackColor = true;
+            this.DeleteLocationBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.DeleteLocationBT.BackColor = System.Drawing.Color.Transparent;
+            this.DeleteLocationBT.BackgroundImage = global::GITRepoManager.Properties.Resources.DeleteIcon;
+            this.DeleteLocationBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DeleteLocationBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.DeleteLocationBT.FlatAppearance.BorderSize = 0;
+            this.DeleteLocationBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.DeleteLocationBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.DeleteLocationBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteLocationBT.Location = new System.Drawing.Point(472, 139);
+            this.DeleteLocationBT.Name = "DeleteLocationBT";
+            this.DeleteLocationBT.Size = new System.Drawing.Size(25, 25);
+            this.DeleteLocationBT.TabIndex = 31;
+            this.DeleteLocationBT.UseVisualStyleBackColor = false;
+            this.DeleteLocationBT.Visible = false;
+            this.DeleteLocationBT.Click += new System.EventHandler(this.DeleteLocationBT_Click);
+            this.DeleteLocationBT.MouseEnter += new System.EventHandler(this.DeleteLocationBT_MouseEnter);
+            this.DeleteLocationBT.MouseLeave += new System.EventHandler(this.DeleteLocationBT_MouseLeave);
             // 
-            // DynamicParseRB
+            // BrowseBT
             // 
-            this.DynamicParseRB.AutoSize = true;
-            this.DynamicParseRB.Location = new System.Drawing.Point(56, 392);
-            this.DynamicParseRB.Name = "DynamicParseRB";
-            this.DynamicParseRB.Size = new System.Drawing.Size(117, 17);
-            this.DynamicParseRB.TabIndex = 36;
-            this.DynamicParseRB.TabStop = true;
-            this.DynamicParseRB.Text = "Dynamic Log Parse";
-            this.DynamicParseRB.UseVisualStyleBackColor = true;
+            this.BrowseBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BrowseBT.BackColor = System.Drawing.Color.Transparent;
+            this.BrowseBT.BackgroundImage = global::GITRepoManager.Properties.Resources.Add_Tag_Icon;
+            this.BrowseBT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BrowseBT.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.BrowseBT.FlatAppearance.BorderSize = 0;
+            this.BrowseBT.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BrowseBT.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BrowseBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowseBT.Location = new System.Drawing.Point(3, 374);
+            this.BrowseBT.Name = "BrowseBT";
+            this.BrowseBT.Size = new System.Drawing.Size(35, 35);
+            this.BrowseBT.TabIndex = 25;
+            this.BrowseBT.UseVisualStyleBackColor = false;
+            this.BrowseBT.Click += new System.EventHandler(this.BrowseBT_Click);
+            this.BrowseBT.MouseEnter += new System.EventHandler(this.BrowseBT_MouseEnter);
+            this.BrowseBT.MouseLeave += new System.EventHandler(this.BrowseBT_MouseLeave);
             // 
             // SettingsViewFRM
             // 
@@ -320,8 +374,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox CloneDestinationTB;
         private NoFocusSelectionRectangleButton BrowseClonePathBT;
-        private System.Windows.Forms.Label SaveMessageLB;
         private System.Windows.Forms.RadioButton DynamicParseRB;
         private System.Windows.Forms.RadioButton SingleParseRB;
+        private System.Windows.Forms.Label SaveMessageLB;
+        private System.Windows.Forms.CheckBox AutoChangeCB;
+        private System.Windows.Forms.Label AutoChangeLB2;
+        private System.Windows.Forms.Label AutoChangeLB1;
+        private System.Windows.Forms.TextBox AutoChangeRateTB;
     }
 }

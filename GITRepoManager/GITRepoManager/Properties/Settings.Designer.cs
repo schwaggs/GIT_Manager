@@ -94,5 +94,17 @@ namespace GITRepoManager.Properties {
                 this["LogParseMethod"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int AutoChangeRate {
+            get {
+                return ((int)(this["AutoChangeRate"]));
+            }
+            set {
+                this["AutoChangeRate"] = value;
+            }
+        }
     }
 }

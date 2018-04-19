@@ -29,7 +29,7 @@
     <ProductName>GIT Mananager</ProductName>
     <PublisherName>OEM Solutions, Inc</PublisherName>
     <SuiteName>GIT</SuiteName>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -198,6 +198,7 @@
       <DependentUpon>TagRepoFRM.cs</DependentUpon>
     </Compile>
     <Compile Include="TagRepoMethods.cs" />
+    <Compile Include="TaskCenter.cs" />
     <Compile Include="Variable_Change_Event.cs" />
     <EmbeddedResource Include="AddRepoFRM.resx">
       <DependentUpon>AddRepoFRM.cs</DependentUpon>

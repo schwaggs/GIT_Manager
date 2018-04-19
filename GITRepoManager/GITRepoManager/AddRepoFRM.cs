@@ -49,7 +49,9 @@ namespace GITRepoManager
         {
             Repo_Added = false;
             StorePathTB.Text = StorePath;
+
             NewRepoNameTB.Focus();
+            NewRepoNameTB.Select();
         }
 
         #endregion

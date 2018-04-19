@@ -18,10 +18,7 @@ namespace GITRepoManager
         #region Class Data
 
         public static string Exception_Message { get; set; }
-        public static string Redirected_Output { get; set; }
         private static bool Is_Repo { get; set; }
-        public static bool Detect_Changes_Initialization_Busy { get; set; }
-        public static bool Detect_Additions_Busy { get; set; }
         public static bool Detect_Deletions_Busy { get; set; }
 
         #endregion Class Data
@@ -618,24 +615,6 @@ namespace GITRepoManager
             #endregion Return
         }
 
-        #region Get_Store_Count
-
-        public static int Get_Store_Count(List<string> stores, ref List<string> validStores)
-        {
-            int count = stores.Count;
-            foreach (string path in stores)
-            {
-                if (!Directory.Exists(path))
-                {
-                    count--;
-                }
-            }
-
-            return count;
-        }
-
-        #endregion Get_Store_Count
-
 
         #region Get_Repo_Count
 
@@ -715,16 +694,23 @@ namespace GITRepoManager
 
             foreach (KeyValuePair<string, List<string>> kvp in currList)
             {
-                if (!additions.ContainsKey(kvp.Key))
+                foreach (string repo in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
                 {
-                    additions.Add(kvp.Key, new List<string>());
-
-                    foreach (string repo in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
+                    if(!kvp.Value.Contains(repo))
                     {
-                        if (!kvp.Value.Contains(repo))
+                        if (additions.Keys.Contains(kvp.Key))
                         {
-                            if (!additions[kvp.Key].Contains(repo))
+                            if (Is_Git_Repo(repo))
                             {
+                                additions[kvp.Key].Add(repo);
+                            }
+                        }
+
+                        else
+                        {
+                            if (Is_Git_Repo(repo))
+                            {
+                                additions.Add(kvp.Key, new List<string>());
                                 additions[kvp.Key].Add(repo);
                             }
                         }
@@ -746,18 +732,19 @@ namespace GITRepoManager
 
             foreach (KeyValuePair<string, List<string>> kvp in currList)
             {
-                if (!deletions.ContainsKey(kvp.Key))
+                foreach (string repo in kvp.Value)
                 {
-                    deletions.Add(kvp.Key, new List<string>());
-
-                    foreach (string repo in kvp.Value)
+                    if (!Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly).Contains(repo))
                     {
-                        if (!Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly).Contains(repo))
+                        if(!deletions.Keys.Contains(kvp.Key))
                         {
-                            if (!deletions[kvp.Key].Contains(repo))
-                            {
-                                deletions[kvp.Key].Add(repo);
-                            }
+                            deletions.Add(kvp.Key, new List<string>());
+                            deletions[kvp.Key].Add(repo);
+                        }
+
+                        else
+                        {
+                            deletions[kvp.Key].Add(repo);
                         }
                     }
                 }
@@ -1011,7 +998,7 @@ namespace GITRepoManager
     #endregion Detect_Changes
 
 
-    #region Create_Blank_Repository
+        #region Create_Blank_Repository
 
     public static bool Create_Blank_Repository(string source, string name)
     {
@@ -1266,5 +1253,6 @@ namespace GITRepoManager
     #endregion Create_Blank_Repository
 
     #endregion Class Methods
-}
+
+    }
 }

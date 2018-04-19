@@ -19,22 +19,24 @@ namespace GITRepoManager
 {
     public partial class MainViewFRM : Form
     {
+        // Objects
         public static Color LBPanelBackgroundColor = Color.FromArgb(240, 240, 245);
         public static Thread Splash { get; set; }
+        private ListViewItem Repo_Context_SelectedItem { get; set; }
 
-        public static bool Settings_Changed { get; set; }
+        // Collections
         private static List<string> Refresh_Repo_Additions { get; set; }
         private static List<RepoCell> Refresh_Repo_Deletions { get; set; }
 
+        // Data
+        public static bool Settings_Changed { get; set; }
         private bool Refresh_Complete { get; set; }
-        private string Refresh_Message { get; set; }
 
+        private string Refresh_Message { get; set; }
         private string Current_Status { get; set; }
 
         public MainViewFRM(string [] filepaths = null)
         {
-            #region Normal Start
-
             #region Registry Stuff - Not Used
 
             //RegistryKey fileAssoc = Registry.ClassesRoot.OpenSubKey(@".gmc", true);
@@ -76,6 +78,8 @@ namespace GITRepoManager
 
             #endregion Registry Stuff - Not Used
 
+            #region Arguments were empty (filepaths = null)
+
             if (filepaths == null)
             {
                 Splash = new Thread(new ThreadStart(SplashStart));
@@ -101,7 +105,7 @@ namespace GITRepoManager
 
                 Splash.Abort();
 
-                Refresh_Elements();
+                Refresh_Elements(false);
 
                 //ReposLV.ShowItemToolTips = true;
                 MainStatusSSL.Text = string.Empty;
@@ -111,6 +115,22 @@ namespace GITRepoManager
                 ReposLV_Initialize();
 
                 this.BringToFront();
+
+                if(Properties.Settings.Default.AutoChangeRate > 0)
+                {
+                    AutoCheckTMR.Interval = Properties.Settings.Default.AutoChangeRate * 1000;
+                    AutoCheckTMR.Enabled = true;
+                    AutoCheckTMR.Start();
+                }
+            }
+
+            #endregion
+
+            #region Arguments Were Not Empty (filepaths)
+
+            else
+            {
+
             }
 
             #endregion
@@ -124,7 +144,7 @@ namespace GITRepoManager
 
         private void MainViewFRM_Load(object sender, EventArgs e)
         {
-
+            Refresh_Complete = true;
         }
 
         #endregion
@@ -171,6 +191,20 @@ namespace GITRepoManager
             else
             {
                 StoreLocationCB.SelectedIndex = 0;
+            }
+
+            if(Properties.Settings.Default.AutoChangeRate != -1)
+            {
+                AutoCheckTMR.Interval = Properties.Settings.Default.AutoChangeRate * 1000;
+                AutoCheckTMR.Enabled = true;
+                AutoCheckTMR.Start();
+            }
+
+            else
+            {
+                AutoCheckTMR.Stop();
+                AutoCheckTMR.Interval = 0;
+                AutoCheckTMR.Enabled = false;
             }
         }
 
@@ -273,7 +307,7 @@ namespace GITRepoManager
 
             if (New_Repo.Repo_Added)
             {
-                RefreshStoresBT_Click(null, null);
+                RepoHelpers.Detect_Changes(false);
             }
         }
 
@@ -325,44 +359,43 @@ namespace GITRepoManager
 
         private void RefreshStoresBT_Click(object sender, EventArgs e)
         {
-            string currStore = StoreLocationCB.SelectedItem.ToString();
-
-            this.Cursor = Cursors.WaitCursor;
-
-            MainStatusSSL.Text = "Refreshing ...";
-
-            // Need to rescan the current store for any new repos
-            if (ManagerData.Selected_Store != null || !(string.IsNullOrEmpty(StoreLocationCB.SelectedItem.ToString()) && string.IsNullOrWhiteSpace(StoreLocationCB.SelectedItem.ToString())))
-            {
-                int instanceCount = ManagerData.Selected_Store._Repos.Count;
-                int currCount = Get_Store_Count();
-
-                if (RepoHelpers.Detect_Changes(false))
-                {
-                    Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
-                    Refresh_Elements();
-                    MainStatusSSL.Text = "Refresh Complete - Changes Were Applied";
-                    //MessageBox.Show("Changes were detected and applied.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                else
-                {
-                    //MessageBox.Show("No changes were detected\n\nIf you just added a repo you will need to commit at least once for it to be detected.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    MainStatusSSL.Text = "Refresh Complete - No Changes Detected";
-                }
-
-                this.Cursor = Cursors.Default;
-
-                Refresh_Complete = true;
-            }
-
-            else
+            if (Refresh_Complete)
             {
                 Refresh_Complete = false;
+
+                string currStore = StoreLocationCB.SelectedItem.ToString();
+
+                this.Cursor = Cursors.WaitCursor;
+
+                MainStatusSSL.Text = "Refreshing ...";
+
+                // Need to rescan the current store for any new repos
+                if (ManagerData.Selected_Store != null || !(string.IsNullOrEmpty(StoreLocationCB.SelectedItem.ToString()) && string.IsNullOrWhiteSpace(StoreLocationCB.SelectedItem.ToString())))
+                {
+                    int instanceCount = ManagerData.Selected_Store._Repos.Count;
+                    int currCount = Get_Store_Count();
+
+                    if (RepoHelpers.Detect_Changes(false))
+                    {
+                        Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+                        Refresh_Elements(false);
+                        MainStatusSSL.Text = "Refresh Complete - Changes Were Applied";
+                        //MessageBox.Show("Changes were detected and applied.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    else
+                    {
+                        //MessageBox.Show("No changes were detected\n\nIf you just added a repo you will need to commit at least once for it to be detected.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MainStatusSSL.Text = "Refresh Complete - No Changes Detected";
+                    }
+
+                    this.Cursor = Cursors.Default;
+                }
+
+                Refresh_Complete = true;
+
+                StoreLocationCB.SelectedIndex = StoreLocationCB.FindStringExact(currStore);
             }
-
-
-            StoreLocationCB.SelectedIndex = StoreLocationCB.FindStringExact(currStore);
         }
 
         #endregion
@@ -385,6 +418,24 @@ namespace GITRepoManager
             if (ManagerData.Selected_Store != null)
             {
                 System.Diagnostics.Process.Start("explorer.exe", ManagerData.Selected_Store._Path);
+            }
+        }
+
+        #endregion
+
+
+        #region pictureBox1
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show("Version: " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4), "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            catch
+            {
+                MessageBox.Show("About information is not available.", "About Not Available", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -512,7 +563,6 @@ namespace GITRepoManager
 
             if (Refresh_Complete)
             {
-                Refresh_Complete = false;
                 Refresh_Message = MainStatusSSL.Text;
             }
 
@@ -534,6 +584,19 @@ namespace GITRepoManager
             OpenStoreBT.BackgroundImage = Properties.Resources.OpenFolderIcon_Hover;
 
             MainStatusSSL.Text = "Open " + StoreLocationCB.SelectedItem.ToString() + " in explorer.";
+        }
+
+        #endregion
+
+
+        #region pictureBox1
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+            pictureBox1.Image = Properties.Resources.GitLogo;
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(this.pictureBox1, "View About Information");
         }
 
         #endregion
@@ -709,7 +772,6 @@ namespace GITRepoManager
 
             if (Refresh_Complete)
             {
-                Refresh_Complete = false;
                 Refresh_Message = MainStatusSSL.Text;
             }
 
@@ -804,6 +866,17 @@ namespace GITRepoManager
                     MainStatusSSL.Text = string.Empty;
                 }
             }
+        }
+
+        #endregion
+
+
+        #region pictureBox1
+
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+            pictureBox1.Image = Properties.Resources.GitLogo_Inverted;
         }
 
         #endregion
@@ -916,6 +989,37 @@ namespace GITRepoManager
 
         #endregion
 
+
+        #endregion
+
+
+        #region Timer Tick
+
+        #region AutoCheckTMR
+
+        private void AutoCheckTMR_Tick(object sender, EventArgs e)
+        {
+        }
+
+        #endregion
+
+        #endregion Timer Tick
+
+
+        #region Key Up
+
+        #region ReposLV
+
+        private void ReposLV_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CloneRepoFRM CloneRepo = new CloneRepoFRM(ManagerData.Selected_Repo.Path);
+                CloneRepo.ShowDialog();
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -1040,23 +1144,55 @@ namespace GITRepoManager
 
         #region Refresh_Elements
 
-        public void Refresh_Elements()
+        public void Refresh_Elements(bool UseThreadDelegate)
         {
-            // Clear current data
-            ManagerData.Selected_Repo = null;
-            ManagerData.Selected_Store = null;
-            ManagerData.Stores.Clear();
+            try
+            {
+                // Clear current data
+                ManagerData.Selected_Repo = null;
+                ManagerData.Selected_Store = null;
+                ManagerData.Stores.Clear();
 
-            // Clear elements that depend on current data
-            ReposLV.Items.Clear();
-            StoreLocationCB.Items.Clear();
+                // Re-read from the file
+                Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
 
-            // Re-read from the file
-            Configuration.Helpers.Deserialize_Condensed(Properties.Settings.Default.ConfigPath);
+                if (!UseThreadDelegate)
+                {
+                    // Clear elements that depend on current data
+                    ReposLV.Items.Clear();
+                    StoreLocationCB.Items.Clear();
 
-            // Repopulate elements with new data
-            StoreLocationCB_Initialize();
-            ReposLV_Initialize();
+                    // Repopulate elements with new data
+                    StoreLocationCB_Initialize();
+                    ReposLV_Initialize();
+                }
+
+                else
+                {
+                    //ReposLV.Invoke((MethodInvoker)delegate
+                    //{
+                    //    ReposLV.Items.Clear();
+                    //});
+
+                    //ReposLV.Invoke((MethodInvoker)delegate
+                    //{
+                    //    StoreLocationCB.Items.Clear();
+                    //});
+
+                    Invoke((MethodInvoker)delegate 
+                    {
+                        ReposLV.Items.Clear();
+                        StoreLocationCB.Items.Clear();
+                        StoreLocationCB_Initialize();
+                        ReposLV_Initialize();
+                    });
+                }
+            }
+
+            catch
+            {
+
+            }
         }
 
         #endregion Refresh_Elements
@@ -1197,7 +1333,7 @@ namespace GITRepoManager
             Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
 
             var selectedItem = StoreLocationCB.SelectedItem;
-            Refresh_Elements();
+            Refresh_Elements(false);
             StoreLocationCB.SelectedItem = selectedItem;
         }
 
@@ -1205,31 +1341,119 @@ namespace GITRepoManager
 
         #endregion
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void RepoRightClickCMS_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            try
+            switch(e.ClickedItem.Name)
             {
-                MessageBox.Show("Version: " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4), "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                case "Clone":
+                    CloneRepoBT_Click(null, null);
+                    break;
 
-            catch
-            {
-                MessageBox.Show("About information is not available.", "About Not Available", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case "Notes":
+                    NotesBT_Click(null, null);
+                    break;
+
+                case "Logs":
+                    LogsBT_Click(null, null);
+                    break;
+
+                case "Add":
+                    AddRepoBT_Click(null, null);
+                    break;
+
+                case "Refresh":
+                    RefreshStoresBT_Click(null, null);
+                    break;
+
+                case "OpenStore":
+                    OpenStoreBT_Click(null, null);
+                    break;
+
+                case "OpenRepo":
+
+                    if (ManagerData.Selected_Repo != null)
+                    {
+                        System.Diagnostics.Process.Start("explorer.exe", ManagerData.Selected_Repo.Path);
+                    }
+
+                    break;
             }
         }
 
-        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        private void ReposLV_MouseClick(object sender, MouseEventArgs e)
         {
-            Cursor = Cursors.Hand;
-            pictureBox1.Image = Properties.Resources.GitLogo;
-            ToolTip tt = new ToolTip();
-            tt.SetToolTip(this.pictureBox1, "View About Information");
+            RepoRightClickCMS.Items.Clear();
+            Repo_Context_SelectedItem = ReposLV.SelectedItems[0];
+
+            if(e.Button == MouseButtons.Right)
+            {
+                if (ManagerData.Selected_Repo != null)
+                {
+                    foreach (ToolStripMenuItem item in GetRepoContext())
+                    {
+                        RepoRightClickCMS.Items.Add(item);
+                    }
+
+                    RepoRightClickCMS.Show(Cursor.Position);
+                }
+            }
         }
 
-        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        public ToolStripMenuItem [] GetRepoContext()
         {
-            Cursor = Cursors.Default;
-            pictureBox1.Image = Properties.Resources.GitLogo_Inverted;
+            if (ManagerData.Selected_Repo != null)
+            {
+                ToolStripMenuItem[] items = { new ToolStripMenuItem(), new ToolStripMenuItem(), new ToolStripMenuItem(), new ToolStripMenuItem(), new ToolStripMenuItem()};
+
+                items[0].Name = "Clone";
+                items[0].Text = "Clone " + ManagerData.Selected_Repo.Name;
+                items[1].Name = "Notes";
+                items[1].Text = "View Notes For " + ManagerData.Selected_Repo.Name;
+                items[2].Name = "Logs";
+                items[2].Text = "View Logs For " + ManagerData.Selected_Repo.Name;
+                items[3].Name = "Refresh";
+                items[3].Text = "Refresh " + StoreLocationCB.SelectedItem.ToString();
+                items[4].Name = "OpenRepo";
+                items[4].Text = "Open " + ManagerData.Selected_Repo.Name + " in Explorer.";
+
+                return items;
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+
+        public ToolStripMenuItem[] GetContext()
+        {
+            ToolStripMenuItem[] items = { new ToolStripMenuItem(), new ToolStripMenuItem(), new ToolStripMenuItem() };
+
+            items[0].Name = "Add";
+            items[0].Text = "Add A Repo To " + StoreLocationCB.SelectedItem.ToString();
+            items[1].Name = "Refresh";
+            items[1].Text = "Refresh " + StoreLocationCB.SelectedItem.ToString();
+            items[2].Name = "OpenStore";
+            items[2].Text = "Open " + StoreLocationCB.SelectedItem.ToString() + " in Explorer.";
+
+            return items;
+        }
+
+        private void ReposLV_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (ReposLV.SelectedItems.Count == 0)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    RepoRightClickCMS.Items.Clear();
+                    foreach (ToolStripMenuItem item in GetContext())
+                    {
+                        RepoRightClickCMS.Items.Add(item);
+                    }
+
+                    RepoRightClickCMS.Show(Cursor.Position);
+                }
+            }
         }
     }
 }

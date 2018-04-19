@@ -19,9 +19,16 @@ namespace GITRepoManager
         private string Clone_Path { get; set; }
         private int Store_Count { get; set; }
 
-        public SettingsViewFRM()
+        public static MainViewFRM Caller { get; set; }
+
+        public SettingsViewFRM(MainViewFRM caller = null)
         {
             InitializeComponent();
+
+            if(caller != null)
+            {
+                Caller = caller;
+            }
         }
 
         #region Events
@@ -58,6 +65,12 @@ namespace GITRepoManager
             else
             {
                 DynamicParseRB.Checked = true;
+            }
+
+            if(Properties.Settings.Default.AutoChangeRate > 0)
+            {
+                AutoChangeCB.Checked = true;
+                AutoChangeRateTB.Text = Properties.Settings.Default.AutoChangeRate.ToString();
             }
         }
 
@@ -225,6 +238,26 @@ namespace GITRepoManager
                 changed = true;
             }
 
+            // Auto Check For Changes
+            Int32 changeRate = Convert.ToInt32(AutoChangeRateTB.Text);
+
+            if (Properties.Settings.Default.AutoChangeRate == -1 && changeRate > 0)
+            {
+                changed = true;
+                Properties.Settings.Default.AutoChangeRate = changeRate;
+            }
+
+            else if(Properties.Settings.Default.AutoChangeRate != -1 && Properties.Settings.Default.AutoChangeRate != changeRate)
+            {
+                changed = true;
+                Properties.Settings.Default.AutoChangeRate = changeRate;
+            }
+
+            else if(changeRate <= 0)
+            {
+                Properties.Settings.Default.AutoChangeRate = -1;
+            }
+
             if (changed)
             {
                 changed = false;
@@ -235,6 +268,8 @@ namespace GITRepoManager
                 Properties.Settings.Default.Reload();
                 SaveMessageLB.Text = "Settings successfully saved.";
             }
+
+            
         }
 
         #endregion
@@ -344,6 +379,61 @@ namespace GITRepoManager
 
         #endregion
 
+
+        #region Object_Description
+
+        private void Object_MouseEnter(object sender, EventArgs e)
+        {
+            try
+            {
+                RadioButton temp = sender as RadioButton;
+
+                switch (temp.Name)
+                {
+                    case "SingleParseRB":
+
+                        SettingsInfoSSSL.Text = "Only parse each repo's logs once during runtime (Faster)";
+                        return;
+
+                    case "DynamicParseRB":
+
+                        SettingsInfoSSSL.Text = "Parse each repo's logs whenever a selection changes (Slower)";
+                        return;
+
+                    default:
+                        return;
+                }
+            }
+
+            catch
+            {
+
+            }
+
+            try
+            {
+                CheckBox temp = sender as CheckBox;
+
+                switch (temp.Name)
+                {
+                    case "AutoChangeCB":
+
+                        SettingsInfoSSSL.Text = "Set the increment to check for external changes";
+                        return;
+
+                    default:
+                        return;
+                }
+            }
+
+            catch
+            {
+
+            }
+        }
+
+        #endregion
+
         #endregion Enter
 
 
@@ -387,6 +477,16 @@ namespace GITRepoManager
         private void BrowseClonePathBT_MouseLeave(object sender, EventArgs e)
         {
             BrowseClonePathBT.BackgroundImage = Properties.Resources.Browse_Icon;
+            SettingsInfoSSSL.Text = string.Empty;
+        }
+
+        #endregion
+
+
+        #region Object_Description
+
+        private void Object_MouseLeave(object sender, EventArgs e)
+        {
             SettingsInfoSSSL.Text = string.Empty;
         }
 
@@ -529,5 +629,45 @@ namespace GITRepoManager
         #endregion
 
         #endregion Methods
+
+        private void AutoChangeCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if(AutoChangeCB.Checked)
+            {
+                AutoChangeLB1.Visible = true;
+                AutoChangeRateTB.Visible = true;
+                AutoChangeLB2.Visible = true;
+            }
+
+            else
+            {
+                AutoChangeLB1.Visible = false;
+                AutoChangeRateTB.Visible = false;
+                AutoChangeLB2.Visible = false;
+            }
+        }
+
+        private void AutoChangeRateTB_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int res = Convert.ToInt32(AutoChangeRateTB.Text);
+
+                if (res < 0)
+                {
+                    AutoChangeRateTB.Text = "0";
+                }
+
+                else
+                {
+                    AutoChangeRateTB.Text = res.ToString();
+                }
+            }
+
+            catch
+            {
+
+            }
+        }
     }
 }
