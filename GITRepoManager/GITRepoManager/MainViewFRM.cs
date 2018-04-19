@@ -307,7 +307,7 @@ namespace GITRepoManager
 
             if (New_Repo.Repo_Added)
             {
-                RepoHelpers.Detect_Changes(false);
+                RefreshStoresBT_Click(null, null);
             }
         }
 
@@ -372,20 +372,16 @@ namespace GITRepoManager
                 // Need to rescan the current store for any new repos
                 if (ManagerData.Selected_Store != null || !(string.IsNullOrEmpty(StoreLocationCB.SelectedItem.ToString()) && string.IsNullOrWhiteSpace(StoreLocationCB.SelectedItem.ToString())))
                 {
-                    int instanceCount = ManagerData.Selected_Store._Repos.Count;
-                    int currCount = Get_Store_Count();
-
                     if (RepoHelpers.Detect_Changes(false))
                     {
                         Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
                         Refresh_Elements(false);
                         MainStatusSSL.Text = "Refresh Complete - Changes Were Applied";
-                        //MessageBox.Show("Changes were detected and applied.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     else
                     {
-                        //MessageBox.Show("No changes were detected\n\nIf you just added a repo you will need to commit at least once for it to be detected.", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // If a new repo was added, it needs to have an initial commit otherwise it will not be detected
                         MainStatusSSL.Text = "Refresh Complete - No Changes Detected";
                     }
 

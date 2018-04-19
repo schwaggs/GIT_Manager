@@ -573,7 +573,7 @@ namespace GITRepoManager
 
             Task.WaitAll(Tasks);
 
-            if (currRepos_Additions.Count > 0 || currRepos_Deletions.Count > 0)
+            if (Changes_Exist(currRepos_Additions, currRepos_Deletions))
             {
                 changes = true;
             }
@@ -598,9 +598,9 @@ namespace GITRepoManager
                 {
                     MessageBox.Show("Error Removing Repos:\n" + deletions);
                 }
-            }
 
-            Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+                Configuration.Helpers.Serialize_Condensed_All(Properties.Settings.Default.ConfigPath);
+            }
 
             #endregion Apply Changes
 
@@ -616,28 +616,13 @@ namespace GITRepoManager
         }
 
 
-        #region Get_Repo_Count
-
-        public static int Get_Repo_Count(Dictionary<string, List<string>> stores)
-        {
-            int count = 0;
-
-            foreach (List<string> repos in stores.Values)
-            {
-                count += repos.Count;
-            }
-
-            return count;
-        }
-
-        #endregion Get_Repo_Count
-
-
         #region Initialization
 
         public static Dictionary<string, List<string>> Initialization(bool FullDetect)
         {
             Dictionary<string, List<string>> currRepos = new Dictionary<string, List<string>>();
+
+            #region Startup Full Detect
 
             if (FullDetect)
             {
@@ -661,6 +646,10 @@ namespace GITRepoManager
                 }
             }
 
+            #endregion Startup Full Detect
+
+            #region Runtime Limited Detect
+
             else
             {
                 if (ManagerData.Selected_Store != null)
@@ -680,6 +669,8 @@ namespace GITRepoManager
                 }
             }
 
+            #endregion
+
             return currRepos;
         }
 
@@ -692,27 +683,20 @@ namespace GITRepoManager
         {
             Dictionary<string, List<string>> additions = new Dictionary<string, List<string>>();
 
-            foreach (KeyValuePair<string, List<string>> kvp in currList)
+            foreach(KeyValuePair<string, List<string>> kvp in currList)
             {
-                foreach (string repo in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
+                if(!additions.Keys.Contains(kvp.Key))
                 {
-                    if(!kvp.Value.Contains(repo))
-                    {
-                        if (additions.Keys.Contains(kvp.Key))
-                        {
-                            if (Is_Git_Repo(repo))
-                            {
-                                additions[kvp.Key].Add(repo);
-                            }
-                        }
+                    additions.Add(kvp.Key, new List<string>());
+                }
 
-                        else
+                foreach(string path in Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly))
+                {
+                    if(!currList[kvp.Key].Contains(path))
+                    {
+                        if (Is_Git_Repo(path))
                         {
-                            if (Is_Git_Repo(repo))
-                            {
-                                additions.Add(kvp.Key, new List<string>());
-                                additions[kvp.Key].Add(repo);
-                            }
+                            additions[kvp.Key].Add(path);
                         }
                     }
                 }
@@ -730,22 +714,18 @@ namespace GITRepoManager
         {
             Dictionary<string, List<string>> deletions = new Dictionary<string, List<string>>();
 
-            foreach (KeyValuePair<string, List<string>> kvp in currList)
+            foreach(KeyValuePair<string, List<string>> kvp in currList)
             {
-                foreach (string repo in kvp.Value)
+                if(!deletions.Keys.Contains(kvp.Key))
                 {
-                    if (!Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly).Contains(repo))
-                    {
-                        if(!deletions.Keys.Contains(kvp.Key))
-                        {
-                            deletions.Add(kvp.Key, new List<string>());
-                            deletions[kvp.Key].Add(repo);
-                        }
+                    deletions.Add(kvp.Key, new List<string>());
+                }
 
-                        else
-                        {
-                            deletions[kvp.Key].Add(repo);
-                        }
+                foreach(string path in kvp.Value)
+                {
+                    if(!Directory.GetDirectories(kvp.Key, "*", SearchOption.TopDirectoryOnly).Contains(path))
+                    {
+                        deletions[kvp.Key].Add(path);
                     }
                 }
             }
@@ -756,6 +736,32 @@ namespace GITRepoManager
         #endregion Detect_Deletions
 
 
+        #region Change_Exists
+
+        public static bool Changes_Exist(Dictionary<string, List<string>> additions, Dictionary<string, List<string>> deletions)
+        {
+            foreach(KeyValuePair<string, List<string>> kvp in additions)
+            {
+                if(kvp.Value.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            foreach (KeyValuePair<string, List<string>> kvp in deletions)
+            {
+                if (kvp.Value.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion Change_Exists
+
+
         #region Add_Repos
 
         public static string Add_Repos(Dictionary<string, List<string>> additions)
@@ -764,6 +770,8 @@ namespace GITRepoManager
 
             foreach (KeyValuePair<string, List<string>> kvp in additions)
             {
+                DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
+
                 foreach (string path in kvp.Value)
                 {
                     if (Is_Git_Repo(path))
@@ -784,8 +792,6 @@ namespace GITRepoManager
 
                         try
                         {
-                            DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
-
                             if (!ManagerData.Stores[storeInfo.Name]._Repos.ContainsKey(repoInfo.Name))
                             {
                                 ManagerData.Stores[storeInfo.Name]._Repos.Add(repoInfo.Name, newRepo);
@@ -814,14 +820,14 @@ namespace GITRepoManager
 
             foreach (KeyValuePair<string, List<string>> kvp in deletions)
             {
+                DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
+
                 foreach (string path in kvp.Value)
                 {
                     DirectoryInfo pathInfo = new DirectoryInfo(path);
 
                     try
                     {
-                        DirectoryInfo storeInfo = new DirectoryInfo(kvp.Key);
-
                         if (ManagerData.Stores[storeInfo.Name]._Repos.ContainsKey(pathInfo.Name))
                         {
                             ManagerData.Stores[storeInfo.Name]._Repos.Remove(pathInfo.Name);
@@ -998,7 +1004,7 @@ namespace GITRepoManager
     #endregion Detect_Changes
 
 
-        #region Create_Blank_Repository
+    #region Create_Blank_Repository
 
     public static bool Create_Blank_Repository(string source, string name)
     {
